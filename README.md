@@ -1,43 +1,6 @@
-# Qué hay configurado en esta plantilla
-
-1. Un proyecto de biblioteca (creado con [`dotnet new classlib --name Library`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new?tabs=netcore22)) en la carpeta `src\Library`
-2. Un proyecto de aplicación de consola (creado con [`dotnet new console --name Program`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new?tabs=netcore22)) en la carpeta `src\Program`
-3. Un proyecto de prueba en [NUnit](https://nunit.org/) (creado con [`dotnet new nunit --name LibraryTests`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new?tabs=netcore22)) en la carpeta `test\LibraryTests`
-4. Un proyecto de [Doxygen](https://www.doxygen.nl/index.html) para generación de sitio web de documentación en la carpeta `docs`
-5. Análisis estático con [Roslyn analyzers](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/overview) en los proyectos de biblioteca y de aplicación
-6. Análisis de estilo con [StyleCop](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/README.md) en los proyectos de biblioteca y de aplicación
-7. Una solución `ProjectTemplate.sln` que referencia todos los proyectos de C# y facilita la compilación con [`dotnet build`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build).
-8. Tareas preconfiguradas para compilar y ejecutar los proyectos, ejecutar las pruebas, y generar documentación desde VSCode en la carpeta `.vscode`
-9. Análisis de cobertura de los casos de prueba mediante []() que aparece en los márgenes con el complemento de VS Code [Coverage Gutters](https://marketplace.visualstudio.com/items?itemName=ryanluker.vscode-coverage-gutters).
-10. Ejecución automática de compilación y prueba mediante [GitHub Actions](https://docs.github.com/en/actions) configuradas en el repositorio al hacer [push](https://github.com/git-guides/git-push) o [pull request](https://docs.github.com/en/github/collaborating-with-pull-requests).
-
-Vean este 🎥 [video](https://web.microsoftstream.com/video/55c6a06c-07dc-4f95-a96d-768f198c9044) que explica el funcionamiento de la plantilla.
-
-## Convenciones
-
-[Convenciones de código en C#](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/inside-a-program/coding-conventions)
-
-[Convenciones de nombres en C#](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/naming-guidelines)
-
-## Dónde encontrar información sobre los errores/avisos al compilar
-
-[C# Compiler Errors (CS*)](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/)
-
-[Roslyn Analyzer Warnings (CA*)](https://docs.microsoft.com/en-us/dotnet/fundamentals/code-analysis/categories)
-
-[StyleCop Analyzer Warnings (SA*)](https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/DOCUMENTATION.md)
-
-# Cómo deshabilitar temporalmente los avisos al compilar
-
-## Roslyn Analyzer
-
-Comentar las siguientes líneas en los archivos de proyecto (`*.csproj`)
-```
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-```
-
-## StyleCop Analyzer
-
-Comentar la línea `<PackageReference Include="StyleCop.Analyzers" Version="1.1.118"/>` en los archivos de proyecto (`*.csproj`)
+﻿# Proyecto final de Programación II, Equipo 13
+<h2>Diagrama de clases</h2>
+<img src="./docs/ProyectoFinal_E13_UML(2).jpg" alt="Diagrama de clases">
+<h2>CRC</h2>
+<h3><a href="./docs/CRC Chatbot.pdf"> • CRCs en el repositorio</a></h3>
+<h3><a href="https://echeung.me/crcmaker/?share=W3sibmFtZSI6IlNpc3RlbWEgLSBXYWx0ZXIgVGHxbyIsInN1cGVyY2xhc3NlcyI6IiIsInN1YmNsYXNzZXMiOiIiLCJ0eXBlIjoxLCJyZXNwb25zaWJpbGl0aWVzIjpbIkNvbm9jZXIgdG9kYXMgbGFzIEVNUFJFU0FTLiIsIkNvbm9jZXIgdG9kb3MgbG9zIEVNUFJFTkRFRE9SRVMuIiwiUmVnaXN0cmFyIEVNUFJFU0FTLiIsIlJlZ2lzdHJhciBFTVBSRU5ERURPUkVTLiJdLCJjb2xsYWJvcmF0b3JzIjpbIkVtcHJlc2EiLCJFbXByZW5kZWRvciJdfSx7Im5hbWUiOiJCdXNjYWRvciAtIFdhbHRlciBUYfFvIiwic3VwZXJjbGFzc2VzIjoiIiwic3ViY2xhc3NlcyI6IiIsInR5cGUiOjEsInJlc3BvbnNpYmlsaXRpZXMiOlsiQ29ub2NlciBhbCBTSVNURU1BIiwiRGFkbyB1biBFTVBSRU5ERURPUiB5IHVuYSBsaXN0YSBkZSBwYWxhYnJhcyBjbGF2ZSwgcHJvdmVlciB1bmEgbGlzdGEgZGUgT0ZFUlRBUy4iXSwiY29sbGFib3JhdG9ycyI6WyJTaXN0ZW1hIiwiRW1wcmVuZGVkb3IiLCJPZmVydGEiXX0seyJuYW1lIjoiRW1wcmVzYSAtIEV6ZXF1aWVsIEdvbWV6Iiwic3VwZXJjbGFzc2VzIjoiIiwic3ViY2xhc3NlcyI6IiIsInR5cGUiOjEsInJlc3BvbnNpYmlsaXRpZXMiOlsiQ29ub2NlciBzdSBpZCBlbiBlbCBzaXN0ZW1hIiwiQ29ub2NlciBzdSBub21icmUiLCJDb25vY2VyIHN1IFVCSUNBQ0lPTiIsIkNvbm9jZXIgc3UgcnVicm8iLCJDb25vY2VyIHkgdmVyIHN1cyBwcm9waWFzIE9GRVJUQVMgKGFjdGl2YXMgeSBmaW5hbGl6YWRhcykiLCJDcmVhciBzdXMgT0ZFUlRBUyIsIkFjdHVhbGl6YXIgZXN0YWRvIGRlIE9GRVJUQVMiXSwiY29sbGFib3JhdG9ycyI6WyJPZmVydGEiLCJVYmljYWNpb24iLCJUZWxlZ3JhbSIsIlJ1YnJvIl19LHsibmFtZSI6IkVtcHJlbmRlZG9yIC0gTHVjYXMgR2lmZnVuaSIsInN1cGVyY2xhc3NlcyI6IiIsInN1YmNsYXNzZXMiOiIiLCJ0eXBlIjoxLCJyZXNwb25zaWJpbGl0aWVzIjpbIkNvbm9jZXIgc3Ugbm9tYnJlIiwiQ29ub2NlciBzdXMgaGFiaWxpdGFjaW9uZXMiLCJDb25vY2VyIHN1IFVCSUNBQ0lPTiIsIkNvbm9jZXIgc3UgcnVicm8iLCJDb25vY2VyIHN1cyBPRkVSVEFTIChwb3N0dWxhZGFzIHkgY29uc3VtaWRhcykiLCJCdXNjYXIgeSB2ZXIgT0ZFUlRBUyIsIlBvc3R1bGFyc2UgYSBPRkVSVEFTIl0sImNvbGxhYm9yYXRvcnMiOlsiT2ZlcnRhIiwiVWJpY2FjaW9uIiwiVGVsZWdyYW0iLCJCdXNjYWRvciIsIlJ1YnJvIiwiSGFiaWxpdGFjaW9uIl19LHsibmFtZSI6Ik9mZXJ0YSAtIE1hbnVlbCBJZ2xlc2lhcyIsInN1cGVyY2xhc3NlcyI6IiIsInN1YmNsYXNzZXMiOiIiLCJ0eXBlIjoxLCJyZXNwb25zaWJpbGl0aWVzIjpbIkNvbm9jZXIgc3UgdO10dWxvLiIsIkNvbm9jZXIgc3UgZGVzY3JpcGNp824uIiwiQ29ub2NlciBzdXMgUFJPRFVDVE9TLiIsIkNvbm9jZXIgbGEgRU1QUkVTQSBxdWUgbGEgZ2VuZXJhLiIsIkNvbm9jZXIgc3UgdmFsb3IgdG90YWwgbW9uZXRhcmlvIChlbiAkIHkgVSRTKS4iLCJDb25vY2VyIHN1cyBoYWJpbGl0YWNpb25lcyByZXF1ZXJpZGFzLiIsIkNvbm9jZXIgc3UgZXN0YWRvLiIsIkNvbm9jZXIgc3VzIHBhbGFicmFzIGNsYXZlLiIsIkNvbm9jZXIgc3UgZmVjaGEgZGUgY3JlYWNp824uIiwiQ29ub2NlciBzdSBmZWNoYSBkZSBjaWVycmUuIiwiQ29ub2NlciBsb3MgRU1QUkVOREVET1JFUyBwb3N0dWxhZG9zIGEgbGEgb2ZlcnRhLiIsIlJlZGFjdGFyIHN1IHB1YmxpY2FjafNuICh2ZXJzafNuIGVzY3JpdGEgZGUgbGEgb2ZlcnRhKS4iLCJSZWRhY3RhciBzdSBwdWJsaWNhY2nzbiByZXN1bWlkYS4iLCJSZWRhY3RhciBsYSBsaXN0YSBkZSBFTVBSRU5ERURPUkVTIHBvc3R1bGFkb3MuIl0sImNvbGxhYm9yYXRvcnMiOlsiUHJvZHVjdG8iLCJFbXByZXNhIiwiRW1wcmVuZGVkb3IiLCJUZWxlZ3JhbSIsIkhhYmlsaXRhY2lvbiJdfSx7Im5hbWUiOiJQcm9kdWN0byAtIEZhdXN0aW5vIEhhcnJpYWd1ZSIsInN1cGVyY2xhc3NlcyI6IiIsInN1YmNsYXNzZXMiOiIiLCJ0eXBlIjoxLCJyZXNwb25zaWJpbGl0aWVzIjpbIkNvbm9jZXIgdW4gTUFURVJJQUwuIiwiQ29ub2NlciBzdSBVQklDQUNJ004uIiwiQ29ub2NlciBsYSBjYW50aWRhZCAoZW4gc3UgdW5pZGFkKSBkZWwgTUFURVJJQUwgZGlzcG9uaWJsZS4iLCJDb25vY2VyIHN1IHZhbG9yIG1vbmV0YXJpbyB0b3RhbCBlbiAkLiIsIkNvbm9jZXIgc3UgdmFsb3IgbW9uZXRhcmlvIHRvdGFsIGVuIFUkUy4iXSwiY29sbGFib3JhdG9ycyI6WyJVYmljYWNpb24iLCJNYXRlcmlhbCJdfSx7Im5hbWUiOiJNYXRlcmlhbCAtIE1hbnVlbCBJZ2xlc2lhcyIsInN1cGVyY2xhc3NlcyI6IiIsInN1YmNsYXNzZXMiOiIiLCJ0eXBlIjoxLCJyZXNwb25zaWJpbGl0aWVzIjpbIkNvbm9jZXIgc3Ugbm9tYnJlLiIsIkNvbm9jZXIgc3VzIGNhdGVnb3LtYXMuIiwiQ29ub2NlciBzdSB1bmlkYWQgZGUgbWVkaWRhIGVzdOFuZGFyLiJdLCJjb2xsYWJvcmF0b3JzIjpbIiJdfSx7Im5hbWUiOiJVYmljYWNpb24gLSBFemVxdWllbCBHb21leiIsInN1cGVyY2xhc3NlcyI6IiIsInN1YmNsYXNzZXMiOiIiLCJ0eXBlIjoxLCJyZXNwb25zaWJpbGl0aWVzIjpbIkNvbm9jZXIgY2FsbGUiLCJDb25vY2VyIGVzcXVpbmEiLCJDb25vY2VyIG51bWVybyBkZSBwdWVydGEiLCJDb25vY2VyIGNpdWRhZCIsIkNvbm9jZXIgZGVwYXJ0YW1lbnRvIiwiUmVkYWN0YXIgbGEgdWJpY2FjafNuIHJlcHJlc2VudGFkYSJdLCJjb2xsYWJvcmF0b3JzIjpbIiJdfSx7Im5hbWUiOiJJUGVyc2lzdGVuY2lhIC0gRmF1c3Rpbm8gSGFycmlhZ3VlIiwic3VwZXJjbGFzc2VzIjoiIiwic3ViY2xhc3NlcyI6IiIsInR5cGUiOjEsInJlc3BvbnNpYmlsaXRpZXMiOlsiQWxtYWNlbmFyIGluZm9ybWFjafNuIGVuIG1lZGlvcyBwZXJzaXN0ZW50ZXMiLCJMZWVyIGluZm9ybWFjafNuIGRlIG1lZGlvcyBwZXJzaXN0ZW50ZXMiXSwiY29sbGFib3JhdG9ycyI6WyIiXX0seyJuYW1lIjoiSUNhbmFsIC0gTHVjYXMgR2lmZnVuaSIsInN1cGVyY2xhc3NlcyI6IiIsInN1YmNsYXNzZXMiOiIiLCJ0eXBlIjoxLCJyZXNwb25zaWJpbGl0aWVzIjpbIlJlY2liaXIgbWVuc2FqZXMgZGUgdW4gY2FuYWwgZGUgY29tdW5pY2FjafNuIiwiRW52aWFyIG1lbnNhamVzIGEgdW4gY2FuYWwgZGUgY29tdW5pY2FjafNuIl0sImNvbGxhYm9yYXRvcnMiOlsiIl19LHsibmFtZSI6IlJ1YnJvIC0gTHVjYXMgR2lmZnVuaSIsInN1cGVyY2xhc3NlcyI6IiIsInN1YmNsYXNzZXMiOiIiLCJ0eXBlIjoxLCJyZXNwb25zaWJpbGl0aWVzIjpbIkNvbm9jZXIgZWwgbm9tYnJlIGRlbCBydWJybyBxdWUgcmVwcmVzZW50YS4iXSwiY29sbGFib3JhdG9ycyI6WyIiXX0seyJuYW1lIjoiSGFiaWxpdGFjaW9uIC0gTHVjYXMgR2lmZnVuaSIsInN1cGVyY2xhc3NlcyI6IiIsInN1YmNsYXNzZXMiOiIiLCJ0eXBlIjoxLCJyZXNwb25zaWJpbGl0aWVzIjpbIkNvbm9jZXIgbGEgZGVzY3JpcGNp824gZGUgdW5hIGhhYmlsaXRhY2nzbiIsIkNvbm9jZXIgZWwgbm9tYnJlIGRlIGxhIGluc3RpdHVjafNuIHF1ZSBleHBpZGnzIiwiQ29ub2NlciBmZWNoYSBkZSB0cuFtaXRlIiwiQ29ub2NlciBmZWNoYSBkZSB2ZW5jaW1pZW50byIsIkNvbm9jZXIgZXN0YWRvIGRlIHZpZ2VuY2lhIl0sImNvbGxhYm9yYXRvcnMiOlsiIl19XQ=="> • CRCs en CRC Maker</a></h3>
