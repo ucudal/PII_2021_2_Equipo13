@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="AnalyzersRules" Description="Analyzers custom ruleset" ToolsVersion="15.0">
+  <IncludeAll Action="Warning" />
+  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <Rule Id="SA1121" Action="None" />
+    <Rule Id="SA1200" Action="None" />
+    <Rule Id="SA1636" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
+    <Rule Id="CA1014" Action="None" />
+    <Rule Id="CA1303" Action="None" />
+  </Rules>
+</RuleSet>
+
