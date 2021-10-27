@@ -1,25 +1,19 @@
-namespace Library
+namespace ClassLibrary
 {
     public class Ubicacion
     {
-        public string Departamento { get; }
         public string Ciudad { get; }
-        public string NumPuerta { get; }
-        public string Calle { get; }
-        public string Esquina { get; }
+        public string Direccion { get; }
 
-        public Ubicacion(string departamento, string ciudad, string numPuerta, string calle, string esquina)
+        public Ubicacion(string ciudad, string direccion)
         {
-            Departamento = departamento;
             Ciudad = ciudad;
-            NumPuerta = numPuerta;
-            Calle = calle;
-            Esquina = esquina;
+            Direccion = direccion;
         }
 
         public string Redactar()
         {
-            return $"{this.Departamento} {this.Ciudad} { NumPuerta } {Calle} {Esquina}";
+            return $"{this.Direccion}, {this.Ciudad}";
         }
 
     }

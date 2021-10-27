@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Library
+namespace ClassLibrary
 {
     public class Empresa
     {
@@ -10,17 +10,17 @@ namespace Library
 
         public Ubicacion Ubicacion { get; }
         
-        public string Rubro { get; } 
+        public Rubro Rubro { get; } 
         
         public string Nombre { get; }
         
-        public Empresa(string id, List<Oferta> ofertas, Ubicacion ubicacion, string rubro, string nombre)
+        public Empresa(string id, string rubro, string nombre, string ciudad, string direccion)
         {
-            Id = id;
-            Ofertas = ofertas;
-            Ubicacion = ubicacion;
-            Rubro = rubro;
-            Nombre = nombre;
+            this.Id = id;
+            this.Ofertas = new List<Oferta>();
+            this.Ubicacion = new Ubicacion(ciudad, direccion);
+            this.Rubro = new Rubro(rubro);
+            this.Nombre = nombre;
         }
         
         

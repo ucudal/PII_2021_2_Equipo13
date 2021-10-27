@@ -6,21 +6,22 @@ namespace ClassLibrary
 {
     public class Emprendedor
     {
-        public string nombre { get; set; }
-        public List<Habilitacion> habilitaciones { get; set; }
-        public string ubicacion { get; set; }
-        public List<Rubro> rubro { get; set; }
-        public List<Oferta> ofertas { get; set; }
+        public string Nombre { get; set; }
+        public List<Habilitacion> Habilitaciones { get; set; }
+        public Ubicacion Ubicacion { get; set; }
+        public Rubro Rubro { get; set; }
+        public List<Oferta> Ofertas { get; set; }
+        public string Id { get; set; }
 
-
-
-        public Emprendedor(string nombre, List<Habilitacion> habilitaciones, string ubicacion, List<Rubro> rubro, List<Oferta> ofertas)
+        public Emprendedor(string id, string nombre, List<Habilitacion> habilitaciones, string ciudad, 
+            string direccion, string rubro)
         {
-            this.nombre = nombre;
-            this.habilitaciones = habilitaciones;
-            this.ubicacion = ubicacion;
-            this.rubro = rubro;
-            this.ofertas = ofertas;
+            this.Id = id; 
+            this.Nombre = nombre;
+            this.Habilitaciones = habilitaciones;
+            this.Ubicacion = new Ubicacion(ciudad, direccion);
+            this.Rubro = new Rubro(rubro);
+            this.Ofertas = new List<Oferta>();
         }
 
 
