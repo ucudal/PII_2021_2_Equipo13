@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Library
@@ -22,7 +23,21 @@ namespace Library
             Rubro = rubro;
             Nombre = nombre;
         }
-        
+
+        public Oferta PublicarOferta(Oferta oferta)
+        {
+            return oferta;
+        }
+
+        public void ActualizarOferta(Oferta oferta)
+        {
+            
+        }
+
+        public List<Oferta> VerOfertasPropias(DateTime inicio, DateTime fin, ICanal canal)
+        {
+            
+        }
         
 
     }
