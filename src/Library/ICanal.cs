@@ -3,7 +3,7 @@ namespace ClassLibrary
     public interface ICanal
     {
 
-        void recibirMensaje(string message);
+        string recibirMensaje();
 
         void enviarMensaje(string message);
 

@@ -1,9 +1,5 @@
 using System.Collections.Generic;
-
-// --------------------------------------------------------------------------------------------------
-// REDUCIR CLASE UBICACION.
-// DEFINIR BIEN RUBRO COMO INSTANCIA DE UN OBJETO Y NO COLECCIÓN.
-// --------------------------------------------------------------------------------------------------
+using System;
 
 namespace ClassLibrary
 {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ClassLibrary
 {
@@ -16,29 +17,51 @@ namespace ClassLibrary
         /// </summary>
         private Buscador() { }
 
-        private struct OfertaConPuntaje
+        public static List<Oferta> BuscarOfertas(Sistema sistema, Emprendedor emprendedor, List<string> etiquetas,
+            List<string> categorias=null)
         {
-            public Oferta oferta { get; set; }
-            public int Puntaje { get; set; }
-        }
-
-        public static List<Oferta> BuscarOfertas(Sistema sistema, Emprendedor emprendedor, List<string> palabrasClave)
-        {
-            List<OfertaConPuntaje> ofertasEncontradas = new List<OfertaConPuntaje>();
-            List<Oferta> ofertasOrdenadas = new List<Oferta>();
+            Dictionary<Oferta, int> ofertasEncontradas = new Dictionary<Oferta, int>();
 
             foreach (Empresa empresa in sistema.Empresas)
             {
                 foreach (Oferta oferta in empresa.Ofertas)
                 {
-                    OfertaConPuntaje ofertaConPuntaje = new OfertaConPuntaje();
-
-
+                    int puntaje = 0;
+                    foreach(string etiqueta in etiquetas){
+                        if (oferta.Etiquetas.Contains(etiqueta))
+                            puntaje++;
+                    }
+                    foreach (Producto producto in oferta)
+                    {
+                        foreach(string categoria in categorias){
+                            if (producto.Material.Categorias.Contains(categoria))
+                                puntaje += 5;
+                        }
+                    }
+                    /* TODO - Comparar ubicación de Oferta con Emprendedor y asignar un valor en un rango
+                        * de 0 a 30. */
+                    
+                    ofertasEncontradas.Add(oferta, puntaje);
                 }
             }
-            return ofertasEncontradas;
+            return OrdenarOfertasPorPuntaje(ofertasEncontradas);
         }
 
+        /// <summary>
+        /// Ordena un diccionario de par <c>Oferta, int</c> de mayor a menor según el valor
+        /// asignado a cada clave.
+        /// </summary>
+        /// <param name="ofertas">Dictionary de par <c>Oferta, int</c> a ordenar.</param>
+        /// <returns><c>List de Ofertas</c> ordenadas de mayor a menor.</returns>
+        private static List<Oferta> OrdenarOfertasPorPuntaje(Dictionary<Oferta, int> ofertas)
+        {
+            IEnumerable<Oferta> ofertasOrdenadas = from pair in ofertas
+                                orderby pair.Value descending
+                                select pair.Key;
+
+            return ofertasOrdenadas.ToList<Oferta>();
+        }
+        
         private static Buscador instancia = null;
         /// <summary>
         /// Instancia del buscador durante la ejecución. Se aplica el patrón Singleton.
