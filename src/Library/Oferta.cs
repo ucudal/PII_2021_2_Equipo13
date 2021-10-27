@@ -1,69 +1,59 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace ProyectoFinal.GestionOferta
 {
     public class Oferta
-    {
-             
-        public  Oferta (string id, string titulo, string descripcion, Producto Producto, Empresa Empresa, float valorPesos, float valorDolares, string[] habilitaciones, string estado, string[] palabraClave, string fechaCreacion, string fechaCierre)
+    {   
+        public Oferta (string id, DateTime fechaCreada, DateTime fechaCierre, string[] etiquetas, Enum estado, string habilitaciones, double valorUYU, double valorUSD, string descripcion, string[] palabraClave, string titulo)
         {
-            this.Id = id;
-            this.Titulo = titulo;
-            this.Descripcion = descripcion;
-            this.Producto = Producto;
-            this.Empresa = Empresa;
-            this.ValorPesos = valorPesos;
-            this.ValorDolares = valorDolares;
-            this.Habilitaciones = habilitaciones;
-            this.Estado = estado;
-            this.PalabraClave = palabraClave;
-            this.FechaCreacion = fechaCreacion;
-            this.FechaCierre = fechaCierre;
+            this.Id = id;                           //01
+            this.FechaCreada = fechaCreada;         //02
+            this.FechaCierre = fechaCierre;         //03
+            this.Etiquetas = etiquetas;             //04
+            this.Estado = estado;                   //05
+            this.Habilitaciones = habilitaciones;   //06
+            this.ValorUSD = valorUSD;               //07
+            this.ValorUYU = valorUYU;               //08
+            this.Descripcion = descripcion;         //09
+            this.Titulo = titulo;                   //10
         }
 
+        //1. poner acá como propiedades, las conexiones con las clases en las que se relaciona, ver el diagrama UML
+        //2. cambiar fecha creada, para que tome automaticamente la fecha de hoy con daynow
+        //3.cambiar la propiedad Estado para que arranque por defecto en "habilitada"
+        //4.ver la posibilidad de que al ingresar el valor en pesos/dolares se haga la comberción automáticamente al otro valor.
         public string Id {get; }
-        public string Titulo {get; }
+        public DateTime FechaCreada {get; }
+        public DateTime FechaCierre {get; }
+        public string[] Etiquetas {get; }
+        public Enum Estado {get; }
+        public string Habilitaciones {get; }
+        public double ValorUSD {get; }
+        public double ValorUYU {get; }
         public string Descripcion {get; }
-        public producto Producto {get; }
-        public empresa Empresa {get; }
-        public float ValorPesos {get; }
-        public float ValorDolares {get; }
-        public string[] Habilitaciones {get; }
-        public string Estado {get; }
-        public string[] PalabraClave {get; }
-        public string FechaCreacion {get; }
-        public string FechaCierre {get; }
-        public emprendedores[] Emprendedores {get; }
+        public string Titulo {get; }
 
         public void redactar()
         {
-            StringBuilder redaccion = new StringBuilder($"La oferta {0} consiste en {1}. Publicada el {2} por la empresa {3} con validez hasta el {4}.", this.Titulo, this.Descripcion, this.FechaCreacion, this.Empresa, this.FechaCierre);
+            StringBuilder redaccion = new StringBuilder();
 
-            redaccion.Append("Para postularse a esta oferta deberá cumplir con las suigientes habilitaciones: ");
+            redaccion.Append($"La oferta {0} consiste en {1}. Publicada el {2} por la empresa {3} con validez hasta el {4}.", this.Titulo, this.Descripcion, this.FechaCreada, this.Empresa, this.FechaCierre);
 
-            foreach (string item in Habilitaciones)
-            {
-                redaccion.Append(item + " ");
-            }
-            redaccion.Append(".");
+            redaccion.Append($"Para postularse a esta oferta deberá cumplir con la habilitación: {0}.", this.Habilitaciones);
         }
-
         public void redactarResumen()
         {
-            StringBuilder redaccionCorta = new StringBuilder($"Oferta {0}: {1}. Empresa {3} Fecha inicio {2}, Fecha cierre: {4};.", this.Titulo, this.Descripcion, this.FechaCreacion, this.Empresa, this.FechaCierre);
+            StringBuilder redaccionCorta = new StringBuilder();
+            
+            redaccionCorta.Append($"Oferta {0}: {1}. Empresa {3} Fecha inicio {2}, Fecha cierre: {4};.", this.Titulo, this.Descripcion, this.FechaCreada, this.Empresa, this.FechaCierre);
 
-            redaccionCorta.Append("Habilitaciones: ");
-
-            foreach (string item in Habilitaciones)
-            {
-               StringBuilder redaccion = StringBuilder redaccion.Append(item + " ");
-            }
-            StringBuilder redaccion = StringBuilder redaccion.Append(".");
+            redaccionCorta.Append("Habilitaciones: " + this.Habilitaciones);
         }
-
-        public void redactarEmprendedores()
+        public void redactarPostulados()
         {
-            StringBuilder redaccionEmprendedores = new StringBuilder($"Emprendedores postulados: );
+            StringBuilder redaccionPostulados = new StringBuilder();
+            redaccionPostulados.Append("Emprendedores postulados:" +  );
 
             foreach (emprendedor item in Emprendedores)
             {
@@ -71,7 +61,5 @@ namespace ProyectoFinal.GestionOferta
             }
             redaccionEmprendedores.Append(".");
         }
-
         //definir info a almacenar.
-
 }
