@@ -5,11 +5,11 @@ namespace ClassLibrary
 {
     abstract class Producto
     {
-        string Material="";        //Esto deveria ser un metodod que chequeara la clase material//
-        string Ubicacion="";       //Esto deveria ser un metodod que chequeara la clase Ubicacion y determinara la ubicaccion del material//
-        int cantidad=new int();
-        int Valor_Pesos=new int();
-        int Valor_Dolares=new int();
+        public Material Material{get; set;}       //Esto deveria ser un metodod que chequeara la clase material//
+        public Ubicacion Ubicacion{get; set;}      //Esto deveria ser un metodod que chequeara la clase Ubicacion y determinara la ubicaccion del material//
+        public double CantidadEnUnidad{get; set;}   //Esto representara la cantidad del producto en su propia unidad, la unidad esta en el maetrial//
+        public double ValorUYU{get; set;}
+        public double ValorUSD{get; set;}
     }
 
 
