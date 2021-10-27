@@ -5,15 +5,15 @@ namespace ClassLibrary
     public class Empresa
     {
         public string Id { get; }
-        
+
         public List<Oferta> Ofertas { get; }
 
         public Ubicacion Ubicacion { get; }
-        
-        public Rubro Rubro { get; } 
-        
+
+        public Rubro Rubro { get; }
+
         public string Nombre { get; }
-        
+
         public Empresa(string id, string rubro, string nombre, string ciudad, string direccion)
         {
             this.Id = id;
@@ -22,8 +22,8 @@ namespace ClassLibrary
             this.Rubro = new Rubro(rubro);
             this.Nombre = nombre;
         }
-        
-        
+
+
 
     }
 }
