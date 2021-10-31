@@ -9,7 +9,7 @@ namespace Library
     /// Expert ya que se le da la responsabilidad de generar las publicaciones, debido a que es la clase más experta de la información.
     /// Polymorphism porque utiliza dos métodos polimorficos de persistencia.
     /// </summary>
-    public class Empresa: IPersistence
+    public class Empresa
     {
         public string Id { get; }
         
