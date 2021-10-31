@@ -4,10 +4,14 @@ using System;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Esta clase representa al sistema principal de la aplicación. Permite registrar usuarios como
-    /// Empresas o Emprendedores y actúa como un contenedor de los mismos.
-    /// Se aplica el patrón Singleton dentro de esta clase para permitir solo la creación y 
-    /// utilización de una instancia de Sistema.
+    /// Esta clase representa al sistema principal de la aplicación. Permite registrar usuarios como Empresas
+    /// o Emprendedores y actúa como un contenedor de los mismos.
+    /// Se aplica el patrón Singleton dentro de esta clase para permitir solo la creación y utilización
+    /// de una instancia de Sistema. Además, utilizamos el principio Creator para definir a Sistema como una
+    /// clase creadora de empresas y emprendedores, ya que está compuesta por ellos. Esto le permite a Sistema
+    /// actuar como el contenedor de información principal de la aplicación.
+    /// Enfocando de esta forma a la clase de Sistema, buscamos también aumentar la cohesión de la misma y 
+    /// lograr el patrón de SRP.
     /// </summary>
     public class Sistema
     {
