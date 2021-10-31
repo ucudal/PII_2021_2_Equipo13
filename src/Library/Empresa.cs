@@ -3,12 +3,11 @@ using System.Collections.Generic;
 
 namespace Library
 {
-    /// <summary>
-       /*  
-       Patrones y principios utilizados en esta clase:
-        ISP ya que segmenta las operaciones de la interface en la persistencia.
-        Expert ya que se le da la responsabilidad de generar las publicaciones, debido a que es la clase más experta de la información.
-        Polymorphism porque utiliza dos métodos polimorficos de persistencia. */
+    /// <summary> 
+    /// Patrones y principios utilizados en esta clase:
+    /// ISP ya que segmenta las operaciones de la interface en la persistencia.
+    /// Expert ya que se le da la responsabilidad de generar las publicaciones, debido a que es la clase más experta de la información.
+    /// Polymorphism porque utiliza dos métodos polimorficos de persistencia.
     /// </summary>
     public class Empresa: IPersistence
     {
@@ -45,7 +44,5 @@ namespace Library
         {
             throw new NotImplementedException();
         }
-        
-
     }
 }
