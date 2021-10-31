@@ -4,21 +4,29 @@ namespace ProyectoFinal.GestionMateriales
 {
     public class Material
     {
-        public float ValorMonetarioPesos;
-        public float ValorMonetarioDolares;
-        public Material(string nombre, string[] categorias, string unidadMedidaEstandar, float valorMonetarioPesos, float valorMonetarioDolares)
+        /// <summary>
+        /// La clase material se encarga de conocer lo relativo al material que consituye el producto.
+        /// Principios y patrones aplicados:
+        /// Cumple con el principio ISP ya que no hay objetos forzados a depender de otros
+        ///  objetos que no usan.
+        /// Cumple con el patrón OCP pues la clase es abierta a la extensión mediante herencia
+        ///  y/o composición, pero cerrada a cambios ya que no es posible y no es necesario realizar
+        ///  cambios en su código.
+        /// La clase cumple con el Principio SRP ya que tiene responsabilidad sobre una única
+        /// parte de la funcionalidad, quedando completamente encapsulada dentro de la clase. 
+        /// Procurando que la clase tenga solo una razón para cambiar. 
+        /// </summary>
+        /// <param name="nombre">nombre</param>
+        /// <param name="categorias">categorias</param>
+        /// <param name="unidadEstandar">unidadEstandar</param>
+        public Material(string nombre, string[] categorias, string unidadEstandar)
         {
             this.Nombre = nombre;
             this.Categorias = categorias;
-            this.UnidadMedidaEstandar = unidadMedidaEstandar;
-            this.ValorMonetarioPesos = valorMonetarioPesos;
-            this.ValorMonetarioDolares = valorMonetarioDolares;
+            this.UnidadEstandar = unidadEstandar;
         }
-
-        public string Nombre {get; set;}
-        public string Categorias {get; set;}
-        public string UnidadMedidaEstandar {get; set;}
-        public string ValorMOnetarioDolares {get; set;}
-
+        public string Nombre {get;}
+        public string[] Categorias {get;}
+        public string UnidadEstandar {get; }
     }
 }
