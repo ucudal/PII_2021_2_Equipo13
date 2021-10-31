@@ -85,7 +85,7 @@ namespace ClassLibrary
         /// (o es igual) a la distancia máxima, el puntaje será 0.</param>
         /// <param name="puntajeMax">Puntaje máximo asignable.</param>
         /// <returns><c>Puntaje en int</c> para la distancia según las condiciones definidas.</returns>
-        public int DistanciaAPuntaje(double distancia, int distanciaMax, int puntajeMax)
+        private int DistanciaAPuntaje(double distancia, int distanciaMax, int puntajeMax)
         {
             if (distancia >= distanciaMax)
             {
