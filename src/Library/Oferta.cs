@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Collections.Generic;
 
 namespace ClassLibrary
 {
@@ -13,7 +14,7 @@ namespace ClassLibrary
             DateTime FechaCreada = DateTime.Now;    //02
             this.FechaCierre = fechaCierre;         //03
             this.Etiquetas = etiquetas;             //04
-            this.Estado = "Habilitada";             //05
+            this.estado = "Habilitada";             //05
             this.Habilitaciones = habilitaciones;   //06
             this.ValorUSD = valorUSD;               //07
             this.ValorUYU = valorUYU;               //08
@@ -39,20 +40,23 @@ namespace ClassLibrary
         public double ValorUYU { get; }
         public string Descripcion { get; }
         public string Titulo { get; }
+        public List<Producto> Productos { get; }
+        public List<Emprendedor> Emprendedores { get; }
+        public Empresa EmpresaCreadora { get; }
 
-        public obtenerProducto(Producto producto)
+        public void obtenerProducto(Producto producto)
         {
 
         }
-        public obtenerEmpresa(Empresa empresa)
+        public void obtenerEmpresa(Empresa empresa)
         {
 
         }
-        public obtenerHabilitacion(Habilitacion habilitacion)
+        public void obtenerHabilitacion(Habilitacion habilitacion)
         {
 
         }
-        public obtenerEmprendedor(Emprendedor emprendedor)
+        public void obtenerEmprendedor(Emprendedor emprendedor)
         {
 
         }
@@ -61,7 +65,7 @@ namespace ClassLibrary
         {
             StringBuilder redaccion = new StringBuilder();
 
-            redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa {Empresa} con validez hasta el {FechaCierre}.");
+            redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa {EmpresaCreadora.Nombre} con validez hasta el {FechaCierre}.");
 
             redaccion.Append($"Para postularse a esta oferta deberá cumplir con la habilitación: {Habilitaciones}.");
         }
@@ -69,7 +73,7 @@ namespace ClassLibrary
         {
             StringBuilder redaccionCorta = new StringBuilder();
 
-            redaccionCorta.Append($"Oferta {Titulo}: {Descripcion}. Empresa {FechaCreada} Fecha inicio {Empresa}, Fecha cierre: {FechaCierre};.");
+            redaccionCorta.Append($"Oferta {Titulo}: {Descripcion}. Empresa {EmpresaCreadora.Nombre} Fecha inicio {FechaCreada}, Fecha cierre: {FechaCierre};.");
 
             redaccionCorta.Append("Habilitaciones: " + this.Habilitaciones);
         }
@@ -78,11 +82,11 @@ namespace ClassLibrary
             StringBuilder redaccionPostulados = new StringBuilder();
             redaccionPostulados.Append("Emprendedores postulados:");
 
-            foreach (emprendedor item in Emprendedores)
+            foreach (Emprendedor item in Emprendedores)
             {
-                redaccionEmprendedores.Parse.Append(item + " ");
+                redaccionPostulados.Append(item + " ");
             }
-            redaccionEmprendedores.Append(".");
+            redaccionPostulados.Append(".");
         }
         //definir info a almacenar.
     }

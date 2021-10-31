@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,8 +18,17 @@ namespace ClassLibrary
         /// </summary>
         private Buscador() { }
 
-        public static List<Oferta> BuscarOfertas(Sistema sistema, Emprendedor emprendedor, List<string> etiquetas,
-            List<string> categorias=null)
+        /// <summary>
+        /// Realiza una búsqueda de ofertas dentro de una instancia de Sistema, utilizando la información de un
+        /// Emprendedor dado, junto a una lista de etiquetas y categorías, para filtrar dentro de las ofertas.
+        /// </summary>
+        /// <param name="sistema">Instancia de Sistema.</param>
+        /// <param name="emprendedor">Emprendedor cuyas propiedades se utilizan para filtrar.</param>
+        /// <param name="etiquetas">Lista de etiquetas a utilizar para filtrar.</param>
+        /// <param name="categorias">Lista de categorías a utilizar para filtrar.</param>
+        /// <returns>Lista de ofertas ordenadas según la relevancia calculada para la búsqueda.</returns>
+        public List<Oferta> BuscarOfertas(Sistema sistema, Emprendedor emprendedor, List<string> etiquetas,
+            List<string> categorias = null)
         {
             Dictionary<Oferta, int> ofertasEncontradas = new Dictionary<Oferta, int>();
 
@@ -26,25 +36,29 @@ namespace ClassLibrary
             {
                 foreach (Oferta oferta in empresa.Ofertas)
                 {
+                    double distanciaMedia = 0;
                     int puntaje = 0;
-                    foreach(string etiqueta in etiquetas){
+                    foreach (string etiqueta in etiquetas)
+                    {
                         if (oferta.Etiquetas.Contains(etiqueta))
                             puntaje++;
                     }
-                    foreach (Producto producto in oferta)
+                    foreach (Producto producto in oferta.Productos)
                     {
-                        foreach(string categoria in categorias){
+                        foreach (string categoria in categorias)
+                        {
                             if (producto.Material.Categorias.Contains(categoria))
                                 puntaje += 5;
                         }
+                        distanciaMedia += GestorLocacion.ObtenerDistancia(emprendedor.Ubicacion, producto.Ubicacion);
                     }
-                    /* TODO - Comparar ubicación de Oferta con Emprendedor y asignar un valor en un rango
-                        * de 0 a 30. */
-                    
+                    distanciaMedia /= oferta.Productos.Count;
+                    puntaje += this.DistanciaAPuntaje(distanciaMedia, 300, 30);
+
                     ofertasEncontradas.Add(oferta, puntaje);
                 }
             }
-            return OrdenarOfertasPorPuntaje(ofertasEncontradas);
+            return this.OrdenarOfertasPorPuntaje(ofertasEncontradas);
         }
 
         /// <summary>
@@ -53,15 +67,33 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="ofertas">Dictionary de par <c>Oferta, int</c> a ordenar.</param>
         /// <returns><c>List de Ofertas</c> ordenadas de mayor a menor.</returns>
-        private static List<Oferta> OrdenarOfertasPorPuntaje(Dictionary<Oferta, int> ofertas)
+        private List<Oferta> OrdenarOfertasPorPuntaje(Dictionary<Oferta, int> ofertas)
         {
             IEnumerable<Oferta> ofertasOrdenadas = from pair in ofertas
-                                orderby pair.Value descending
-                                select pair.Key;
+                                                   orderby pair.Value descending
+                                                   select pair.Key;
 
             return ofertasOrdenadas.ToList<Oferta>();
         }
-        
+
+        /// <summary>
+        /// Calcula el puntaje asignado a una oferta según una distancia dada, con la fórmula:
+        /// <c>puntaje = 30 - Math.Ceiling(distancia / (distanciaMáxima / puntajeMáximo))</c>
+        /// </summary>
+        /// <param name="distancia">Distancia hacia la oferta.</param>
+        /// <param name="distanciaMax">Distancia máxima para asignar un puntaje. Si la distancia supera
+        /// (o es igual) a la distancia máxima, el puntaje será 0.</param>
+        /// <param name="puntajeMax">Puntaje máximo asignable.</param>
+        /// <returns><c>Puntaje en int</c> para la distancia según las condiciones definidas.</returns>
+        public int DistanciaAPuntaje(double distancia, int distanciaMax, int puntajeMax)
+        {
+            if (distancia >= distanciaMax)
+            {
+                return 0;
+            }
+            return puntajeMax - (int)Math.Ceiling((distancia / (distanciaMax / puntajeMax)));
+        }
+
         private static Buscador instancia = null;
         /// <summary>
         /// Instancia del buscador durante la ejecución. Se aplica el patrón Singleton.

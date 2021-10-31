@@ -4,6 +4,88 @@
         <name>Library</name>
     </assembly>
     <members>
+        <member name="T:ClassLibrary.Buscador">
+            <summary>
+            Esta es una clase auxiliar que permite la búsqueda de ofertas. Se aplica SRP para tomar la decisión de
+            separar esta responsabilidad de Sistema, ya que la forma en que se realiza esta búsqueda puede cambiar y
+            Sistema puede cambiar por otros motivos.
+            Se aplica el patrón Singleton dentro de esta clase para permitir solo la creación y 
+            utilización de una instancia de Buscador.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Buscador.#ctor">
+            <summary>
+            Crea una instancia de Buscador.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Buscador.OrdenarOfertasPorPuntaje(System.Collections.Generic.Dictionary{ClassLibrary.Oferta,System.Int32})">
+            <summary>
+            Ordena un diccionario de par <c>Oferta, int</c> de mayor a menor según el valor
+            asignado a cada clave.
+            </summary>
+            <param name="ofertas">Dictionary de par <c>Oferta, int</c> a ordenar.</param>
+            <returns><c>List de Ofertas</c> ordenadas de mayor a menor.</returns>
+        </member>
+        <member name="P:ClassLibrary.Buscador.Instancia">
+            <summary>
+            Instancia del buscador durante la ejecución. Se aplica el patrón Singleton.
+            </summary>
+            <value>Una única instancia de <c>Buscador</c></value>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:ClassLibrary.Empresa" -->
+        <member name="T:ClassLibrary.IPersistence">
+            <summary>
+            Esta es la interface de percisitencia de la aplicacion. su funcion es guardar y recuperar los datos de la aplicacion.
+            </summary>
+        </member>
+        <member name="T:ClassLibrary.Producto">
+            <summary>
+            Esta es la clase Producto. se encarga de almacenar los datos de un producto.
+            Implementa la clase Material y Ubicacion para almacenar los datos de ubicacion y material, y contiene la cantidad de producto en unidades corresopondientes.
+            Tambien tien el precios del producto en pesos y en dolares.
+            </summary>
+        </member>
+        <member name="T:ClassLibrary.Sistema">
+            <summary>
+            Esta clase representa al sistema principal de la aplicación. Permite registrar usuarios como
+            Empresas o Emprendedores y actúa como un contenedor de los mismos.
+            Se aplica el patrón Singleton dentro de esta clase para permitir solo la creación y 
+            utilización de una instancia de Sistema.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Sistema.#ctor">
+            <summary>
+            Crea una instancia de Sistema.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Sistema.RegistrarEmpresa(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Registra una nueva empresa en el sistema.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Sistema.RegistrarEmprendedor(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{ClassLibrary.Habilitacion})">
+            <summary>
+            Registra un nuevo emprendedor en el sistema.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Sistema.Empresas">
+            <summary>
+            Lista de empresas registradas en el sistema.
+            </summary>
+            <value>Colección de instancias de <c>Empresa</c></value>
+        </member>
+        <member name="P:ClassLibrary.Sistema.Emprendedores">
+            <summary>
+            Lista de emprendedores registrados en el sistema.
+            </summary>
+            <value>Colección de instancias de <c>Emprendedor</c></value>
+        </member>
+        <member name="P:ClassLibrary.Sistema.Instancia">
+            <summary>
+            Instancia del sistema durante la ejecución. Se aplica el patrón Singleton.
+            </summary>
+            <value>Una única instancia de <c>Sistema</c></value>
+        </member>
         <member name="T:ClassLibrary.Train">
             <summary>
             Esta clase representa un tren muy básico.
@@ -31,5 +113,6 @@
             <c>true</c> si las máquinas pueden ser detenidas, <c>false</c> en caso contrario.
             </returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "T:ClassLibrary.Ubicacion" -->
     </members>
 </doc>

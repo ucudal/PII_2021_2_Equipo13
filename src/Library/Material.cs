@@ -16,7 +16,7 @@ namespace ClassLibrary
         }
 
         public string Nombre { get; set; }
-        public string Categorias { get; set; }
+        public string[] Categorias { get; set; }
         public string UnidadMedidaEstandar { get; set; }
         public string ValorMOnetarioDolares { get; set; }
 
