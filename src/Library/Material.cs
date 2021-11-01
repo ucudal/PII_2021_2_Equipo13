@@ -2,10 +2,7 @@ using System;
 
 namespace ClassLibrary
 {
-    public class Material
-    {
         /// <summary>
-        /// La clase material se encarga de conocer lo relativo al material que consituye el producto.
         /// Principios y patrones aplicados:
         /// Cumple con el principio ISP ya que no hay objetos forzados a depender de otros
         ///  objetos que no usan.
@@ -16,17 +13,22 @@ namespace ClassLibrary
         /// parte de la funcionalidad, quedando completamente encapsulada dentro de la clase. 
         /// Procurando que la clase tenga solo una razón para cambiar. 
         /// </summary>
+    public class Material
+    {
+        /// <summary>
+        /// La clase material se encarga de conocer lo relativo al material que consituye el producto.
+        /// </summary>
         /// <param name="nombre">nombre</param>
         /// <param name="categorias">categorias</param>
         /// <param name="unidadEstandar">unidadEstandar</param>
-        public Material(string nombre, string[] categorias, string unidadEstandar)
+        public Material(string nombre, List <string> categorias, string unidadEstandar)
         {
             this.Nombre = nombre;
             this.Categorias = categorias;
             this.UnidadEstandar = unidadEstandar;
         }
         public string Nombre {get;}
-        public string[] Categorias {get;}
+        public List <string> Categorias {get;}
         public string UnidadEstandar {get; }
     }
 }
