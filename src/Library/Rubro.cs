@@ -10,6 +10,8 @@ namespace ClassLibrary
         /// </summary>
         public string rubro { get; set; }
 
+        /// <param name="rubro">rubro</param>        
+
         public Rubro(string rubro)
         {
             this.rubro = rubro;

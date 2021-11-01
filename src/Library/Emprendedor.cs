@@ -17,39 +17,43 @@ namespace ClassLibrary
         /// <summary>
         /// Se indica el <value>Nombre</value> del emprendedor
         /// </summary>
-        public string nombre { get; set; }
+        public string Nombre { get; set; }
 
         /// <summary>
         /// Mediante una lista de <value>Habilitaciones</value> indicaremos todas las habiltiaciones con las que el emprendedor cuenta.
         /// </summary>
-        public List<Habilitacion> habilitaciones { get; set; }
+        public List<Habilitacion> Habilitaciones { get; set; }
 
         /// <summary>
         /// Se indica la <value>Ubicacion</value> del emprendedor
         /// </summary>
-        public string ubicacion { get; set; }
+        public string Ubicacion { get; set; }
 
         /// <summary>
         /// Mediante una lista de <value>Rubo</value> indicaremos los rubros en el que el emprendedor se maneja.
         /// </summary>
-        public List<Rubro> rubro { get; set; }
+        public Rubro Rubro { get; set; }
 
         /// <summary>
         /// Mediante una lista de <value>Ofertas</value> indicaremos las ofertas a las cual se postuló .
         /// </summary>
-        public List<Oferta> ofertasPostuladas { get; set; }
+        public List<Oferta> OfertasPostuladas { get; set; }
         
         /// <summary>
         /// Mediante una lista de <value>Ofertas</value> indicaremos las ofertas consumidas a las cual se postuló .
         /// </summary>
-        public List<Oferta> ofertasConsumidas { get; set; }
-   
-        public Emprendedor(string nombre, List<Habilitacion> habilitaciones, string ubicacion, List<Rubro> rubro)
+        public List<Oferta> OfertasConsumidas { get; set; }
+        
+        /// <param name="nombre">nombre</param>
+        /// <param name="habilitaciones">habilitaciones</param>
+        /// <param name="ubicacion">ubicacion</param>
+        /// <param name="rubro">rubro</param>
+        public Emprendedor(string nombre, List<Habilitacion> habilitaciones, string ubicacion, Rubro rubro)
         {
-            this.nombre = nombre;
-            this.habilitaciones = habilitaciones;
-            this.ubicacion = ubicacion;
-            this.rubro = rubro;
+            this.Nombre = nombre;
+            this.Habilitaciones = habilitaciones;
+            this.Ubicacion = ubicacion;
+            this.Rubro = rubro;
         }
 
 
@@ -57,6 +61,7 @@ namespace ClassLibrary
         /// <summary>
         /// Mediante una oferta esté se postulará a ella.
         /// </summary>
+        /// <param name="ofertas">Ofertas</param>
         public void postularseAOfertas(List<Oferta> ofertas){
             // TODO
         }
@@ -66,6 +71,10 @@ namespace ClassLibrary
         /// Mediante una una fecha de inicio y de fin, ademas del un canal se obtendrán todas las ofertas postuladas en ese periodo de tiempo
         /// y se guardará en la Lista <value>ofertasPostuladas</value> .
         /// </summary>
+        /// <param name="fechaInicio">fechaInicio</param>
+        /// <param name="fechaFin">fechaFin</param>
+        /// <param name="canal">canal</param>
+
         public void obtenerOfertaspostuladas(string fechaInicio, string fechaFin, ICanal canal){
             // TODO     return buscador.ofertasPostuladas();
         }
@@ -74,6 +83,9 @@ namespace ClassLibrary
         /// Mediante palabras calve, un buscador y un canal se obtendran las ofertas consumidas que coincidan con las ofertas consumidas
         /// y se guardará en la Lista <value>ofertasConsumidas</value> .
         /// </summary>
+        /// <param name="pClave">pClave</param>
+        /// <param name="buscador">buscador</param>
+        /// <param name="canal">canal</param>
         public void obtenerOfertasConsumidas(List<string> pClave, Buscador buscador, ICanal canal){
             // TODO     return buscador.ofertasConsumidas();
         }
