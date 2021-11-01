@@ -22,7 +22,7 @@ namespace ClassLibrary
         /// <summary>
         ///  La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
         /// </summary>
-        /// <param name="id"> id </param>
+        /// <param name="id"> un número identificador para referenciar a lo largo del sistema </param>
         /// <param name="fechaCierre"> fechaCierre </param>
         /// <param name="etiquetas">etiquetas</param>
         /// <param name="habilitaciones">habilitaciones</param>
@@ -31,19 +31,19 @@ namespace ClassLibrary
         /// <param name="descripcion">descripcion</param>
         /// <param name="palabraClave">palabraClave</param>
         /// <param name="titulo">titulo</param>
-        public Oferta (string id, DateTime fechaCierre, List<string> etiquetas, string habilitaciones, double valorUYU, double valorUSD, string descripcion, string titulo)
+        public Oferta (string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas, string habilitaciones, double valorUYU, double valorUSD, string descripcion, string titulo)
         {
             this.Id = id;                           //01
-            this.FechaCreada = DateTime.Now;        //02
-            this.FechaCierre = fechaCierre;         //03
-            this.Etiquetas = etiquetas;             //04
-            this.Estado = Estados.Habilitada;       //05
-            this.Habilitaciones = habilitaciones;   //06
-            this.ValorUSD = valorUSD;               //07
-            this.ValorUYU = valorUYU;               //08
-            this.Descripcion = descripcion;         //09
-            this.Titulo = titulo;                   //10
-            
+            this.Empresa = empresa;                 //02
+            this.FechaCreada = DateTime.Now;        //03
+            this.FechaCierre = fechaCierre;         //04
+            this.Etiquetas = etiquetas;             //05
+            this.Estado = Estados.Habilitada;       //06
+            this.Habilitaciones = habilitaciones;   //07
+            this.ValorUSD = valorUSD;               //08
+            this.ValorUYU = valorUYU;               //09
+            this.Descripcion = descripcion;         //10
+            this.Titulo = titulo;                   //11  
         }
         
         public enum Estados{
@@ -134,7 +134,7 @@ namespace ClassLibrary
         {
             StringBuilder redaccionCorta = new StringBuilder();
             
-            redaccionCorta.Append($"Oferta {Titulo}: {Descripcion}. Empresa {FechaCreada} Fecha inicio {Empresa}, Fecha cierre: {FechaCierre};.");
+            redaccionCorta.Append($"Oferta {Titulo}: {Descripcion}. Empresa {FechaCreada} Fecha inicio {Empresa.Nombre}, Fecha cierre: {FechaCierre};.");
 
             redaccionCorta.Append("Habilitaciones: " + this.Habilitaciones);
             return redaccionCorta.ToString();
