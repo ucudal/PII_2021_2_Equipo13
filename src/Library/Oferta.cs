@@ -4,10 +4,7 @@ using System.Collections.Generic;
 
 namespace ClassLibrary
 {
-    public class Oferta 
-    {   
         /// <summary>
-        ///  La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
         ///  Patrones y principios aplicados:
         ///  Cumple con EXPERT ya que se le asignaron sus responsabilidades en su calidad
         ///  de experto en la información, por ser la clase que tiene la información necesaria
@@ -18,6 +15,12 @@ namespace ClassLibrary
         ///  otras clases.
         ///  Cumple con el patrón High Cohesión ya que las responsabilidades de la clase están
         ///  fuertemente relacionadas, creando así una clase robusta y fácil de entender. 
+        /// </summary>
+    
+    public class Oferta 
+    {   
+        /// <summary>
+        ///  La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
         /// </summary>
         /// <param name="id"> id </param>
         /// <param name="fechaCierre"> fechaCierre </param>
@@ -40,6 +43,7 @@ namespace ClassLibrary
             this.ValorUYU = valorUYU;               //08
             this.Descripcion = descripcion;         //09
             this.Titulo = titulo;                   //10
+            
         }
         
         public enum Estados{
@@ -63,6 +67,7 @@ namespace ClassLibrary
         public double ValorUYU {get; }
         public string Descripcion {get; }
         public string Titulo {get; }
+        public List<Producto> Productos {get; }
 
         /// <summary>
         /// Método para comunicarse con la clase Producto.
@@ -72,6 +77,7 @@ namespace ClassLibrary
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
+        
         /// <summary>
         /// Método para comunicarse con la clase Empresa.
         /// </summary>
@@ -80,10 +86,12 @@ namespace ClassLibrary
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
+        
         public ObtenerHabilitacion (Habilitacion habilitacion)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
+        
          /// <summary>
         /// Método para comunicarse con la clase Emprendedor.
         /// </summary>
@@ -93,6 +101,18 @@ namespace ClassLibrary
         {
            throw new Exception("A la espera de la definición de la persistencia");
         }
+        
+        //aplicando Creator
+        public void AgregarProducto ()
+        {
+            this.Productos.Add(new Producto ("nombre", "etc"));
+        }
+        
+        public void RemoverProducto (Producto producto)
+        {
+                this.Productos.Remove(producto);      
+        }
+            
 
         /// <summary>
         /// Métodos para publicar los mensajes relativos a las ofertas.
