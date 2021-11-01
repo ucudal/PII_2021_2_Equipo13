@@ -68,7 +68,7 @@ namespace ProyectoFinal.GestionOferta
         /// Método para comunicarse con la clase Producto.
         /// </summary>
         /// <param name="producto">producto</param>
-        public obtenerProducto (Producto producto)
+        public ObtenerProducto (Producto producto)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
@@ -76,11 +76,11 @@ namespace ProyectoFinal.GestionOferta
         /// Método para comunicarse con la clase Empresa.
         /// </summary>
         /// <param name="empresa">empresa</param>
-        public obtenerEmpresa (Empresa empresa)
+        public ObtenerEmpresa (Empresa empresa)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
-        public obtenerHabilitacion (Habilitacion habilitacion)
+        public ObtenerHabilitacion (Habilitacion habilitacion)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
@@ -89,7 +89,7 @@ namespace ProyectoFinal.GestionOferta
         /// </summary>
         /// <param name="emprendedor">emprendedor</param>
         /// <returns></returns>
-        public obtenerEmprendedor (Emprendedor emprendedor)
+        public ObtenerEmprendedor (Emprendedor emprendedor)
         {
            throw new Exception("A la espera de la definición de la persistencia");
         }
