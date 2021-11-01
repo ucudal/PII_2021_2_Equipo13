@@ -1,15 +1,24 @@
 using System;
-using System.Collections.Generic;
-     
 
 namespace ClassLibrary
 {
-     public interface IPersistence
+   /// <summary>
+   /// Esta es la interface de percisitencia de la aplicacion. su funcion es guardar y recuperar los datos de la aplicacion.
+   /// </summary>
+     public interface IPersistencia
      {
-        void EscribirArchivo(string archivo, string informacion); //Estos representari la informacion que se esta buscando, todavia no tengo claro si sera en forma de string o una clase dedicada//
-    
-        string LeerArchivo(string archivo);  //Esto recviria una string con la info buscada, y la lista en donde buscarlo//
-        
-    
+          /// <summary>
+          /// Guarda el archivo en la ruta especificada.
+          /// </summary>
+          /// <param name="ruta">La ruta del archivo en el sistema.</param>
+          /// <param name="informacion">La información a guardar en el archivo en un string.</param>
+          void EscribirArchivo(string ruta, string informacion);
+
+          /// <summary>
+          /// Lee un archivo en el sistema.
+          /// </summary>
+          /// <param name="ruta">La ruta del archivo en el sistema.</param>
+          /// <returns>Retorna la información contenida en un archivo en un string</returns>
+          string LeerArchivo(string ruta);
      }
 }
