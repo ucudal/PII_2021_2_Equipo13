@@ -1,6 +1,6 @@
 using System;
 
-namespace ProyectoFinal.GestionMateriales
+namespace ClassLibrary
 {
     public class Material
     {
