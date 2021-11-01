@@ -28,7 +28,7 @@ namespace ClassLibrary
         /// <param name="categorias">Lista de categorías a utilizar para filtrar.</param>
         /// <returns>Lista de ofertas ordenadas según la relevancia calculada para la búsqueda.</returns>
         public List<Oferta> BuscarOfertas(Sistema sistema, Emprendedor emprendedor, List<string> etiquetas,
-            List<string> categorias = null)
+            List<string> categorias)
         {
             Dictionary<Oferta, int> ofertasEncontradas = new Dictionary<Oferta, int>();
 
