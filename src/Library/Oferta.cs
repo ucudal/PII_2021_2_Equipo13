@@ -53,7 +53,6 @@ namespace ProyectoFinal.GestionOferta
         //3. Cambiar la propiedad Estado para que arranque por defecto en "habilitada"
         //4. Ver la posibilidad de que al ingresar el valor en pesos/dolares se haga la comberción automáticamente al otro valor.
 
-        public string estado {get; set;}
         public string Id {get; }
         public DateTime FechaCreada {get; }
         public DateTime FechaCierre {get; }
