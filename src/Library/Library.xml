@@ -4,6 +4,7 @@
         <name>Library</name>
     </assembly>
     <members>
+
         <member name="T:ClassLibrary.Emprendedor">
             <summary>
             Esta clase respresenta los datos basicos y necesarios que todo Emprendedor tiene, además de sus responsabilidades asignadas.
@@ -114,7 +115,8 @@
             <summary>
             Se indica el nombre <value>rubro</value> del rubro
             </summary>
-        </member>
+
+      </member>
         <member name="T:ClassLibrary.Train">
             <summary>
             Esta clase representa un tren muy básico.
@@ -142,5 +144,6 @@
             <c>true</c> si las máquinas pueden ser detenidas, <c>false</c> en caso contrario.
             </returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "T:ClassLibrary.Ubicacion" -->
     </members>
 </doc>
