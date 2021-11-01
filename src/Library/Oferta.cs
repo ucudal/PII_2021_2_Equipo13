@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Text;
+using System.Collections.Generic;
 
 namespace ProyectoFinal.GestionOferta
 {
@@ -27,18 +28,24 @@ namespace ProyectoFinal.GestionOferta
         /// <param name="descripcion">descripcion</param>
         /// <param name="palabraClave">palabraClave</param>
         /// <param name="titulo">titulo</param>
-        public Oferta (string id, DateTime fechaCierre, string[] etiquetas, string habilitaciones, double valorUYU, double valorUSD, string descripcion, string[] palabraClave, string titulo)
+        public Oferta (string id, DateTime fechaCierre, List<string> etiquetas, string habilitaciones, double valorUYU, double valorUSD, string descripcion, string titulo)
         {
             this.Id = id;                           //01
-            DateTime FechaCreada = DateTime.Now;    //02
+            this.FechaCreada = DateTime.Now;        //02
             this.FechaCierre = fechaCierre;         //03
             this.Etiquetas = etiquetas;             //04
-            this.Estado = "Habilitada";             //05
+            this.Estado = Estados.Habilitada;       //05
             this.Habilitaciones = habilitaciones;   //06
             this.ValorUSD = valorUSD;               //07
             this.ValorUYU = valorUYU;               //08
             this.Descripcion = descripcion;         //09
             this.Titulo = titulo;                   //10
+        }
+        
+        public enum Estados{
+            Habilitada,
+            Cerrada,
+            Suspendida
         }
 
         //1. Poner acá como propiedades, las conexiones con las clases en las que se relaciona, ver el diagrama UML
@@ -50,8 +57,8 @@ namespace ProyectoFinal.GestionOferta
         public string Id {get; }
         public DateTime FechaCreada {get; }
         public DateTime FechaCierre {get; }
-        public string[] Etiquetas {get; }
-        public string Estado {get; }
+        public List<string> Etiquetas {get; }
+        public Estados Estado {get; }
         public string Habilitaciones {get; }
         public double ValorUSD {get; }
         public double ValorUYU {get; }
@@ -91,37 +98,40 @@ namespace ProyectoFinal.GestionOferta
         /// <summary>
         /// Métodos para publicar los mensajes relativos a las ofertas.
         /// </summary>
-        public void redactar()
+        public string Redactar()
         {
             StringBuilder redaccion = new StringBuilder();
 
             redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa {Empresa} con validez hasta el {FechaCierre}.");
 
             redaccion.Append($"Para postularse a esta oferta deberá cumplir con la habilitación: {Habilitaciones}.");
+            return redaccion.ToString();
         }
 
         /// <summary>
         /// Métodos para publicar los mensajes relativos a las ofertas en versión resumida.
         /// </summary>
-        public void redactarResumen()
+        public string RedactarResumen()
         {
             StringBuilder redaccionCorta = new StringBuilder();
             
             redaccionCorta.Append($"Oferta {Titulo}: {Descripcion}. Empresa {FechaCreada} Fecha inicio {Empresa}, Fecha cierre: {FechaCierre};.");
 
             redaccionCorta.Append("Habilitaciones: " + this.Habilitaciones);
+            return redaccionCorta.ToString();
         }
 
         /// <summary>
         /// Un método para listar todos los emprendedores postulados a una oferta.
         /// </summary>
-        public void redactarPostulados()
+        public string RedactarPostulados()
         {
             StringBuilder redaccionPostulados = new StringBuilder();
             redaccionPostulados.Append("Emprendedores postulados:" );
             {
                 throw new Exception("A la espera de la definición de la persistencia"); 
             }
+            return redaccionPostulados.ToString();
         }
         //definir info a almacenar.
     }
