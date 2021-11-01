@@ -13,6 +13,7 @@ namespace ClassLibrary
         /// <summary>
         /// Este método se encargará de enviar los mensajes
         /// </summary>
+        /// <param name="message">message</param>        
         void enviarMensaje(string message);
 
     }
