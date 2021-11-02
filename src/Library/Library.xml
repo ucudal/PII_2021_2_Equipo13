@@ -4,6 +4,119 @@
         <name>Library</name>
     </assembly>
     <members>
+
+        <member name="T:ClassLibrary.Emprendedor">
+            <summary>
+            Esta clase respresenta los datos basicos y necesarios que todo Emprendedor tiene, además de sus responsabilidades asignadas.
+            </summary>
+            Patrones y principios:
+               Cumple con SRP porque solo se identifica una razón de cambio: algún cambio en la lógica de las ofertas.
+               Cumple con OSP porque está abierta a la extención y cerrada a la modificación.
+               Cumple con Expert porque tiene toda la información necesaria para poder cumplir con la responsabilidad de dar de alta un emprendedor y consumir ofertas.
+        </member>
+        <member name="P:ClassLibrary.Emprendedor.nombre">
+            <summary>
+            Se indica el <value>Nombre</value> del emprendedor
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Emprendedor.habilitaciones">
+            <summary>
+            Mediante una lista de <value>Habilitaciones</value> indicaremos todas las habiltiaciones con las que el emprendedor cuenta.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Emprendedor.ubicacion">
+            <summary>
+            Se indica la <value>Ubicacion</value> del emprendedor
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Emprendedor.rubro">
+            <summary>
+            Mediante una lista de <value>Rubo</value> indicaremos los rubros en el que el emprendedor se maneja.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Emprendedor.ofertasPostuladas">
+            <summary>
+            Mediante una lista de <value>Ofertas</value> indicaremos las ofertas a las cual se postuló .
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Emprendedor.ofertasConsumidas">
+            <summary>
+            Mediante una lista de <value>Ofertas</value> indicaremos las ofertas consumidas a las cual se postuló .
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Emprendedor.postularseAOfertas(System.Collections.Generic.List{ClassLibrary.Oferta})">
+            <summary>
+            Mediante una oferta esté se postulará a ella.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Emprendedor.obtenerOfertaspostuladas(System.String,System.String,ClassLibrary.ICanal)">
+            <summary>
+            Mediante una una fecha de inicio y de fin, ademas del un canal se obtendrán todas las ofertas postuladas en ese periodo de tiempo
+            y se guardará en la Lista <value>ofertasPostuladas</value> .
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Emprendedor.obtenerOfertasConsumidas(System.Collections.Generic.List{System.String},ClassLibrary.Buscador,ClassLibrary.ICanal)">
+            <summary>
+            Mediante palabras calve, un buscador y un canal se obtendran las ofertas consumidas que coincidan con las ofertas consumidas
+            y se guardará en la Lista <value>ofertasConsumidas</value> .
+            </summary>
+        </member>
+        <member name="T:ClassLibrary.Habilitacion">
+            <summary>
+            Esta clase respresenta los datos basicos y necesarios de una Habilitación
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Habilitacion.descripcion">
+            <summary>
+            Se indica el <value>descripcion</value> de la Habiltiacion
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Habilitacion.nombreInsitucionHabilitada">
+            <summary>
+            Se indica el <value>nombreInsitucionHabilitada</value> de la Habiltiacion
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Habilitacion.fechaTramite">
+            <summary>
+            Se indica la <value>fechaTramite</value> de la Habiltiacion
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Habilitacion.fechaVencimiento">
+            <summary>
+            Se indica la <value>fechaVencimiento</value> de la Habiltiacion
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Habilitacion.estado">
+            <summary>
+            Se indica el <value>estado</value> de la Habiltiacion
+            </summary>
+        </member>
+        <member name="T:ClassLibrary.ICanal">
+            <summary>
+            Esta clase respresenta la interfaz de los canales
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.ICanal.recibirMensaje">
+            <summary>
+            Este método se encargará de recibir los mensajes
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.ICanal.enviarMensaje(System.String)">
+            <summary>
+            Este método se encargará de enviar los mensajes
+            </summary>
+        </member>
+        <member name="T:ClassLibrary.Rubro">
+            <summary>
+            Esta clase respresenta los datos basicos y necesarios de los rubros.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Rubro.rubro">
+            <summary>
+            Se indica el nombre <value>rubro</value> del rubro
+            </summary>
+
+      </member>
         <member name="T:ClassLibrary.Train">
             <summary>
             Esta clase representa un tren muy básico.
@@ -31,5 +144,6 @@
             <c>true</c> si las máquinas pueden ser detenidas, <c>false</c> en caso contrario.
             </returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "T:ClassLibrary.Ubicacion" -->
     </members>
 </doc>
