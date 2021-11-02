@@ -19,7 +19,7 @@ namespace Library
 
         public string Redactar()
         {
-            return $"{this.Departamento} {this.Ciudad} { NumPuerta } {Calle} {Esquina}";
+            return $"{this.Departamento} {this.Ciudad}";
         }
 
     }
