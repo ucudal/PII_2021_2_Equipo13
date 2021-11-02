@@ -6,14 +6,14 @@ namespace ClassLibrary
 {
         /// <summary>
         ///  Patrones y principios aplicados:
-        ///  Cumple con EXPERT ya que se le asignaron sus responsabilidades en su calidad
+        ///  Principio EXPERT: ya que se le asignaron sus responsabilidades en su calidad
         ///  de experto en la información, por ser la clase que tiene la información necesaria
         ///  para poder cumplir con la tarea, mientras que se mantiene la encapsulación 
         ///  ya que utiliza su propia información para cumplir con las responsabilidades.
-        ///  Se cumple con el patrón Low Coupling ya que al asignársele responsabilidades a 
+        ///  Patrón Low Coupling: ya que al asignársele responsabilidades a 
         ///  la clase se buscó que el acoplamiento se mantuviera bajo al no depender de muchas 
         ///  otras clases.
-        ///  Cumple con el patrón High Cohesión ya que las responsabilidades de la clase están
+        ///  Patrón High Cohesión: ya que las responsabilidades de la clase están
         ///  fuertemente relacionadas, creando así una clase robusta y fácil de entender. 
         /// </summary>
     
@@ -22,15 +22,15 @@ namespace ClassLibrary
         /// <summary>
         ///  La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
         /// </summary>
-        /// <param name="id"> un número identificador para referenciar a lo largo del sistema </param>
-        /// <param name="fechaCierre"> fechaCierre </param>
-        /// <param name="etiquetas">etiquetas</param>
-        /// <param name="habilitaciones">habilitaciones</param>
-        /// <param name="valorUYU">valorUYU</param>
-        /// <param name="valorUSD">valorUSD</param>
-        /// <param name="descripcion">descripcion</param>
-        /// <param name="palabraClave">palabraClave</param>
-        /// <param name="titulo">titulo</param>
+        /// <param name="id"> Un número identificador para referenciar la oferta a lo largo del sistema </param>
+        /// <param name="empresa"> Empresa que publica la oferta </param>
+        /// <param name="fechaCierre"> Fecha de cierre, límite para postularse a la oferta.</param>
+        /// <param name="etiquetas">Etiquetas relacionadas a la oferta que sirven para agruparlas o clasificarlas</param>
+        /// <param name="habilitaciones">Habilitaciones requeridas por la empresa para postularse a atender la oferta</param>
+        /// <param name="valorUYU">Valor en pesos uruguayos definido por la empresa que publica la oferta como retribución para la tarea.</param>
+        /// <param name="valorUSD">Valor en dólares USA definido  por la empresa que publica la oferta como retribución para la tarea.</param>
+        /// <param name="descripcion">Descripcion realizada por la empresa</param>
+        /// <param name="titulo">Titulo bajo el cual se publica la oferta</param>
         public Oferta (string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas, string habilitaciones, double valorUYU, double valorUSD, string descripcion, string titulo)
         {
             this.Id = id;                           //01
@@ -40,24 +40,23 @@ namespace ClassLibrary
             this.Etiquetas = etiquetas;             //05
             this.Estado = Estados.Habilitada;       //06
             this.Habilitaciones = habilitaciones;   //07
-            this.ValorUSD = valorUSD;               //08
-            this.ValorUYU = valorUYU;               //09
+            this.ValorUYU = valorUYU;               //08
+            this.ValorUSD = valorUSD;               //09
             this.Descripcion = descripcion;         //10
             this.Titulo = titulo;                   //11  
-        }
-        
+        }      
+
+        /// <summary>
+        /// Lista de estados posibles en que se puede encontrar una Oferta.
+        /// </summary>
         public enum Estados{
             Habilitada,
             Cerrada,
             Suspendida
         }
-
-        //1. Poner acá como propiedades, las conexiones con las clases en las que se relaciona, ver el diagrama UML
-        //2. Cambiar fecha creada, para que tome automaticamente la fecha de hoy con daynow
-        //3. Cambiar la propiedad Estado para que arranque por defecto en "habilitada"
-        //4. Ver la posibilidad de que al ingresar el valor en pesos/dolares se haga la comberción automáticamente al otro valor.
-
+        
         public string Id {get; }
+        public Empresa Empresa {get; }
         public DateTime FechaCreada {get; }
         public DateTime FechaCierre {get; }
         public List<string> Etiquetas {get; }
@@ -68,26 +67,22 @@ namespace ClassLibrary
         public string Descripcion {get; }
         public string Titulo {get; }
         public List<Producto> Productos {get; }
-
-        /// <summary>
-        /// Método para comunicarse con la clase Producto.
-        /// </summary>
-        /// <param name="producto">producto</param>
-        public ObtenerProducto (Producto producto)
-        {
-            throw new Exception("A la espera de la definición de la persistencia");
-        }
         
         /// <summary>
         /// Método para comunicarse con la clase Empresa.
         /// </summary>
         /// <param name="empresa">empresa</param>
-        public ObtenerEmpresa (Empresa empresa)
+        public void ObtenerEmpresa (Empresa empresa)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
         
-        public ObtenerHabilitacion (Habilitacion habilitacion)
+        /// <summary>
+        /// Método para comunicarse con la clase Habilitacion.
+        /// </summary>
+        /// <param name="habilitacion"></param>
+        /// <returns></returns>
+        public void ObtenerHabilitacion (Habilitacion habilitacion)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
@@ -97,22 +92,34 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="emprendedor">emprendedor</param>
         /// <returns></returns>
-        public ObtenerEmprendedor (Emprendedor emprendedor)
+        public void ObtenerEmprendedor (Emprendedor emprendedor)
         {
            throw new Exception("A la espera de la definición de la persistencia");
         }
         
         //aplicando Creator
-        public void AgregarProducto ()
+        /// <summary>
+        /// Agrega un producto a la lista de productos.
+        /// </summary>
+        /// <param name="material">Material que conforma al producto.</param>
+        /// <param name="ubicacion">Ubicación geográfica del producto.</param>
+        /// <param name="cantidadEnUnidades">Cantidad de unidades/param>
+        /// <param name="valorUYU">Valor en pesos uruguayos.</param>
+        /// <param name="valorUSD">Valor en dolares usa.</param>
+        public void AgregarProducto (Material material, Ubicacion ubicacion, double cantidadEnUnidades, double valorUYU, double valorUSD)
         {
-            this.Productos.Add(new Producto ("nombre", "etc"));
+            Producto producto = new Producto ( material,  ubicacion,  cantidadEnUnidades,  valorUYU,  valorUSD);
+            this.Productos.Add(producto);
         }
-        
+
+        /// <summary>
+        /// Quita un producto de la lista.
+        /// </summary>
+        /// <param name="producto">Detalle del producto a quitar de la lista.</param>
         public void RemoverProducto (Producto producto)
         {
                 this.Productos.Remove(producto);      
         }
-            
 
         /// <summary>
         /// Métodos para publicar los mensajes relativos a las ofertas.
@@ -124,6 +131,7 @@ namespace ClassLibrary
             redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa {Empresa} con validez hasta el {FechaCierre}.");
 
             redaccion.Append($"Para postularse a esta oferta deberá cumplir con la habilitación: {Habilitaciones}.");
+            redaccion.Append($"Tiene tiempo para postularse a esta oferta hasta el día: {this.FechaCierre} inclusive.");
             return redaccion.ToString();
         }
 
@@ -152,6 +160,5 @@ namespace ClassLibrary
             }
             return redaccionPostulados.ToString();
         }
-        //definir info a almacenar.
     }
 }

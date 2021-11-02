@@ -9,8 +9,15 @@ namespace ClassLibrary
     /// Esta clase tiene acoplaje con Material y Ubicacion ya que depende significativamente de ellas.
     /// </summary>
     public class Producto
-    {
-        
+    {      
+        public Producto(Material material, Ubicacion ubicacion, double cantidadEnUnidades, double valorUYU, double valorUSD)
+        {
+            this.Material = material;
+            this.Ubicacion = ubicacion;
+            this.CantidadEnUnidades = cantidadEnUnidades;
+            this.ValorUYU = valorUYU;
+            this.ValorUSD = valorUSD;
+        } 
        public Material Material{get; set;} 
         /// <summary>
         /// Una implementacion de la clase material, con el material del que esta compuesto el producto.
@@ -24,7 +31,7 @@ namespace ClassLibrary
         /// </summary>
         /// <value></value>
         
-        public double CantidadEnUnidad{get; set;}   
+        public double CantidadEnUnidades{get; set;}   
         /// <summary>
         /// Esto representara la cantidad del producto en su propia unidad, la unidad esta en el maetrial
         /// </summary>
@@ -42,5 +49,11 @@ namespace ClassLibrary
         /// </summary>
         /// <value></value>
 
+        public string RedactarProducto
+        {
+            get{
+                return ($"{this.CantidadEnUnidades}, {this.Material.Nombre}");
+            }
+        }
     }
 }
