@@ -48,12 +48,14 @@ namespace Library
         /// <param name="valorUSD">El valor en USD de la oferta</param>
         /// <param name="descripcion">La descripción de la oferta</param>
         /// <param name="titulo">El titulo de la oferta</param>
-        public void PublicarOferta(string id, DateTime fechaCierre, List<string> etiquetas,
+        public Oferta PublicarOferta(string id, DateTime fechaCierre, List<string> etiquetas,
             List<Habilitacion> habilitaciones, double valorUYU, double valorUSD, string descripcion,
             string titulo)
         {
-            Ofertas.Add(new Oferta(id, fechaCierre, etiquetas, habilitaciones,
-                valorUYU, valorUSD, descripcion, titulo, this));
+            Oferta oferta = new Oferta(id, fechaCierre, etiquetas, habilitaciones,
+                descripcion, titulo, this)
+            Ofertas.Add(oferta);
+            return oferta;
         }
         /// <summary>
         /// </summary>
