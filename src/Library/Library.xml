@@ -123,6 +123,26 @@
             Polymorphism porque utiliza dos métodos polimorficos de persistencia.
             </summary>
         </member>
+        <member name="M:ClassLibrary.Empresa.PublicarOferta(System.String,System.DateTime,System.Collections.Generic.List{System.String},System.Collections.Generic.List{ClassLibrary.Habilitacion},System.String,System.String)">
+            <summary>
+            Crea una nueva Oferta y la añade a la lista de ofertas de la empresa.
+            </summary>
+            <param name="id">El id único de la oferta generada</param>
+            <param name="fechaCierre">La fecha de cierre de la oferta</param>
+            <param name="etiquetas">Las etiquetas o palabras clave de la oferta</param>
+            <param name="habilitaciones">Las habilitaciones requeridas para tomar la oferta</param>
+            <param name="valorUYU">El valor en UYU de la oferta</param>
+            <param name="valorUSD">El valor en USD de la oferta</param>
+            <param name="descripcion">La descripción de la oferta</param>
+            <param name="titulo">El titulo de la oferta</param>
+        </member>
+        <member name="M:ClassLibrary.Empresa.ObtenerOfertaPorId(System.String)">
+            <summary>
+            Recupera una oferta de la lista de ofertas utilizando su id y una id dada.
+            </summary>
+            <param name="id">Id de la oferta a recuperar.</param>
+            <returns>La instancia de Oferta correspondiente a la id dada.</returns>
+        </member>
         <member name="T:ClassLibrary.Habilitacion">
             <summary>
             Esta clase respresenta los datos basicos y necesarios de una Habilitación
@@ -204,7 +224,7 @@
             <param name="categorias">categorias</param>
             <param name="unidadEstandar">unidadEstandar</param>
         </member>
-        <member name="M:ClassLibrary.Oferta.#ctor(System.String,System.DateTime,System.Collections.Generic.List{System.String},System.String,System.Double,System.Double,System.String,System.String,ClassLibrary.Empresa)">
+        <member name="M:ClassLibrary.Oferta.#ctor(System.String,System.DateTime,System.Collections.Generic.List{System.String},System.Collections.Generic.List{ClassLibrary.Habilitacion},System.String,System.String,ClassLibrary.Empresa)">
             <summary>
              La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
              Patrones y principios aplicados:
@@ -330,6 +350,20 @@
             <summary>
             Registra un nuevo emprendedor en el sistema.
             </summary>
+        </member>
+        <member name="M:ClassLibrary.Sistema.ObtenerEmpresaPorId(System.String)">
+            <summary>
+            Recupera una empresa de la lista de empresas utilizando su id y una id dada.
+            </summary>
+            <param name="id">Id de la empresa a recuperar.</param>
+            <returns>La instancia de Empresa correspondiente a la id dada.</returns>
+        </member>
+        <member name="M:ClassLibrary.Sistema.ObtenerEmprendedorPorId(System.String)">
+            <summary>
+            Recupera un emprendedor de la lista de emprendedores utilizando su id y una id dada.
+            </summary>
+            <param name="id">Id del emprendedor a recuperar.</param>
+            <returns>La instancia de Emprendedor correspondiente a la id dada.</returns>
         </member>
         <member name="P:ClassLibrary.Sistema.Empresas">
             <summary>

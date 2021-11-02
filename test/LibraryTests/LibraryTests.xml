@@ -4,5 +4,20 @@
         <name>LibraryTests</name>
     </assembly>
     <members>
+        <member name="T:Tests.UserStoriesTests">
+            <summary>
+            Pruebas para demostrar el cumplimiento de las historias de usuario.
+            </summary>
+        </member>
+        <member name="M:Tests.UserStoriesTests.RegistroDeEmpresaTest">
+            <summary>
+            Prueba para las historias de usuario 1 y 2; registro de una empresa en el sistema.
+            </summary>
+        </member>
+        <member name="M:Tests.UserStoriesTests.PublicarOfertaTest">
+            <summary>
+            Prueba para la historia de usuario 3; publicación de oferta.
+            </summary>
+        </member>
     </members>
 </doc>

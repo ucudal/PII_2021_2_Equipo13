@@ -45,7 +45,7 @@ namespace ClassLibrary
             List<Habilitacion> habilitaciones, string descripcion, string titulo)
         {
             Oferta oferta = new Oferta(id, fechaCierre, etiquetas, habilitaciones,
-                descripcion, titulo, this)
+                descripcion, titulo, this);
             Ofertas.Add(oferta);
             return oferta;
         }

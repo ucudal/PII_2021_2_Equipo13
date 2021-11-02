@@ -27,11 +27,9 @@ namespace Tests
             int cantidadEmpresas = 1;                               // Cantidad de empresas registradas en el sistema.
             Assert.AreEqual(cantidadEmpresas, Sistema.Instancia.Empresas.Count);
 
-            Empresa empresa = new Empresa(id, ciudad, direccion, rubro, nombre);
-            Assert.AreEqual(empresa, Sistema.Instancia.Empresas[0]);
-
-            Ubicacion ubicacionEmpresa = new Ubicacion(ciudad, direccion);
-            Assert.AreEqual(ubicacionEmpresa, Sistema.Instancia.Empresas[0].Ubicacion);
+            Empresa empresa = Sistema.Instancia.Empresas[0];       // Empresa registrada en el sistema.
+            Assert.AreEqual(empresa, Sistema.Instancia.ObtenerEmpresaPorId(id));
+            Assert.AreEqual(empresa.Ubicacion, Sistema.Instancia.ObtenerEmpresaPorId(id).Ubicacion);
         }
 
         /// <summary>
@@ -41,13 +39,16 @@ namespace Tests
         public void PublicarOfertaTest()
         {
             Empresa empresa = Sistema.Instancia.ObtenerEmpresaPorId("123456");
-            string idOferta = empresa.Id + "1";
+            string idOferta = empresa.Id + "-1";
 
             Oferta oferta = empresa.PublicarOferta(idOferta, new DateTime(2021, 12, 10), new List<string>(), new List<Habilitacion>(), 
                 "Una oferta de cosas", "Oferta");
 
-            empresa.ObtenerOfertaPorId(idOferta);
+            int cantidadOfertas = 1;
+            Assert.AreEqual(cantidadOfertas, empresa.Ofertas.Count);
+            Assert.AreEqual(oferta, empresa.ObtenerOfertaPorId(oferta.Id));
 
+            
         }
            
     }
