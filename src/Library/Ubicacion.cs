@@ -11,12 +11,20 @@ namespace Library
         public string Ciudad { get; }
         public string Direccion { get; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ciudad">Ciudad</param>
+        /// <param name="direccion">Dirección</param>
         public Ubicacion(string ciudad, string direccion)
         {
             this.Ciudad = ciudad;
             this.Direccion = direccion;
         }
-
+        /// <summary>
+        /// Retorna un string con la ubicación formateada
+        /// </summary>
+        /// <returns></returns>
         public string Redactar()
         {
             return $"{this.Departamento} {this.Ciudad}";
