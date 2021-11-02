@@ -12,7 +12,7 @@ namespace Library
         public string Direccion { get; }
 
         /// <summary>
-        /// 
+        /// Crea una instancia de la clase Ubicacion
         /// </summary>
         /// <param name="ciudad">Ciudad</param>
         /// <param name="direccion">Dirección</param>
@@ -22,12 +22,12 @@ namespace Library
             this.Direccion = direccion;
         }
         /// <summary>
-        /// Retorna un string con la ubicación formateada
+        /// Genera una cadena de texto con la información de la ubicación
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Retorna un string con la ubicación formateada</returns>
         public string Redactar()
         {
-            return $"{this.Departamento} {this.Ciudad}";
+            return $"{this.Direccion}, {this.Ciudad}";
         }
 
     }
