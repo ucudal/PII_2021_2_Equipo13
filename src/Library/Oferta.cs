@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 
-namespace ProyectoFinal.GestionOferta
+namespace ClassLibrary
 {
     public class Oferta 
     {   
@@ -26,9 +26,10 @@ namespace ProyectoFinal.GestionOferta
         /// <param name="valorUYU">valorUYU</param>
         /// <param name="valorUSD">valorUSD</param>
         /// <param name="descripcion">descripcion</param>
-        /// <param name="palabraClave">palabraClave</param>
         /// <param name="titulo">titulo</param>
-        public Oferta (string id, DateTime fechaCierre, List<string> etiquetas, string habilitaciones, double valorUYU, double valorUSD, string descripcion, string titulo)
+        /// <param name="empresa">empresa</param>
+        public Oferta (string id, DateTime fechaCierre, List<string> etiquetas, List<Habilitacion> habilitaciones, 
+            string descripcion, string titulo, Empresa empresa)
         {
             this.Id = id;                           //01
             this.FechaCreada = DateTime.Now;        //02
@@ -36,10 +37,10 @@ namespace ProyectoFinal.GestionOferta
             this.Etiquetas = etiquetas;             //04
             this.Estado = Estados.Habilitada;       //05
             this.Habilitaciones = habilitaciones;   //06
-            this.ValorUSD = valorUSD;               //07
-            this.ValorUYU = valorUYU;               //08
             this.Descripcion = descripcion;         //09
             this.Titulo = titulo;                   //10
+            this.EmpresaCreadora = empresa;         //11
+            this.Productos = new List<Producto>();  //12
         }
         
         public enum Estados{
@@ -58,17 +59,35 @@ namespace ProyectoFinal.GestionOferta
         public DateTime FechaCierre {get; }
         public List<string> Etiquetas {get; }
         public Estados Estado {get; }
-        public string Habilitaciones {get; }
-        public double ValorUSD {get; }
-        public double ValorUYU {get; }
-        public string Descripcion {get; }
-        public string Titulo {get; }
+        public List<Habilitacion> Habilitaciones {get; }
+        public double ValorUSD {
+            get{
+                double valorUSD = 0;
+                foreach(Producto producto in this.Productos){
+                    valorUSD += producto.ValorUSD;
+                }
+                return valorUSD;
+            }
+        }
+        public double ValorUYU {
+            get{
+                double valorUYU = 0;
+                foreach(Producto producto in this.Productos){
+                    valorUYU += producto.ValorUYU;
+                }
+                return valorUYU;
+            }
+        }
+        public string Descripcion { get; }
+        public string Titulo { get; }
+        public List<Producto> Productos { get; }
+        public Empresa EmpresaCreadora { get; }
 
         /// <summary>
         /// Método para comunicarse con la clase Producto.
         /// </summary>
         /// <param name="producto">producto</param>
-        public ObtenerProducto (Producto producto)
+        public void ObtenerProducto (Producto producto)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
@@ -76,11 +95,11 @@ namespace ProyectoFinal.GestionOferta
         /// Método para comunicarse con la clase Empresa.
         /// </summary>
         /// <param name="empresa">empresa</param>
-        public ObtenerEmpresa (Empresa empresa)
+        public void ObtenerEmpresa (Empresa empresa)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
-        public ObtenerHabilitacion (Habilitacion habilitacion)
+        public void ObtenerHabilitacion (Habilitacion habilitacion)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
@@ -89,7 +108,7 @@ namespace ProyectoFinal.GestionOferta
         /// </summary>
         /// <param name="emprendedor">emprendedor</param>
         /// <returns></returns>
-        public ObtenerEmprendedor (Emprendedor emprendedor)
+        public void ObtenerEmprendedor (Emprendedor emprendedor)
         {
            throw new Exception("A la espera de la definición de la persistencia");
         }
@@ -101,7 +120,7 @@ namespace ProyectoFinal.GestionOferta
         {
             StringBuilder redaccion = new StringBuilder();
 
-            redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa {Empresa} con validez hasta el {FechaCierre}.");
+            redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa {this.EmpresaCreadora.Nombre} con validez hasta el {FechaCierre}.");
 
             redaccion.Append($"Para postularse a esta oferta deberá cumplir con la habilitación: {Habilitaciones}.");
             return redaccion.ToString();
@@ -114,7 +133,7 @@ namespace ProyectoFinal.GestionOferta
         {
             StringBuilder redaccionCorta = new StringBuilder();
             
-            redaccionCorta.Append($"Oferta {Titulo}: {Descripcion}. Empresa {FechaCreada} Fecha inicio {Empresa}, Fecha cierre: {FechaCierre};.");
+            redaccionCorta.Append($"Oferta {Titulo}: {Descripcion}. Empresa {this.EmpresaCreadora.Nombre} Fecha inicio {FechaCreada}, Fecha cierre: {FechaCierre};.");
 
             redaccionCorta.Append("Habilitaciones: " + this.Habilitaciones);
             return redaccionCorta.ToString();

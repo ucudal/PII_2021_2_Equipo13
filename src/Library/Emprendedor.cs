@@ -15,24 +15,29 @@ namespace ClassLibrary
     public class Emprendedor
     {   
         /// <summary>
+        /// Se indica el <value>Id</value> del emprendedor en la plataforma de registro
+        /// </summary>
+        public string Id { get; set; }
+
+        /// <summary>
         /// Se indica el <value>Nombre</value> del emprendedor
         /// </summary>
-        public string nombre { get; set; }
+        public string Nombre { get; set; }
 
         /// <summary>
         /// Mediante una lista de <value>Habilitaciones</value> indicaremos todas las habiltiaciones con las que el emprendedor cuenta.
         /// </summary>
-        public List<Habilitacion> habilitaciones { get; set; }
+        public List<Habilitacion> Habilitaciones { get; set; }
 
         /// <summary>
         /// Se indica la <value>Ubicacion</value> del emprendedor
         /// </summary>
-        public string ubicacion { get; set; }
+        public Ubicacion Ubicacion { get; set; }
 
         /// <summary>
         /// Mediante una lista de <value>Rubo</value> indicaremos los rubros en el que el emprendedor se maneja.
         /// </summary>
-        public List<Rubro> rubro { get; set; }
+        public Rubro Rubro { get; set; }
 
         /// <summary>
         /// Mediante una lista de <value>Ofertas</value> indicaremos las ofertas a las cual se postuló .
@@ -44,15 +49,14 @@ namespace ClassLibrary
         /// </summary>
         public List<Oferta> ofertasConsumidas { get; set; }
    
-        public Emprendedor(string nombre, List<Habilitacion> habilitaciones, string ubicacion, List<Rubro> rubro)
+        public Emprendedor(string id, string nombre, List<Habilitacion> habilitaciones, string ciudad, string direccion, Rubro rubro)
         {
-            this.nombre = nombre;
-            this.habilitaciones = habilitaciones;
-            this.ubicacion = ubicacion;
-            this.rubro = rubro;
+            this.Id = id;
+            this.Nombre = nombre;
+            this.Habilitaciones = habilitaciones;
+            this.Ubicacion = new Ubicacion(ciudad, direccion);
+            this.Rubro = rubro;
         }
-
-
 
         /// <summary>
         /// Mediante una oferta esté se postulará a ella.
