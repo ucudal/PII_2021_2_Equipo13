@@ -36,7 +36,7 @@ namespace ClassLibrary
             {
                 foreach (Oferta oferta in empresa.Ofertas)
                 {
-                    if(oferta.Estado !== Oferta.Estados.Habilitada) continue;
+                    if(oferta.Estado != Oferta.Estados.Habilitada) continue;
                     
                     double distanciaMedia = 0;
                     int puntaje = 0;
