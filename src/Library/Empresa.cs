@@ -87,5 +87,19 @@ namespace Library
             }
             return ofertasPropias;
         }
+        
+        /// <summary>
+        /// Recupera una oferta de la lista de ofertas utilizando su id y una id dada.
+        /// </summary>
+        /// <param name="id">Id de la oferta a recuperar.</param>
+        /// <returns>La instancia de Oferta correspondiente a la id dada.</returns>
+        public Oferta ObtenerOfertaPorId(string id)
+        {
+            foreach(Oferta oferta in this.Ofertas){
+                if (oferta.Id == id)
+                    return oferta;
+            }
+            throw new KeyNotFoundException("No se encontró la oferta con el id dado.");
+        }
     }
 }
