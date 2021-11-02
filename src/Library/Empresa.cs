@@ -38,12 +38,22 @@ namespace Library
             Nombre = nombre;
         }
         /// <summary>
+        /// Crea una nueva Oferta y la añade a la lista de ofertas de la empresa.
         /// </summary>
-        /// <param name="oferta">la oferta que se desea publicar</param>
-        /// <returns></returns>
-        public Oferta PublicarOferta(Oferta oferta)
+        /// <param name="id">El id único de la oferta generada</param>
+        /// <param name="fechaCierre">La fecha de cierre de la oferta</param>
+        /// <param name="etiquetas">Las etiquetas o palabras clave de la oferta</param>
+        /// <param name="habilitaciones">Las habilitaciones requeridas para tomar la oferta</param>
+        /// <param name="valorUYU">El valor en UYU de la oferta</param>
+        /// <param name="valorUSD">El valor en USD de la oferta</param>
+        /// <param name="descripcion">La descripción de la oferta</param>
+        /// <param name="titulo">El titulo de la oferta</param>
+        public void PublicarOferta(string id, DateTime fechaCierre, List<string> etiquetas,
+            List<Habilitacion> habilitaciones, double valorUYU, double valorUSD, string descripcion,
+            string titulo)
         {
-            this.Ofertas.Add(oferta);
+            Ofertas.Add(new Oferta(id, fechaCierre, etiquetas, habilitaciones,
+                valorUYU, valorUSD, descripcion, titulo, this));
         }
         /// <summary>
         /// </summary>
@@ -60,12 +70,12 @@ namespace Library
             }
         }
         /// <summary>
-        ///    Muestra las ofertas publicadas por la empresa en una lista filtrada por fecha y canal.
+        /// Muestra las ofertas publicadas por la empresa en una lista filtrada por fecha.
         /// </summary>
         /// <param name="inicio">Fecha de inicio</param>
         /// <param name="fin">Fecha de fin</param>
         /// <returns></returns>
-        public List<Oferta> VerOfertasPropias(DateTime inicio, DateTime fin, ICanal canal)
+        public List<Oferta> VerOfertasPropias(DateTime inicio, DateTime fin)
         {
             List<Oferta> ofertasPropias = new List<Oferta>();
             foreach (Oferta oferta in this.Ofertas)
