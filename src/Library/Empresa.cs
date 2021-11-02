@@ -29,20 +29,45 @@ namespace Library
             Rubro = rubro;
             Nombre = nombre;
         }
-
+        /// <summary>
+        /// </summary>
+        /// <param name="oferta">la oferta que se desea publicar</param>
+        /// <returns></returns>
         public Oferta PublicarOferta(Oferta oferta)
         {
-            throw new NotImplementedException();
+            this.Ofertas.Add(oferta);
         }
-
+        /// <summary>
+        /// </summary>
+        /// <param name="oferta">la oferta que se desea modificar</param>
         public void ActualizarOferta(Oferta oferta)
         {
-            throw new NotImplementedException();
+            foreach (Oferta _oferta in this.Ofertas)
+            {
+                if (_oferta.Id == oferta.Id)
+                {
+                    this.Ofertas.Remove(_oferta);
+                    this.Ofertas.Add(oferta);
+                }
+            }
         }
-
+        /// <summary>
+        ///    Muestra las ofertas publicadas por la empresa en una lista filtrada por fecha y canal.
+        /// </summary>
+        /// <param name="inicio">Fecha de inicio</param>
+        /// <param name="fin">Fecha de fin</param>
+        /// <returns></returns>
         public List<Oferta> VerOfertasPropias(DateTime inicio, DateTime fin, ICanal canal)
         {
-            throw new NotImplementedException();
+            List<Oferta> ofertasPropias = new List<Oferta>();
+            foreach (Oferta oferta in this.Ofertas)
+            {
+                if (oferta.FechaCreada >= inicio && oferta.FechaCierre <= fin)
+                {
+                    ofertas.Add(oferta);
+                }
+            }
+            return ofertasPropias;
         }
     }
 }
