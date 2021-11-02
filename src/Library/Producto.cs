@@ -22,7 +22,7 @@ namespace ClassLibrary
            this.Ubicacion = new Ubicacion(ciudad, direccion);
            this.CantidadEnUnidad = cantidadEnUnidad;
            this.ValorUYU = valorUYU;
-           this.valorUSD = valorUSD;
+           this.ValorUSD = valorUSD;
         }
         
         /// <summary>
