@@ -21,6 +21,14 @@ namespace Library
         
         public string Nombre { get; }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Identificación de la estructura de datos</param>
+        /// <param name="ofertas">listado de ofertas propias</param>
+        /// <param name="ubicacion">ubicación de la empresa</param>
+        /// <param name="rubro">rubro al que pertenece</param>
+        /// <param name="nombre">Nombre comercial</param>
         public Empresa(string id, List<Oferta> ofertas, Ubicacion ubicacion, Rubro rubro, string nombre)
         {
             Id = id;
