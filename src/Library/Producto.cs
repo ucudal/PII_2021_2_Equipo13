@@ -14,6 +14,9 @@ namespace ClassLibrary
     public class Producto
     {
         
+        /// <summary>
+        /// Crea una instancia de Producto
+        /// </summary>
         public Producto(Material material, string ciudad, string direccion, double cantidadEnUnidad, double valorUYU, double valorUSD){
            this.Material = material;
            this.Ubicacion = new Ubicacion(ciudad, direccion);
