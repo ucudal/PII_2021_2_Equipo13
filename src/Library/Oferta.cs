@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 
-namespace ProyectoFinal.GestionOferta
+namespace ClassLibrary
 {
     public class Oferta 
     {   
@@ -68,7 +68,7 @@ namespace ProyectoFinal.GestionOferta
         /// Método para comunicarse con la clase Producto.
         /// </summary>
         /// <param name="producto">producto</param>
-        public ObtenerProducto (Producto producto)
+        public void ObtenerProducto (Producto producto)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
@@ -76,11 +76,11 @@ namespace ProyectoFinal.GestionOferta
         /// Método para comunicarse con la clase Empresa.
         /// </summary>
         /// <param name="empresa">empresa</param>
-        public ObtenerEmpresa (Empresa empresa)
+        public void ObtenerEmpresa (Empresa empresa)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
-        public ObtenerHabilitacion (Habilitacion habilitacion)
+        public void  ObtenerHabilitacion (Habilitacion habilitacion)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
@@ -89,7 +89,7 @@ namespace ProyectoFinal.GestionOferta
         /// </summary>
         /// <param name="emprendedor">emprendedor</param>
         /// <returns></returns>
-        public ObtenerEmprendedor (Emprendedor emprendedor)
+        public void ObtenerEmprendedor (Emprendedor emprendedor)
         {
            throw new Exception("A la espera de la definición de la persistencia");
         }
@@ -101,7 +101,7 @@ namespace ProyectoFinal.GestionOferta
         {
             StringBuilder redaccion = new StringBuilder();
 
-            redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa {Empresa} con validez hasta el {FechaCierre}.");
+            redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa .");
 
             redaccion.Append($"Para postularse a esta oferta deberá cumplir con la habilitación: {Habilitaciones}.");
             return redaccion.ToString();
@@ -114,7 +114,7 @@ namespace ProyectoFinal.GestionOferta
         {
             StringBuilder redaccionCorta = new StringBuilder();
             
-            redaccionCorta.Append($"Oferta {Titulo}: {Descripcion}. Empresa {FechaCreada} Fecha inicio {Empresa}, Fecha cierre: {FechaCierre};.");
+            redaccionCorta.Append($"Oferta {Titulo}: {Descripcion}. Empresa {FechaCreada} , Fecha cierre: ;.");
 
             redaccionCorta.Append("Habilitaciones: " + this.Habilitaciones);
             return redaccionCorta.ToString();

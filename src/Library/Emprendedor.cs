@@ -74,7 +74,7 @@ namespace ClassLibrary
         /// Mediante palabras calve, un buscador y un canal se obtendran las ofertas consumidas que coincidan con las ofertas consumidas
         /// y se guardará en la Lista <value>ofertasConsumidas</value> .
         /// </summary>
-        public void obtenerOfertasConsumidas(List<string> pClave, Buscador buscador, ICanal canal){
+        public void obtenerOfertasConsumidas(List<string> pClave,  ICanal canal){
             // TODO     return buscador.ofertasConsumidas();
         }
 

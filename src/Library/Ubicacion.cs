@@ -1,4 +1,4 @@
-namespace Library
+namespace ClassLibrary
 {
     /// <summary>
     /// Patrones y principios utilizados en esta clase:
@@ -19,7 +19,7 @@ namespace Library
 
         public string Redactar()
         {
-            return $"{this.Departamento} {this.Ciudad} { NumPuerta } {Calle} {Esquina}";
+            return $"{this.Ciudad}, {this.Direccion} ";
         }
 
     }

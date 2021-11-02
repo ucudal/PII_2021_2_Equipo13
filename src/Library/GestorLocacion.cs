@@ -1,4 +1,4 @@
-namespace Library
+namespace ClassLibrary
 {
     public abstract class GestorLocacion
     {

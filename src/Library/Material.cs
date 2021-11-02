@@ -1,6 +1,7 @@
 using System;
+using System.Collections.Generic;
 
-namespace ProyectoFinal.GestionMateriales
+namespace ClassLibrary
 {
     public class Material
     {
@@ -19,14 +20,14 @@ namespace ProyectoFinal.GestionMateriales
         /// <param name="nombre">nombre</param>
         /// <param name="categorias">categorias</param>
         /// <param name="unidadEstandar">unidadEstandar</param>
-        public Material(string nombre, string[] categorias, string unidadEstandar)
+        public Material(string nombre, List<string> categorias, string unidadEstandar)
         {
             this.Nombre = nombre;
             this.Categorias = categorias;
             this.UnidadEstandar = unidadEstandar;
         }
         public string Nombre {get;}
-        public string[] Categorias {get;}
+        public List<string> Categorias {get;}
         public string UnidadEstandar {get; }
     }
 }
