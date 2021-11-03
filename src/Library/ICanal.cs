@@ -6,14 +6,15 @@ namespace ClassLibrary
     public interface ICanal
     {
         /// <summary>
-        /// Este método se encargará de recibir los mensajes
+        /// Recibe un mensaje de un usuario
         /// </summary>
-        string recibirMensaje();
+        string RecibirMensaje();
 
         /// <summary>
-        /// Este método se encargará de enviar los mensajes
+        /// Envía un mensaje a un usuario
         /// </summary>
-        void enviarMensaje(string message);
+        /// <param name="message">message</param>        
+        void EnviarMensaje(string message);
 
     }
 

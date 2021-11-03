@@ -13,51 +13,52 @@ namespace ClassLibrary
     /// </summary>
     public class Producto
     {
-
         /// <summary>
         /// Crea una instancia de Producto
         /// </summary>
-        public Producto(Material material, string ciudad, string direccion, double cantidadEnUnidad, double valorUYU, double valorUSD)
-        {
-            this.Material = material;
-            this.Ubicacion = new Ubicacion(ciudad, direccion);
-            this.CantidadEnUnidad = cantidadEnUnidad;
-            this.ValorUYU = valorUYU;
-            this.ValorUSD = valorUSD;
+        /// <param name="nombre"></param>
+        /// <param name="material"></param>
+        /// <param name="ubicacion"></param>
+        public Producto(Material material, string ciudad, string direccion, double cantidadEnUnidad, double valorUYU, double valorUSD){
+           this.Material = material;
+           this.Ubicacion = new Ubicacion(ciudad, direccion);
+           this.CantidadEnUnidad = cantidadEnUnidad;
+           this.ValorUYU = valorUYU;
+           this.ValorUSD = valorUSD;
         }
-
+        
         /// <summary>
         /// Instancia de material correspondiente al material ofrecido dentro de un producto
         /// </summary>
-        public Material Material { get; set; }
-
+        public Material Material{get; set;} 
+        
         /// <summary>
         /// Instancia de ubicacion correspondiente a la ubicacion donde se almacena el producto
         /// </summary>
-        public Ubicacion Ubicacion { get; set; }
-
+        public Ubicacion Ubicacion{get; set;}      
+        
         /// <summary>
         /// Cantidad del material en su unidad especifica
         /// </summary>
-        public double CantidadEnUnidad { get; set; }
-
+        public double CantidadEnUnidad{get; set;}   
+        
         /// <summary>
         /// Valor en pesos uruguayos del producto
         /// </summary>
-        public double ValorUYU { get; set; }
-
+        public double ValorUYU{get; set;}           
+        
         /// <summary>
         /// Valor en dólares estadounidenses del producto
         /// </summary>
-        public double ValorUSD { get; set; }
-        
+        public double ValorUSD{get; set;} 
+
         /// <summary>
         /// Redaccion del producto formateada
         /// </summary>
         public string Redaccion
         {
             get{
-                return ($"{this.CantidadEnUnidades} {this.Material.UnidadEstandar} de {this.Material.Nombre}");
+                return ($"{this.CantidadEnUnidad} {this.Material.UnidadEstandar} de {this.Material.Nombre}");
             }
         }
     }

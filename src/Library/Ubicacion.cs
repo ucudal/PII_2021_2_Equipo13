@@ -9,15 +9,22 @@ namespace ClassLibrary
     public class Ubicacion
     {
         public string Ciudad { get; }
-
         public string Direccion { get; }
 
+        /// <summary>
+        /// Crea una instancia de la clase Ubicacion
+        /// </summary>
+        /// <param name="ciudad">Ciudad</param>
+        /// <param name="direccion">Dirección</param>
         public Ubicacion(string ciudad, string direccion)
         {
             this.Ciudad = ciudad;
             this.Direccion = direccion;
         }
-
+        /// <summary>
+        /// Genera una cadena de texto con la información de la ubicación
+        /// </summary>
+        /// <returns>Retorna un string con la ubicación formateada</returns>
         public string Redactar()
         {
             return $"{this.Direccion}, {this.Ciudad}";

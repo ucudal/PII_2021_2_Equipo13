@@ -12,24 +12,31 @@ namespace ClassLibrary
     public class Empresa
     {
         public string Id { get; }
-
+        
         public List<Oferta> Ofertas { get; }
 
         public Ubicacion Ubicacion { get; }
-
-        public Rubro Rubro { get; }
-
+        
+        public Rubro Rubro { get; } 
+        
         public string Nombre { get; }
-
-        public Empresa(string id, string ciudad, string direccion, Rubro rubro, string nombre)
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Identificación de la estructura de datos</param>
+        /// <param name="ofertas">listado de ofertas propias</param>
+        /// <param name="ubicacion">ubicación de la empresa</param>
+        /// <param name="rubro">rubro al que pertenece</param>
+        /// <param name="nombre">Nombre comercial</param>
+        public Empresa(string id, List<Oferta> ofertas, string ciudad, string direccion, Rubro rubro, string nombre)
         {
-            Id = id;
-            Ofertas = new List<Oferta>();
-            Ubicacion = new Ubicacion(ciudad, direccion);
-            Rubro = rubro;
-            Nombre = nombre;
+            this.Id = id;
+            this.Ofertas = ofertas;
+            this.Ubicacion = new Ubicacion(ciudad, direccion);
+            this.Rubro = rubro;
+            this.Nombre = nombre;
         }
-
         /// <summary>
         /// Crea una nueva Oferta y la añade a la lista de ofertas de la empresa.
         /// </summary>
@@ -37,17 +44,20 @@ namespace ClassLibrary
         /// <param name="fechaCierre">La fecha de cierre de la oferta</param>
         /// <param name="etiquetas">Las etiquetas o palabras clave de la oferta</param>
         /// <param name="habilitaciones">Las habilitaciones requeridas para tomar la oferta</param>
-        /// /// <param name="descripcion">La descripción de la oferta</param>
+        /// <param name="valorUYU">El valor en UYU de la oferta</param>
+        /// <param name="valorUSD">El valor en USD de la oferta</param>
+        /// <param name="descripcion">La descripción de la oferta</param>
         /// <param name="titulo">El titulo de la oferta</param>
-        public Oferta PublicarOferta(string id, DateTime fechaCierre, List<string> etiquetas,
-            List<Habilitacion> habilitaciones, string descripcion, string titulo)
+        /// <param name="disponibleConstantemente">Indica si la oferta está disponible constantemente o puntualmente</param>
+        public Oferta PublicarOferta(string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas,
+            List<Habilitacion> habilitaciones, double valorUYU, double valorUSD, string descripcion,
+            string titulo, bool disponibleConstantemente)
         {
-            Oferta oferta = new Oferta(id, fechaCierre, etiquetas, habilitaciones,
-                descripcion, titulo, this);
+            Oferta oferta = new Oferta(id, empresa, fechaCierre, etiquetas, habilitaciones, valorUYU, valorUSD,
+                descripcion, titulo, disponibleConstantemente);
             Ofertas.Add(oferta);
             return oferta;
         }
-
         /// <summary>
         /// </summary>
         /// <param name="oferta">la oferta que se desea modificar</param>
@@ -62,7 +72,6 @@ namespace ClassLibrary
                 }
             }
         }
-
         /// <summary>
         /// Muestra las ofertas publicadas por la empresa en una lista filtrada por fecha.
         /// </summary>
@@ -81,7 +90,7 @@ namespace ClassLibrary
             }
             return ofertasPropias;
         }
-
+        
         /// <summary>
         /// Recupera una oferta de la lista de ofertas utilizando su id y una id dada.
         /// </summary>
@@ -89,8 +98,7 @@ namespace ClassLibrary
         /// <returns>La instancia de Oferta correspondiente a la id dada.</returns>
         public Oferta ObtenerOfertaPorId(string id)
         {
-            foreach (Oferta oferta in this.Ofertas)
-            {
+            foreach(Oferta oferta in this.Ofertas){
                 if (oferta.Id == id)
                     return oferta;
             }
