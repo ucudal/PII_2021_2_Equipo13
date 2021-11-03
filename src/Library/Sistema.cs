@@ -27,7 +27,7 @@ namespace ClassLibrary
         /// <summary>
         /// Registra una nueva empresa en el sistema.
         /// </summary>
-        public void RegistrarEmpresa(string id, string ciudad, string direccion, Rubro rubro, string nombre)
+        public void RegistrarEmpresa(string id, string ciudad, string direccion, string rubro, string nombre)
         {
             Empresa empresa = new Empresa(id, ciudad, direccion, rubro, nombre);
             this.Empresas.Add(empresa);
@@ -36,7 +36,7 @@ namespace ClassLibrary
         /// <summary>
         /// Registra un nuevo emprendedor en el sistema.
         /// </summary>
-        public void RegistrarEmprendedor(string id, string ciudad, string direccion, Rubro rubro, string nombre,
+        public void RegistrarEmprendedor(string id, string ciudad, string direccion, string rubro, string nombre,
             List<Habilitacion> habilitaciones)
         {
             Emprendedor emprendedor = new Emprendedor(id, nombre, habilitaciones, ciudad, direccion, rubro);

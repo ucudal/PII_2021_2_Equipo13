@@ -27,8 +27,6 @@ namespace ClassLibrary
         /// <param name="fechaCierre"> Fecha de cierre, límite para postularse a la oferta.</param>
         /// <param name="etiquetas">Etiquetas relacionadas a la oferta que sirven para agruparlas o clasificarlas</param>
         /// <param name="habilitaciones">Habilitaciones requeridas por la empresa para postularse a atender la oferta</param>
-        /// <param name="valorUYU">Valor en pesos uruguayos definido por la empresa que publica la oferta como retribución para la tarea.</param>
-        /// <param name="valorUSD">Valor en dólares USA definido  por la empresa que publica la oferta como retribución para la tarea.</param>
         /// <param name="descripcion">Descripcion realizada por la empresa</param>
         /// <param name="titulo">Titulo bajo el cual se publica la oferta</param>
         /// <param name="disponibleConstantemente">Para definir si una oferta es recurrente.</param>

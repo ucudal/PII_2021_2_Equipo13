@@ -8,7 +8,7 @@ namespace ClassLibrary
         /// <summary>
         /// Se indica el nombre <value>rubro</value> del rubro
         /// </summary>
-        public string Rubro { get; set; }
+        public string Nombre { get; set; }
 
         /// <summary>
         /// Se indica el nombre <value>rubro</value> del rubro
@@ -16,7 +16,7 @@ namespace ClassLibrary
         /// <param name="rubro">rubro</param>        
         public Rubro(string rubro)
         {
-            this.rubro = rubro;
+            this.Nombre = rubro;
         }
     }
 }

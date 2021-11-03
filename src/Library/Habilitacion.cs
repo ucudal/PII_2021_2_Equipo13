@@ -5,7 +5,6 @@ namespace ClassLibrary
     /// <summary>
     /// Esta clase respresenta los datos basicos y necesarios de una Habilitación
     /// </summary>
-
     public class Habilitacion
     {
         /// <summary>
@@ -33,15 +32,21 @@ namespace ClassLibrary
         /// </summary>
         public bool Vigente { get; set; }
 
-        public Habilitacion(string descripcion, string nombreInsitucionHabilitada, string fechaTramite, string fechaVencimiento, bool estado)
+        /// <summary>
+        /// Crea una instancia de Habilitacion
+        /// </summary>
+        /// <param name="descripcion">Descripcion de la Habilitacion</param>
+        /// <param name="nombreInsitucionHabilitada">Nombre de la institución que habilitó la habilitación</param>
+        /// <param name="fechaTramite">Fecha de Tramite de la Habilitacion</param>
+        /// <param name="fechaVencimiento">Fecha de Vencimiento de la Habilitacion</param>
+        /// <param name="vigente">Indica si la Habilitacion está vigente</param>
+        public Habilitacion(string descripcion, string nombreInsitucionHabilitada, DateTime fechaTramite, DateTime fechaVencimiento, bool vigente)
         {
-            this.descripcion = descripcion;
-            this.nombreInsitucionHabilitada = nombreInsitucionHabilitada;
-            this.fechaTramite = fechaTramite;
-            this.fechaVencimiento = fechaVencimiento;
-            this.estado = estado;
+            this.Descripcion = descripcion;
+            this.NombreInsitucionHabilitada = nombreInsitucionHabilitada;
+            this.FechaTramite = fechaTramite;
+            this.FechaVencimiento = fechaVencimiento;
+            this.Vigente = vigente;
         }
-
     }
-
 }

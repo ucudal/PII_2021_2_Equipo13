@@ -8,7 +8,15 @@ namespace ClassLibrary
     /// </summary>
     public class Ubicacion
     {
+        /// <summary>
+        /// Nombre de la ciudad de la ubicación
+        /// </summary>
         public string Ciudad { get; }
+
+        /// <summary>
+        /// Dirección correspondiente a la ubicación
+        /// </summary>
+        /// <value></value>
         public string Direccion { get; }
 
         /// <summary>

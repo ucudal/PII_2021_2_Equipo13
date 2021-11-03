@@ -11,30 +11,45 @@ namespace ClassLibrary
     /// </summary>
     public class Empresa
     {
+        /// <summary>
+        /// Id del usuario en el canal de registro
+        /// </summary>
         public string Id { get; }
         
+        /// <summary>
+        /// Id del usuario en el canal de registro
+        /// </summary>
         public List<Oferta> Ofertas { get; }
 
+        /// <summary>
+        /// Ubicación donde está basada la empresa
+        /// </summary>
         public Ubicacion Ubicacion { get; }
         
+        /// <summary>
+        /// Rubro al que pertenece la empresa
+        /// </summary>
         public Rubro Rubro { get; } 
         
+        /// <summary>
+        /// Nombre comercial de la empresa
+        /// </summary>
         public string Nombre { get; }
         
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id">Identificación de la estructura de datos</param>
-        /// <param name="ofertas">listado de ofertas propias</param>
-        /// <param name="ubicacion">ubicación de la empresa</param>
-        /// <param name="rubro">rubro al que pertenece</param>
-        /// <param name="nombre">Nombre comercial</param>
-        public Empresa(string id, List<Oferta> ofertas, string ciudad, string direccion, Rubro rubro, string nombre)
+        /// <param name="id">Id del usuario en el canal de registro</param>
+        /// <param name="ciudad">Ciudad donde está basada la empresa</param>
+        /// <param name="direccion">Direccion de la empresa</param>
+        /// <param name="rubro">Rubro al que pertenece la empresa</param>
+        /// <param name="nombre">Nombre comercial de la empresa</param>
+        public Empresa(string id, string ciudad, string direccion, string rubro, string nombre)
         {
             this.Id = id;
-            this.Ofertas = ofertas;
+            this.Ofertas = new List<Oferta>();
             this.Ubicacion = new Ubicacion(ciudad, direccion);
-            this.Rubro = rubro;
+            this.Rubro = new Rubro(rubro);
             this.Nombre = nombre;
         }
         /// <summary>
@@ -44,17 +59,13 @@ namespace ClassLibrary
         /// <param name="fechaCierre">La fecha de cierre de la oferta</param>
         /// <param name="etiquetas">Las etiquetas o palabras clave de la oferta</param>
         /// <param name="habilitaciones">Las habilitaciones requeridas para tomar la oferta</param>
-        /// <param name="valorUYU">El valor en UYU de la oferta</param>
-        /// <param name="valorUSD">El valor en USD de la oferta</param>
         /// <param name="descripcion">La descripción de la oferta</param>
         /// <param name="titulo">El titulo de la oferta</param>
         /// <param name="disponibleConstantemente">Indica si la oferta está disponible constantemente o puntualmente</param>
-        public Oferta PublicarOferta(string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas,
-            List<Habilitacion> habilitaciones, double valorUYU, double valorUSD, string descripcion,
-            string titulo, bool disponibleConstantemente)
+        public Oferta PublicarOferta(string id, DateTime fechaCierre, List<string> etiquetas,
+            List<Habilitacion> habilitaciones, string descripcion, string titulo, bool disponibleConstantemente)
         {
-            Oferta oferta = new Oferta(id, empresa, fechaCierre, etiquetas, habilitaciones, valorUYU, valorUSD,
-                descripcion, titulo, disponibleConstantemente);
+            Oferta oferta = new Oferta(id, this, fechaCierre, etiquetas, habilitaciones, descripcion, titulo, disponibleConstantemente);
             Ofertas.Add(oferta);
             return oferta;
         }
