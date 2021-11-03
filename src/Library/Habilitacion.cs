@@ -1,3 +1,5 @@
+using System;
+
 namespace ClassLibrary
 {
     /// <summary>
@@ -19,32 +21,25 @@ namespace ClassLibrary
         /// <summary>
         /// Se indica la <value>fechaTramite</value> de la Habiltiacion
         /// </summary>
-        public string FechaTramite { get; set; }
+        public DateTime FechaTramite { get; set; }
 
         /// <summary>
         /// Se indica la <value>fechaVencimiento</value> de la Habiltiacion
         /// </summary>
-        public string FechaVencimiento { get; set; }
+        public DateTime FechaVencimiento { get; set; }
 
         /// <summary>
-        /// Se indica el <value>estado</value> de la Habiltiacion
+        /// Se indica si la Habilitacion está <value>vigente</value>
         /// </summary>
-        public bool Estado { get; set; }
+        public bool Vigente { get; set; }
 
-
-        
-        /// <param name="descripcion">descripcion</param>
-        /// <param name="nombreInsitucionHabilitada">nombreInsitucionHabilitada</param>
-        /// <param name="fechaTramite">fechaTramite</param>
-        /// <param name="fechaVencimiento">fechaVencimiento</param>
-        /// <param name="estado">estado</param>        
         public Habilitacion(string descripcion, string nombreInsitucionHabilitada, string fechaTramite, string fechaVencimiento, bool estado)
         {
-            this.Descripcion = descripcion;
-            this.NombreInsitucionHabilitada = nombreInsitucionHabilitada;
-            this.FechaTramite = fechaTramite;
-            this.FechaVencimiento = fechaVencimiento;
-            this.Estado = estado;
+            this.descripcion = descripcion;
+            this.nombreInsitucionHabilitada = nombreInsitucionHabilitada;
+            this.fechaTramite = fechaTramite;
+            this.fechaVencimiento = fechaVencimiento;
+            this.estado = estado;
         }
 
     }

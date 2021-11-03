@@ -1,23 +1,23 @@
 namespace ClassLibrary
 {
-    public abstract class GestorLocacion
+    public static class GestorLocacion
     {
-        public void ObtenerDistancia(Ubicacion primaria, Ubicacion secundaria)
+        public static double ObtenerDistancia(Ubicacion primaria, Ubicacion secundaria)
+        {
+            return 1;
+        }
+
+        public static void ObtenerCoordenadas(string parametros)
         {
             
         }
 
-        public void ObtenerCoordenadas(string parametros)
+        public static void ObtenerMapaDeRuta(Ubicacion primaria, Ubicacion secundaria)
         {
             
         }
 
-        public void ObtenerMapaDeRuta(Ubicacion primaria, Ubicacion secundaria)
-        {
-            
-        }
-
-        public void ObtenerMapa(Ubicacion ubicacion)
+        public static void ObtenerMapa(Ubicacion ubicacion)
         {
             
         }

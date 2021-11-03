@@ -29,13 +29,13 @@ namespace ClassLibrary
         /// <param name="ubicacion">ubicación de la empresa</param>
         /// <param name="rubro">rubro al que pertenece</param>
         /// <param name="nombre">Nombre comercial</param>
-        public Empresa(string id, List<Oferta> ofertas, Ubicacion ubicacion, Rubro rubro, string nombre)
+        public Empresa(string id, List<Oferta> ofertas, string ciudad, string direccion, Rubro rubro, string nombre)
         {
-            Id = id;
-            Ofertas = ofertas;
-            Ubicacion = ubicacion;
-            Rubro = rubro;
-            Nombre = nombre;
+            this.Id = id;
+            this.Ofertas = ofertas;
+            this.Ubicacion = new Ubicacion(ciudad, direccion);
+            this.Rubro = rubro;
+            this.Nombre = nombre;
         }
         /// <summary>
         /// Crea una nueva Oferta y la añade a la lista de ofertas de la empresa.
