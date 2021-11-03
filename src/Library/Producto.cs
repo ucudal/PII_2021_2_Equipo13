@@ -55,7 +55,7 @@ namespace ClassLibrary
         public string Redaccion
         {
             get{
-                return ($"{this.CantidadEnUnidades} {this.Material.UnidadEstandar} de {this.Material.Nombre}");
+                return ($"{this.CantidadEnUnidad} {this.Material.UnidadEstandar} de {this.Material.Nombre}");
             }
         }
     }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 
 [TestClass]
-public class Tests
+public class TestHabilitaciones
 {
 
     // Lucas Giffuni

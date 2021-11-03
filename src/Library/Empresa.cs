@@ -49,12 +49,12 @@ namespace ClassLibrary
         /// <param name="descripcion">La descripción de la oferta</param>
         /// <param name="titulo">El titulo de la oferta</param>
         /// <param name="disponibleConstantemente">Indica si la oferta está disponible constantemente o puntualmente</param>
-        public Oferta PublicarOferta(string id, DateTime fechaCierre, List<string> etiquetas,
+        public Oferta PublicarOferta(string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas,
             List<Habilitacion> habilitaciones, double valorUYU, double valorUSD, string descripcion,
             string titulo, bool disponibleConstantemente)
         {
-            Oferta oferta = new Oferta(id, fechaCierre, etiquetas, habilitaciones,
-                descripcion, titulo, disponibleConstantemente, this);
+            Oferta oferta = new Oferta(id, empresa, fechaCierre, etiquetas, habilitaciones, valorUYU, valorUSD,
+                descripcion, titulo, disponibleConstantemente);
             Ofertas.Add(oferta);
             return oferta;
         }

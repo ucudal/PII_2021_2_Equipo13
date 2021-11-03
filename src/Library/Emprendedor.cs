@@ -27,7 +27,7 @@ namespace ClassLibrary
         /// <summary>
         /// Se indica la <value>Ubicacion</value> del emprendedor
         /// </summary>
-        public string Ubicacion { get; set; }
+        public Ubicacion Ubicacion { get; set; }
 
         /// <summary>
         /// Mediante una lista de <value>Rubo</value> indicaremos los rubros en el que el emprendedor se maneja.
@@ -48,7 +48,7 @@ namespace ClassLibrary
         /// <param name="habilitaciones">habilitaciones</param>
         /// <param name="ubicacion">ubicacion</param>
         /// <param name="rubro">rubro</param>
-        public Emprendedor(string nombre, List<Habilitacion> habilitaciones, string ubicacion, Rubro rubro)
+        public Emprendedor(string id, string nombre, List<Habilitacion> habilitaciones, Ubicacion ubicacion, Rubro rubro)
         {
             this.Nombre = nombre;
             this.Habilitaciones = habilitaciones;
@@ -63,7 +63,9 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="ofertas">Ofertas</param>
         public void postularseAOfertas(List<Oferta> ofertas){
-            // TODO
+            foreach( Oferta oferta in ofertas){
+                OfertasPostuladas.Add(oferta);
+            }
         }
 
 

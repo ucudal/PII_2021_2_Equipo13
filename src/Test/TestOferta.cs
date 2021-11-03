@@ -41,7 +41,7 @@ namespace Tests{
         public void TestOfertaHabilitaciones()
         {
         
-        Habilitacion habilitacion1 = new Habilitacion("Procesamiento Residuos Hospitalarios", "Acme Procesamiento de Resiudos", 01/01/19, 31/12/21)
+        Habilitacion habilitacion1 = new Habilitacion("Procesamiento Residuos Hospitalarios", "Acme Procesamiento de Resiudos", 01/01/19, 31/12/21);
         Oferta oferta1 = new Oferta("1234", Empresa1, 31/12/21, Etiqueta1, habilitaciones1, 1000, 4400, descripcion1);
         string expected = "Procesamiento Residuos Hospitalarios";
         Assert.AreEqual(expected, oferta1.habilitacion1.descripcion);

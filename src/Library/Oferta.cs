@@ -32,7 +32,7 @@ namespace ClassLibrary
         /// <param name="descripcion">Descripcion realizada por la empresa</param>
         /// <param name="titulo">Titulo bajo el cual se publica la oferta</param>
         /// <param name="disponibleConstantemente">Para definir si una oferta es recurrente.</param>
-        public Oferta (string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas, string habilitaciones, double valorUYU, double valorUSD, string descripcion, string titulo, bool disponibleConstantemente)
+        public Oferta (string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas, List<Habilitacion> habilitaciones, double valorUYU, double valorUSD, string descripcion, string titulo, bool disponibleConstantemente)
         {
             this.Id = id;                           //01
             this.Empresa = empresa;                 //02
@@ -62,7 +62,7 @@ namespace ClassLibrary
         public DateTime FechaCierre {get; }
         public List<string> Etiquetas {get; }
         public Estados Estado {get; }
-        public string Habilitaciones {get; }
+        public List<Habilitacion> Habilitaciones {get; }
         public double ValorUSD {get; }
         public double ValorUYU {get; }
         public string Descripcion {get; }
@@ -79,9 +79,9 @@ namespace ClassLibrary
         /// <param name="cantidadEnUnidades">Cantidad de unidades/param>
         /// <param name="valorUYU">Valor en pesos uruguayos.</param>
         /// <param name="valorUSD">Valor en dolares usa.</param>
-        public void AgregarProducto (Material material, Ubicacion ubicacion, double cantidadEnUnidades, double valorUYU, double valorUSD)
+        public void AgregarProducto (Material material, string ciudad, string direccion, double cantidadEnUnidades, double valorUYU, double valorUSD)
         {
-            Producto producto = new Producto ( material,  ubicacion,  cantidadEnUnidades,  valorUYU,  valorUSD);
+            Producto producto = new Producto ( material,  ciudad, direccion,  cantidadEnUnidades,  valorUYU,  valorUSD);
             this.Productos.Add(producto);
         }
         
