@@ -31,7 +31,8 @@ namespace ClassLibrary
         /// <param name="valorUSD">Valor en dólares USA definido  por la empresa que publica la oferta como retribución para la tarea.</param>
         /// <param name="descripcion">Descripcion realizada por la empresa</param>
         /// <param name="titulo">Titulo bajo el cual se publica la oferta</param>
-        public Oferta (string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas, string habilitaciones, double valorUYU, double valorUSD, string descripcion, string titulo)
+        /// <param name="disponibleConstantemente">Para definir si una oferta es recurrente.</param>
+        public Oferta (string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas, string habilitaciones, double valorUYU, double valorUSD, string descripcion, string titulo, bool disponibleConstantemente)
         {
             this.Id = id;                           //01
             this.Empresa = empresa;                 //02
@@ -44,6 +45,7 @@ namespace ClassLibrary
             this.ValorUSD = valorUSD;               //09
             this.Descripcion = descripcion;         //10
             this.Titulo = titulo;                   //11  
+            this.DisponibleConstantemente = disponibleConstantemente;  //12
         }      
 
         /// <summary>
@@ -66,6 +68,7 @@ namespace ClassLibrary
         public string Descripcion {get; }
         public string Titulo {get; }
         public List<Producto> Productos {get; }
+        public bool DisponibleConstantemente { get; set; }
       
         //aplicando Creator
         /// <summary>

@@ -1,7 +1,6 @@
 using System;
 using NUnit.Framework;
 using ClassLibrary;
-
 using System.Collections.Generic;
 
 
@@ -75,8 +74,5 @@ public class Tests
         string expected = true;
         Assert.AreEqual(expected, expected);
     }
-
-
-
 
 }
