@@ -54,7 +54,6 @@ namespace ClassLibrary
             Cerrada,
             Suspendida
         }
-        
         public string Id {get; }
         public Empresa Empresa {get; }
         public DateTime FechaCreada {get; }
@@ -67,36 +66,7 @@ namespace ClassLibrary
         public string Descripcion {get; }
         public string Titulo {get; }
         public List<Producto> Productos {get; }
-        
-        /// <summary>
-        /// Método para comunicarse con la clase Empresa.
-        /// </summary>
-        /// <param name="empresa">empresa</param>
-        public void ObtenerEmpresa (Empresa empresa)
-        {
-            throw new Exception("A la espera de la definición de la persistencia");
-        }
-        
-        /// <summary>
-        /// Método para comunicarse con la clase Habilitacion.
-        /// </summary>
-        /// <param name="habilitacion"></param>
-        /// <returns></returns>
-        public void ObtenerHabilitacion (Habilitacion habilitacion)
-        {
-            throw new Exception("A la espera de la definición de la persistencia");
-        }
-        
-         /// <summary>
-        /// Método para comunicarse con la clase Emprendedor.
-        /// </summary>
-        /// <param name="emprendedor">emprendedor</param>
-        /// <returns></returns>
-        public void ObtenerEmprendedor (Emprendedor emprendedor)
-        {
-           throw new Exception("A la espera de la definición de la persistencia");
-        }
-        
+      
         //aplicando Creator
         /// <summary>
         /// Agrega un producto a la lista de productos.
@@ -111,7 +81,7 @@ namespace ClassLibrary
             Producto producto = new Producto ( material,  ubicacion,  cantidadEnUnidades,  valorUYU,  valorUSD);
             this.Productos.Add(producto);
         }
-
+        
         /// <summary>
         /// Quita un producto de la lista.
         /// </summary>
