@@ -31,7 +31,7 @@ namespace ClassLibrary
         /// </summary>
         /// <value></value>
         
-        public double CantidadEnUnidades{get; set;}   
+        public double CantidadEnUnidad{get; set;}   
         /// <summary>
         /// Esto representara la cantidad del producto en su propia unidad, la unidad esta en el maetrial
         /// </summary>
