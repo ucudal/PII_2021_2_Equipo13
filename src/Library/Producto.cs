@@ -16,6 +16,9 @@ namespace ClassLibrary
         /// <summary>
         /// Crea una instancia de Producto
         /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="material"></param>
+        /// <param name="ubicacion"></param>
         public Producto(Material material, string ciudad, string direccion, double cantidadEnUnidad, double valorUYU, double valorUSD){
            this.Material = material;
            this.Ubicacion = new Ubicacion(ciudad, direccion);

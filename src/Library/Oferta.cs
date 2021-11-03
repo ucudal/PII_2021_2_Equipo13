@@ -101,7 +101,7 @@ namespace ClassLibrary
         {
             StringBuilder redaccion = new StringBuilder();
 
-            redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa {Empresa} con validez hasta el {FechaCierre}.");
+            redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa .");
 
             redaccion.Append($"Para postularse a esta oferta deberá cumplir con la habilitación: {Habilitaciones}.");
             redaccion.Append($"Tiene tiempo para postularse a esta oferta hasta el día: {this.FechaCierre} inclusive.");

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ClassLibrary
@@ -30,7 +31,6 @@ namespace ClassLibrary
         /// </summary>
         /// <value></value>
         public string Nombre {get;}
-
         /// <summary>
         /// Categorías en las que esta incluido el material.
         /// </summary>

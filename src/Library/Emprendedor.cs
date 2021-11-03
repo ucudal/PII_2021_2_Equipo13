@@ -87,14 +87,9 @@ namespace ClassLibrary
         /// </summary>
         /// <param name="pClave">pClave</param>
         /// <param name="buscador">buscador</param>
-        /// <param name="canal">canal</param>
-        public void obtenerOfertasConsumidas(List<string> pClave, Buscador buscador, ICanal canal){
+        public void obtenerOfertasConsumidas(List<string> pClave, Buscador buscador){
             // TODO     return buscador.ofertasConsumidas();
         }
-
-
-
-
     }
 
 }
