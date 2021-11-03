@@ -18,7 +18,7 @@ namespace ClassLibrary
         /// <param name="primaria">ubicacion primaria</param>
         /// <param name="secundaria">ubicacion secundaria</param>
         /// <returns></returns>
-        public async Task<double> ObtenerDistancia(Ubicacion primaria, Ubicacion secundaria)
+        public double ObtenerDistancia(Ubicacion primaria, Ubicacion secundaria)
         {
             Location locationA = new Location();
             locationA.AddresLine = primaria.Direccion;
@@ -28,7 +28,9 @@ namespace ClassLibrary
             locationB.AddresLine = secundaria.Direccion;
             locationB.CountryRegion = secundaria.Ciudad;
 
-            Distance distance = await this.Client.GetDistanceAsync(locationA, locationB);
+            var taskDistance = this.Client.GetDistanceAsync(locationA, locationB);
+            taskDistance.Wait();
+            Distance distance = taskDistance.Result;
 
             if (distance.Found ) {
                 return distance.TravelDistance;

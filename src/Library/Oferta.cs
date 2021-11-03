@@ -27,12 +27,10 @@ namespace ClassLibrary
         /// <param name="fechaCierre"> Fecha de cierre, límite para postularse a la oferta.</param>
         /// <param name="etiquetas">Etiquetas relacionadas a la oferta que sirven para agruparlas o clasificarlas</param>
         /// <param name="habilitaciones">Habilitaciones requeridas por la empresa para postularse a atender la oferta</param>
-        /// <param name="valorUYU">Valor en pesos uruguayos definido por la empresa que publica la oferta como retribución para la tarea.</param>
-        /// <param name="valorUSD">Valor en dólares USA definido  por la empresa que publica la oferta como retribución para la tarea.</param>
         /// <param name="descripcion">Descripcion realizada por la empresa</param>
         /// <param name="titulo">Titulo bajo el cual se publica la oferta</param>
         /// <param name="disponibleConstantemente">Para definir si una oferta es recurrente.</param>
-        public Oferta (string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas, List<Habilitacion> habilitaciones, double valorUYU, double valorUSD, string descripcion, string titulo, bool disponibleConstantemente)
+        public Oferta (string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas, List<Habilitacion> habilitaciones, string descripcion, string titulo, bool disponibleConstantemente)
         {
             this.Id = id;                           //01
             this.Empresa = empresa;                 //02
@@ -41,11 +39,10 @@ namespace ClassLibrary
             this.Etiquetas = etiquetas;             //05
             this.Estado = Estados.Habilitada;       //06
             this.Habilitaciones = habilitaciones;   //07
-            this.ValorUYU = valorUYU;               //08
-            this.ValorUSD = valorUSD;               //09
-            this.Descripcion = descripcion;         //10
-            this.Titulo = titulo;                   //11  
-            this.DisponibleConstantemente = disponibleConstantemente;  //12
+            this.Descripcion = descripcion;         //08
+            this.Titulo = titulo;                   //09
+            this.DisponibleConstantemente = disponibleConstantemente;  //10
+            this.EmprendedoresPostulados = new List<Emprendedor>();    //11
         }      
 
         /// <summary>
@@ -63,12 +60,35 @@ namespace ClassLibrary
         public List<string> Etiquetas {get; }
         public Estados Estado {get; }
         public List<Habilitacion> Habilitaciones {get; }
-        public double ValorUSD {get; }
-        public double ValorUYU {get; }
+        public double ValorUSD
+        {
+            get
+            {
+                double valorUSD = 0;
+                foreach (Producto producto in this.Productos)
+                {
+                    valorUSD += producto.ValorUSD;
+                }
+                return valorUSD;
+            }
+        }
+        public double ValorUYU
+        {
+            get
+            {
+                double valorUYU = 0;
+                foreach (Producto producto in this.Productos)
+                {
+                    valorUYU += producto.ValorUYU;
+                }
+                return valorUYU;
+            }
+        }
         public string Descripcion {get; }
         public string Titulo {get; }
         public List<Producto> Productos {get; }
         public bool DisponibleConstantemente { get; set; }
+        public List<Emprendedor> EmprendedoresPostulados { get; set; }
       
         //aplicando Creator
         /// <summary>
@@ -101,7 +121,7 @@ namespace ClassLibrary
         {
             StringBuilder redaccion = new StringBuilder();
 
-            redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa {Empresa} con validez hasta el {FechaCierre}.");
+            redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa .");
 
             redaccion.Append($"Para postularse a esta oferta deberá cumplir con la habilitación: {Habilitaciones}.");
             redaccion.Append($"Tiene tiempo para postularse a esta oferta hasta el día: {this.FechaCierre} inclusive.");

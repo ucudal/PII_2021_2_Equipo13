@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 
@@ -14,6 +15,11 @@ namespace ClassLibrary
 
     public class Emprendedor
     {   
+        /// <summary>
+        /// Se indica el <value>Id</value> en Telegram del emprendedor
+        /// </summary>
+        public string Id { get; set; }
+
         /// <summary>
         /// Se indica el <value>Nombre</value> del emprendedor
         /// </summary>
@@ -44,57 +50,82 @@ namespace ClassLibrary
         /// </summary>
         public List<Oferta> OfertasConsumidas { get; set; }
         
+        /// <summary>
+        /// Crea una instancia de Emprendedor
+        /// </summary>
+        /// <param name="id">Id del emprendedor en Telegram</param>
         /// <param name="nombre">nombre</param>
         /// <param name="habilitaciones">habilitaciones</param>
-        /// <param name="ubicacion">ubicacion</param>
-        /// <param name="rubro">rubro</param>
-        public Emprendedor(string id, string nombre, List<Habilitacion> habilitaciones, Ubicacion ubicacion, Rubro rubro)
+        /// <param name="ciudad">La ciudad donde se basa la empresa</param>
+        /// <param name="direccion">La direccion de la empresa en la ciudad</param>
+        /// <param name="rubro">El rubro dentro del cual trabaja la empresa</param>
+        public Emprendedor(string id, string nombre, List<Habilitacion> habilitaciones, string ciudad, string direccion, string rubro)
         {
+            this.Id = id;
             this.Nombre = nombre;
             this.Habilitaciones = habilitaciones;
-            this.Ubicacion = ubicacion;
-            this.Rubro = rubro;
+            this.Ubicacion = new Ubicacion(ciudad, direccion);
+            this.Rubro = new Rubro(rubro);
+            this.OfertasConsumidas = new List<Oferta>();
+            this.OfertasPostuladas = new List<Oferta>();
         }
-
-
 
         /// <summary>
         /// Mediante una oferta esté se postulará a ella.
         /// </summary>
-        /// <param name="ofertas">Ofertas</param>
-        public void postularseAOfertas(List<Oferta> ofertas){
-            foreach( Oferta oferta in ofertas){
+        /// <param name="ofertas">Lista de ofertas a postularse</param>
+        public void PostularseAOferta(List<Oferta> ofertas){
+            foreach(Oferta oferta in ofertas){
                 OfertasPostuladas.Add(oferta);
+                oferta.EmprendedoresPostulados.Add(this);
             }
         }
-
+      
+        /// <summary>
+        /// Mediante una oferta esté se postulará a ella.
+        /// </summary>
+        /// <param name="oferta">Oferta a postularse</param>
+        public void PostularseAOferta(Oferta oferta){
+            OfertasPostuladas.Add(oferta);
+            oferta.EmprendedoresPostulados.Add(this);
+        }
 
         /// <summary>
         /// Mediante una una fecha de inicio y de fin, ademas del un canal se obtendrán todas las ofertas postuladas en ese periodo de tiempo
         /// y se guardará en la Lista <value>ofertasPostuladas</value> .
         /// </summary>
-        /// <param name="fechaInicio">fechaInicio</param>
-        /// <param name="fechaFin">fechaFin</param>
-        /// <param name="canal">canal</param>
-
-        public void obtenerOfertaspostuladas(string fechaInicio, string fechaFin, ICanal canal){
-            // TODO     return buscador.ofertasPostuladas();
+        /// <param name="inicio">fechaInicio</param>
+        /// <param name="fin">fechaFin</param>
+        public List<Oferta> VerOfertasPostuladas(DateTime inicio, DateTime fin)
+        {
+            List<Oferta> ofertasPostuladas = new List<Oferta>();
+            foreach (Oferta oferta in this.OfertasPostuladas)
+            {
+                if (oferta.FechaCreada >= inicio && oferta.FechaCierre <= fin)
+                {
+                    ofertasPostuladas.Add(oferta);
+                }
+            }
+            return ofertasPostuladas;
         }
 
-    /// <summary>
+        /// <summary>
         /// Mediante palabras calve, un buscador y un canal se obtendran las ofertas consumidas que coincidan con las ofertas consumidas
         /// y se guardará en la Lista <value>ofertasConsumidas</value> .
         /// </summary>
-        /// <param name="pClave">pClave</param>
-        /// <param name="buscador">buscador</param>
-        /// <param name="canal">canal</param>
-        public void obtenerOfertasConsumidas(List<string> pClave, Buscador buscador, ICanal canal){
-            // TODO     return buscador.ofertasConsumidas();
+        /// <param name="inicio">Fecha de inicio del periodo en el que se quiere buscar</param>
+        /// <param name="fin">Fecha de fin del periodo en el que se quiere buscar</param>
+        public List<Oferta> VerOfertasConsumidas(DateTime inicio, DateTime fin)
+        {
+            List<Oferta> ofertasConsumidas = new List<Oferta>();
+            foreach (Oferta oferta in this.OfertasConsumidas)
+            {
+                if (oferta.FechaCreada >= inicio && oferta.FechaCierre <= fin)
+                {
+                    ofertasConsumidas.Add(oferta);
+                }
+            }
+            return ofertasConsumidas;
         }
-
-
-
-
     }
-
 }

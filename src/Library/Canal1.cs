@@ -1,13 +1,23 @@
 namespace ClassLibrary
 {
+    /// <summary>
+    /// Clase de ejemplo para una implementación de la interfaz ICanal utilizada en los tests donde es relevante tener una implementación de un canal.
+    /// </summary>
     public class Canal1 : ICanal
     {
-        public void enviarMensaje(string message)
+        /// <summary>
+        /// Envía un mensaje a un usuario de un canal.
+        /// </summary>
+        /// <param name="message"></param>
+        public void EnviarMensaje(string message)
         {
             throw new System.NotImplementedException();
         }
 
-        public string recibirMensaje()
+        /// <summary>
+        /// Recibe un mensaje de un usuario de un canal.
+        /// </summary>
+        public string RecibirMensaje()
         {
             throw new System.NotImplementedException();
         }

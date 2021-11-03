@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace ClassLibrary
 {
     /// <summary>
@@ -7,10 +9,18 @@ namespace ClassLibrary
     /// </summary>
     public class Ubicacion
     {
+        /// <summary>
+        /// Nombre de la ciudad de la ubicación
+        /// </summary>
         public string Ciudad { get; }
+
+        /// <summary>
+        /// Dirección correspondiente a la ubicación
+        /// </summary>
+        /// <value></value>
         public string Direccion { get; }
 
-        public GestorLocacion GestorLocacion = new GestorLocacion();
+        private GestorLocacion GestorLocacion = new GestorLocacion();
 
         /// <summary>
         /// Crea una instancia de la clase Ubicacion
@@ -29,6 +39,16 @@ namespace ClassLibrary
         public string Redactar()
         {
             return $"{this.Direccion}, {this.Ciudad}";
+        }
+
+        /// <summary>
+        /// Delega la responsabilidad de calcular la distancia al gestor.
+        /// </summary>
+        /// <param name="target">Distancia objectivo</param>
+        /// <returns></returns>
+        public double ObtenerDistancia(Ubicacion target)
+        {
+            return GestorLocacion.ObtenerDistancia(this, target);
         }
 
     }

@@ -27,20 +27,48 @@ namespace ClassLibrary
         /// <summary>
         /// Registra una nueva empresa en el sistema.
         /// </summary>
-        public void RegistrarEmpresa(string id, List<Oferta> ofertas, Ubicacion ubicacion, Rubro rubro, string nombre)
+        public void RegistrarEmpresa(string id, string ciudad, string direccion, string rubro, string nombre)
         {
-            Empresa empresa = new Empresa(id, ofertas, ubicacion, rubro, nombre);
+            Empresa empresa = new Empresa(id, ciudad, direccion, rubro, nombre);
             this.Empresas.Add(empresa);
         }
 
         /// <summary>
         /// Registra un nuevo emprendedor en el sistema.
         /// </summary>
-        public void RegistrarEmprendedor(string id,Ubicacion ubicacion, Rubro rubro, string nombre,
+        public void RegistrarEmprendedor(string id, string ciudad, string direccion, string rubro, string nombre,
             List<Habilitacion> habilitaciones)
         {
-            Emprendedor emprendedor = new Emprendedor(id, nombre, habilitaciones, ubicacion, rubro);
+            Emprendedor emprendedor = new Emprendedor(id, nombre, habilitaciones, ciudad, direccion, rubro);
             this.Emprendedores.Add(emprendedor);
+        }
+
+        /// <summary>
+        /// Recupera una empresa de la lista de empresas utilizando su id y una id dada.
+        /// </summary>
+        /// <param name="id">Id de la empresa a recuperar.</param>
+        /// <returns>La instancia de Empresa correspondiente a la id dada.</returns>
+        public Empresa ObtenerEmpresaPorId(string id)
+        {
+            foreach(Empresa empresa in this.Empresas){
+                if (empresa.Id == id)
+                    return empresa;
+            }
+            throw new KeyNotFoundException("No se encontró la empresa con el id dado.");
+        }
+
+        /// <summary>
+        /// Recupera un emprendedor de la lista de emprendedores utilizando su id y una id dada.
+        /// </summary>
+        /// <param name="id">Id del emprendedor a recuperar.</param>
+        /// <returns>La instancia de Emprendedor correspondiente a la id dada.</returns>
+        public Emprendedor ObtenerEmprendedorPorId(string id)
+        {
+            foreach(Emprendedor emprendedor in this.Emprendedores){
+                if (emprendedor.Id == id)
+                    return emprendedor;
+            }
+            throw new KeyNotFoundException("No se encontró el emprendedor con el id dado.");
         }
 
         /// <summary>

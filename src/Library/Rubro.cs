@@ -8,15 +8,15 @@ namespace ClassLibrary
         /// <summary>
         /// Se indica el nombre <value>rubro</value> del rubro
         /// </summary>
-        public string rubro { get; set; }
+        public string Nombre { get; set; }
 
+        /// <summary>
+        /// Se indica el nombre <value>rubro</value> del rubro
+        /// </summary>
         /// <param name="rubro">rubro</param>        
-
         public Rubro(string rubro)
         {
-            this.rubro = rubro;
+            this.Nombre = rubro;
         }
-
     }
-
 }
