@@ -11,6 +11,8 @@ namespace ClassLibrary
         public string Ciudad { get; }
         public string Direccion { get; }
 
+        public GestorLocacion GestorLocacion = new GestorLocacion();
+
         /// <summary>
         /// Crea una instancia de la clase Ubicacion
         /// </summary>
