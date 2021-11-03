@@ -29,9 +29,9 @@ namespace ClassLibrary
         public DateTime FechaVencimiento { get; set; }
 
         /// <summary>
-        /// Se indica el <value>estado</value> de la Habiltiacion
+        /// Se indica si la Habilitacion está <value>vigente</value>
         /// </summary>
-        public bool Estado { get; set; }
+        public bool Vigente { get; set; }
 
         public Habilitacion(string descripcion, string nombreInsitucionHabilitada, string fechaTramite, string fechaVencimiento, bool estado)
         {
