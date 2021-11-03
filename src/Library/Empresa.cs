@@ -12,15 +12,15 @@ namespace ClassLibrary
     public class Empresa
     {
         public string Id { get; }
-        
+
         public List<Oferta> Ofertas { get; }
 
         public Ubicacion Ubicacion { get; }
-        
-        public Rubro Rubro { get; } 
-        
+
+        public Rubro Rubro { get; }
+
         public string Nombre { get; }
-        
+
         public Empresa(string id, string ciudad, string direccion, Rubro rubro, string nombre)
         {
             Id = id;
@@ -37,9 +37,7 @@ namespace ClassLibrary
         /// <param name="fechaCierre">La fecha de cierre de la oferta</param>
         /// <param name="etiquetas">Las etiquetas o palabras clave de la oferta</param>
         /// <param name="habilitaciones">Las habilitaciones requeridas para tomar la oferta</param>
-        /// <param name="valorUYU">El valor en UYU de la oferta</param>
-        /// <param name="valorUSD">El valor en USD de la oferta</param>
-        /// <param name="descripcion">La descripción de la oferta</param>
+        /// /// <param name="descripcion">La descripción de la oferta</param>
         /// <param name="titulo">El titulo de la oferta</param>
         public Oferta PublicarOferta(string id, DateTime fechaCierre, List<string> etiquetas,
             List<Habilitacion> habilitaciones, string descripcion, string titulo)
@@ -50,14 +48,38 @@ namespace ClassLibrary
             return oferta;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="oferta">la oferta que se desea modificar</param>
         public void ActualizarOferta(Oferta oferta)
         {
-            throw new NotImplementedException();
+            foreach (Oferta _oferta in this.Ofertas)
+            {
+                if (_oferta.Id == oferta.Id)
+                {
+                    this.Ofertas.Remove(_oferta);
+                    this.Ofertas.Add(oferta);
+                }
+            }
         }
 
-        public List<Oferta> VerOfertasPropias(DateTime inicio, DateTime fin, ICanal canal)
+        /// <summary>
+        /// Muestra las ofertas publicadas por la empresa en una lista filtrada por fecha.
+        /// </summary>
+        /// <param name="inicio">Fecha de inicio</param>
+        /// <param name="fin">Fecha de fin</param>
+        /// <returns></returns>
+        public List<Oferta> VerOfertasPropias(DateTime inicio, DateTime fin)
         {
-            throw new NotImplementedException();
+            List<Oferta> ofertasPropias = new List<Oferta>();
+            foreach (Oferta oferta in this.Ofertas)
+            {
+                if (oferta.FechaCreada >= inicio && oferta.FechaCierre <= fin)
+                {
+                    ofertasPropias.Add(oferta);
+                }
+            }
+            return ofertasPropias;
         }
 
         /// <summary>
@@ -67,7 +89,8 @@ namespace ClassLibrary
         /// <returns>La instancia de Oferta correspondiente a la id dada.</returns>
         public Oferta ObtenerOfertaPorId(string id)
         {
-            foreach(Oferta oferta in this.Ofertas){
+            foreach (Oferta oferta in this.Ofertas)
+            {
                 if (oferta.Id == id)
                     return oferta;
             }

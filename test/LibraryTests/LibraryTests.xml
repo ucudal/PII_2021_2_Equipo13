@@ -11,12 +11,46 @@
         </member>
         <member name="M:Tests.UserStoriesTests.RegistroDeEmpresaTest">
             <summary>
-            Prueba para las historias de usuario 1 y 2; registro de una empresa en el sistema.
+            Prueba para las historias de usuario 1 y 2: registro de una empresa en el sistema.
             </summary>
         </member>
         <member name="M:Tests.UserStoriesTests.PublicarOfertaTest">
             <summary>
-            Prueba para la historia de usuario 3; publicación de oferta.
+            Prueba para las historias de usuario 3, 4, 5 y 6:
+             - Publicación de ofertas
+             - Información de materiales y materiales en oferta (productos)
+             - Información de habilitaciones requeridas
+             - Inclusión de palabras clave en ofertas
+            </summary>
+        </member>
+        <member name="M:Tests.UserStoriesTests.RegistroDeEmprendedorTest">
+            <summary>
+            Prueba para las historias de usuario 1 y 7: registro de un emprendedor en el sistema.
+            </summary>
+        </member>
+        <member name="M:Tests.UserStoriesTests.BuscarOfertasTest">
+            <summary>
+            Prueba para la historia de usuario 8: Búsqueda de ofertas.
+            </summary>
+        </member>
+        <member name="M:Tests.UserStoriesTests.GenerarOfertas(ClassLibrary.Empresa)">
+            <summary>
+            Método para cargar varias ofertas de ejemplo en una empresa.
+            </summary>
+        </member>
+        <member name="M:Tests.UserStoriesTests.OfertaRecurrenteTest">
+            <summary>
+            Prueba para la historia de usuario 9 y 10: Recurrencia de ofertas
+            </summary>
+        </member>
+        <member name="M:Tests.UserStoriesTests.OfertasEntregadasTest">
+            <summary>
+            Prueba para la historia de usuario 11: Ofertas entregadas
+            </summary>
+        </member>
+        <member name="M:Tests.UserStoriesTests.OfertasConsumidasTest">
+            <summary>
+            Prueba para la historia de usuario 12: Ofertas consumidas por emprendedor
             </summary>
         </member>
     </members>

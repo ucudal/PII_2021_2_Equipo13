@@ -98,7 +98,7 @@
             Mediante una lista de <value>Ofertas</value> indicaremos las ofertas consumidas a las cual se postuló .
             </summary>
         </member>
-        <member name="M:ClassLibrary.Emprendedor.postularseAOfertas(System.Collections.Generic.List{ClassLibrary.Oferta})">
+        <member name="M:ClassLibrary.Emprendedor.PostularseAOferta(ClassLibrary.Oferta)">
             <summary>
             Mediante una oferta esté se postulará a ella.
             </summary>
@@ -109,10 +109,8 @@
             y se guardará en la Lista <value>ofertasPostuladas</value> .
             </summary>
         </member>
-        <member name="M:ClassLibrary.Emprendedor.obtenerOfertasConsumidas(System.Collections.Generic.List{System.String},ClassLibrary.Buscador,ClassLibrary.ICanal)">
+        <member name="M:ClassLibrary.Emprendedor.VerOfertasConsumidas(System.DateTime,System.DateTime)">
             <summary>
-            Mediante palabras calve, un buscador y un canal se obtendran las ofertas consumidas que coincidan con las ofertas consumidas
-            y se guardará en la Lista <value>ofertasConsumidas</value> .
             </summary>
         </member>
         <member name="T:ClassLibrary.Empresa">
@@ -131,10 +129,21 @@
             <param name="fechaCierre">La fecha de cierre de la oferta</param>
             <param name="etiquetas">Las etiquetas o palabras clave de la oferta</param>
             <param name="habilitaciones">Las habilitaciones requeridas para tomar la oferta</param>
-            <param name="valorUYU">El valor en UYU de la oferta</param>
-            <param name="valorUSD">El valor en USD de la oferta</param>
-            <param name="descripcion">La descripción de la oferta</param>
+            /// <param name="descripcion">La descripción de la oferta</param>
             <param name="titulo">El titulo de la oferta</param>
+        </member>
+        <member name="M:ClassLibrary.Empresa.ActualizarOferta(ClassLibrary.Oferta)">
+            <summary>
+            </summary>
+            <param name="oferta">la oferta que se desea modificar</param>
+        </member>
+        <member name="M:ClassLibrary.Empresa.VerOfertasPropias(System.DateTime,System.DateTime)">
+            <summary>
+            Muestra las ofertas publicadas por la empresa en una lista filtrada por fecha.
+            </summary>
+            <param name="inicio">Fecha de inicio</param>
+            <param name="fin">Fecha de fin</param>
+            <returns></returns>
         </member>
         <member name="M:ClassLibrary.Empresa.ObtenerOfertaPorId(System.String)">
             <summary>
@@ -284,35 +293,43 @@
         </member>
         <member name="T:ClassLibrary.Producto">
             <summary>
-            Esta es la clase Producto. se encarga de almacenar los datos de un producto.
-            Implementa el principio de responsabilidad única. su unica funcion es el crear un producto y almacenar sus datos.
-            Esta clase tiene acoplaje con Material y Ubicacion ya que depende significativamente de ellas.
+            Clase que representa un Producto dentro del dominio del problema. Un Producto representa una
+            instancia de venta de un Material, conteniendo su cantidad en su unidad específica, un valor
+            en UYU y otro en dólares asignados por su vendedor y la ubicación donde se almacena.
+            Se aplica el patrón de SRP y se obtiene una alta cohesión dentro de la clase Producto, al
+            asignarle únicamente las responsabilidades de contener información sobre un producto y
+            redactarla adecuadamente y enfocando sus propiedades y métodos para estos objetivos.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Producto.#ctor(ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            Crea una instancia de Producto
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Producto.Material">
+            <summary>
+            Instancia de material correspondiente al material ofrecido dentro de un producto
             </summary>
         </member>
         <member name="P:ClassLibrary.Producto.Ubicacion">
             <summary>
-            Una implementacion de la clase material, con el material del que esta compuesto el producto.
+            Instancia de ubicacion correspondiente a la ubicacion donde se almacena el producto
             </summary>
-            <value></value>
         </member>
         <member name="P:ClassLibrary.Producto.CantidadEnUnidad">
             <summary>
-            Una implementacion de la clase ubicacion, con la ubicacion del material.
-            Utilizo el principio de creador porque creo instancias de ubicacion y material. ya que guarda y contiene instancias de sus objetos
+            Cantidad del material en su unidad especifica
             </summary>
-            <value></value>
         </member>
         <member name="P:ClassLibrary.Producto.ValorUYU">
             <summary>
-            Esto representara la cantidad del producto en su propia unidad, la unidad esta en el maetrial
+            Valor en pesos uruguayos del producto
             </summary>
-            <value></value>
         </member>
         <member name="P:ClassLibrary.Producto.ValorUSD">
             <summary>
-            Valor en Pesos Uruguayos del producto
+            Valor en dólares estadounidenses del producto
             </summary>
-            <value></value>
         </member>
         <member name="T:ClassLibrary.Rubro">
             <summary>

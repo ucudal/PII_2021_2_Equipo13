@@ -27,17 +27,19 @@ namespace ClassLibrary
         /// <param name="etiquetas">Lista de etiquetas a utilizar para filtrar.</param>
         /// <param name="categorias">Lista de categorías a utilizar para filtrar.</param>
         /// <returns>Lista de ofertas ordenadas según la relevancia calculada para la búsqueda.</returns>
-        public List<Oferta> BuscarOfertas(Sistema sistema, Emprendedor emprendedor, List<string> etiquetas,
-            List<string> categorias)
+        public List<Oferta> BuscarOfertas(Sistema sistema, Emprendedor emprendedor, List<string> etiquetas = null,
+            List<string> categorias = null)
         {
             Dictionary<Oferta, int> ofertasEncontradas = new Dictionary<Oferta, int>();
+            etiquetas = etiquetas == null ? new List<string>() : etiquetas;
+            categorias = categorias == null ? new List<string>() : categorias;
 
             foreach (Empresa empresa in sistema.Empresas)
             {
                 foreach (Oferta oferta in empresa.Ofertas)
                 {
-                    if(oferta.Estado != Oferta.Estados.Habilitada) continue;
-                    
+                    if (oferta.Estado != Oferta.Estados.Habilitada) continue;
+
                     double distanciaMedia = 0;
                     int puntaje = 0;
                     foreach (string etiqueta in etiquetas)

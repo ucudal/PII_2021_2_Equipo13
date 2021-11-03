@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace ClassLibrary
 {
-    public class Oferta 
-    {   
+    public class Oferta
+    {
         /// <summary>
         ///  La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
         ///  Patrones y principios aplicados:
@@ -28,7 +28,7 @@ namespace ClassLibrary
         /// <param name="descripcion">descripcion</param>
         /// <param name="titulo">titulo</param>
         /// <param name="empresa">empresa</param>
-        public Oferta (string id, DateTime fechaCierre, List<string> etiquetas, List<Habilitacion> habilitaciones, 
+        public Oferta(string id, DateTime fechaCierre, List<string> etiquetas, List<Habilitacion> habilitaciones,
             string descripcion, string titulo, Empresa empresa)
         {
             this.Id = id;                           //01
@@ -42,11 +42,13 @@ namespace ClassLibrary
             this.EmpresaCreadora = empresa;         //11
             this.Productos = new List<Producto>();  //12
         }
-        
-        public enum Estados{
+
+        public enum Estados
+        {
             Habilitada,
             Cerrada,
-            Suspendida
+            Suspendida,
+            Entregada
         }
 
         //1. Poner acá como propiedades, las conexiones con las clases en las que se relaciona, ver el diagrama UML
@@ -54,25 +56,31 @@ namespace ClassLibrary
         //3. Cambiar la propiedad Estado para que arranque por defecto en "habilitada"
         //4. Ver la posibilidad de que al ingresar el valor en pesos/dolares se haga la comberción automáticamente al otro valor.
 
-        public string Id {get; }
-        public DateTime FechaCreada {get; }
-        public DateTime FechaCierre {get; }
-        public List<string> Etiquetas {get; }
-        public Estados Estado {get; }
-        public List<Habilitacion> Habilitaciones {get; }
-        public double ValorUSD {
-            get{
+        public string Id { get; }
+        public DateTime FechaCreada { get; }
+        public DateTime FechaCierre { get; }
+        public List<string> Etiquetas { get; set; }
+        public Estados Estado { get; set; }
+        public List<Habilitacion> Habilitaciones { get; }
+        public double ValorUSD
+        {
+            get
+            {
                 double valorUSD = 0;
-                foreach(Producto producto in this.Productos){
+                foreach (Producto producto in this.Productos)
+                {
                     valorUSD += producto.ValorUSD;
                 }
                 return valorUSD;
             }
         }
-        public double ValorUYU {
-            get{
+        public double ValorUYU
+        {
+            get
+            {
                 double valorUYU = 0;
-                foreach(Producto producto in this.Productos){
+                foreach (Producto producto in this.Productos)
+                {
                     valorUYU += producto.ValorUYU;
                 }
                 return valorUYU;
@@ -83,11 +91,17 @@ namespace ClassLibrary
         public List<Producto> Productos { get; }
         public Empresa EmpresaCreadora { get; }
 
+        public void AgregarProducto(Material material, string ciudad, string direccion, double cantidadEnUnidad,
+            double valorUYU, double valorUSD)
+        {
+            this.Productos.Add(new Producto(material, ciudad, direccion, cantidadEnUnidad, valorUYU, valorUSD));
+        }
+
         /// <summary>
         /// Método para comunicarse con la clase Producto.
         /// </summary>
         /// <param name="producto">producto</param>
-        public void ObtenerProducto (Producto producto)
+        public void ObtenerProducto(Producto producto)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
@@ -95,22 +109,22 @@ namespace ClassLibrary
         /// Método para comunicarse con la clase Empresa.
         /// </summary>
         /// <param name="empresa">empresa</param>
-        public void ObtenerEmpresa (Empresa empresa)
+        public void ObtenerEmpresa(Empresa empresa)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
-        public void ObtenerHabilitacion (Habilitacion habilitacion)
+        public void ObtenerHabilitacion(Habilitacion habilitacion)
         {
             throw new Exception("A la espera de la definición de la persistencia");
         }
-         /// <summary>
+        /// <summary>
         /// Método para comunicarse con la clase Emprendedor.
         /// </summary>
         /// <param name="emprendedor">emprendedor</param>
         /// <returns></returns>
-        public void ObtenerEmprendedor (Emprendedor emprendedor)
+        public void ObtenerEmprendedor(Emprendedor emprendedor)
         {
-           throw new Exception("A la espera de la definición de la persistencia");
+            throw new Exception("A la espera de la definición de la persistencia");
         }
 
         /// <summary>
@@ -132,7 +146,7 @@ namespace ClassLibrary
         public string RedactarResumen()
         {
             StringBuilder redaccionCorta = new StringBuilder();
-            
+
             redaccionCorta.Append($"Oferta {Titulo}: {Descripcion}. Empresa {this.EmpresaCreadora.Nombre} Fecha inicio {FechaCreada}, Fecha cierre: {FechaCierre};.");
 
             redaccionCorta.Append("Habilitaciones: " + this.Habilitaciones);
@@ -145,9 +159,9 @@ namespace ClassLibrary
         public string RedactarPostulados()
         {
             StringBuilder redaccionPostulados = new StringBuilder();
-            redaccionPostulados.Append("Emprendedores postulados:" );
+            redaccionPostulados.Append("Emprendedores postulados:");
             {
-                throw new Exception("A la espera de la definición de la persistencia"); 
+                throw new Exception("A la espera de la definición de la persistencia");
             }
             return redaccionPostulados.ToString();
         }

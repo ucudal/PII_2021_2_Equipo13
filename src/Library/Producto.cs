@@ -4,43 +4,51 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Esta es la clase Producto. se encarga de almacenar los datos de un producto.
-    /// Implementa el principio de responsabilidad única. su unica funcion es el crear un producto y almacenar sus datos.
-    /// Esta clase tiene acoplaje con Material y Ubicacion ya que depende significativamente de ellas.
+    /// Clase que representa un Producto dentro del dominio del problema. Un Producto representa una
+    /// instancia de venta de un Material, conteniendo su cantidad en su unidad específica, un valor
+    /// en UYU y otro en dólares asignados por su vendedor y la ubicación donde se almacena.
+    /// Se aplica el patrón de SRP y se obtiene una alta cohesión dentro de la clase Producto, al
+    /// asignarle únicamente las responsabilidades de contener información sobre un producto y
+    /// redactarla adecuadamente y enfocando sus propiedades y métodos para estos objetivos.
     /// </summary>
     public class Producto
     {
-        
-       public Material Material{get; set;} 
-        /// <summary>
-        /// Una implementacion de la clase material, con el material del que esta compuesto el producto.
-        /// </summary>
-        /// <value></value>
-     
-        public Ubicacion Ubicacion{get; set;}      
-        /// <summary>
-        /// Una implementacion de la clase ubicacion, con la ubicacion del material.
-        /// Utilizo el principio de creador porque creo instancias de ubicacion y material. ya que guarda y contiene instancias de sus objetos
-        /// </summary>
-        /// <value></value>
-        
-        public double CantidadEnUnidad{get; set;}   
-        /// <summary>
-        /// Esto representara la cantidad del producto en su propia unidad, la unidad esta en el maetrial
-        /// </summary>
-        /// <value></value>
-        
-        public double ValorUYU{get; set;}           
-        /// <summary>
-        /// Valor en Pesos Uruguayos del producto
-        /// </summary>
-        /// <value></value>
-        
-        public double ValorUSD{get; set;} 
-        /// <summary>
-        /// Valor en Dolar del producto
-        /// </summary>
-        /// <value></value>
 
+        /// <summary>
+        /// Crea una instancia de Producto
+        /// </summary>
+        public Producto(Material material, string ciudad, string direccion, double cantidadEnUnidad, double valorUYU, double valorUSD)
+        {
+            this.Material = material;
+            this.Ubicacion = new Ubicacion(ciudad, direccion);
+            this.CantidadEnUnidad = cantidadEnUnidad;
+            this.ValorUYU = valorUYU;
+            this.ValorUSD = valorUSD;
+        }
+
+        /// <summary>
+        /// Instancia de material correspondiente al material ofrecido dentro de un producto
+        /// </summary>
+        public Material Material { get; set; }
+
+        /// <summary>
+        /// Instancia de ubicacion correspondiente a la ubicacion donde se almacena el producto
+        /// </summary>
+        public Ubicacion Ubicacion { get; set; }
+
+        /// <summary>
+        /// Cantidad del material en su unidad especifica
+        /// </summary>
+        public double CantidadEnUnidad { get; set; }
+
+        /// <summary>
+        /// Valor en pesos uruguayos del producto
+        /// </summary>
+        public double ValorUYU { get; set; }
+
+        /// <summary>
+        /// Valor en dólares estadounidenses del producto
+        /// </summary>
+        public double ValorUSD { get; set; }
     }
 }
