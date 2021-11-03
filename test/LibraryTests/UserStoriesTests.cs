@@ -109,7 +109,7 @@ namespace Tests
             nombre = "Aserradero El Madero";
             ciudad = "Montevideo";
             direccion = "Av. Luis Albert de Herrera 2890";
-            rubro = new Rubro("Maderera");
+            rubro = "Maderera";
             Sistema.Instancia.RegistrarEmpresa(id, ciudad, direccion, rubro, nombre);
             Empresa empresa = Sistema.Instancia.ObtenerEmpresaPorId("123456");
 
@@ -246,7 +246,7 @@ namespace Tests
             Emprendedor emprendedor = Sistema.Instancia.ObtenerEmprendedorPorId(id);
 
             string idOferta = empresa.Id + "-3";
-            emprendedor.ofertasConsumidas.Add(empresa.ObtenerOfertaPorId(idOferta));
+            emprendedor.OfertasConsumidas.Add(empresa.ObtenerOfertaPorId(idOferta));
 
             Oferta ofertaConsumida = emprendedor.VerOfertasConsumidas(new DateTime(2021, 11, 1), new DateTime(2021, 12, 2))[0];
             Assert.AreEqual(ofertaConsumida, empresa.ObtenerOfertaPorId(idOferta));

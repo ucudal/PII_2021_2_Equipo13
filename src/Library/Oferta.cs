@@ -62,8 +62,11 @@ namespace ClassLibrary
             /// <summary>
             /// Se le asigna a una oferta para indicar que por algún motivo no esta disponible la oferta.
             /// </summary>
-            /// <value></value>
-            Suspendida
+            Suspendida,
+            /// <summary>
+            /// Se le asigna a una oferta para indicar que fue entregada a un Emprendedor.
+            /// </summary>
+            Entregada
         }
         /// <summary>
         /// Es una string que identifica a la oferta y que permite referenciarla a lo largo del sitema.
@@ -94,7 +97,7 @@ namespace ClassLibrary
         /// Estado indica cuál es la situación actual de una Oferta.
         /// </summary>
         /// <value>Estado indica si una oferta esta habilitada, cerrada o suspendida.</value>
-        public Estados Estado {get; }
+        public Estados Estado { get; set; }
         /// <summary>
         /// Indica cuáles son las habilitaciones que exige la empresa para postularse a la oferta.
         /// </summary>
