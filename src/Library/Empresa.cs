@@ -84,7 +84,7 @@ namespace Library
             {
                 if (oferta.FechaCreada >= inicio && oferta.FechaCierre <= fin)
                 {
-                    ofertas.Add(oferta);
+                    ofertasPropias.Add(oferta);
                 }
             }
             return ofertasPropias;
