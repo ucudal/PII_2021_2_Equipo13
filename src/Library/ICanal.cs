@@ -1,19 +1,19 @@
 namespace ClassLibrary
 {
     /// <summary>
-    /// Esta clase respresenta la interfaz de los canales
+    /// Esta clase respresenta la interfaz de los canales.
     /// </summary>
     public interface ICanal
     {
         /// <summary>
-        /// Recibe un mensaje de un usuario
+        /// Recibe un mensaje de un usuario.
         /// </summary>
         string RecibirMensaje();
 
         /// <summary>
-        /// Envía un mensaje a un usuario
+        /// Envía un mensaje a un usuario.
         /// </summary>
-        /// <param name="message">message</param>        
+        /// <param name="message">Mensaje a enviar al usuario.</param>       
         void EnviarMensaje(string message);
 
     }

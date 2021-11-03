@@ -12,38 +12,38 @@ namespace ClassLibrary
     public class Empresa
     {
         /// <summary>
-        /// Id del usuario en el canal de registro
+        /// Id del usuario en el canal de registro.
         /// </summary>
         public string Id { get; }
         
         /// <summary>
-        /// Id del usuario en el canal de registro
+        /// Id del usuario en el canal de registro.
         /// </summary>
         public List<Oferta> Ofertas { get; }
 
         /// <summary>
-        /// Ubicación donde está basada la empresa
+        /// Ubicación donde está basada la empresa.
         /// </summary>
         public Ubicacion Ubicacion { get; }
         
         /// <summary>
-        /// Rubro al que pertenece la empresa
+        /// Rubro al que pertenece la empresa.
         /// </summary>
         public Rubro Rubro { get; } 
         
         /// <summary>
-        /// Nombre comercial de la empresa
+        /// Nombre comercial de la empresa.
         /// </summary>
         public string Nombre { get; }
         
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id">Id del usuario en el canal de registro</param>
-        /// <param name="ciudad">Ciudad donde está basada la empresa</param>
-        /// <param name="direccion">Direccion de la empresa</param>
-        /// <param name="rubro">Rubro al que pertenece la empresa</param>
-        /// <param name="nombre">Nombre comercial de la empresa</param>
+        /// <param name="id">Id del usuario en el canal de registro.</param>
+        /// <param name="ciudad">Ciudad donde está basada la empresa.</param>
+        /// <param name="direccion">Direccion de la empresa.</param>
+        /// <param name="rubro">Rubro al que pertenece la empresa.</param>
+        /// <param name="nombre">Nombre comercial de la empresa.</param>
         public Empresa(string id, string ciudad, string direccion, string rubro, string nombre)
         {
             this.Id = id;
@@ -55,13 +55,13 @@ namespace ClassLibrary
         /// <summary>
         /// Crea una nueva Oferta y la añade a la lista de ofertas de la empresa.
         /// </summary>
-        /// <param name="id">El id único de la oferta generada</param>
-        /// <param name="fechaCierre">La fecha de cierre de la oferta</param>
-        /// <param name="etiquetas">Las etiquetas o palabras clave de la oferta</param>
-        /// <param name="habilitaciones">Las habilitaciones requeridas para tomar la oferta</param>
-        /// <param name="descripcion">La descripción de la oferta</param>
-        /// <param name="titulo">El titulo de la oferta</param>
-        /// <param name="disponibleConstantemente">Indica si la oferta está disponible constantemente o puntualmente</param>
+        /// <param name="id">El id único de la oferta generada.</param>
+        /// <param name="fechaCierre">La fecha de cierre de la oferta.</param>
+        /// <param name="etiquetas">Las etiquetas o palabras clave de la oferta.</param>
+        /// <param name="habilitaciones">Las habilitaciones requeridas para tomar la oferta.</param>
+        /// <param name="descripcion">La descripción de la oferta.</param>
+        /// <param name="titulo">El titulo de la oferta.</param>
+        /// <param name="disponibleConstantemente">Indica si la oferta está disponible constantemente o puntualmente.</param>
         public Oferta PublicarOferta(string id, DateTime fechaCierre, List<string> etiquetas,
             List<Habilitacion> habilitaciones, string descripcion, string titulo, bool disponibleConstantemente)
         {
@@ -71,7 +71,7 @@ namespace ClassLibrary
         }
         /// <summary>
         /// </summary>
-        /// <param name="oferta">la oferta que se desea modificar</param>
+        /// <param name="oferta">la oferta que se desea modificar.</param>
         public void ActualizarOferta(Oferta oferta)
         {
             foreach (Oferta _oferta in this.Ofertas)
@@ -86,8 +86,8 @@ namespace ClassLibrary
         /// <summary>
         /// Muestra las ofertas publicadas por la empresa en una lista filtrada por fecha.
         /// </summary>
-        /// <param name="inicio">Fecha de inicio</param>
-        /// <param name="fin">Fecha de fin</param>
+        /// <param name="inicio">Fecha de inicio del periodo en el que se quiere buscar.</param>
+        /// <param name="fin">Fecha de fin del periodo en el que se quiere buscar.</param>
         /// <returns></returns>
         public List<Oferta> VerOfertasPropias(DateTime inicio, DateTime fin)
         {
