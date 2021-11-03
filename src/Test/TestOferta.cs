@@ -11,11 +11,9 @@ namespace Tests{
         [Test]
         public void TestOfertaId()
         {
-        Oferta oferta1 = new Oferta("1234", Empresa1, 31/12/21, Etiqueta1, habilitaciones, 1000, 4400, descripcion1);
-
-        string expected = "1234";
-        Assert.AreEqual(expected, oferta1.Id);
-
+            const string expected = "1234";
+            Oferta oferta1 = new Oferta("1234", Empresa1, 31/12/21, Etiqueta1, habilitaciones, 1000, 4400, descripcion1);
+            Assert.AreEqual(expected, oferta1.Id);
         }
         
         [Test]
