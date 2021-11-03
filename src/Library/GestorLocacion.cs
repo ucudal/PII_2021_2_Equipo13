@@ -11,6 +11,13 @@ namespace ClassLibrary
     public class GestorLocacion
     {
         LocationApiClient Client = new LocationApiClient();
+
+        /// <summary>
+        /// Sirve para obtener la distancia entre dos ubicaciones.
+        /// </summary>
+        /// <param name="primaria">ubicacion primaria</param>
+        /// <param name="secundaria">ubicacion secundaria</param>
+        /// <returns></returns>
         public async Task<double> ObtenerDistancia(Ubicacion primaria, Ubicacion secundaria)
         {
             Location locationA = new Location();
@@ -28,21 +35,6 @@ namespace ClassLibrary
             } else {
                 throw new InvalidOperationException();
             }
-        }
-
-        public void ObtenerCoordenadas(string parametros)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ObtenerMapaDeRuta(Ubicacion primaria, Ubicacion secundaria)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void ObtenerMapa(Ubicacion ubicacion)
-        {
-            throw new NotImplementedException();
         }
     }
 }
