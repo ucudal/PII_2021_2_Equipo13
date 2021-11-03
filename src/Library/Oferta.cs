@@ -218,7 +218,11 @@ namespace ClassLibrary
             StringBuilder redaccionPostulados = new StringBuilder();
             redaccionPostulados.Append("Emprendedores postulados:" );
             {
-                throw new Exception("A la espera de la definición de la persistencia"); 
+                //throw new Exception("A la espera de la definición de la persistencia"); 
+                foreach(Emprendedor emprendedores in EmprendedoresPostulados)
+                {
+                    redaccionPostulados.Append(emprendedores.Nombre);
+                }
             }
             return redaccionPostulados.ToString();
         }
