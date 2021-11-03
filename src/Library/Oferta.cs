@@ -46,6 +46,7 @@ namespace ClassLibrary
             this.Descripcion = descripcion;         //10
             this.Titulo = titulo;                   //11  
             this.DisponibleConstantemente = disponibleConstantemente;  //12
+            this.EmprendedoresPostulados = new List<Emprendedor>();
         }      
 
         /// <summary>
@@ -69,6 +70,7 @@ namespace ClassLibrary
         public string Titulo {get; }
         public List<Producto> Productos {get; }
         public bool DisponibleConstantemente { get; set; }
+        public List<Emprendedor> EmprendedoresPostulados { get; set; }
       
         //aplicando Creator
         /// <summary>
