@@ -1,12 +1,11 @@
 using System;
 using NUnit.Framework;
 using ClassLibrary;
-
 using System.Collections.Generic;
 
 
 [TestClass]
-public class Tests
+public class TestHabilitaciones
 {
 
     // Lucas Giffuni
@@ -76,7 +75,34 @@ public class Tests
         Assert.AreEqual(expected, expected);
     }
 
+    [Test]
+    public void TestUbicacionDireccion()
+    {
+        Ubicacion u1 = new Ubicacion("Montevideo", "Calle 1 1892");
+        string expected = "Calle 1 1892";
+        Assert.AreEqual(expected, u1.Direccion);
+    }
 
+    [Test]
+    public void TestUbicacionCiudad()
+    {
+        Ubicacion u1 = new Ubicacion("Montevideo", "Calle 13");
+        string expected = "Montevideo";
+        Assert.AreEqual(expected, u1.Ciudad);
+    }
 
+    [Test]
+    public void TestEmpresa()
+    {
+       
+        List<Oferta> ofertas = new List<Oferta>();
+
+        Rubro r1 = new Rubro("Reciclaje");
+
+        Ubicacion u1 = new Ubicacion("Montevideo", "Calle 13");
+        Empresa e1 = new Empresa("Empresa S.A", ofertas, u1, r1, "Empresa S.A");
+        string expected = "Empresa S.A";
+        Assert.AreEqual(expected, e1.Nombre);
+    }
 
 }

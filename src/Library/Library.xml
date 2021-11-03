@@ -1,9 +1,11 @@
+
 <?xml version="1.0"?>
 <doc>
     <assembly>
         <name>Library</name>
     </assembly>
     <members>
+
         <member name="T:ClassLibrary.Emprendedor">
             <summary>
             Esta clase respresenta los datos basicos y necesarios que todo Emprendedor tiene, además de sus responsabilidades asignadas.
@@ -54,18 +56,10 @@
             y se guardará en la Lista <value>ofertasPostuladas</value> .
             </summary>
         </member>
-        <member name="M:ClassLibrary.Emprendedor.obtenerOfertasConsumidas(System.Collections.Generic.List{System.String},ClassLibrary.ICanal)">
+        <member name="M:ClassLibrary.Emprendedor.obtenerOfertasConsumidas(System.Collections.Generic.List{System.String},ClassLibrary.Buscador,ClassLibrary.ICanal)">
             <summary>
             Mediante palabras calve, un buscador y un canal se obtendran las ofertas consumidas que coincidan con las ofertas consumidas
             y se guardará en la Lista <value>ofertasConsumidas</value> .
-            </summary>
-        </member>
-        <member name="T:ClassLibrary.Empresa">
-            <summary> 
-            Patrones y principios utilizados en esta clase:
-            ISP ya que segmenta las operaciones de la interface en la persistencia.
-            Expert ya que se le da la responsabilidad de generar las publicaciones, debido a que es la clase más experta de la información.
-            Polymorphism porque utiliza dos métodos polimorficos de persistencia.
             </summary>
         </member>
         <member name="T:ClassLibrary.Habilitacion">
@@ -113,152 +107,6 @@
             Este método se encargará de enviar los mensajes
             </summary>
         </member>
-        <member name="T:ClassLibrary.IPersistencia">
-            <summary>
-            Esta es la interface de percisitencia de la aplicacion. su funcion es guardar y recuperar los datos de la aplicacion.
-            </summary>
-        </member>
-        <member name="M:ClassLibrary.IPersistencia.EscribirArchivo(System.String,System.String)">
-            <summary>
-            Guarda el archivo en la ruta especificada.
-            </summary>
-            <param name="ruta">La ruta del archivo en el sistema.</param>
-            <param name="informacion">La información a guardar en el archivo en un string.</param>
-        </member>
-        <member name="M:ClassLibrary.IPersistencia.LeerArchivo(System.String)">
-            <summary>
-            Lee un archivo en el sistema.
-            </summary>
-            <param name="ruta">La ruta del archivo en el sistema.</param>
-            <returns>Retorna la información contenida en un archivo en un string</returns>
-        </member>
-        <member name="M:ClassLibrary.Material.#ctor(System.String,System.Collections.Generic.List{System.String},System.String)">
-            <summary>
-            La clase material se encarga de conocer lo relativo al material que consituye el producto.
-            Principios y patrones aplicados:
-            Cumple con el principio ISP ya que no hay objetos forzados a depender de otros
-             objetos que no usan.
-            Cumple con el patrón OCP pues la clase es abierta a la extensión mediante herencia
-             y/o composición, pero cerrada a cambios ya que no es posible y no es necesario realizar
-             cambios en su código.
-            La clase cumple con el Principio SRP ya que tiene responsabilidad sobre una única
-            parte de la funcionalidad, quedando completamente encapsulada dentro de la clase. 
-            Procurando que la clase tenga solo una razón para cambiar. 
-            </summary>
-            <param name="nombre">nombre</param>
-            <param name="categorias">categorias</param>
-            <param name="unidadEstandar">unidadEstandar</param>
-        </member>
-        <member name="M:ClassLibrary.Oferta.#ctor(System.String,System.DateTime,System.Collections.Generic.List{System.String},System.String,System.Double,System.Double,System.String,System.String)">
-            <summary>
-             La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
-             Patrones y principios aplicados:
-             Cumple con EXPERT ya que se le asignaron sus responsabilidades en su calidad
-             de experto en la información, por ser la clase que tiene la información necesaria
-             para poder cumplir con la tarea, mientras que se mantiene la encapsulación 
-             ya que utiliza su propia información para cumplir con las responsabilidades.
-             Se cumple con el patrón Low Coupling ya que al asignársele responsabilidades a 
-             la clase se buscó que el acoplamiento se mantuviera bajo al no depender de muchas 
-             otras clases.
-             Cumple con el patrón High Cohesión ya que las responsabilidades de la clase están
-             fuertemente relacionadas, creando así una clase robusta y fácil de entender. 
-            </summary>
-            <param name="id"> id </param>
-            <param name="fechaCierre"> fechaCierre </param>
-            <param name="etiquetas">etiquetas</param>
-            <param name="habilitaciones">habilitaciones</param>
-            <param name="valorUYU">valorUYU</param>
-            <param name="valorUSD">valorUSD</param>
-            <param name="descripcion">descripcion</param>
-            <param name="palabraClave">palabraClave</param>
-            <param name="titulo">titulo</param>
-        </member>
-        <member name="M:ClassLibrary.Oferta.ObtenerProducto(ClassLibrary.Producto)">
-            <summary>
-            Método para comunicarse con la clase Producto.
-            </summary>
-            <param name="producto">producto</param>
-        </member>
-        <member name="M:ClassLibrary.Oferta.ObtenerEmpresa(ClassLibrary.Empresa)">
-            <summary>
-            Método para comunicarse con la clase Empresa.
-            </summary>
-            <param name="empresa">empresa</param>
-        </member>
-        <member name="M:ClassLibrary.Oferta.ObtenerEmprendedor(ClassLibrary.Emprendedor)">
-            <summary>
-            Método para comunicarse con la clase Emprendedor.
-            </summary>
-            <param name="emprendedor">emprendedor</param>
-            <returns></returns>
-        </member>
-        <member name="M:ClassLibrary.Oferta.Redactar">
-            <summary>
-            Métodos para publicar los mensajes relativos a las ofertas.
-            </summary>
-        </member>
-        <member name="M:ClassLibrary.Oferta.RedactarResumen">
-            <summary>
-            Métodos para publicar los mensajes relativos a las ofertas en versión resumida.
-            </summary>
-        </member>
-        <member name="M:ClassLibrary.Oferta.RedactarPostulados">
-            <summary>
-            Un método para listar todos los emprendedores postulados a una oferta.
-            </summary>
-        </member>
-        <member name="T:ClassLibrary.Producto">
-            <summary>
-            Esta es la clase Producto. se encarga de almacenar los datos de un producto.
-            Implementa el principio de responsabilidad única. su unica funcion es el crear un producto y almacenar sus datos.
-            Esta clase tiene acoplaje con Material y Ubicacion ya que depende significativamente de ellas.
-            </summary>
-        </member>
-        <member name="M:ClassLibrary.Producto.#ctor(System.String,ClassLibrary.Material,ClassLibrary.Ubicacion,System.Double,System.Double,System.Double)">
-            <summary>
-            Constructor de la clase Producto.
-            </summary>
-            <param name="nombre"></param>
-            <param name="material"></param>
-            <param name="ubicacion"></param>
-        </member>
-        <member name="P:ClassLibrary.Producto.Nombre">
-            <summary>
-            Nombre del producto.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:ClassLibrary.Producto.Material">
-            <summary>
-            Una implementacion de la clase material, con el material del que esta compuesto el producto.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:ClassLibrary.Producto.Ubicacion">
-            <summary>
-            Una implementacion de la clase ubicacion, con la ubicacion del material.
-            Utilizo el principio de creador porque creo instancias de ubicacion y material. ya que guarda y contiene instancias de sus objetos
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:ClassLibrary.Producto.CantidadEnUnidad">
-            <summary>
-            Esto representara la cantidad del producto en su propia unidad, la unidad esta en el maetrial
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:ClassLibrary.Producto.ValorUYU">
-            <summary>
-            Valor en Pesos Uruguayos del producto
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:ClassLibrary.Producto.ValorUSD">
-            <summary>
-            Valor en Dolar del producto
-            </summary>
-            <value></value>
-        </member>
         <member name="T:ClassLibrary.Rubro">
             <summary>
             Esta clase respresenta los datos basicos y necesarios de los rubros.
@@ -268,7 +116,8 @@
             <summary>
             Se indica el nombre <value>rubro</value> del rubro
             </summary>
-        </member>
+
+      </member>
         <member name="T:ClassLibrary.Train">
             <summary>
             Esta clase representa un tren muy básico.
@@ -296,13 +145,6 @@
             <c>true</c> si las máquinas pueden ser detenidas, <c>false</c> en caso contrario.
             </returns>
         </member>
-        <member name="T:ClassLibrary.Ubicacion">
-            <summary>
-            Patrones y principios utilizados en esta clase:
-            ISP ya que segmenta las operaciones de la interface en la persistencia.
-            Expert ya que se le da la responsabilidad de gestionar las coordenas de una ubicacion, debido a que es la clase más experta de la información.
-            Polymorphism porque utiliza dos métodos polimorficos de persistencia.
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "T:ClassLibrary.Ubicacion" -->
     </members>
 </doc>

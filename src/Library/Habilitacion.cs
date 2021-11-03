@@ -9,38 +9,42 @@ namespace ClassLibrary
         /// <summary>
         /// Se indica el <value>descripcion</value> de la Habiltiacion
         /// </summary>
-        public string descripcion { get; set; }
+        public string Descripcion { get; set; }
 
         /// <summary>
         /// Se indica el <value>nombreInsitucionHabilitada</value> de la Habiltiacion
         /// </summary>
-        public string nombreInsitucionHabilitada { get; set; }
+        public string NombreInsitucionHabilitada { get; set; }
 
         /// <summary>
         /// Se indica la <value>fechaTramite</value> de la Habiltiacion
         /// </summary>
-        public string fechaTramite { get; set; }
+        public string FechaTramite { get; set; }
 
         /// <summary>
         /// Se indica la <value>fechaVencimiento</value> de la Habiltiacion
         /// </summary>
-        public string fechaVencimiento { get; set; }
+        public string FechaVencimiento { get; set; }
 
         /// <summary>
         /// Se indica el <value>estado</value> de la Habiltiacion
         /// </summary>
-        public bool estado { get; set; }
+        public bool Estado { get; set; }
 
 
         
-
+        /// <param name="descripcion">descripcion</param>
+        /// <param name="nombreInsitucionHabilitada">nombreInsitucionHabilitada</param>
+        /// <param name="fechaTramite">fechaTramite</param>
+        /// <param name="fechaVencimiento">fechaVencimiento</param>
+        /// <param name="estado">estado</param>        
         public Habilitacion(string descripcion, string nombreInsitucionHabilitada, string fechaTramite, string fechaVencimiento, bool estado)
         {
-            this.descripcion = descripcion;
-            this.nombreInsitucionHabilitada = nombreInsitucionHabilitada;
-            this.fechaTramite = fechaTramite;
-            this.fechaVencimiento = fechaVencimiento;
-            this.estado = estado;
+            this.Descripcion = descripcion;
+            this.NombreInsitucionHabilitada = nombreInsitucionHabilitada;
+            this.FechaTramite = fechaTramite;
+            this.FechaVencimiento = fechaVencimiento;
+            this.Estado = estado;
         }
 
     }

@@ -4,65 +4,62 @@ using System.Collections.Generic;
 namespace ClassLibrary
 {
     /// <summary>
-    /// Esta es la clase Producto. se encarga de almacenar los datos de un producto.
-    /// Implementa el principio de responsabilidad única. su unica funcion es el crear un producto y almacenar sus datos.
-    /// Esta clase tiene acoplaje con Material y Ubicacion ya que depende significativamente de ellas.
+    /// Clase que representa un Producto dentro del dominio del problema. Un Producto representa una
+    /// instancia de venta de un Material, conteniendo su cantidad en su unidad específica, un valor
+    /// en UYU y otro en dólares asignados por su vendedor y la ubicación donde se almacena.
+    /// Se aplica el patrón de SRP y se obtiene una alta cohesión dentro de la clase Producto, al
+    /// asignarle únicamente las responsabilidades de contener información sobre un producto y
+    /// redactarla adecuadamente y enfocando sus propiedades y métodos para estos objetivos.
     /// </summary>
     public class Producto
     {
         /// <summary>
-        /// Constructor de la clase Producto.
+        /// Crea una instancia de Producto
         /// </summary>
         /// <param name="nombre"></param>
         /// <param name="material"></param>
         /// <param name="ubicacion"></param>
-        public Producto(string nombre, Material material, Ubicacion ubicacion, double cantidadEnUnidad,double valorUYU,double valorUSD)
-        {
-            this.Nombre = nombre;
-            this.Material = material;
-            this.Ubicacion = ubicacion;
-            this.CantidadEnUnidad = cantidadEnUnidad;
-            this.ValorUYU = valorUYU;
-            this.ValorUSD = valorUSD;
+        public Producto(Material material, string ciudad, string direccion, double cantidadEnUnidad, double valorUYU, double valorUSD){
+           this.Material = material;
+           this.Ubicacion = new Ubicacion(ciudad, direccion);
+           this.CantidadEnUnidad = cantidadEnUnidad;
+           this.ValorUYU = valorUYU;
+           this.ValorUSD = valorUSD;
         }
         
         /// <summary>
-        /// Nombre del producto.
+        /// Instancia de material correspondiente al material ofrecido dentro de un producto
         /// </summary>
-        /// <value></value>
-        public string Nombre { get; set; }
-    
+        public Material Material{get; set;} 
+        
         /// <summary>
-        /// Una implementacion de la clase material, con el material del que esta compuesto el producto.
+        /// Instancia de ubicacion correspondiente a la ubicacion donde se almacena el producto
         /// </summary>
-        /// <value></value>
-       public Material Material{get; set;} 
-
-        /// <summary>
-        /// Una implementacion de la clase ubicacion, con la ubicacion del material.
-        /// Utilizo el principio de creador porque creo instancias de ubicacion y material. ya que guarda y contiene instancias de sus objetos
-        /// </summary>
-        /// <value></value>
-     
         public Ubicacion Ubicacion{get; set;}      
         
         /// <summary>
-        /// Esto representara la cantidad del producto en su propia unidad, la unidad esta en el maetrial
+        /// Cantidad del material en su unidad especifica
         /// </summary>
-        /// <value></value>
         public double CantidadEnUnidad{get; set;}   
-        /// <summary>
-        /// Valor en Pesos Uruguayos del producto
-        /// </summary>
-        /// <value></value>
         
+        /// <summary>
+        /// Valor en pesos uruguayos del producto
+        /// </summary>
         public double ValorUYU{get; set;}           
         
         /// <summary>
-        /// Valor en Dolar del producto
+        /// Valor en dólares estadounidenses del producto
         /// </summary>
-        /// <value></value>
         public double ValorUSD{get; set;} 
-    
+
+        /// <summary>
+        /// Redaccion del producto formateada
+        /// </summary>
+        public string Redaccion
+        {
+            get{
+                return ($"{this.CantidadEnUnidad} {this.Material.UnidadEstandar} de {this.Material.Nombre}");
+            }
+        }
     }
 }
