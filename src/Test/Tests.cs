@@ -1,7 +1,6 @@
 using System;
 using NUnit.Framework;
 using ClassLibrary;
-
 using System.Collections.Generic;
 
 
@@ -105,8 +104,5 @@ public class Tests
         string expected = "Empresa S.A";
         Assert.AreEqual(expected, e1.Nombre);
     }
-
-
-
 
 }

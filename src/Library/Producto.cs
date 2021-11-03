@@ -13,7 +13,6 @@ namespace ClassLibrary
     /// </summary>
     public class Producto
     {
-        
         /// <summary>
         /// Crea una instancia de Producto
         /// </summary>
@@ -49,5 +48,15 @@ namespace ClassLibrary
         /// Valor en dólares estadounidenses del producto
         /// </summary>
         public double ValorUSD{get; set;} 
+
+        /// <summary>
+        /// Redaccion del producto formateada
+        /// </summary>
+        public string Redaccion
+        {
+            get{
+                return ($"{this.CantidadEnUnidades} {this.Material.UnidadEstandar} de {this.Material.Nombre}");
+            }
+        }
     }
 }

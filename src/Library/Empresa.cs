@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Library
+namespace ClassLibrary
 {
     /// <summary> 
     /// Patrones y principios utilizados en esta clase:
