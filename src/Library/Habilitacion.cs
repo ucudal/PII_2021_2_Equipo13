@@ -1,3 +1,5 @@
+using System;
+
 namespace ClassLibrary
 {
     /// <summary>
@@ -19,12 +21,12 @@ namespace ClassLibrary
         /// <summary>
         /// Se indica la <value>fechaTramite</value> de la Habiltiacion
         /// </summary>
-        public string FechaTramite { get; set; }
+        public DateTime FechaTramite { get; set; }
 
         /// <summary>
         /// Se indica la <value>fechaVencimiento</value> de la Habiltiacion
         /// </summary>
-        public string FechaVencimiento { get; set; }
+        public DateTime FechaVencimiento { get; set; }
 
         /// <summary>
         /// Se indica el <value>estado</value> de la Habiltiacion
