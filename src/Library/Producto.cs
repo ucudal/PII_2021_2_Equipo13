@@ -49,10 +49,10 @@ namespace ClassLibrary
         /// </summary>
         /// <value></value>
 
-        public string RedactarProducto
+        public string Redaccion
         {
             get{
-                return ($"{this.CantidadEnUnidades}, {this.Material.Nombre}");
+                return ($"{this.CantidadEnUnidades} {this.Material.UnidadEstandar} de {this.Material.Nombre}");
             }
         }
     }
