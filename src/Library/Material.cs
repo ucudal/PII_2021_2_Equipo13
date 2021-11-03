@@ -8,8 +8,7 @@ namespace ClassLibrary
         /// Principio ISP: no hay objetos forzados a depender de otros objetos que no usan. 
         /// Principio SRP: tiene responsabilidad sobre una única parte de la funcionalidad, quedando completamente encapsulada dentro de la clase.
         /// Procurando que la clase tenga solo una razón para cambiar. 
-        /// Patrón OCP: la clase es abierta a la extensión mediante herencia y/o composición, pero cerrada a cambios ya que no es posible y no es necesario realizar
-        ///  cambios en su código.
+        /// Patrón OCP: la clase es abierta a la extensión mediante herencia y/o composición, pero cerrada a cambios ya que no es posible y no es necesario realizar cambios en su código.
         /// </summary>
     public class Material
     {

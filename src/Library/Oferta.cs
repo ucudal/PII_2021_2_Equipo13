@@ -43,23 +43,71 @@ namespace ClassLibrary
             this.Titulo = titulo;                   //09
             this.DisponibleConstantemente = disponibleConstantemente;  //10
             this.EmprendedoresPostulados = new List<Emprendedor>();    //11
+            this.Productos = new List<Producto>();                     //12
         }      
 
         /// <summary>
         /// Lista de estados posibles en que se puede encontrar una Oferta.
         /// </summary>
         public enum Estados{
+            /// <summary>
+            /// Se le asigna a una oferta para indicar que esta vigente.
+            /// </summary>
+            /// <value>Habilitada indica que esta vigente</value>
             Habilitada,
+            /// <summary>
+            /// Se le asigna a una oferta para indicar que ya está cerrada y no es posible posularse.
+            /// </summary>
+            /// <value>Cerrada indica que no esta activa una oferta por haber sido adjudicada o por haber llegado a su fecha límite.</value>
             Cerrada,
-            Suspendida
+            /// <summary>
+            /// Se le asigna a una oferta para indicar que por algún motivo no esta disponible la oferta.
+            /// </summary>
+            Suspendida,
+            /// <summary>
+            /// Se le asigna a una oferta para indicar que fue entregada a un Emprendedor.
+            /// </summary>
+            Entregada
         }
+        /// <summary>
+        /// Es una string que identifica a la oferta y que permite referenciarla a lo largo del sitema.
+        /// </summary>
+        /// <value>Id es el identificador único de la oferta.</value>
         public string Id {get; }
+        /// <summary>
+        /// Empresa es quién publica la oferta.
+        /// </summary>
+        /// <value>Empresa es quién publica la oferta</value>
         public Empresa Empresa {get; }
+        /// <summary>
+        /// Fecha en que se publica la oferta.
+        /// </summary>
+        /// <value>Fecha en que se publica la oferta.</value>
         public DateTime FechaCreada {get; }
+        /// <summary>
+        /// Fecha límite para postularse a la oferta.
+        /// </summary>
+        /// <value>FechaCierre es la fecha límite para postularse a la oferta.</value>
         public DateTime FechaCierre {get; }
+        /// <summary>
+        /// Son etiquetas que permiten categorizar la oferta para mostrarla agrupadas junto a otras que compartan la misma etiqueta.
+        /// </summary>
+        /// <value>Etiquetas permite categorizar la oferta.</value>
         public List<string> Etiquetas {get; }
-        public Estados Estado {get; }
+        /// <summary>
+        /// Estado indica cuál es la situación actual de una Oferta.
+        /// </summary>
+        /// <value>Estado indica si una oferta esta habilitada, cerrada o suspendida.</value>
+        public Estados Estado { get; set; }
+        /// <summary>
+        /// Indica cuáles son las habilitaciones que exige la empresa para postularse a la oferta.
+        /// </summary>
+        /// <value>Habilitaciones exigidas por al empresa.</value>
         public List<Habilitacion> Habilitaciones {get; }
+        /// <summary>
+        /// Valor en dólares USA que la empresa ofresa en pago por la realización de la tarea que implica la oferta.
+        /// </summary>
+        /// <value> ValorUSD es el valor en dólares USA definido por la empresa que publica la oferta.</value>
         public double ValorUSD
         {
             get
@@ -72,6 +120,10 @@ namespace ClassLibrary
                 return valorUSD;
             }
         }
+        /// <summary>
+        /// ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.
+        /// </summary>
+        /// <value>ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.</value>
         public double ValorUYU
         {
             get
@@ -84,10 +136,30 @@ namespace ClassLibrary
                 return valorUYU;
             }
         }
+        /// <summary>
+        /// Es la descripción que hace la empresa para describir la oferta al publicarla.
+        /// </summary>
+        /// <value>Descripcion que hace la empresa</value>
         public string Descripcion {get; }
+        /// <summary>
+        /// Titulo bajo el que se publica la oferta.
+        /// </summary>
+        /// <value>Titulo bajo el que se publica la oferta.</value>
         public string Titulo {get; }
+        /// <summary>
+        /// Productos es la lista de productos que componen la oferta.
+        /// </summary>
+        /// <value>Productos es la lista de productos que componen la oferta.</value>
         public List<Producto> Productos {get; }
+        /// <summary>
+        /// Una propiedad que indica si la oferta es recurrente.
+        /// </summary>
+        /// <value>Una propiedad que indica si la oferta es recurrente.</value>
         public bool DisponibleConstantemente { get; set; }
+        /// <summary>
+        /// EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.
+        /// </summary>
+        /// <value>EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.</value>
         public List<Emprendedor> EmprendedoresPostulados { get; set; }
       
         //aplicando Creator
@@ -95,8 +167,9 @@ namespace ClassLibrary
         /// Agrega un producto a la lista de productos.
         /// </summary>
         /// <param name="material">Material que conforma al producto.</param>
-        /// <param name="ubicacion">Ubicación geográfica del producto.</param>
-        /// <param name="cantidadEnUnidades">Cantidad de unidades/param>
+        /// <param name="ciudad">Ciudad en la que se encuentra la oferta.</param> 
+        /// <param name="direccion">Dirección dentro de la Ciudad en la que se encuentra la oferta.</param>      
+        /// <param name="cantidadEnUnidades">Cantidad de unidades</param>
         /// <param name="valorUYU">Valor en pesos uruguayos.</param>
         /// <param name="valorUSD">Valor en dolares usa.</param>
         public void AgregarProducto (Material material, string ciudad, string direccion, double cantidadEnUnidades, double valorUYU, double valorUSD)
@@ -149,7 +222,11 @@ namespace ClassLibrary
             StringBuilder redaccionPostulados = new StringBuilder();
             redaccionPostulados.Append("Emprendedores postulados:" );
             {
-                throw new Exception("A la espera de la definición de la persistencia"); 
+                //throw new Exception("A la espera de la definición de la persistencia"); 
+                foreach(Emprendedor emprendedores in EmprendedoresPostulados)
+                {
+                    redaccionPostulados.Append(emprendedores.Nombre);
+                }
             }
             return redaccionPostulados.ToString();
         }

@@ -21,7 +21,7 @@ namespace Tests
             string nombre = "Aserradero El Madero";
             string ciudad = "Montevideo";
             string direccion = "Av. Luis Albert de Herrera 2890";
-            Rubro rubro = new Rubro("Maderera");
+            string rubro = "Maderera";
 
             int cantidadEmpresasEsperada = Sistema.Instancia.Empresas.Count + 1;
             Sistema.Instancia.RegistrarEmpresa(id, ciudad, direccion, rubro, nombre);
@@ -47,7 +47,7 @@ namespace Tests
             string nombre = "Aserradero El Madero";
             string ciudad = "Montevideo";
             string direccion = "Av. Luis Albert de Herrera 2890";
-            Rubro rubro = new Rubro("Maderera");
+            string rubro = "Maderera";
             Sistema.Instancia.RegistrarEmpresa(id, ciudad, direccion, rubro, nombre);
             Empresa empresa = Sistema.Instancia.ObtenerEmpresaPorId("123456");
             string idOferta = empresa.Id + "-123";
@@ -57,7 +57,7 @@ namespace Tests
             Oferta oferta = empresa.PublicarOferta(idOferta, new DateTime(2021, 12, 10), new List<string>() {"madera barata", "madera húmeda",
                 "en buen estado", "barato", "reutilizable" }, new List<Habilitacion>(),
                 "Roble de muy buena calidad que estuvo expuesto a la humedad por extendidos periodos de tiempo. Se mantiene en buen estado",
-                "Roble húmedo");
+                "Roble húmedo", false);
 
             Assert.AreEqual(cantidadOfertasEsperada, empresa.Ofertas.Count);
             Assert.AreSame(oferta, empresa.ObtenerOfertaPorId(idOferta));
@@ -80,7 +80,7 @@ namespace Tests
             string nombre = "Carpintería Gilberto e Hijos";
             string ciudad = "Montevideo";
             string direccion = "Av. Gral Flores 1560";
-            Rubro rubro = new Rubro("Carpintería");
+            string rubro = "Carpintería";
 
             int cantidadEmprendedoresEsperada = Sistema.Instancia.Emprendedores.Count + 1;
             Sistema.Instancia.RegistrarEmprendedor(id, ciudad, direccion, rubro, nombre, new List<Habilitacion>());
@@ -102,14 +102,14 @@ namespace Tests
             string nombre = "Carpintería Gilberto e Hijos";
             string ciudad = "Montevideo";
             string direccion = "Av. Gral Flores 1560";
-            Rubro rubro = new Rubro("Carpintería");
+            string rubro = "Carpintería";
             Sistema.Instancia.RegistrarEmprendedor(id, ciudad, direccion, rubro, nombre, new List<Habilitacion>());
 
             id = "123456";                                          // Se planea obtener el ID de usuario de Telegram para los IDs de las empresas.
             nombre = "Aserradero El Madero";
             ciudad = "Montevideo";
             direccion = "Av. Luis Albert de Herrera 2890";
-            rubro = new Rubro("Maderera");
+            rubro = "Maderera";
             Sistema.Instancia.RegistrarEmpresa(id, ciudad, direccion, rubro, nombre);
             Empresa empresa = Sistema.Instancia.ObtenerEmpresaPorId("123456");
 
@@ -134,7 +134,7 @@ namespace Tests
             Oferta oferta = empresa.PublicarOferta(idOferta, new DateTime(2021, 12, 10), new List<string>() {"madera barata", "madera húmeda",
                 "en buen estado", "barato", "reutilizable" }, new List<Habilitacion>(),
                 "Roble de muy buena calidad que estuvo expuesto a la humedad por extendidos periodos de tiempo. Se mantiene en buen estado",
-                "Roble húmedo");
+                "Roble húmedo", false);
 
             oferta.AgregarProducto(
                 new Material("Roble", new List<string>() { "madera", "inflamable", "carpintería" }, "Kg"),
@@ -145,7 +145,7 @@ namespace Tests
 
             oferta = empresa.PublicarOferta(idOferta, new DateTime(2021, 11, 30), new List<string>(), new List<Habilitacion>(),
                 "Prendas y uniformes utilizados en un aserradero durante varios años.",
-                "Prendas gastadas");
+                "Prendas gastadas", true);
 
             oferta.AgregarProducto(
                 new Material("Tela", new List<string>() { "prendas", "inflamable" }, "Kg"),
@@ -155,7 +155,7 @@ namespace Tests
             idOferta = empresa.Id + "-3";
             oferta = empresa.PublicarOferta(idOferta, new DateTime(2021, 11, 25), new List<string>(), new List<Habilitacion>(),
                 "Oferta de materiales.",
-                "Oferta");
+                "Oferta", false);
 
             oferta.AgregarProducto(
                 new Material("Una cosa", new List<string>() { }, "m³"),
@@ -172,7 +172,7 @@ namespace Tests
             string nombre = "Aserradero El Madero";
             string ciudad = "Montevideo";
             string direccion = "Av. Luis Albert de Herrera 2890";
-            Rubro rubro = new Rubro("Maderera");
+            string rubro = "Maderera";
             Sistema.Instancia.RegistrarEmpresa(id, ciudad, direccion, rubro, nombre);
             Empresa empresa = Sistema.Instancia.ObtenerEmpresaPorId("123456");
             string idOferta = empresa.Id + "-1234";
@@ -180,7 +180,7 @@ namespace Tests
             Oferta oferta = empresa.PublicarOferta(idOferta, new DateTime(2021, 12, 10), new List<string>() {"madera barata", "madera húmeda",
                 "en buen estado", "barato", "reutilizable" }, new List<Habilitacion>(),
                 "Roble de muy buena calidad que estuvo expuesto a la humedad por extendidos periodos de tiempo. Se mantiene en buen estado",
-                "Roble húmedo");
+                "Roble húmedo", false);
 
             oferta.AgregarProducto(
                 new Material("Roble", new List<string>() { "madera", "inflamable", "carpintería" }, "Kg"),
@@ -199,7 +199,7 @@ namespace Tests
             string nombre = "Aserradero El Madero";
             string ciudad = "Montevideo";
             string direccion = "Av. Luis Albert de Herrera 2890";
-            Rubro rubro = new Rubro("Maderera");
+            string rubro = "Maderera";
             Sistema.Instancia.RegistrarEmpresa(id, ciudad, direccion, rubro, nombre);
             Empresa empresa = Sistema.Instancia.ObtenerEmpresaPorId("123456");
 
@@ -229,7 +229,7 @@ namespace Tests
             string nombre = "Aserradero El Madero";
             string ciudad = "Montevideo";
             string direccion = "Av. Luis Albert de Herrera 2890";
-            Rubro rubro = new Rubro("Maderera");
+            string rubro = "Maderera";
             Sistema.Instancia.RegistrarEmpresa(id, ciudad, direccion, rubro, nombre);
             Empresa empresa = Sistema.Instancia.ObtenerEmpresaPorId("123456");
 
@@ -239,14 +239,14 @@ namespace Tests
             nombre = "Carpintería Gilberto e Hijos";
             ciudad = "Montevideo";
             direccion = "Av. Gral Flores 1560";
-            rubro = new Rubro("Carpintería");
+            rubro = "Carpintería";
 
             Sistema.Instancia.RegistrarEmprendedor(id, ciudad, direccion, rubro, nombre, new List<Habilitacion>());
 
             Emprendedor emprendedor = Sistema.Instancia.ObtenerEmprendedorPorId(id);
 
             string idOferta = empresa.Id + "-3";
-            emprendedor.ofertasConsumidas.Add(empresa.ObtenerOfertaPorId(idOferta));
+            emprendedor.OfertasConsumidas.Add(empresa.ObtenerOfertaPorId(idOferta));
 
             Oferta ofertaConsumida = emprendedor.VerOfertasConsumidas(new DateTime(2021, 11, 1), new DateTime(2021, 12, 2))[0];
             Assert.AreEqual(ofertaConsumida, empresa.ObtenerOfertaPorId(idOferta));

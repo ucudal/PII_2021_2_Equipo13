@@ -4,7 +4,68 @@
         <name>Library</name>
     </assembly>
     <members>
-
+        <member name="T:ClassLibrary.Buscador">
+            <summary>
+            Esta es una clase auxiliar que permite la búsqueda de ofertas. Se aplica SRP para tomar la decisión de separar esta responsabilidad de Sistema,
+            ya que la forma en que se realiza esta búsqueda puede cambiar y Sistema puede tener otros motivos para ser modificada.
+            Se aplica el patrón Singleton dentro de esta clase para permitir solo la creación y utilización de una instancia de Buscador.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Buscador.#ctor">
+            <summary>
+            Crea una instancia de Buscador.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Buscador.BuscarOfertas(ClassLibrary.Sistema,ClassLibrary.Emprendedor,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            Realiza una búsqueda de ofertas dentro de una instancia de Sistema, utilizando la información de un Emprendedor dado,
+            junto a una lista de etiquetas y categorías, para filtrar dentro de las ofertas.
+            </summary>
+            <param name="sistema">Instancia de Sistema.</param>
+            <param name="emprendedor">Emprendedor cuyas propiedades se utilizan para filtrar.</param>
+            <param name="etiquetas">Lista de etiquetas a utilizar para filtrar.</param>
+            <param name="categorias">Lista de categorías a utilizar para filtrar.</param>
+            <returns>Lista de ofertas ordenadas según la relevancia calculada para la búsqueda.</returns>
+        </member>
+        <member name="M:ClassLibrary.Buscador.OrdenarOfertasPorPuntaje(System.Collections.Generic.Dictionary{ClassLibrary.Oferta,System.Int32})">
+            <summary>
+            Ordena un diccionario de par <c>Oferta, int</c> de mayor a menor según el valor asignado a cada clave.
+            </summary>
+            <param name="ofertas">Dictionary de par <c>Oferta, int</c> a ordenar.</param>
+            <returns><c>List de Ofertas</c> ordenadas de mayor a menor.</returns>
+        </member>
+        <member name="M:ClassLibrary.Buscador.DistanciaAPuntaje(System.Double,System.Int32,System.Int32)">
+            <summary>
+            Calcula el puntaje asignado a una oferta según una distancia dada, con la fórmula:
+            <c>puntaje = 30 - Math.Ceiling(distancia / (distanciaMáxima / puntajeMáximo))</c>
+            </summary>
+            <param name="distancia">Distancia hacia la oferta.</param>
+            <param name="distanciaMax">Distancia máxima para asignar un puntaje. Si la distancia supera (o es igual) a la distancia máxima, el puntaje será 0.</param>
+            <param name="puntajeMax">Puntaje máximo asignable.</param>
+            <returns><c>Puntaje en int</c> para la distancia según las condiciones definidas.</returns>
+        </member>
+        <member name="P:ClassLibrary.Buscador.Instancia">
+            <summary>
+            Instancia del buscador durante la ejecución. Se aplica el patrón Singleton.
+            </summary>
+            <value>Una única instancia de <c>Buscador</c></value>
+        </member>
+        <member name="T:ClassLibrary.Canal1">
+            <summary>
+            Clase de ejemplo para una implementación de la interfaz ICanal utilizada en los tests donde es relevante tener una implementación de un canal.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Canal1.EnviarMensaje(System.String)">
+            <summary>
+            Envía un mensaje a un usuario de un canal.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:ClassLibrary.Canal1.RecibirMensaje">
+            <summary>
+            Recibe un mensaje de un usuario de un canal.
+            </summary>
+        </member>
         <member name="T:ClassLibrary.Emprendedor">
             <summary>
             Esta clase respresenta los datos basicos y necesarios que todo Emprendedor tiene, además de sus responsabilidades asignadas.
@@ -14,96 +75,484 @@
                Cumple con OSP porque está abierta a la extención y cerrada a la modificación.
                Cumple con Expert porque tiene toda la información necesaria para poder cumplir con la responsabilidad de dar de alta un emprendedor y consumir ofertas.
         </member>
-        <member name="P:ClassLibrary.Emprendedor.nombre">
+        <member name="P:ClassLibrary.Emprendedor.Id">
             <summary>
-            Se indica el <value>Nombre</value> del emprendedor
+            Se indica el <value>Id</value> en Telegram del emprendedor.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Emprendedor.habilitaciones">
+        <member name="P:ClassLibrary.Emprendedor.Nombre">
+            <summary>
+            Se indica el <value>Nombre</value> del emprendedor.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Emprendedor.Habilitaciones">
             <summary>
             Mediante una lista de <value>Habilitaciones</value> indicaremos todas las habiltiaciones con las que el emprendedor cuenta.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Emprendedor.ubicacion">
+        <member name="P:ClassLibrary.Emprendedor.Ubicacion">
             <summary>
-            Se indica la <value>Ubicacion</value> del emprendedor
+            Se indica la <value>Ubicacion</value> del emprendedor.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Emprendedor.rubro">
+        <member name="P:ClassLibrary.Emprendedor.Rubro">
             <summary>
             Mediante una lista de <value>Rubo</value> indicaremos los rubros en el que el emprendedor se maneja.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Emprendedor.ofertasPostuladas">
+        <member name="P:ClassLibrary.Emprendedor.OfertasPostuladas">
             <summary>
-            Mediante una lista de <value>Ofertas</value> indicaremos las ofertas a las cual se postuló .
+            Mediante una lista de <value>Ofertas</value> indicaremos las ofertas a las cual se postuló.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Emprendedor.ofertasConsumidas">
+        <member name="P:ClassLibrary.Emprendedor.OfertasConsumidas">
             <summary>
-            Mediante una lista de <value>Ofertas</value> indicaremos las ofertas consumidas a las cual se postuló .
+            Mediante una lista de <value>Ofertas</value> indicaremos las ofertas consumidas a las cual se postuló.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Emprendedor.postularseAOfertas(System.Collections.Generic.List{ClassLibrary.Oferta})">
+        <member name="M:ClassLibrary.Emprendedor.#ctor(System.String,System.String,System.Collections.Generic.List{ClassLibrary.Habilitacion},System.String,System.String,System.String)">
+            <summary>
+            Crea una instancia de Emprendedor
+            </summary>
+            <param name="id">Id del emprendedor en Telegram.</param>
+            <param name="nombre">Nombre de la empresa del emprendedor.</param>
+            <param name="habilitaciones">Habilitaciones poseídas por el emprendedor.</param>
+            <param name="ciudad">La ciudad donde se basa el emprendedor.</param>
+            <param name="direccion">La direccion de la base de operaciones del emprendedor en la ciudad.</param>
+            <param name="rubro">El rubro dentro del cual trabaja el emprendedor.</param>
+        </member>
+        <member name="M:ClassLibrary.Emprendedor.PostularseAOferta(System.Collections.Generic.List{ClassLibrary.Oferta})">
             <summary>
             Mediante una oferta esté se postulará a ella.
             </summary>
+            <param name="ofertas">Lista de ofertas a postularse.</param>
         </member>
-        <member name="M:ClassLibrary.Emprendedor.obtenerOfertaspostuladas(System.String,System.String,ClassLibrary.ICanal)">
+        <member name="M:ClassLibrary.Emprendedor.PostularseAOferta(ClassLibrary.Oferta)">
             <summary>
-            Mediante una una fecha de inicio y de fin, ademas del un canal se obtendrán todas las ofertas postuladas en ese periodo de tiempo
-            y se guardará en la Lista <value>ofertasPostuladas</value> .
+            Mediante una oferta esté se postulará a ella.
+            </summary>
+            <param name="oferta">Oferta a postularse.</param>
+        </member>
+        <member name="M:ClassLibrary.Emprendedor.VerOfertasPostuladas(System.DateTime,System.DateTime)">
+            <summary>
+            Mediante una una fecha de inicio y de fin se obtienen todas las ofertas postuladas en ese periodo de tiempo.
+            </summary>
+            <param name="inicio">Fecha de inicio del periodo en el que se quiere buscar.</param>
+            <param name="fin">Fecha de fin del periodo en el que se quiere buscar.</param>
+            <returns>Una lista de ofertas a las cuales se postuló el Emprendedor.</returns>
+        </member>
+        <member name="M:ClassLibrary.Emprendedor.VerOfertasConsumidas(System.DateTime,System.DateTime)">
+            <summary>
+            Mediante palabras calve, un buscador y un canal se obtienen las ofertas consumidas por el Emprendedor.
+            </summary>
+            <param name="inicio">Fecha de inicio del periodo en el que se quiere buscar.</param>
+            <param name="fin">Fecha de fin del periodo en el que se quiere buscar.</param>
+            <returns>Una lista de ofertas consumidas por el Emprendedor.</returns>
+        </member>
+        <member name="T:ClassLibrary.Empresa">
+            <summary> 
+            Patrones y principios utilizados en esta clase:
+            ISP ya que segmenta las operaciones de la interface en la persistencia.
+            Expert ya que se le da la responsabilidad de generar las publicaciones, debido a que es la clase más experta de la información.
+            Polymorphism porque utiliza dos métodos polimorficos de persistencia.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Emprendedor.obtenerOfertasConsumidas(System.Collections.Generic.List{System.String},ClassLibrary.Buscador,ClassLibrary.ICanal)">
+        <member name="P:ClassLibrary.Empresa.Id">
             <summary>
-            Mediante palabras calve, un buscador y un canal se obtendran las ofertas consumidas que coincidan con las ofertas consumidas
-            y se guardará en la Lista <value>ofertasConsumidas</value> .
+            Id del usuario en el canal de registro.
             </summary>
+        </member>
+        <member name="P:ClassLibrary.Empresa.Ofertas">
+            <summary>
+            Id del usuario en el canal de registro.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Empresa.Ubicacion">
+            <summary>
+            Ubicación donde está basada la empresa.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Empresa.Rubro">
+            <summary>
+            Rubro al que pertenece la empresa.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Empresa.Nombre">
+            <summary>
+            Nombre comercial de la empresa.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Empresa.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="id">Id del usuario en el canal de registro.</param>
+            <param name="ciudad">Ciudad donde está basada la empresa.</param>
+            <param name="direccion">Direccion de la empresa.</param>
+            <param name="rubro">Rubro al que pertenece la empresa.</param>
+            <param name="nombre">Nombre comercial de la empresa.</param>
+        </member>
+        <member name="M:ClassLibrary.Empresa.PublicarOferta(System.String,System.DateTime,System.Collections.Generic.List{System.String},System.Collections.Generic.List{ClassLibrary.Habilitacion},System.String,System.String,System.Boolean)">
+            <summary>
+            Crea una nueva Oferta y la añade a la lista de ofertas de la empresa.
+            </summary>
+            <param name="id">El id único de la oferta generada.</param>
+            <param name="fechaCierre">La fecha de cierre de la oferta.</param>
+            <param name="etiquetas">Las etiquetas o palabras clave de la oferta.</param>
+            <param name="habilitaciones">Las habilitaciones requeridas para tomar la oferta.</param>
+            <param name="descripcion">La descripción de la oferta.</param>
+            <param name="titulo">El titulo de la oferta.</param>
+            <param name="disponibleConstantemente">Indica si la oferta está disponible constantemente o puntualmente.</param>
+        </member>
+        <member name="M:ClassLibrary.Empresa.ActualizarOferta(ClassLibrary.Oferta)">
+            <summary>
+            </summary>
+            <param name="oferta">la oferta que se desea modificar.</param>
+        </member>
+        <member name="M:ClassLibrary.Empresa.VerOfertasPropias(System.DateTime,System.DateTime)">
+            <summary>
+            Muestra las ofertas publicadas por la empresa en una lista filtrada por fecha.
+            </summary>
+            <param name="inicio">Fecha de inicio del periodo en el que se quiere buscar.</param>
+            <param name="fin">Fecha de fin del periodo en el que se quiere buscar.</param>
+            <returns></returns>
+        </member>
+        <member name="M:ClassLibrary.Empresa.ObtenerOfertaPorId(System.String)">
+            <summary>
+            Recupera una oferta de la lista de ofertas utilizando su id y una id dada.
+            </summary>
+            <param name="id">Id de la oferta a recuperar.</param>
+            <returns>La instancia de Oferta correspondiente a la id dada.</returns>
         </member>
         <member name="T:ClassLibrary.Habilitacion">
             <summary>
-            Esta clase respresenta los datos basicos y necesarios de una Habilitación
+            Esta clase respresenta los datos basicos y necesarios de una Habilitación.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Habilitacion.descripcion">
+        <member name="P:ClassLibrary.Habilitacion.Descripcion">
             <summary>
-            Se indica el <value>descripcion</value> de la Habiltiacion
+            Se indica el <value>descripcion</value> de la Habiltiacion.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Habilitacion.nombreInsitucionHabilitada">
+        <member name="P:ClassLibrary.Habilitacion.NombreInsitucionHabilitada">
             <summary>
-            Se indica el <value>nombreInsitucionHabilitada</value> de la Habiltiacion
+            Se indica el <value>nombreInsitucionHabilitada</value> de la Habiltiacion.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Habilitacion.fechaTramite">
+        <member name="P:ClassLibrary.Habilitacion.FechaTramite">
             <summary>
-            Se indica la <value>fechaTramite</value> de la Habiltiacion
+            Se indica la <value>fechaTramite</value> de la Habiltiacion.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Habilitacion.fechaVencimiento">
+        <member name="P:ClassLibrary.Habilitacion.FechaVencimiento">
             <summary>
-            Se indica la <value>fechaVencimiento</value> de la Habiltiacion
+            Se indica la <value>fechaVencimiento</value> de la Habiltiacion.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Habilitacion.estado">
+        <member name="P:ClassLibrary.Habilitacion.Vigente">
             <summary>
-            Se indica el <value>estado</value> de la Habiltiacion
+            Se indica si la Habilitacion está <value>vigente</value>.
             </summary>
+        </member>
+        <member name="M:ClassLibrary.Habilitacion.#ctor(System.String,System.String,System.DateTime,System.DateTime,System.Boolean)">
+            <summary>
+            Crea una instancia de Habilitacion.
+            </summary>
+            <param name="descripcion">Descripcion de la Habilitacion.</param>
+            <param name="nombreInsitucionHabilitada">Nombre de la institución que habilitó la habilitación.</param>
+            <param name="fechaTramite">Fecha de Tramite de la Habilitacion.</param>
+            <param name="fechaVencimiento">Fecha de Vencimiento de la Habilitacion.</param>
+            <param name="vigente">Indica si la Habilitacion está vigente.</param>
         </member>
         <member name="T:ClassLibrary.ICanal">
             <summary>
-            Esta clase respresenta la interfaz de los canales
+            Esta clase respresenta la interfaz de los canales.
             </summary>
         </member>
-        <member name="M:ClassLibrary.ICanal.recibirMensaje">
+        <member name="M:ClassLibrary.ICanal.RecibirMensaje">
             <summary>
-            Este método se encargará de recibir los mensajes
+            Recibe un mensaje de un usuario.
             </summary>
         </member>
-        <member name="M:ClassLibrary.ICanal.enviarMensaje(System.String)">
+        <member name="M:ClassLibrary.ICanal.EnviarMensaje(System.String)">
             <summary>
-            Este método se encargará de enviar los mensajes
+            Envía un mensaje a un usuario.
+            </summary>
+            <param name="message">Mensaje a enviar al usuario.</param>       
+        </member>
+        <member name="T:ClassLibrary.IPersistencia">
+            <summary>
+            Esta es la interface de percisitencia de la aplicacion. su funcion es guardar y recuperar los datos de la aplicacion.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.IPersistencia.EscribirArchivo(System.String,System.String)">
+            <summary>
+            Guarda el archivo en la ruta especificada.
+            </summary>
+            <param name="ruta">La ruta del archivo en el sistema.</param>
+            <param name="informacion">La información a guardar en el archivo en un string.</param>
+        </member>
+        <member name="M:ClassLibrary.IPersistencia.LeerArchivo(System.String)">
+            <summary>
+            Lee un archivo en el sistema.
+            </summary>
+            <param name="ruta">La ruta del archivo en el sistema.</param>
+            <returns>Retorna la información contenida en un archivo en un string.</returns>
+        </member>
+        <member name="T:ClassLibrary.Material">
+            <summary>
+            Principios y patrones aplicados:
+            Principio ISP: no hay objetos forzados a depender de otros objetos que no usan. 
+            Principio SRP: tiene responsabilidad sobre una única parte de la funcionalidad, quedando completamente encapsulada dentro de la clase.
+            Procurando que la clase tenga solo una razón para cambiar. 
+            Patrón OCP: la clase es abierta a la extensión mediante herencia y/o composición, pero cerrada a cambios ya que no es posible y no es necesario realizar cambios en su código.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Material.#ctor(System.String,System.Collections.Generic.List{System.String},System.String)">
+            <summary>
+            La clase material se encarga de conocer lo relativo al material que consituye el producto.
+            </summary>
+            <param name="nombre">nombre del material</param>
+            <param name="categorias">categorias dentro de las que esta el material</param>
+            <param name="unidadEstandar">unidad Estandar con la que se mide el material</param>
+        </member>
+        <member name="P:ClassLibrary.Material.Nombre">
+            <summary>
+            Nombre del material.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ClassLibrary.Material.Categorias">
+            <summary>
+            Categorías en las que esta incluido el material.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:ClassLibrary.Material.UnidadEstandar">
+            <summary>
+            Unidad en la que se mide el material.
+            </summary>
+            <value></value>
+        </member>
+        <member name="T:ClassLibrary.Oferta">
+            <summary>
+             Patrones y principios aplicados:
+             Principio EXPERT: ya que se le asignaron sus responsabilidades en su calidad
+             de experto en la información, por ser la clase que tiene la información necesaria
+             para poder cumplir con la tarea, mientras que se mantiene la encapsulación 
+             ya que utiliza su propia información para cumplir con las responsabilidades.
+             Patrón Low Coupling: ya que al asignársele responsabilidades a 
+             la clase se buscó que el acoplamiento se mantuviera bajo al no depender de muchas 
+             otras clases.
+             Patrón High Cohesión: ya que las responsabilidades de la clase están
+             fuertemente relacionadas, creando así una clase robusta y fácil de entender. 
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Oferta.#ctor(System.String,ClassLibrary.Empresa,System.DateTime,System.Collections.Generic.List{System.String},System.Collections.Generic.List{ClassLibrary.Habilitacion},System.String,System.String,System.Boolean)">
+            <summary>
+             La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
+            </summary>
+            <param name="id"> Un número identificador para referenciar la oferta a lo largo del sistema </param>
+            <param name="empresa"> Empresa que publica la oferta </param>
+            <param name="fechaCierre"> Fecha de cierre, límite para postularse a la oferta.</param>
+            <param name="etiquetas">Etiquetas relacionadas a la oferta que sirven para agruparlas o clasificarlas</param>
+            <param name="habilitaciones">Habilitaciones requeridas por la empresa para postularse a atender la oferta</param>
+            <param name="descripcion">Descripcion realizada por la empresa</param>
+            <param name="titulo">Titulo bajo el cual se publica la oferta</param>
+            <param name="disponibleConstantemente">Para definir si una oferta es recurrente.</param>
+        </member>
+        <member name="T:ClassLibrary.Oferta.Estados">
+            <summary>
+            Lista de estados posibles en que se puede encontrar una Oferta.
+            </summary>
+        </member>
+        <member name="F:ClassLibrary.Oferta.Estados.Habilitada">
+            <summary>
+            Se le asigna a una oferta para indicar que esta vigente.
+            </summary>
+            <value>Habilitada indica que esta vigente</value>
+        </member>
+        <member name="F:ClassLibrary.Oferta.Estados.Cerrada">
+            <summary>
+            Se le asigna a una oferta para indicar que ya está cerrada y no es posible posularse.
+            </summary>
+            <value>Cerrada indica que no esta activa una oferta por haber sido adjudicada o por haber llegado a su fecha límite.</value>
+        </member>
+        <member name="F:ClassLibrary.Oferta.Estados.Suspendida">
+            <summary>
+            Se le asigna a una oferta para indicar que por algún motivo no esta disponible la oferta.
+            </summary>
+        </member>
+        <member name="F:ClassLibrary.Oferta.Estados.Entregada">
+            <summary>
+            Se le asigna a una oferta para indicar que fue entregada a un Emprendedor.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Oferta.Id">
+            <summary>
+            Es una string que identifica a la oferta y que permite referenciarla a lo largo del sitema.
+            </summary>
+            <value>Id es el identificador único de la oferta.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.Empresa">
+            <summary>
+            Empresa es quién publica la oferta.
+            </summary>
+            <value>Empresa es quién publica la oferta</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.FechaCreada">
+            <summary>
+            Fecha en que se publica la oferta.
+            </summary>
+            <value>Fecha en que se publica la oferta.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.FechaCierre">
+            <summary>
+            Fecha límite para postularse a la oferta.
+            </summary>
+            <value>FechaCierre es la fecha límite para postularse a la oferta.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.Etiquetas">
+            <summary>
+            Son etiquetas que permiten categorizar la oferta para mostrarla agrupadas junto a otras que compartan la misma etiqueta.
+            </summary>
+            <value>Etiquetas permite categorizar la oferta.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.Estado">
+            <summary>
+            Estado indica cuál es la situación actual de una Oferta.
+            </summary>
+            <value>Estado indica si una oferta esta habilitada, cerrada o suspendida.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.Habilitaciones">
+            <summary>
+            Indica cuáles son las habilitaciones que exige la empresa para postularse a la oferta.
+            </summary>
+            <value>Habilitaciones exigidas por al empresa.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.ValorUSD">
+            <summary>
+            Valor en dólares USA que la empresa ofresa en pago por la realización de la tarea que implica la oferta.
+            </summary>
+            <value> ValorUSD es el valor en dólares USA definido por la empresa que publica la oferta.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.ValorUYU">
+            <summary>
+            ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.
+            </summary>
+            <value>ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.Descripcion">
+            <summary>
+            Es la descripción que hace la empresa para describir la oferta al publicarla.
+            </summary>
+            <value>Descripcion que hace la empresa</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.Titulo">
+            <summary>
+            Titulo bajo el que se publica la oferta.
+            </summary>
+            <value>Titulo bajo el que se publica la oferta.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.Productos">
+            <summary>
+            Productos es la lista de productos que componen la oferta.
+            </summary>
+            <value>Productos es la lista de productos que componen la oferta.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.DisponibleConstantemente">
+            <summary>
+            Una propiedad que indica si la oferta es recurrente.
+            </summary>
+            <value>Una propiedad que indica si la oferta es recurrente.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.EmprendedoresPostulados">
+            <summary>
+            EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.
+            </summary>
+            <value>EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.</value>
+        </member>
+        <member name="M:ClassLibrary.Oferta.AgregarProducto(ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            Agrega un producto a la lista de productos.
+            </summary>
+            <param name="material">Material que conforma al producto.</param>
+            <param name="ciudad">Ciudad en la que se encuentra la oferta.</param> 
+            <param name="direccion">Dirección dentro de la Ciudad en la que se encuentra la oferta.</param>      
+            <param name="cantidadEnUnidades">Cantidad de unidades</param>
+            <param name="valorUYU">Valor en pesos uruguayos.</param>
+            <param name="valorUSD">Valor en dolares usa.</param>
+        </member>
+        <member name="M:ClassLibrary.Oferta.RemoverProducto(ClassLibrary.Producto)">
+            <summary>
+            Quita un producto de la lista.
+            </summary>
+            <param name="producto">Detalle del producto a quitar de la lista.</param>
+        </member>
+        <member name="M:ClassLibrary.Oferta.Redactar">
+            <summary>
+            Métodos para publicar los mensajes relativos a las ofertas.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Oferta.RedactarResumen">
+            <summary>
+            Métodos para publicar los mensajes relativos a las ofertas en versión resumida.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Oferta.RedactarPostulados">
+            <summary>
+            Un método para listar todos los emprendedores postulados a una oferta.
+            </summary>
+        </member>
+        <member name="T:ClassLibrary.Producto">
+            <summary>
+            Clase que representa un Producto dentro del dominio del problema.
+            Un Producto representa una instancia de venta de un Material, conteniendo su cantidad en su unidad específica,
+            un valor en UYU y otro en dólares asignados por su vendedor y la ubicación donde se almacena.
+            Se aplica el patrón de SRP y se obtiene una alta cohesión dentro de la clase Producto,
+            al asignarle únicamente las responsabilidades de contener información sobre un producto y redactarla adecuadamente,
+            enfocando sus propiedades y métodos para estos objetivos.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Producto.#ctor(ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            Crea una instancia de Producto.
+            </summary>
+            <param name="material">Material que compone al producto.</param>
+            <param name="ciudad">Ciudad en la que está localizado el producto.</param>
+            <param name="direccion">Direccion en la que está localizado el producto.</param>
+            <param name="cantidadEnUnidad">Cantidad del producto en la unidad estándar de su material.</param>
+            <param name="valorUYU">Valor en pesos uruguayos del producto.</param>
+            <param name="valorUSD">Valor en dolares del producto.</param>
+        </member>
+        <member name="P:ClassLibrary.Producto.Material">
+            <summary>
+            Instancia de material correspondiente al material ofrecido dentro de un producto,
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Producto.Ubicacion">
+            <summary>
+            Instancia de ubicacion correspondiente a la ubicacion donde se almacena el producto.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Producto.CantidadEnUnidad">
+            <summary>
+            Cantidad del material en su unidad especifica.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Producto.ValorUYU">
+            <summary>
+            Valor en pesos uruguayos del producto.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Producto.ValorUSD">
+            <summary>
+            Valor en dólares estadounidenses del producto.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Producto.Redaccion">
+            <summary>
+            Redaccion del producto formateada.
             </summary>
         </member>
         <member name="T:ClassLibrary.Rubro">
@@ -111,39 +560,107 @@
             Esta clase respresenta los datos basicos y necesarios de los rubros.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Rubro.rubro">
+        <member name="P:ClassLibrary.Rubro.Nombre">
             <summary>
             Se indica el nombre <value>rubro</value> del rubro
             </summary>
-
-      </member>
-        <member name="T:ClassLibrary.Train">
+        </member>
+        <member name="M:ClassLibrary.Rubro.#ctor(System.String)">
             <summary>
-            Esta clase representa un tren muy básico.
+            Se indica el nombre <value>rubro</value> del rubro
+            </summary>
+            <param name="rubro">rubro</param>        
+        </member>
+        <member name="T:ClassLibrary.Sistema">
+            <summary>
+            Esta clase representa al sistema principal de la aplicación. Permite registrar usuarios como Empresas
+            o Emprendedores y actúa como un contenedor de los mismos.
+            Se aplica el patrón Singleton dentro de esta clase para permitir solo la creación y utilización
+            de una instancia de Sistema. Además, utilizamos el principio Creator para definir a Sistema como una
+            clase creadora de empresas y emprendedores, ya que está compuesta por ellos. Esto le permite a Sistema
+            actuar como el contenedor de información principal de la aplicación.
+            Enfocando de esta forma a la clase de Sistema, buscamos también aumentar la cohesión de la misma y 
+            lograr el patrón de SRP.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Train.IsEngineStarted">
+        <member name="M:ClassLibrary.Sistema.#ctor">
             <summary>
-            Obtiene un valor que indica si las maquinas del tren han sido encendidas o no.
+            Crea una instancia de Sistema.
             </summary>
-            <value><c>true</c> si las máquinas fueron encendidas, <c>false</c> en caso contrario.</value>
         </member>
-        <member name="M:ClassLibrary.Train.StartEngines">
+        <member name="M:ClassLibrary.Sistema.RegistrarEmpresa(System.String,System.String,System.String,System.String,System.String)">
             <summary>
-            Enciende las máquinas del tren.
+            Registra una nueva empresa en el sistema.
             </summary>
-            <returns>
-            <c>true</c> si las máquinas pueden ser encendidas, <c>false</c> en caso contrario.
-            </returns>
         </member>
-        <member name="M:ClassLibrary.Train.StopEngines">
+        <member name="M:ClassLibrary.Sistema.RegistrarEmprendedor(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{ClassLibrary.Habilitacion})">
             <summary>
-            Detiene las máquinas del tren.
+            Registra un nuevo emprendedor en el sistema.
             </summary>
-            <returns>
-            <c>true</c> si las máquinas pueden ser detenidas, <c>false</c> en caso contrario.
-            </returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:ClassLibrary.Ubicacion" -->
+        <member name="M:ClassLibrary.Sistema.ObtenerEmpresaPorId(System.String)">
+            <summary>
+            Recupera una empresa de la lista de empresas utilizando su id y una id dada.
+            </summary>
+            <param name="id">Id de la empresa a recuperar.</param>
+            <returns>La instancia de Empresa correspondiente a la id dada.</returns>
+        </member>
+        <member name="M:ClassLibrary.Sistema.ObtenerEmprendedorPorId(System.String)">
+            <summary>
+            Recupera un emprendedor de la lista de emprendedores utilizando su id y una id dada.
+            </summary>
+            <param name="id">Id del emprendedor a recuperar.</param>
+            <returns>La instancia de Emprendedor correspondiente a la id dada.</returns>
+        </member>
+        <member name="P:ClassLibrary.Sistema.Empresas">
+            <summary>
+            Lista de empresas registradas en el sistema.
+            </summary>
+            <value>Colección de instancias de <c>Empresa</c></value>
+        </member>
+        <member name="P:ClassLibrary.Sistema.Emprendedores">
+            <summary>
+            Lista de emprendedores registrados en el sistema.
+            </summary>
+            <value>Colección de instancias de <c>Emprendedor</c></value>
+        </member>
+        <member name="P:ClassLibrary.Sistema.Instancia">
+            <summary>
+            Instancia del sistema durante la ejecución. Se aplica el patrón Singleton.
+            </summary>
+            <value>Una única instancia de <c>Sistema</c></value>
+        </member>
+        <member name="T:ClassLibrary.Ubicacion">
+            <summary>
+            Patrones y principios utilizados en esta clase:
+            ISP ya que segmenta las operaciones de la interface en la persistencia.
+            Expert ya que se le da la responsabilidad de gestionar las coordenas de una ubicacion, debido a que es la clase más experta de la información.
+            Polymorphism porque utiliza dos métodos polimorficos de persistencia.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Ubicacion.Ciudad">
+            <summary>
+            Nombre de la ciudad de la ubicación
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Ubicacion.Direccion">
+            <summary>
+            Dirección correspondiente a la ubicación
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:ClassLibrary.Ubicacion.#ctor(System.String,System.String)">
+            <summary>
+            Crea una instancia de la clase Ubicacion
+            </summary>
+            <param name="ciudad">Ciudad</param>
+            <param name="direccion">Dirección</param>
+        </member>
+        <member name="M:ClassLibrary.Ubicacion.Redactar">
+            <summary>
+            Genera una cadena de texto con la información de la ubicación
+            </summary>
+            <returns>Retorna un string con la ubicación formateada</returns>
+        </member>
     </members>
 </doc>
