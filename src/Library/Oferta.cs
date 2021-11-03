@@ -43,6 +43,7 @@ namespace ClassLibrary
             this.Titulo = titulo;                   //09
             this.DisponibleConstantemente = disponibleConstantemente;  //10
             this.EmprendedoresPostulados = new List<Emprendedor>();    //11
+            this.Productos = new List<Producto>();                     //12
         }      
 
         /// <summary>

@@ -29,8 +29,9 @@ public class ProductoTests
     [Test]
     public void TestProducto()
     {
-        Assert.AreEqual(materialTest,productoTest.Material);
-        Assert.AreEqual(ubicacionTest,productoTest.Ubicacion);
+        Assert.AreSame(materialTest,productoTest.Material);
+        Assert.AreEqual(ubicacionTest.Direccion,productoTest.Ubicacion.Direccion);
+        Assert.AreEqual(ubicacionTest.Ciudad,productoTest.Ubicacion.Ciudad);
         Assert.AreEqual(30,productoTest.CantidadEnUnidad);
         Assert.AreEqual(4396,productoTest.ValorUYU);
         Assert.AreEqual(100,productoTest.ValorUSD);

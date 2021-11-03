@@ -4,6 +4,31 @@
         <name>LibraryTests</name>
     </assembly>
     <members>
+        <member name="T:ProductoTests">
+            <summary>
+            Test para la clase Producto, creo instancia de Producto y verifico que sus campos sean correctos
+            </summary>
+        </member>
+        <member name="F:ProductoTests.ubicacionTest">
+            <summary>
+            Instancia de Ubicacion usada en los tests.
+            </summary>
+        </member>
+        <member name="F:ProductoTests.materialTest">
+            <summary>
+            Instancia de Material que le paso a producto para testear.
+            </summary>
+        </member>
+        <member name="F:ProductoTests.productoTest">
+            <summary>
+            Instancia de Producto que testeo.
+            </summary>
+        </member>
+        <member name="M:ProductoTests.TestProducto">
+            <summary>
+            Testeo las características de producto.
+            </summary>
+        </member>
         <member name="T:Tests.UserStoriesTests">
             <summary>
             Pruebas para demostrar el cumplimiento de las historias de usuario.

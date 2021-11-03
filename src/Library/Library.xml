@@ -382,7 +382,11 @@
             <summary>
             Se le asigna a una oferta para indicar que por algún motivo no esta disponible la oferta.
             </summary>
-            <value></value>
+        </member>
+        <member name="F:ClassLibrary.Oferta.Estados.Entregada">
+            <summary>
+            Se le asigna a una oferta para indicar que fue entregada a un Emprendedor.
+            </summary>
         </member>
         <member name="P:ClassLibrary.Oferta.Id">
             <summary>
