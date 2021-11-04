@@ -10,43 +10,76 @@ namespace Tests{
     {
         [Test]
         public void TestOfertaId()
-        {
-            const string expected = "1234";
-            Oferta oferta1 = new Oferta("1234", Empresa1, 31/12/21, Etiqueta1, habilitaciones, 1000, 4400, descripcion1);
-            Assert.AreEqual(expected, oferta1.Id);
-        }
+    {
+        Habilitacion h1 = new Habilitacion("Habilitacion Comercial", "Intendencia Municipal De Montevideo (IMM)", new DateTime(2021, 10, 10), new DateTime(2026, 10, 10), true);
+        Habilitacion h2 = new Habilitacion("Habilitacion Comercial 2 ", "Intendencia Municipal De Montevideo (IMM)", new DateTime(2021, 10, 10), new DateTime(2026, 10, 10), true);
+
+        List<Habilitacion> habilitaciones = new List<Habilitacion>();
+        habilitaciones.Add(h1);
+        habilitaciones.Add(h2);
+
+        Ubicacion u1 = new Ubicacion("montevideo", "Calle 1 1892");
+
+        Emprendedor e1 = new Emprendedor("1","Emprendedor S.A", habilitaciones, "montevideo","Calle 1 1892", "reciclaje");
+      
+        Empresa em1 = new Empresa("1","ciudad 1", "calle 1" , "reciclaje", "Empresa S.A");
+
+        List<string> etiquetas = new List<string>();
+        etiquetas.Add("etiqueta 1");
+
+        Oferta f1 = new Oferta("1234", em1, new DateTime(2021,10,10), etiquetas, habilitaciones, "descripcion2", "titulo2", false);
+        string expected = "1234";
+        Assert.AreEqual(expected, f1.Id);
+
+    }
         
         [Test]
         public void TestOfertaFechaCierre()
-        {
-        Oferta oferta1 = new Oferta("1234", Empresa1, 31/12/21, Etiqueta1, habilitaciones, 1000, 4400, descripcion1);
+    {
+        Habilitacion h1 = new Habilitacion("Habilitacion Comercial", "Intendencia Municipal De Montevideo (IMM)", new DateTime(2021, 10, 10), new DateTime(2026, 10, 10), true);
+        Habilitacion h2 = new Habilitacion("Habilitacion Comercial 2 ", "Intendencia Municipal De Montevideo (IMM)", new DateTime(2021, 10, 10), new DateTime(2026, 10, 10), true);
 
-        DateTime expected = 31/12/21;
-        Assert.AreEqual(expected, oferta1.FechaCierre);
+        List<Habilitacion> habilitaciones = new List<Habilitacion>();
+        habilitaciones.Add(h1);
+        habilitaciones.Add(h2);
 
-        }
+        Ubicacion u1 = new Ubicacion("montevideo", "Calle 1 1892");
+
+        Emprendedor e1 = new Emprendedor("1","Emprendedor S.A", habilitaciones, "montevideo","Calle 1 1892", "reciclaje");
+      
+        Empresa em1 = new Empresa("1","ciudad 1", "calle 1" , "reciclaje", "Empresa S.A");
+
+        List<string> etiquetas = new List<string>();
+        etiquetas.Add("etiqueta 1");
+
+        Oferta f1 = new Oferta("1234", em1, new DateTime(2021,10,10), etiquetas, habilitaciones, "descripcion2", "titulo2", false);
+        DateTime expected = new DateTime(2021,10,10);
+        Assert.AreEqual(expected, f1.FechaCierre);
+    }
 
         [Test]
-        public void TestOfertaEmpresaId()
-        {
-        
-        Empresa empresa1 = new Empresa("15", oferta1, ubicacion, rubro, "Acme Procesamiento de Residuos");
-        Oferta oferta1 = new Oferta("1234", empresa1, 31/12/21, Etiqueta1, habilitaciones1, 1000, 4400, descripcion1);
-        string expected = "15";
-        Assert.AreEqual(expected, oferta1.empresa1.id);
+        public void TestOfertaDisponibilidad()
+    {
+        Habilitacion h1 = new Habilitacion("Habilitacion Comercial", "Intendencia Municipal De Montevideo (IMM)", new DateTime(2021, 10, 10), new DateTime(2026, 10, 10), true);
+        Habilitacion h2 = new Habilitacion("Habilitacion Comercial 2 ", "Intendencia Municipal De Montevideo (IMM)", new DateTime(2021, 10, 10), new DateTime(2026, 10, 10), true);
 
-        }
+        List<Habilitacion> habilitaciones = new List<Habilitacion>();
+        habilitaciones.Add(h1);
+        habilitaciones.Add(h2);
 
-        [Test]
-        public void TestOfertaHabilitaciones()
-        {
-        
-        Habilitacion habilitacion1 = new Habilitacion("Procesamiento Residuos Hospitalarios", "Acme Procesamiento de Resiudos", 01/01/19, 31/12/21);
-        Oferta oferta1 = new Oferta("1234", Empresa1, 31/12/21, Etiqueta1, habilitaciones1, 1000, 4400, descripcion1);
-        string expected = "Procesamiento Residuos Hospitalarios";
-        Assert.AreEqual(expected, oferta1.habilitacion1.descripcion);
+        Ubicacion u1 = new Ubicacion("montevideo", "Calle 1 1892");
 
-        }
+        Emprendedor e1 = new Emprendedor("1","Emprendedor S.A", habilitaciones, "montevideo","Calle 1 1892", "reciclaje");
+      
+        Empresa em1 = new Empresa("1","ciudad 1", "calle 1" , "reciclaje", "Empresa S.A");
+
+        List<string> etiquetas = new List<string>();
+        etiquetas.Add("etiqueta 1");
+
+        Oferta f1 = new Oferta("1234", em1, new DateTime(2021,10,10), etiquetas, habilitaciones, "descripcion2", "titulo2", false);
+        bool expected = false;
+        Assert.AreEqual(expected, f1.DisponibleConstantemente);
+    }
 
     }
 }
