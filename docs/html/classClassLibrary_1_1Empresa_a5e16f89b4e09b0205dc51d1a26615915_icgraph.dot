@@ -1,0 +1,17 @@
+digraph "ClassLibrary.Empresa.ObtenerOfertaPorId"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="ClassLibrary.Empresa.Obtener\lOfertaPorId",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Recupera una oferta de la lista de ofertas utilizando su id y una id dada."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Tests.UserStoriesTests.Buscar\lOfertasTest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html#a888802d225bbd72618f9c5632594f6b3",tooltip="Prueba para la historia de usuario 8: Búsqueda de ofertas."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Tests.UserStoriesTests.Ofertas\lConsumidasTest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html#a56183ee941eacef1a4254623135a3742",tooltip="Prueba para la historia de usuario 12: Ofertas consumidas por emprendedor"];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Tests.UserStoriesTests.Ofertas\lEntregadasTest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html#a6d5016ab90a3f2d7c75bf2441077f539",tooltip="Prueba para la historia de usuario 11: Ofertas entregadas"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Tests.UserStoriesTests.Publicar\lOfertaTest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html#a45f61a5bfa9e579a076fcfcda7a8bc83",tooltip="Prueba para las historias de usuario 3, 4, 5 y 6:"];
+}

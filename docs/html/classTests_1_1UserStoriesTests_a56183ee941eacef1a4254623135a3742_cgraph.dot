@@ -1,0 +1,21 @@
+digraph "Tests.UserStoriesTests.OfertasConsumidasTest"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Tests.UserStoriesTests.Ofertas\lConsumidasTest",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Prueba para la historia de usuario 12: Ofertas consumidas por emprendedor"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ClassLibrary.Sistema.Obtener\lEmprendedorPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Sistema.html#ae8c06d6d33492327eadd3efe70d69a19",tooltip="Recupera un emprendedor de la lista de emprendedores utilizando su id y una id dada."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ClassLibrary.Sistema.Obtener\lEmpresaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Sistema.html#a6d25225279a22870da000af9f3716f38",tooltip="Recupera una empresa de la lista de empresas utilizando su id y una id dada."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="ClassLibrary.Empresa.Obtener\lOfertaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Empresa.html#a5e16f89b4e09b0205dc51d1a26615915",tooltip="Recupera una oferta de la lista de ofertas utilizando su id y una id dada."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ClassLibrary.Sistema.Registrar\lEmprendedor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Sistema.html#a1f8f1a7fce56355f6e4ff95706e0391e",tooltip="Registra un nuevo emprendedor en el sistema."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="ClassLibrary.Sistema.Registrar\lEmpresa",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Sistema.html#a67310e1e32b1c5967750a79beefb8bfd",tooltip="Registra una nueva empresa en el sistema."];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="ClassLibrary.Emprendedor.\lVerOfertasConsumidas",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Emprendedor.html#a3ba4455988c43959fc27662a05de2d5e",tooltip="Mediante palabras calve, un buscador y un canal se obtienen las ofertas consumidas por el Emprendedor..."];
+}

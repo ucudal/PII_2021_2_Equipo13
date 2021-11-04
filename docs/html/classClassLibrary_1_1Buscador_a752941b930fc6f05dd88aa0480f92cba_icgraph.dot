@@ -1,0 +1,11 @@
+digraph "ClassLibrary.Buscador.BuscarOfertas"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="ClassLibrary.Buscador.Buscar\lOfertas",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Realiza una búsqueda de ofertas dentro de una instancia de Sistema, utilizando la información de un E..."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Tests.UserStoriesTests.Buscar\lOfertasTest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html#a888802d225bbd72618f9c5632594f6b3",tooltip="Prueba para la historia de usuario 8: Búsqueda de ofertas."];
+}

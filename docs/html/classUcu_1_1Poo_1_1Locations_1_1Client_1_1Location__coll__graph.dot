@@ -1,0 +1,8 @@
+digraph "Ucu.Poo.Locations.Client.Location"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{Ucu.Poo.Locations.Client.\lLocation\n|+ Found\l+ AddresLine\l+ CountryRegion\l+ FormattedAddress\l+ Locality\l+ PostalCode\l+ Latitude\l+ Longitude\l|}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Representa las coordenadas y otros datos de la ubicación de una dirección retornada en el método Loca..."];
+}

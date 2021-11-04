@@ -1,0 +1,9 @@
+digraph "Graphical Class Hierarchy"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="Ucu.Poo.Locations.Client.\lDistance",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classUcu_1_1Poo_1_1Locations_1_1Client_1_1Distance.html",tooltip="Representa la distancia entre las coordenas o las direcciones de origen y destino retornada en los mé..."];
+}

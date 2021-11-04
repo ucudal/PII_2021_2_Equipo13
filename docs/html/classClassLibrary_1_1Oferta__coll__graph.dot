@@ -1,0 +1,8 @@
+digraph "ClassLibrary.Oferta"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{ClassLibrary.Oferta\n|+ Id\l+ Empresa\l+ FechaCreada\l+ FechaCierre\l+ Etiquetas\l+ Estado\l+ Habilitaciones\l+ ValorUSD\l+ ValorUYU\l+ Descripcion\l+ Titulo\l+ Productos\l+ DisponibleConstantemente\l+ EmprendedoresPostulados\l|+ Oferta()\l+ AgregarProducto()\l+ RemoverProducto()\l+ Redactar()\l+ RedactarResumen()\l+ RedactarPostulados()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Patrones y principios aplicados: Principio EXPERT: ya que se le asignaron sus responsabilidades en su..."];
+}

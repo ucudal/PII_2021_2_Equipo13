@@ -1,0 +1,19 @@
+digraph "Tests.UserStoriesTests.PublicarOfertaTest"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="Tests.UserStoriesTests.Publicar\lOfertaTest",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Prueba para las historias de usuario 3, 4, 5 y 6:"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="ClassLibrary.Oferta.Agregar\lProducto",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Oferta.html#af2e8abd2146fa715005a47207c3fd66c",tooltip="Agrega un producto a la lista de productos."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="ClassLibrary.Sistema.Obtener\lEmpresaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Sistema.html#a6d25225279a22870da000af9f3716f38",tooltip="Recupera una empresa de la lista de empresas utilizando su id y una id dada."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="ClassLibrary.Empresa.Obtener\lOfertaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Empresa.html#a5e16f89b4e09b0205dc51d1a26615915",tooltip="Recupera una oferta de la lista de ofertas utilizando su id y una id dada."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="ClassLibrary.Empresa.Publicar\lOferta",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Empresa.html#a5d007b2ec822d0bff9e39045728a9a0d",tooltip="Crea una nueva Oferta y la añade a la lista de ofertas de la empresa."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="ClassLibrary.Sistema.Registrar\lEmpresa",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Sistema.html#a67310e1e32b1c5967750a79beefb8bfd",tooltip="Registra una nueva empresa en el sistema."];
+}
