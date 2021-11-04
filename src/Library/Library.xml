@@ -132,7 +132,6 @@
             Mediante una oferta esté se postulará a ella.
             </summary>
             <param name="oferta">Oferta a postularse.</param>
-
         </member>
         <member name="M:ClassLibrary.Emprendedor.VerOfertasPostuladas(System.DateTime,System.DateTime)">
             <summary>
@@ -230,11 +229,7 @@
              Patrones y principios utilizados en esta clase:
             Expert conocer la informacion de las ubicaciones a las cuales se desea calcular distancias u obtner coordenadas.
             </summary>
-            <param name="inicio">Fecha de inicio del periodo en el que se quiere buscar.</param>
-            <param name="fin">Fecha de fin del periodo en el que se quiere buscar.</param>
-            <returns>Una lista de ofertas a las cuales se postuló el Emprendedor.</returns>
         </member>
-
         <member name="M:ClassLibrary.GestorLocacion.ObtenerDistancia(ClassLibrary.Ubicacion,ClassLibrary.Ubicacion)">
             <summary>
             Sirve para obtener la distancia entre dos ubicaciones.
@@ -401,7 +396,6 @@
             <summary>
             Se le asigna a una oferta para indicar que por algún motivo no esta disponible la oferta.
             </summary>
-
         </member>
         <member name="F:ClassLibrary.Oferta.Estados.Entregada">
             <summary>
@@ -453,124 +447,12 @@
         <member name="P:ClassLibrary.Oferta.ValorUSD">
             <summary>
             Valor en dólares USA que la empresa ofresa en pago por la realización de la tarea que implica la oferta.
-
             </summary>
             <value> ValorUSD es el valor en dólares USA definido por la empresa que publica la oferta.</value>
         </member>
         <member name="P:ClassLibrary.Oferta.ValorUYU">
             <summary>
             ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.
-            </summary>
-            <value>ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.</value>
-        </member>
-        <member name="P:ClassLibrary.Oferta.Descripcion">
-            <summary>
-            Es la descripción que hace la empresa para describir la oferta al publicarla.
-            </summary>
-            <value>Descripcion que hace la empresa</value>
-        </member>
-        <member name="P:ClassLibrary.Oferta.Titulo">
-            <summary>
-            Titulo bajo el que se publica la oferta.
-            </summary>
-            <value>Titulo bajo el que se publica la oferta.</value>
-        </member>
-        <member name="P:ClassLibrary.Oferta.Productos">
-            <summary>
-            Productos es la lista de productos que componen la oferta.
-            </summary>
-            <value>Productos es la lista de productos que componen la oferta.</value>
-        </member>
-        <member name="P:ClassLibrary.Oferta.DisponibleConstantemente">
-            <summary>
-            Una propiedad que indica si la oferta es recurrente.
-            </summary>
-            <value>Una propiedad que indica si la oferta es recurrente.</value>
-        </member>
-        <member name="P:ClassLibrary.Oferta.EmprendedoresPostulados">
-            <summary>
-            EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.
-            </summary>
-            <value>EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.</value>
-        </member>
-        <member name="M:ClassLibrary.Oferta.AgregarProducto(ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
-            <summary>
-            Agrega un producto a la lista de productos.
-            </summary>
-            <param name="material">Material que conforma al producto.</param>
-            <param name="ciudad">Ciudad en la que se encuentra la oferta.</param> 
-            <param name="direccion">Dirección dentro de la Ciudad en la que se encuentra la oferta.</param>      
-            <param name="cantidadEnUnidades">Cantidad de unidades</param>
-            <param name="valorUYU">Valor en pesos uruguayos.</param>
-            <param name="valorUSD">Valor en dolares usa.</param>
-        </member>
-        <member name="M:ClassLibrary.Oferta.RemoverProducto(ClassLibrary.Producto)">
-            <summary>
-            Quita un producto de la lista.
-            </summary>
-            <param name="producto">Detalle del producto a quitar de la lista.</param>
-        </member>
-        <member name="M:ClassLibrary.Oferta.Redactar">
-            <summary>
-            Métodos para publicar los mensajes relativos a las ofertas.
-            </summary>
-        </member>
-        <member name="M:ClassLibrary.Oferta.RedactarResumen">
-            <summary>
-            Métodos para publicar los mensajes relativos a las ofertas en versión resumida.
-            </summary>
-        </member>
-        <member name="M:ClassLibrary.Oferta.RedactarPostulados">
-            <summary>
-            Un método para listar todos los emprendedores postulados a una oferta.
-            </summary>
-        </member>
-        <member name="T:ClassLibrary.Producto">
-            <summary>
-            Clase que representa un Producto dentro del dominio del problema.
-            Un Producto representa una instancia de venta de un Material, conteniendo su cantidad en su unidad específica,
-            un valor en UYU y otro en dólares asignados por su vendedor y la ubicación donde se almacena.
-            Se aplica el patrón de SRP y se obtiene una alta cohesión dentro de la clase Producto,
-            al asignarle únicamente las responsabilidades de contener información sobre un producto y redactarla adecuadamente,
-            enfocando sus propiedades y métodos para estos objetivos.
-            </summary>
-        </member>
-        <member name="M:ClassLibrary.Producto.#ctor(ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
-            <summary>
-            Crea una instancia de Producto.
-            </summary>
-            <param name="material">Material que compone al producto.</param>
-            <param name="ciudad">Ciudad en la que está localizado el producto.</param>
-            <param name="direccion">Direccion en la que está localizado el producto.</param>
-            <param name="cantidadEnUnidad">Cantidad del producto en la unidad estándar de su material.</param>
-            <param name="valorUYU">Valor en pesos uruguayos del producto.</param>
-            <param name="valorUSD">Valor en dolares del producto.</param>
-        </member>
-        <member name="P:ClassLibrary.Producto.Material">
-            <summary>
-            Instancia de material correspondiente al material ofrecido dentro de un producto,
-            </summary>
-        </member>
-        <member name="P:ClassLibrary.Producto.Ubicacion">
-            <summary>
-            Instancia de ubicacion correspondiente a la ubicacion donde se almacena el producto.
-            </summary>
-        </member>
-        <member name="P:ClassLibrary.Producto.CantidadEnUnidad">
-            <summary>
-            Cantidad del material en su unidad especifica.
-            </summary>
-        </member>
-        <member name="P:ClassLibrary.Producto.ValorUYU">
-            <summary>
-            Valor en pesos uruguayos del producto.
-            </summary>
-            <value> ValorUSD es el valor en dólares USA definido por la empresa que publica la oferta.</value>
-        </member>
-
-        <member name="P:ClassLibrary.Producto.ValorUSD">
-            <summary>
-            Valor en dólares estadounidenses del producto.
             </summary>
             <value>ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.</value>
         </member>
@@ -767,16 +649,12 @@
             Patrones y principios utilizados en esta clase:
             ISP ya que segmenta las operaciones de la interface en la persistencia.
             Expert ya que se le da la responsabilidad de gestionar las coordenas de una ubicacion, debido a que es la clase más experta de la información.
-            Polymorphism porque utiliza dos métodos polimorficos de persistencia.
             </summary>
         </member>
         <member name="P:ClassLibrary.Ubicacion.Ciudad">
             <summary>
             Nombre de la ciudad de la ubicación
             </summary>
-            <param name="from">La coordenada de origen.</param>
-            <param name="to">La coordenada de destino.</param>
-            <returns>La distancia entre las dos coordenadas.</returns>
         </member>
         <member name="P:ClassLibrary.Ubicacion.Direccion">
             <summary>
@@ -796,6 +674,139 @@
             Genera una cadena de texto con la información de la ubicación
             </summary>
             <returns>Retorna un string con la ubicación formateada</returns>
+        </member>
+        <member name="M:ClassLibrary.Ubicacion.ObtenerDistancia(ClassLibrary.Ubicacion)">
+            <summary>
+            Delega la responsabilidad de calcular la distancia al gestor.
+            </summary>
+            <param name="target">Distancia objectivo</param>
+            <returns></returns>
+        </member>
+        <member name="T:Ucu.Poo.Locations.Client.Distance">
+            <summary>
+            Representa la distancia entre las coordenas o las direcciones de origen y destino retornada en los métodos
+            <see cref="M:Ucu.Poo.Locations.Client.LocationApiClient.GetDistanceAsync(Ucu.Poo.Locations.Client.Location,Ucu.Poo.Locations.Client.Location)"/> o
+            <see cref="M:Ucu.Poo.Locations.Client.LocationApiClient.GetDistanceAsync(System.String,System.String)"/>.
+            </summary>
+        </member>
+        <member name="P:Ucu.Poo.Locations.Client.Distance.Found">
+            <summary>
+            Indica si se encontraron o no las coordenas o las direcciones de origen y destino.
+            </summary>
+            <value>true si se encontró la dirección; false en caso contrario.</value>
+        </member>
+        <member name="P:Ucu.Poo.Locations.Client.Distance.TravelDistance">
+            <summary>
+            La distancia entre las coordenadas o las direcciones de origen y destino.
+            </summary>
+            <value>La distancia en metros.</value>
+        </member>
+        <member name="P:Ucu.Poo.Locations.Client.Distance.TravelDuration">
+            <summary>
+            El tiempo que se demora en llegar de las coordenadas o de las direcciones de origen a las de destino.
+            </summary>
+            <value>El tiempo que se demora en minutos.</value>
+        </member>
+        <member name="T:Ucu.Poo.Locations.Client.Location">
+            <summary>
+            Representa las coordenadas y otros datos de la ubicación de una dirección retornada en el método
+            <see cref="M:Ucu.Poo.Locations.Client.LocationApiClient.GetLocationAsync(System.String,System.String,System.String,System.String)"/>.
+            </summary>
+        </member>
+        <member name="P:Ucu.Poo.Locations.Client.Location.Found">
+            <summary>
+            Indica si se encontró o no la dirección. En ese caso son válidos los demás valores. En caso contrario los
+            demás valores son indeterminados.
+            </summary>
+            <value>true si se encontró la dirección; false en caso contrario.</value>
+        </member>
+        <member name="P:Ucu.Poo.Locations.Client.Location.AddresLine">
+            <summary>
+            La dirección: calle y número, ruta y kilómetro, etc.
+            </summary>
+            <value>Por ejemplo, Avenida 8 de Octubre 2738.</value>
+        </member>
+        <member name="P:Ucu.Poo.Locations.Client.Location.CountryRegion">
+            <summary>
+            El país.
+            </summary>
+            <value>Por ejemplo, Uruguay</value>
+        </member>
+        <member name="P:Ucu.Poo.Locations.Client.Location.FormattedAddress">
+            <summary>
+            La dirección completa, incluyendo ciudad, código postal, etc.
+            </summary>
+            <value>Por ejemplo, Avenida 8 de Octubre 2738, Montevideo, 11200, Uruguay.</value>
+        </member>
+        <member name="P:Ucu.Poo.Locations.Client.Location.Locality">
+            <summary>
+            La localidad o ciudad.
+            </summary>
+            <value>Por ejemplo, Montevideo</value>
+        </member>
+        <member name="P:Ucu.Poo.Locations.Client.Location.PostalCode">
+            <summary>
+            El código postal.
+            </summary>
+            <value>Por ejemplo, 11200</value>
+        </member>
+        <member name="P:Ucu.Poo.Locations.Client.Location.Latitude">
+            <summary>
+            La latitud de la dirección.
+            </summary>
+            <value>El valor de la latitud en formato decimal.</value>
+        </member>
+        <member name="P:Ucu.Poo.Locations.Client.Location.Longitude">
+            <summary>
+            La longitud de la dirección.
+            </summary>
+            <value>El valor de la longitud en formato decimal.</value>
+        </member>
+        <member name="M:Ucu.Poo.Locations.Client.LocationApiClient.GetLocationAsync(System.String,System.String,System.String,System.String)">
+            <summary>
+            Obtiene las coordenadas de una dirección.
+            </summary>
+            <param name="address">La dirección.</param>
+            <param name="city">La ciudad. Es opcional. El valor predeterminado es Montevideo.</param>
+            <param name="department">El departamento, estado, provincia, etc. Es opcional. El valor predeterminado es `ontevideo.</param>
+            <param name="country">El país. Es opcional. El valor predeterminado es Uruguay.</param>
+            <returns>Las coordenadas de la dirección.</returns>
+        </member>
+        <member name="M:Ucu.Poo.Locations.Client.LocationApiClient.GetDistanceAsync(Ucu.Poo.Locations.Client.Location,Ucu.Poo.Locations.Client.Location)">
+            <summary>
+            Obtiene la distancia entre dos coordenadas.
+            </summary>
+            <param name="from">La coordenada de origen.</param>
+            <param name="to">La coordenada de destino.</param>
+            <returns>La distancia entre las dos coordenadas.</returns>
+        </member>
+        <member name="M:Ucu.Poo.Locations.Client.LocationApiClient.GetDistanceAsync(System.String,System.String)">
+            <summary>
+            Obtiene la distancia entre dos direcciones.
+            </summary>
+            <param name="from">La dirección de origen.</param>
+            <param name="to">La dirección de destino.</param>
+            <returns>La distancia entre las dos direcciones.</returns>
+        </member>
+        <member name="M:Ucu.Poo.Locations.Client.LocationApiClient.DownloadMapAsync(System.Double,System.Double,System.String,System.Int32)">
+            <summary>
+            Descarga una mapa de una coordenada.
+            </summary>
+            <param name="latitude">La latitud de la coordenada.</param>
+            <param name="longitude">La longitud de la coordenada.</param>
+            <param name="path">La ruta del archivo donde guardar el mapa. El formato es PNG.</param>
+            <param name="zoomLevel">El nivel de zoom del mapa entre 1 y 20. Es opcional. El valor predeterminado es
+            15.</param>
+        </member>
+        <member name="M:Ucu.Poo.Locations.Client.LocationApiClient.DownloadRouteAsync(System.Double,System.Double,System.Double,System.Double,System.String)">
+            <summary>
+            Un mapa con una ruta entre dos coordenadas.
+            </summary>
+            <param name="fromLatitude">La latitud de la coordenada de origen.</param>
+            <param name="fromLongitude">La longitu de la coordenada de origen.</param>
+            <param name="toLatitude">La latitud de la coordenada de destino.</param>
+            <param name="toLongitude">La longitud de la coordenada de destino.</param>
+            <param name="path">La ruta del archivo donde guardar el mapa. Es formato es PNG.</param>
         </member>
     </members>
 </doc>
