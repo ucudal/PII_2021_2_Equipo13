@@ -1,10 +1,11 @@
+using System.Threading.Tasks;
+
 namespace ClassLibrary
 {
     /// <summary>
     /// Patrones y principios utilizados en esta clase:
     /// ISP ya que segmenta las operaciones de la interface en la persistencia.
     /// Expert ya que se le da la responsabilidad de gestionar las coordenas de una ubicacion, debido a que es la clase más experta de la información.
-    /// Polymorphism porque utiliza dos métodos polimorficos de persistencia.
     /// </summary>
     public class Ubicacion
     {
@@ -18,6 +19,8 @@ namespace ClassLibrary
         /// </summary>
         /// <value></value>
         public string Direccion { get; }
+
+        private GestorLocacion GestorLocacion = new GestorLocacion();
 
         /// <summary>
         /// Crea una instancia de la clase Ubicacion
@@ -36,6 +39,16 @@ namespace ClassLibrary
         public string Redactar()
         {
             return $"{this.Direccion}, {this.Ciudad}";
+        }
+
+        /// <summary>
+        /// Delega la responsabilidad de calcular la distancia al gestor.
+        /// </summary>
+        /// <param name="target">Distancia objectivo</param>
+        /// <returns></returns>
+        public double ObtenerDistancia(Ubicacion target)
+        {
+            return GestorLocacion.ObtenerDistancia(this, target);
         }
 
     }

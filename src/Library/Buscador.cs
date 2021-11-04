@@ -52,7 +52,7 @@ namespace ClassLibrary
                             if (producto.Material.Categorias.Contains(categoria))
                                 puntaje += 5;
                         }
-                        distanciaMedia += GestorLocacion.ObtenerDistancia(emprendedor.Ubicacion, producto.Ubicacion);
+                        distanciaMedia +=  emprendedor.Ubicacion.ObtenerDistancia( producto.Ubicacion);
                     }
                     distanciaMedia /= oferta.Productos.Count;
                     puntaje += this.DistanciaAPuntaje(distanciaMedia, 300, 30);

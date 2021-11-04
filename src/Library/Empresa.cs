@@ -6,8 +6,8 @@ namespace ClassLibrary
     /// <summary> 
     /// Patrones y principios utilizados en esta clase:
     /// ISP ya que segmenta las operaciones de la interface en la persistencia.
+    /// Creator ya que crea una instancia de oferta en esta clase con los parametros necesarios para ello.
     /// Expert ya que se le da la responsabilidad de generar las publicaciones, debido a que es la clase más experta de la información.
-    /// Polymorphism porque utiliza dos métodos polimorficos de persistencia.
     /// </summary>
     public class Empresa
     {
@@ -37,7 +37,7 @@ namespace ClassLibrary
         public string Nombre { get; }
         
         /// <summary>
-        /// 
+        /// Crea una instancia de Empresa.
         /// </summary>
         /// <param name="id">Id del usuario en el canal de registro.</param>
         /// <param name="ciudad">Ciudad donde está basada la empresa.</param>

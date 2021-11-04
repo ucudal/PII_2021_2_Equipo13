@@ -1,25 +1,42 @@
+using System;
+using System.Threading.Tasks;
+using Ucu.Poo.Locations.Client;
+
 namespace ClassLibrary
 {
-    public static class GestorLocacion
+    /// <summary>
+    ///  Patrones y principios utilizados en esta clase:
+    /// Expert conocer la informacion de las ubicaciones a las cuales se desea calcular distancias u obtner coordenadas.
+    /// </summary>
+    public class GestorLocacion
     {
-        public static double ObtenerDistancia(Ubicacion primaria, Ubicacion secundaria)
-        {
-            return 1;
-        }
+        LocationApiClient Client = new LocationApiClient();
 
-        public static void ObtenerCoordenadas(string parametros)
+        /// <summary>
+        /// Sirve para obtener la distancia entre dos ubicaciones.
+        /// </summary>
+        /// <param name="primaria">ubicacion primaria</param>
+        /// <param name="secundaria">ubicacion secundaria</param>
+        /// <returns></returns>
+        public double ObtenerDistancia(Ubicacion primaria, Ubicacion secundaria)
         {
-            
-        }
+            Location locationA = new Location();
+            locationA.AddresLine = primaria.Direccion;
+            locationA.CountryRegion = primaria.Ciudad;
 
-        public static void ObtenerMapaDeRuta(Ubicacion primaria, Ubicacion secundaria)
-        {
-            
-        }
+            Location locationB = new Location();
+            locationB.AddresLine = secundaria.Direccion;
+            locationB.CountryRegion = secundaria.Ciudad;
 
-        public static void ObtenerMapa(Ubicacion ubicacion)
-        {
-            
+            var taskDistance = this.Client.GetDistanceAsync(locationA, locationB);
+            taskDistance.Wait();
+            Distance distance = taskDistance.Result;
+
+            if (distance.Found ) {
+                return distance.TravelDistance;
+            } else {
+                throw new InvalidOperationException();
+            }
         }
     }
 }

@@ -27,15 +27,15 @@ public class TestHabilitaciones
         public void TestHabilitacionesFechaTram()
         {
             Habilitacion h1 = new Habilitacion("Habilitacion Comercial", "Intendencia Municipal De Montevideo (IMM)", new DateTime(2021, 7, 10), new DateTime(2026, 9, 20), true);
-            string expected = "10-07-2021";
+            DateTime expected = new DateTime(2021, 7, 10);
             Assert.AreEqual(expected, h1.FechaTramite);
         }
         [Test]
         public void TestHabilitacionesFechaVenc()
         {
             Habilitacion h1 = new Habilitacion("Habilitacion Comercial", "Intendencia Municipal De Montevideo (IMM)", new DateTime(2021, 7, 10), new DateTime(2026, 9, 20), true);
-            string expected = "10-07-2021";
-            Assert.AreEqual(expected, h1.FechaTramite);
+            DateTime expected = new DateTime(2026, 9, 20);
+            Assert.AreEqual(expected, h1.FechaVencimiento);
         }
 
         [Test]

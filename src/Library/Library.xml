@@ -132,6 +132,7 @@
             Mediante una oferta esté se postulará a ella.
             </summary>
             <param name="oferta">Oferta a postularse.</param>
+
         </member>
         <member name="M:ClassLibrary.Emprendedor.VerOfertasPostuladas(System.DateTime,System.DateTime)">
             <summary>
@@ -153,8 +154,8 @@
             <summary> 
             Patrones y principios utilizados en esta clase:
             ISP ya que segmenta las operaciones de la interface en la persistencia.
+            Creator ya que crea una instancia de oferta en esta clase con los parametros necesarios para ello.
             Expert ya que se le da la responsabilidad de generar las publicaciones, debido a que es la clase más experta de la información.
-            Polymorphism porque utiliza dos métodos polimorficos de persistencia.
             </summary>
         </member>
         <member name="P:ClassLibrary.Empresa.Id">
@@ -184,7 +185,7 @@
         </member>
         <member name="M:ClassLibrary.Empresa.#ctor(System.String,System.String,System.String,System.String,System.String)">
             <summary>
-            
+            Crea una instancia de Empresa.
             </summary>
             <param name="id">Id del usuario en el canal de registro.</param>
             <param name="ciudad">Ciudad donde está basada la empresa.</param>
@@ -223,6 +224,24 @@
             </summary>
             <param name="id">Id de la oferta a recuperar.</param>
             <returns>La instancia de Oferta correspondiente a la id dada.</returns>
+        </member>
+        <member name="T:ClassLibrary.GestorLocacion">
+            <summary>
+             Patrones y principios utilizados en esta clase:
+            Expert conocer la informacion de las ubicaciones a las cuales se desea calcular distancias u obtner coordenadas.
+            </summary>
+            <param name="inicio">Fecha de inicio del periodo en el que se quiere buscar.</param>
+            <param name="fin">Fecha de fin del periodo en el que se quiere buscar.</param>
+            <returns>Una lista de ofertas a las cuales se postuló el Emprendedor.</returns>
+        </member>
+
+        <member name="M:ClassLibrary.GestorLocacion.ObtenerDistancia(ClassLibrary.Ubicacion,ClassLibrary.Ubicacion)">
+            <summary>
+            Sirve para obtener la distancia entre dos ubicaciones.
+            </summary>
+            <param name="primaria">ubicacion primaria</param>
+            <param name="secundaria">ubicacion secundaria</param>
+            <returns></returns>
         </member>
         <member name="T:ClassLibrary.Habilitacion">
             <summary>
@@ -382,7 +401,12 @@
             <summary>
             Se le asigna a una oferta para indicar que por algún motivo no esta disponible la oferta.
             </summary>
-            <value></value>
+
+        </member>
+        <member name="F:ClassLibrary.Oferta.Estados.Entregada">
+            <summary>
+            Se le asigna a una oferta para indicar que fue entregada a un Emprendedor.
+            </summary>
         </member>
         <member name="P:ClassLibrary.Oferta.Id">
             <summary>
@@ -429,12 +453,124 @@
         <member name="P:ClassLibrary.Oferta.ValorUSD">
             <summary>
             Valor en dólares USA que la empresa ofresa en pago por la realización de la tarea que implica la oferta.
+
             </summary>
             <value> ValorUSD es el valor en dólares USA definido por la empresa que publica la oferta.</value>
         </member>
         <member name="P:ClassLibrary.Oferta.ValorUYU">
             <summary>
             ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.
+            </summary>
+            <value>ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.Descripcion">
+            <summary>
+            Es la descripción que hace la empresa para describir la oferta al publicarla.
+            </summary>
+            <value>Descripcion que hace la empresa</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.Titulo">
+            <summary>
+            Titulo bajo el que se publica la oferta.
+            </summary>
+            <value>Titulo bajo el que se publica la oferta.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.Productos">
+            <summary>
+            Productos es la lista de productos que componen la oferta.
+            </summary>
+            <value>Productos es la lista de productos que componen la oferta.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.DisponibleConstantemente">
+            <summary>
+            Una propiedad que indica si la oferta es recurrente.
+            </summary>
+            <value>Una propiedad que indica si la oferta es recurrente.</value>
+        </member>
+        <member name="P:ClassLibrary.Oferta.EmprendedoresPostulados">
+            <summary>
+            EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.
+            </summary>
+            <value>EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.</value>
+        </member>
+        <member name="M:ClassLibrary.Oferta.AgregarProducto(ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            Agrega un producto a la lista de productos.
+            </summary>
+            <param name="material">Material que conforma al producto.</param>
+            <param name="ciudad">Ciudad en la que se encuentra la oferta.</param> 
+            <param name="direccion">Dirección dentro de la Ciudad en la que se encuentra la oferta.</param>      
+            <param name="cantidadEnUnidades">Cantidad de unidades</param>
+            <param name="valorUYU">Valor en pesos uruguayos.</param>
+            <param name="valorUSD">Valor en dolares usa.</param>
+        </member>
+        <member name="M:ClassLibrary.Oferta.RemoverProducto(ClassLibrary.Producto)">
+            <summary>
+            Quita un producto de la lista.
+            </summary>
+            <param name="producto">Detalle del producto a quitar de la lista.</param>
+        </member>
+        <member name="M:ClassLibrary.Oferta.Redactar">
+            <summary>
+            Métodos para publicar los mensajes relativos a las ofertas.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Oferta.RedactarResumen">
+            <summary>
+            Métodos para publicar los mensajes relativos a las ofertas en versión resumida.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Oferta.RedactarPostulados">
+            <summary>
+            Un método para listar todos los emprendedores postulados a una oferta.
+            </summary>
+        </member>
+        <member name="T:ClassLibrary.Producto">
+            <summary>
+            Clase que representa un Producto dentro del dominio del problema.
+            Un Producto representa una instancia de venta de un Material, conteniendo su cantidad en su unidad específica,
+            un valor en UYU y otro en dólares asignados por su vendedor y la ubicación donde se almacena.
+            Se aplica el patrón de SRP y se obtiene una alta cohesión dentro de la clase Producto,
+            al asignarle únicamente las responsabilidades de contener información sobre un producto y redactarla adecuadamente,
+            enfocando sus propiedades y métodos para estos objetivos.
+            </summary>
+        </member>
+        <member name="M:ClassLibrary.Producto.#ctor(ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
+            <summary>
+            Crea una instancia de Producto.
+            </summary>
+            <param name="material">Material que compone al producto.</param>
+            <param name="ciudad">Ciudad en la que está localizado el producto.</param>
+            <param name="direccion">Direccion en la que está localizado el producto.</param>
+            <param name="cantidadEnUnidad">Cantidad del producto en la unidad estándar de su material.</param>
+            <param name="valorUYU">Valor en pesos uruguayos del producto.</param>
+            <param name="valorUSD">Valor en dolares del producto.</param>
+        </member>
+        <member name="P:ClassLibrary.Producto.Material">
+            <summary>
+            Instancia de material correspondiente al material ofrecido dentro de un producto,
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Producto.Ubicacion">
+            <summary>
+            Instancia de ubicacion correspondiente a la ubicacion donde se almacena el producto.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Producto.CantidadEnUnidad">
+            <summary>
+            Cantidad del material en su unidad especifica.
+            </summary>
+        </member>
+        <member name="P:ClassLibrary.Producto.ValorUYU">
+            <summary>
+            Valor en pesos uruguayos del producto.
+            </summary>
+            <value> ValorUSD es el valor en dólares USA definido por la empresa que publica la oferta.</value>
+        </member>
+
+        <member name="P:ClassLibrary.Producto.ValorUSD">
+            <summary>
+            Valor en dólares estadounidenses del producto.
             </summary>
             <value>ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.</value>
         </member>
@@ -638,6 +774,9 @@
             <summary>
             Nombre de la ciudad de la ubicación
             </summary>
+            <param name="from">La coordenada de origen.</param>
+            <param name="to">La coordenada de destino.</param>
+            <returns>La distancia entre las dos coordenadas.</returns>
         </member>
         <member name="P:ClassLibrary.Ubicacion.Direccion">
             <summary>
