@@ -4,12 +4,12 @@
         <name>Program</name>
     </assembly>
     <members>
-        <member name="T:ConsoleApplication.Program">
+        <member name="T:Application.Program">
             <summary>
-            Programa de consola de demostración.
+            Programa principal.
             </summary>
         </member>
-        <member name="M:ConsoleApplication.Program.Main">
+        <member name="M:Application.Program.Main">
             <summary>
             Punto de entrada al programa principal.
             </summary>
