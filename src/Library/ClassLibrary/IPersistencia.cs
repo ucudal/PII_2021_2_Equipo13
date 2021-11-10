@@ -1,6 +1,6 @@
 using System;
 
-namespace ClassLibrary
+namespace PII_E13.ClassLibrary
 {
    /// <summary>
    /// Esta es la interface de percisitencia de la aplicacion. su funcion es guardar y recuperar los datos de la aplicacion.

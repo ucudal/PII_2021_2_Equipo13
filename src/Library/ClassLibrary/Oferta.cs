@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 
-namespace ClassLibrary
+namespace PII_E13.ClassLibrary
 {
         /// <summary>
         ///  Patrones y principios aplicados:

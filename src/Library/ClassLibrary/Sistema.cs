@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System;
 
-namespace ClassLibrary
+namespace PII_E13.ClassLibrary
 {
     /// <summary>
     /// Esta clase representa al sistema principal de la aplicación. Permite registrar usuarios como Empresas

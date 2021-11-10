@@ -1,6 +1,6 @@
-using ClassLibrary;
+using PII_E13.ClassLibrary;
 
-namespace ClassLibrary
+namespace PII_E13.ClassLibrary
 {
     /// <summary>
     /// Interfaz utilizada para desacoplar la implementación 

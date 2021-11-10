@@ -1,4 +1,4 @@
-namespace ClassLibrary
+namespace PII_E13.ClassLibrary
 {
      /// <summary>
     /// Esta clase respresenta los datos basicos y necesarios de los rubros.

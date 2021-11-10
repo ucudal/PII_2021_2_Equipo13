@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ClassLibrary.IPersistencia",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceClassLibrary_1_1IPersistencia.html",tooltip="Esta es la interface de percisitencia de la aplicacion. su funcion es guardar y recuperar los datos d..."];
+  Node0 [label="PII_E13.ClassLibrary.IPersistencia",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfacePII_E13.ClassLibrary_1_1IPersistencia.html",tooltip="Esta es la interface de percisitencia de la aplicacion. su funcion es guardar y recuperar los datos d..."];
 }

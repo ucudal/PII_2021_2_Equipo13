@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ClassLibrary
+namespace PII_E13.ClassLibrary
 {
     /// <summary>
     /// Clase que representa un Producto dentro del dominio del problema.

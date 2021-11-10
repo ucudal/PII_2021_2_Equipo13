@@ -1,4 +1,4 @@
-namespace ClassLibrary
+namespace PII_E13.ClassLibrary
 {
     /// <summary>
     /// Esta clase respresenta la interfaz de los canales.
@@ -17,5 +17,4 @@ namespace ClassLibrary
         void EnviarMensaje(string message);
 
     }
-
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ClassLibrary
+namespace PII_E13.ClassLibrary
 {
     /// <summary>
     /// Esta es una clase auxiliar que permite la búsqueda de ofertas. Se aplica SRP para tomar la decisión de separar esta responsabilidad de Sistema,

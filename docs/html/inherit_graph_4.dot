@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ClassLibrary.GestorLocacion",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1GestorLocacion.html",tooltip="Patrones y principios utilizados en esta clase: Expert conocer la informacion de las ubicaciones a la..."];
+  Node0 [label="PII_E13.ClassLibrary.GestorLocacion",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1GestorLocacion.html",tooltip="Patrones y principios utilizados en esta clase: Expert conocer la informacion de las ubicaciones a la..."];
 }

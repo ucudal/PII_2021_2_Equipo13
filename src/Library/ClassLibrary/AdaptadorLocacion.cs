@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Ucu.Poo.Locations.Client;
 
-namespace ClassLibrary
+namespace PII_E13.ClassLibrary
 {
     /// <summary>
     ///  Patrones y principios utilizados en esta clase:

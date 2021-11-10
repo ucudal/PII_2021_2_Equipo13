@@ -7,11 +7,11 @@ digraph "Tests.UserStoriesTests.OfertasEntregadasTest"
   rankdir="LR";
   Node1 [label="Tests.UserStoriesTests.Ofertas\lEntregadasTest",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Prueba para la historia de usuario 11: Ofertas entregadas"];
   Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="ClassLibrary.Sistema.Obtener\lEmpresaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Sistema.html#a6d25225279a22870da000af9f3716f38",tooltip="Recupera una empresa de la lista de empresas utilizando su id y una id dada."];
+  Node2 [label="PII_E13.ClassLibrary.Sistema.Obtener\lEmpresaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1Sistema.html#a6d25225279a22870da000af9f3716f38",tooltip="Recupera una empresa de la lista de empresas utilizando su id y una id dada."];
   Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="ClassLibrary.Empresa.Obtener\lOfertaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Empresa.html#a5e16f89b4e09b0205dc51d1a26615915",tooltip="Recupera una oferta de la lista de ofertas utilizando su id y una id dada."];
+  Node3 [label="PII_E13.ClassLibrary.Empresa.Obtener\lOfertaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1Empresa.html#a5e16f89b4e09b0205dc51d1a26615915",tooltip="Recupera una oferta de la lista de ofertas utilizando su id y una id dada."];
   Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node4 [label="ClassLibrary.Sistema.Registrar\lEmpresa",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Sistema.html#a67310e1e32b1c5967750a79beefb8bfd",tooltip="Registra una nueva empresa en el sistema."];
+  Node4 [label="PII_E13.ClassLibrary.Sistema.Registrar\lEmpresa",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1Sistema.html#a67310e1e32b1c5967750a79beefb8bfd",tooltip="Registra una nueva empresa en el sistema."];
   Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node5 [label="ClassLibrary.Empresa.Ver\lOfertasPropias",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Empresa.html#ad806b409b5fd1e2816f98704419612f1",tooltip="Muestra las ofertas publicadas por la empresa en una lista filtrada por fecha."];
+  Node5 [label="PII_E13.ClassLibrary.Empresa.Ver\lOfertasPropias",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1Empresa.html#ad806b409b5fd1e2816f98704419612f1",tooltip="Muestra las ofertas publicadas por la empresa en una lista filtrada por fecha."];
 }

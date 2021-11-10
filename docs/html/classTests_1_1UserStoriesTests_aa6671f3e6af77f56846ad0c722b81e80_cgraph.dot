@@ -7,7 +7,7 @@ digraph "Tests.UserStoriesTests.RegistroDeEmprendedorTest"
   rankdir="LR";
   Node1 [label="Tests.UserStoriesTests.Registro\lDeEmprendedorTest",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Prueba para las historias de usuario 1 y 7: registro de un emprendedor en el sistema."];
   Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="ClassLibrary.Sistema.Obtener\lEmprendedorPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Sistema.html#ae8c06d6d33492327eadd3efe70d69a19",tooltip="Recupera un emprendedor de la lista de emprendedores utilizando su id y una id dada."];
+  Node2 [label="PII_E13.ClassLibrary.Sistema.Obtener\lEmprendedorPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1Sistema.html#ae8c06d6d33492327eadd3efe70d69a19",tooltip="Recupera un emprendedor de la lista de emprendedores utilizando su id y una id dada."];
   Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="ClassLibrary.Sistema.Registrar\lEmprendedor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classClassLibrary_1_1Sistema.html#a1f8f1a7fce56355f6e4ff95706e0391e",tooltip="Registra un nuevo emprendedor en el sistema."];
+  Node3 [label="PII_E13.ClassLibrary.Sistema.Registrar\lEmprendedor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1Sistema.html#a1f8f1a7fce56355f6e4ff95706e0391e",tooltip="Registra un nuevo emprendedor en el sistema."];
 }

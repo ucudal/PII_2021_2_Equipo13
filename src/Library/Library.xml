@@ -4,19 +4,33 @@
         <name>Library</name>
     </assembly>
     <members>
-        <member name="T:ClassLibrary.Buscador">
+        <member name="T:PII_E13.ClassLibrary.AdaptadorLocacion">
+            <summary>
+             Patrones y principios utilizados en esta clase:
+            Expert conocer la informacion de las ubicaciones a las cuales se desea calcular distancias u obtner coordenadas.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.AdaptadorLocacion.ObtenerDistancia(PII_E13.ClassLibrary.Ubicacion,PII_E13.ClassLibrary.Ubicacion)">
+            <summary>
+            Sirve para obtener la distancia entre dos ubicaciones.
+            </summary>
+            <param name="primaria">ubicacion primaria</param>
+            <param name="secundaria">ubicacion secundaria</param>
+            <returns></returns>
+        </member>
+        <member name="T:PII_E13.ClassLibrary.Buscador">
             <summary>
             Esta es una clase auxiliar que permite la búsqueda de ofertas. Se aplica SRP para tomar la decisión de separar esta responsabilidad de Sistema,
             ya que la forma en que se realiza esta búsqueda puede cambiar y Sistema puede tener otros motivos para ser modificada.
             Se aplica el patrón Singleton dentro de esta clase para permitir solo la creación y utilización de una instancia de Buscador.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Buscador.#ctor">
+        <member name="M:PII_E13.ClassLibrary.Buscador.#ctor">
             <summary>
             Crea una instancia de Buscador.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Buscador.BuscarOfertas(ClassLibrary.Sistema,ClassLibrary.Emprendedor,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+        <member name="M:PII_E13.ClassLibrary.Buscador.BuscarOfertas(PII_E13.ClassLibrary.Sistema,PII_E13.ClassLibrary.Emprendedor,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
             <summary>
             Realiza una búsqueda de ofertas dentro de una instancia de Sistema, utilizando la información de un Emprendedor dado,
             junto a una lista de etiquetas y categorías, para filtrar dentro de las ofertas.
@@ -27,14 +41,14 @@
             <param name="categorias">Lista de categorías a utilizar para filtrar.</param>
             <returns>Lista de ofertas ordenadas según la relevancia calculada para la búsqueda.</returns>
         </member>
-        <member name="M:ClassLibrary.Buscador.OrdenarOfertasPorPuntaje(System.Collections.Generic.Dictionary{ClassLibrary.Oferta,System.Int32})">
+        <member name="M:PII_E13.ClassLibrary.Buscador.OrdenarOfertasPorPuntaje(System.Collections.Generic.Dictionary{PII_E13.ClassLibrary.Oferta,System.Int32})">
             <summary>
             Ordena un diccionario de par <c>Oferta, int</c> de mayor a menor según el valor asignado a cada clave.
             </summary>
             <param name="ofertas">Dictionary de par <c>Oferta, int</c> a ordenar.</param>
             <returns><c>List de Ofertas</c> ordenadas de mayor a menor.</returns>
         </member>
-        <member name="M:ClassLibrary.Buscador.DistanciaAPuntaje(System.Double,System.Int32,System.Int32)">
+        <member name="M:PII_E13.ClassLibrary.Buscador.DistanciaAPuntaje(System.Double,System.Int32,System.Int32)">
             <summary>
             Calcula el puntaje asignado a una oferta según una distancia dada, con la fórmula:
             <c>puntaje = 30 - Math.Ceiling(distancia / (distanciaMáxima / puntajeMáximo))</c>
@@ -44,29 +58,29 @@
             <param name="puntajeMax">Puntaje máximo asignable.</param>
             <returns><c>Puntaje en int</c> para la distancia según las condiciones definidas.</returns>
         </member>
-        <member name="P:ClassLibrary.Buscador.Instancia">
+        <member name="P:PII_E13.ClassLibrary.Buscador.Instancia">
             <summary>
             Instancia del buscador durante la ejecución. Se aplica el patrón Singleton.
             </summary>
             <value>Una única instancia de <c>Buscador</c></value>
         </member>
-        <member name="T:ClassLibrary.Canal1">
+        <member name="T:PII_E13.ClassLibrary.Canal1">
             <summary>
             Clase de ejemplo para una implementación de la interfaz ICanal utilizada en los tests donde es relevante tener una implementación de un canal.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Canal1.EnviarMensaje(System.String)">
+        <member name="M:PII_E13.ClassLibrary.Canal1.EnviarMensaje(System.String)">
             <summary>
             Envía un mensaje a un usuario de un canal.
             </summary>
             <param name="message"></param>
         </member>
-        <member name="M:ClassLibrary.Canal1.RecibirMensaje">
+        <member name="M:PII_E13.ClassLibrary.Canal1.RecibirMensaje">
             <summary>
             Recibe un mensaje de un usuario de un canal.
             </summary>
         </member>
-        <member name="T:ClassLibrary.Emprendedor">
+        <member name="T:PII_E13.ClassLibrary.Emprendedor">
             <summary>
             Esta clase respresenta los datos basicos y necesarios que todo Emprendedor tiene, además de sus responsabilidades asignadas.
             </summary>
@@ -75,42 +89,42 @@
                Cumple con OSP porque está abierta a la extención y cerrada a la modificación.
                Cumple con Expert porque tiene toda la información necesaria para poder cumplir con la responsabilidad de dar de alta un emprendedor y consumir ofertas.
         </member>
-        <member name="P:ClassLibrary.Emprendedor.Id">
+        <member name="P:PII_E13.ClassLibrary.Emprendedor.Id">
             <summary>
             Se indica el <value>Id</value> en Telegram del emprendedor.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Emprendedor.Nombre">
+        <member name="P:PII_E13.ClassLibrary.Emprendedor.Nombre">
             <summary>
             Se indica el <value>Nombre</value> del emprendedor.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Emprendedor.Habilitaciones">
+        <member name="P:PII_E13.ClassLibrary.Emprendedor.Habilitaciones">
             <summary>
             Mediante una lista de <value>Habilitaciones</value> indicaremos todas las habiltiaciones con las que el emprendedor cuenta.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Emprendedor.Ubicacion">
+        <member name="P:PII_E13.ClassLibrary.Emprendedor.Ubicacion">
             <summary>
             Se indica la <value>Ubicacion</value> del emprendedor.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Emprendedor.Rubro">
+        <member name="P:PII_E13.ClassLibrary.Emprendedor.Rubro">
             <summary>
             Mediante una lista de <value>Rubo</value> indicaremos los rubros en el que el emprendedor se maneja.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Emprendedor.OfertasPostuladas">
+        <member name="P:PII_E13.ClassLibrary.Emprendedor.OfertasPostuladas">
             <summary>
             Mediante una lista de <value>Ofertas</value> indicaremos las ofertas a las cual se postuló.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Emprendedor.OfertasConsumidas">
+        <member name="P:PII_E13.ClassLibrary.Emprendedor.OfertasConsumidas">
             <summary>
             Mediante una lista de <value>Ofertas</value> indicaremos las ofertas consumidas a las cual se postuló.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Emprendedor.#ctor(System.String,System.String,System.Collections.Generic.List{ClassLibrary.Habilitacion},System.String,System.String,System.String)">
+        <member name="M:PII_E13.ClassLibrary.Emprendedor.#ctor(System.String,System.String,System.Collections.Generic.List{PII_E13.ClassLibrary.Habilitacion},System.String,System.String,System.String)">
             <summary>
             Crea una instancia de Emprendedor
             </summary>
@@ -121,19 +135,19 @@
             <param name="direccion">La direccion de la base de operaciones del emprendedor en la ciudad.</param>
             <param name="rubro">El rubro dentro del cual trabaja el emprendedor.</param>
         </member>
-        <member name="M:ClassLibrary.Emprendedor.PostularseAOferta(System.Collections.Generic.List{ClassLibrary.Oferta})">
+        <member name="M:PII_E13.ClassLibrary.Emprendedor.PostularseAOferta(System.Collections.Generic.List{PII_E13.ClassLibrary.Oferta})">
             <summary>
             Mediante una oferta esté se postulará a ella.
             </summary>
             <param name="ofertas">Lista de ofertas a postularse.</param>
         </member>
-        <member name="M:ClassLibrary.Emprendedor.PostularseAOferta(ClassLibrary.Oferta)">
+        <member name="M:PII_E13.ClassLibrary.Emprendedor.PostularseAOferta(PII_E13.ClassLibrary.Oferta)">
             <summary>
             Mediante una oferta esté se postulará a ella.
             </summary>
             <param name="oferta">Oferta a postularse.</param>
         </member>
-        <member name="M:ClassLibrary.Emprendedor.VerOfertasPostuladas(System.DateTime,System.DateTime)">
+        <member name="M:PII_E13.ClassLibrary.Emprendedor.VerOfertasPostuladas(System.DateTime,System.DateTime)">
             <summary>
             Mediante una una fecha de inicio y de fin se obtienen todas las ofertas postuladas en ese periodo de tiempo.
             </summary>
@@ -141,7 +155,7 @@
             <param name="fin">Fecha de fin del periodo en el que se quiere buscar.</param>
             <returns>Una lista de ofertas a las cuales se postuló el Emprendedor.</returns>
         </member>
-        <member name="M:ClassLibrary.Emprendedor.VerOfertasConsumidas(System.DateTime,System.DateTime)">
+        <member name="M:PII_E13.ClassLibrary.Emprendedor.VerOfertasConsumidas(System.DateTime,System.DateTime)">
             <summary>
             Mediante palabras calve, un buscador y un canal se obtienen las ofertas consumidas por el Emprendedor.
             </summary>
@@ -149,7 +163,7 @@
             <param name="fin">Fecha de fin del periodo en el que se quiere buscar.</param>
             <returns>Una lista de ofertas consumidas por el Emprendedor.</returns>
         </member>
-        <member name="T:ClassLibrary.Empresa">
+        <member name="T:PII_E13.ClassLibrary.Empresa">
             <summary> 
             Patrones y principios utilizados en esta clase:
             ISP ya que segmenta las operaciones de la interface en la persistencia.
@@ -157,32 +171,32 @@
             Expert ya que se le da la responsabilidad de generar las publicaciones, debido a que es la clase más experta de la información.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Empresa.Id">
+        <member name="P:PII_E13.ClassLibrary.Empresa.Id">
             <summary>
             Id del usuario en el canal de registro.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Empresa.Ofertas">
+        <member name="P:PII_E13.ClassLibrary.Empresa.Ofertas">
             <summary>
             Id del usuario en el canal de registro.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Empresa.Ubicacion">
+        <member name="P:PII_E13.ClassLibrary.Empresa.Ubicacion">
             <summary>
             Ubicación donde está basada la empresa.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Empresa.Rubro">
+        <member name="P:PII_E13.ClassLibrary.Empresa.Rubro">
             <summary>
             Rubro al que pertenece la empresa.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Empresa.Nombre">
+        <member name="P:PII_E13.ClassLibrary.Empresa.Nombre">
             <summary>
             Nombre comercial de la empresa.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Empresa.#ctor(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:PII_E13.ClassLibrary.Empresa.#ctor(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Crea una instancia de Empresa.
             </summary>
@@ -192,7 +206,7 @@
             <param name="rubro">Rubro al que pertenece la empresa.</param>
             <param name="nombre">Nombre comercial de la empresa.</param>
         </member>
-        <member name="M:ClassLibrary.Empresa.PublicarOferta(System.String,System.DateTime,System.Collections.Generic.List{System.String},System.Collections.Generic.List{ClassLibrary.Habilitacion},System.String,System.String,System.Boolean)">
+        <member name="M:PII_E13.ClassLibrary.Empresa.PublicarOferta(System.String,System.DateTime,System.Collections.Generic.List{System.String},System.Collections.Generic.List{PII_E13.ClassLibrary.Habilitacion},System.String,System.String,System.Boolean)">
             <summary>
             Crea una nueva Oferta y la añade a la lista de ofertas de la empresa.
             </summary>
@@ -204,12 +218,12 @@
             <param name="titulo">El titulo de la oferta.</param>
             <param name="disponibleConstantemente">Indica si la oferta está disponible constantemente o puntualmente.</param>
         </member>
-        <member name="M:ClassLibrary.Empresa.ActualizarOferta(ClassLibrary.Oferta)">
+        <member name="M:PII_E13.ClassLibrary.Empresa.ActualizarOferta(PII_E13.ClassLibrary.Oferta)">
             <summary>
             </summary>
             <param name="oferta">la oferta que se desea modificar.</param>
         </member>
-        <member name="M:ClassLibrary.Empresa.VerOfertasPropias(System.DateTime,System.DateTime)">
+        <member name="M:PII_E13.ClassLibrary.Empresa.VerOfertasPropias(System.DateTime,System.DateTime)">
             <summary>
             Muestra las ofertas publicadas por la empresa en una lista filtrada por fecha.
             </summary>
@@ -217,58 +231,44 @@
             <param name="fin">Fecha de fin del periodo en el que se quiere buscar.</param>
             <returns></returns>
         </member>
-        <member name="M:ClassLibrary.Empresa.ObtenerOfertaPorId(System.String)">
+        <member name="M:PII_E13.ClassLibrary.Empresa.ObtenerOfertaPorId(System.String)">
             <summary>
             Recupera una oferta de la lista de ofertas utilizando su id y una id dada.
             </summary>
             <param name="id">Id de la oferta a recuperar.</param>
             <returns>La instancia de Oferta correspondiente a la id dada.</returns>
         </member>
-        <member name="T:ClassLibrary.GestorLocacion">
-            <summary>
-             Patrones y principios utilizados en esta clase:
-            Expert conocer la informacion de las ubicaciones a las cuales se desea calcular distancias u obtner coordenadas.
-            </summary>
-        </member>
-        <member name="M:ClassLibrary.GestorLocacion.ObtenerDistancia(ClassLibrary.Ubicacion,ClassLibrary.Ubicacion)">
-            <summary>
-            Sirve para obtener la distancia entre dos ubicaciones.
-            </summary>
-            <param name="primaria">ubicacion primaria</param>
-            <param name="secundaria">ubicacion secundaria</param>
-            <returns></returns>
-        </member>
-        <member name="T:ClassLibrary.Habilitacion">
+        <member name="T:PII_E13.ClassLibrary.Habilitacion">
             <summary>
             Esta clase respresenta los datos basicos y necesarios de una Habilitación.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Habilitacion.Descripcion">
+        <member name="P:PII_E13.ClassLibrary.Habilitacion.Descripcion">
             <summary>
             Se indica el <value>descripcion</value> de la Habiltiacion.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Habilitacion.NombreInsitucionHabilitada">
+        <member name="P:PII_E13.ClassLibrary.Habilitacion.NombreInsitucionHabilitada">
             <summary>
             Se indica el <value>nombreInsitucionHabilitada</value> de la Habiltiacion.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Habilitacion.FechaTramite">
+        <member name="P:PII_E13.ClassLibrary.Habilitacion.FechaTramite">
             <summary>
             Se indica la <value>fechaTramite</value> de la Habiltiacion.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Habilitacion.FechaVencimiento">
+        <member name="P:PII_E13.ClassLibrary.Habilitacion.FechaVencimiento">
             <summary>
             Se indica la <value>fechaVencimiento</value> de la Habiltiacion.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Habilitacion.Vigente">
+        <member name="P:PII_E13.ClassLibrary.Habilitacion.Vigente">
             <summary>
             Se indica si la Habilitacion está <value>vigente</value>.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Habilitacion.#ctor(System.String,System.String,System.DateTime,System.DateTime,System.Boolean)">
+        <member name="M:PII_E13.ClassLibrary.Habilitacion.#ctor(System.String,System.String,System.DateTime,System.DateTime,System.Boolean)">
             <summary>
             Crea una instancia de Habilitacion.
             </summary>
@@ -278,42 +278,58 @@
             <param name="fechaVencimiento">Fecha de Vencimiento de la Habilitacion.</param>
             <param name="vigente">Indica si la Habilitacion está vigente.</param>
         </member>
-        <member name="T:ClassLibrary.ICanal">
+        <member name="T:PII_E13.ClassLibrary.IAdaptadorLocacion">
+            <summary>
+            Interfaz utilizada para desacoplar la implementación 
+            de la clase AdaptadorLocacion utilizando el patron, adapter.
+            logrando que la clase en la ubicacion no tenga que conocer la implementacion 
+            de la clase AdaptadorLocacion quien se comunica con la libreria brindada por los profesores.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.IAdaptadorLocacion.ObtenerDistancia(PII_E13.ClassLibrary.Ubicacion,PII_E13.ClassLibrary.Ubicacion)">
+            <summary>
+            
+            </summary>
+            <param name="primaria"></param>
+            <param name="secundaria"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PII_E13.ClassLibrary.ICanal">
             <summary>
             Esta clase respresenta la interfaz de los canales.
             </summary>
         </member>
-        <member name="M:ClassLibrary.ICanal.RecibirMensaje">
+        <member name="M:PII_E13.ClassLibrary.ICanal.RecibirMensaje">
             <summary>
             Recibe un mensaje de un usuario.
             </summary>
         </member>
-        <member name="M:ClassLibrary.ICanal.EnviarMensaje(System.String)">
+        <member name="M:PII_E13.ClassLibrary.ICanal.EnviarMensaje(System.String)">
             <summary>
             Envía un mensaje a un usuario.
             </summary>
             <param name="message">Mensaje a enviar al usuario.</param>       
         </member>
-        <member name="T:ClassLibrary.IPersistencia">
+        <member name="T:PII_E13.ClassLibrary.IPersistencia">
             <summary>
             Esta es la interface de percisitencia de la aplicacion. su funcion es guardar y recuperar los datos de la aplicacion.
             </summary>
         </member>
-        <member name="M:ClassLibrary.IPersistencia.EscribirArchivo(System.String,System.String)">
+        <member name="M:PII_E13.ClassLibrary.IPersistencia.EscribirArchivo(System.String,System.String)">
             <summary>
             Guarda el archivo en la ruta especificada.
             </summary>
             <param name="ruta">La ruta del archivo en el sistema.</param>
             <param name="informacion">La información a guardar en el archivo en un string.</param>
         </member>
-        <member name="M:ClassLibrary.IPersistencia.LeerArchivo(System.String)">
+        <member name="M:PII_E13.ClassLibrary.IPersistencia.LeerArchivo(System.String)">
             <summary>
             Lee un archivo en el sistema.
             </summary>
             <param name="ruta">La ruta del archivo en el sistema.</param>
             <returns>Retorna la información contenida en un archivo en un string.</returns>
         </member>
-        <member name="T:ClassLibrary.Material">
+        <member name="T:PII_E13.ClassLibrary.Material">
             <summary>
             Principios y patrones aplicados:
             Principio ISP: no hay objetos forzados a depender de otros objetos que no usan. 
@@ -322,7 +338,7 @@
             Patrón OCP: la clase es abierta a la extensión mediante herencia y/o composición, pero cerrada a cambios ya que no es posible y no es necesario realizar cambios en su código.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Material.#ctor(System.String,System.Collections.Generic.List{System.String},System.String)">
+        <member name="M:PII_E13.ClassLibrary.Material.#ctor(System.String,System.Collections.Generic.List{System.String},System.String)">
             <summary>
             La clase material se encarga de conocer lo relativo al material que consituye el producto.
             </summary>
@@ -330,25 +346,25 @@
             <param name="categorias">categorias dentro de las que esta el material</param>
             <param name="unidadEstandar">unidad Estandar con la que se mide el material</param>
         </member>
-        <member name="P:ClassLibrary.Material.Nombre">
+        <member name="P:PII_E13.ClassLibrary.Material.Nombre">
             <summary>
             Nombre del material.
             </summary>
             <value></value>
         </member>
-        <member name="P:ClassLibrary.Material.Categorias">
+        <member name="P:PII_E13.ClassLibrary.Material.Categorias">
             <summary>
             Categorías en las que esta incluido el material.
             </summary>
             <value></value>
         </member>
-        <member name="P:ClassLibrary.Material.UnidadEstandar">
+        <member name="P:PII_E13.ClassLibrary.Material.UnidadEstandar">
             <summary>
             Unidad en la que se mide el material.
             </summary>
             <value></value>
         </member>
-        <member name="T:ClassLibrary.Oferta">
+        <member name="T:PII_E13.ClassLibrary.Oferta">
             <summary>
              Patrones y principios aplicados:
              Principio EXPERT: ya que se le asignaron sus responsabilidades en su calidad
@@ -362,7 +378,7 @@
              fuertemente relacionadas, creando así una clase robusta y fácil de entender. 
             </summary>
         </member>
-        <member name="M:ClassLibrary.Oferta.#ctor(System.String,ClassLibrary.Empresa,System.DateTime,System.Collections.Generic.List{System.String},System.Collections.Generic.List{ClassLibrary.Habilitacion},System.String,System.String,System.Boolean)">
+        <member name="M:PII_E13.ClassLibrary.Oferta.#ctor(System.String,PII_E13.ClassLibrary.Empresa,System.DateTime,System.Collections.Generic.List{System.String},System.Collections.Generic.List{PII_E13.ClassLibrary.Habilitacion},System.String,System.String,System.Boolean)">
             <summary>
              La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
             </summary>
@@ -375,118 +391,118 @@
             <param name="titulo">Titulo bajo el cual se publica la oferta</param>
             <param name="disponibleConstantemente">Para definir si una oferta es recurrente.</param>
         </member>
-        <member name="T:ClassLibrary.Oferta.Estados">
+        <member name="T:PII_E13.ClassLibrary.Oferta.Estados">
             <summary>
             Lista de estados posibles en que se puede encontrar una Oferta.
             </summary>
         </member>
-        <member name="F:ClassLibrary.Oferta.Estados.Habilitada">
+        <member name="F:PII_E13.ClassLibrary.Oferta.Estados.Habilitada">
             <summary>
             Se le asigna a una oferta para indicar que esta vigente.
             </summary>
             <value>Habilitada indica que esta vigente</value>
         </member>
-        <member name="F:ClassLibrary.Oferta.Estados.Cerrada">
+        <member name="F:PII_E13.ClassLibrary.Oferta.Estados.Cerrada">
             <summary>
             Se le asigna a una oferta para indicar que ya está cerrada y no es posible posularse.
             </summary>
             <value>Cerrada indica que no esta activa una oferta por haber sido adjudicada o por haber llegado a su fecha límite.</value>
         </member>
-        <member name="F:ClassLibrary.Oferta.Estados.Suspendida">
+        <member name="F:PII_E13.ClassLibrary.Oferta.Estados.Suspendida">
             <summary>
             Se le asigna a una oferta para indicar que por algún motivo no esta disponible la oferta.
             </summary>
         </member>
-        <member name="F:ClassLibrary.Oferta.Estados.Entregada">
+        <member name="F:PII_E13.ClassLibrary.Oferta.Estados.Entregada">
             <summary>
             Se le asigna a una oferta para indicar que fue entregada a un Emprendedor.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Oferta.Id">
+        <member name="P:PII_E13.ClassLibrary.Oferta.Id">
             <summary>
             Es una string que identifica a la oferta y que permite referenciarla a lo largo del sitema.
             </summary>
             <value>Id es el identificador único de la oferta.</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.Empresa">
+        <member name="P:PII_E13.ClassLibrary.Oferta.Empresa">
             <summary>
             Empresa es quién publica la oferta.
             </summary>
             <value>Empresa es quién publica la oferta</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.FechaCreada">
+        <member name="P:PII_E13.ClassLibrary.Oferta.FechaCreada">
             <summary>
             Fecha en que se publica la oferta.
             </summary>
             <value>Fecha en que se publica la oferta.</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.FechaCierre">
+        <member name="P:PII_E13.ClassLibrary.Oferta.FechaCierre">
             <summary>
             Fecha límite para postularse a la oferta.
             </summary>
             <value>FechaCierre es la fecha límite para postularse a la oferta.</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.Etiquetas">
+        <member name="P:PII_E13.ClassLibrary.Oferta.Etiquetas">
             <summary>
             Son etiquetas que permiten categorizar la oferta para mostrarla agrupadas junto a otras que compartan la misma etiqueta.
             </summary>
             <value>Etiquetas permite categorizar la oferta.</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.Estado">
+        <member name="P:PII_E13.ClassLibrary.Oferta.Estado">
             <summary>
             Estado indica cuál es la situación actual de una Oferta.
             </summary>
             <value>Estado indica si una oferta esta habilitada, cerrada o suspendida.</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.Habilitaciones">
+        <member name="P:PII_E13.ClassLibrary.Oferta.Habilitaciones">
             <summary>
             Indica cuáles son las habilitaciones que exige la empresa para postularse a la oferta.
             </summary>
             <value>Habilitaciones exigidas por al empresa.</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.ValorUSD">
+        <member name="P:PII_E13.ClassLibrary.Oferta.ValorUSD">
             <summary>
             Valor en dólares USA que la empresa ofresa en pago por la realización de la tarea que implica la oferta.
             </summary>
             <value> ValorUSD es el valor en dólares USA definido por la empresa que publica la oferta.</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.ValorUYU">
+        <member name="P:PII_E13.ClassLibrary.Oferta.ValorUYU">
             <summary>
             ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.
             </summary>
             <value>ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.Descripcion">
+        <member name="P:PII_E13.ClassLibrary.Oferta.Descripcion">
             <summary>
             Es la descripción que hace la empresa para describir la oferta al publicarla.
             </summary>
             <value>Descripcion que hace la empresa</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.Titulo">
+        <member name="P:PII_E13.ClassLibrary.Oferta.Titulo">
             <summary>
             Titulo bajo el que se publica la oferta.
             </summary>
             <value>Titulo bajo el que se publica la oferta.</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.Productos">
+        <member name="P:PII_E13.ClassLibrary.Oferta.Productos">
             <summary>
             Productos es la lista de productos que componen la oferta.
             </summary>
             <value>Productos es la lista de productos que componen la oferta.</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.DisponibleConstantemente">
+        <member name="P:PII_E13.ClassLibrary.Oferta.DisponibleConstantemente">
             <summary>
             Una propiedad que indica si la oferta es recurrente.
             </summary>
             <value>Una propiedad que indica si la oferta es recurrente.</value>
         </member>
-        <member name="P:ClassLibrary.Oferta.EmprendedoresPostulados">
+        <member name="P:PII_E13.ClassLibrary.Oferta.EmprendedoresPostulados">
             <summary>
             EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.
             </summary>
             <value>EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.</value>
         </member>
-        <member name="M:ClassLibrary.Oferta.AgregarProducto(ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
+        <member name="M:PII_E13.ClassLibrary.Oferta.AgregarProducto(PII_E13.ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
             <summary>
             Agrega un producto a la lista de productos.
             </summary>
@@ -497,28 +513,28 @@
             <param name="valorUYU">Valor en pesos uruguayos.</param>
             <param name="valorUSD">Valor en dolares usa.</param>
         </member>
-        <member name="M:ClassLibrary.Oferta.RemoverProducto(ClassLibrary.Producto)">
+        <member name="M:PII_E13.ClassLibrary.Oferta.RemoverProducto(PII_E13.ClassLibrary.Producto)">
             <summary>
             Quita un producto de la lista.
             </summary>
             <param name="producto">Detalle del producto a quitar de la lista.</param>
         </member>
-        <member name="M:ClassLibrary.Oferta.Redactar">
+        <member name="M:PII_E13.ClassLibrary.Oferta.Redactar">
             <summary>
             Métodos para publicar los mensajes relativos a las ofertas.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Oferta.RedactarResumen">
+        <member name="M:PII_E13.ClassLibrary.Oferta.RedactarResumen">
             <summary>
             Métodos para publicar los mensajes relativos a las ofertas en versión resumida.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Oferta.RedactarPostulados">
+        <member name="M:PII_E13.ClassLibrary.Oferta.RedactarPostulados">
             <summary>
             Un método para listar todos los emprendedores postulados a una oferta.
             </summary>
         </member>
-        <member name="T:ClassLibrary.Producto">
+        <member name="T:PII_E13.ClassLibrary.Producto">
             <summary>
             Clase que representa un Producto dentro del dominio del problema.
             Un Producto representa una instancia de venta de un Material, conteniendo su cantidad en su unidad específica,
@@ -528,7 +544,7 @@
             enfocando sus propiedades y métodos para estos objetivos.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Producto.#ctor(ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
+        <member name="M:PII_E13.ClassLibrary.Producto.#ctor(PII_E13.ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
             <summary>
             Crea una instancia de Producto.
             </summary>
@@ -539,53 +555,53 @@
             <param name="valorUYU">Valor en pesos uruguayos del producto.</param>
             <param name="valorUSD">Valor en dolares del producto.</param>
         </member>
-        <member name="P:ClassLibrary.Producto.Material">
+        <member name="P:PII_E13.ClassLibrary.Producto.Material">
             <summary>
             Instancia de material correspondiente al material ofrecido dentro de un producto,
             </summary>
         </member>
-        <member name="P:ClassLibrary.Producto.Ubicacion">
+        <member name="P:PII_E13.ClassLibrary.Producto.Ubicacion">
             <summary>
             Instancia de ubicacion correspondiente a la ubicacion donde se almacena el producto.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Producto.CantidadEnUnidad">
+        <member name="P:PII_E13.ClassLibrary.Producto.CantidadEnUnidad">
             <summary>
             Cantidad del material en su unidad especifica.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Producto.ValorUYU">
+        <member name="P:PII_E13.ClassLibrary.Producto.ValorUYU">
             <summary>
             Valor en pesos uruguayos del producto.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Producto.ValorUSD">
+        <member name="P:PII_E13.ClassLibrary.Producto.ValorUSD">
             <summary>
             Valor en dólares estadounidenses del producto.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Producto.Redaccion">
+        <member name="P:PII_E13.ClassLibrary.Producto.Redaccion">
             <summary>
             Redaccion del producto formateada.
             </summary>
         </member>
-        <member name="T:ClassLibrary.Rubro">
+        <member name="T:PII_E13.ClassLibrary.Rubro">
             <summary>
             Esta clase respresenta los datos basicos y necesarios de los rubros.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Rubro.Nombre">
+        <member name="P:PII_E13.ClassLibrary.Rubro.Nombre">
             <summary>
             Se indica el nombre <value>rubro</value> del rubro
             </summary>
         </member>
-        <member name="M:ClassLibrary.Rubro.#ctor(System.String)">
+        <member name="M:PII_E13.ClassLibrary.Rubro.#ctor(System.String)">
             <summary>
             Se indica el nombre <value>rubro</value> del rubro
             </summary>
             <param name="rubro">rubro</param>        
         </member>
-        <member name="T:ClassLibrary.Sistema">
+        <member name="T:PII_E13.ClassLibrary.Sistema">
             <summary>
             Esta clase representa al sistema principal de la aplicación. Permite registrar usuarios como Empresas
             o Emprendedores y actúa como un contenedor de los mismos.
@@ -597,85 +613,85 @@
             lograr el patrón de SRP.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Sistema.#ctor">
+        <member name="M:PII_E13.ClassLibrary.Sistema.#ctor">
             <summary>
             Crea una instancia de Sistema.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Sistema.RegistrarEmpresa(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:PII_E13.ClassLibrary.Sistema.RegistrarEmpresa(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Registra una nueva empresa en el sistema.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Sistema.RegistrarEmprendedor(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{ClassLibrary.Habilitacion})">
+        <member name="M:PII_E13.ClassLibrary.Sistema.RegistrarEmprendedor(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{PII_E13.ClassLibrary.Habilitacion})">
             <summary>
             Registra un nuevo emprendedor en el sistema.
             </summary>
         </member>
-        <member name="M:ClassLibrary.Sistema.ObtenerEmpresaPorId(System.String)">
+        <member name="M:PII_E13.ClassLibrary.Sistema.ObtenerEmpresaPorId(System.String)">
             <summary>
             Recupera una empresa de la lista de empresas utilizando su id y una id dada.
             </summary>
             <param name="id">Id de la empresa a recuperar.</param>
             <returns>La instancia de Empresa correspondiente a la id dada.</returns>
         </member>
-        <member name="M:ClassLibrary.Sistema.ObtenerEmprendedorPorId(System.String)">
+        <member name="M:PII_E13.ClassLibrary.Sistema.ObtenerEmprendedorPorId(System.String)">
             <summary>
             Recupera un emprendedor de la lista de emprendedores utilizando su id y una id dada.
             </summary>
             <param name="id">Id del emprendedor a recuperar.</param>
             <returns>La instancia de Emprendedor correspondiente a la id dada.</returns>
         </member>
-        <member name="P:ClassLibrary.Sistema.Empresas">
+        <member name="P:PII_E13.ClassLibrary.Sistema.Empresas">
             <summary>
             Lista de empresas registradas en el sistema.
             </summary>
             <value>Colección de instancias de <c>Empresa</c></value>
         </member>
-        <member name="P:ClassLibrary.Sistema.Emprendedores">
+        <member name="P:PII_E13.ClassLibrary.Sistema.Emprendedores">
             <summary>
             Lista de emprendedores registrados en el sistema.
             </summary>
             <value>Colección de instancias de <c>Emprendedor</c></value>
         </member>
-        <member name="P:ClassLibrary.Sistema.Instancia">
+        <member name="P:PII_E13.ClassLibrary.Sistema.Instancia">
             <summary>
             Instancia del sistema durante la ejecución. Se aplica el patrón Singleton.
             </summary>
             <value>Una única instancia de <c>Sistema</c></value>
         </member>
-        <member name="T:ClassLibrary.Ubicacion">
+        <member name="T:PII_E13.ClassLibrary.Ubicacion">
             <summary>
             Patrones y principios utilizados en esta clase:
             ISP ya que segmenta las operaciones de la interface en la persistencia.
             Expert ya que se le da la responsabilidad de gestionar las coordenas de una ubicacion, debido a que es la clase más experta de la información.
             </summary>
         </member>
-        <member name="P:ClassLibrary.Ubicacion.Ciudad">
+        <member name="P:PII_E13.ClassLibrary.Ubicacion.Ciudad">
             <summary>
             Nombre de la ciudad de la ubicación
             </summary>
         </member>
-        <member name="P:ClassLibrary.Ubicacion.Direccion">
+        <member name="P:PII_E13.ClassLibrary.Ubicacion.Direccion">
             <summary>
             Dirección correspondiente a la ubicación
             </summary>
             <value></value>
         </member>
-        <member name="M:ClassLibrary.Ubicacion.#ctor(System.String,System.String)">
+        <member name="M:PII_E13.ClassLibrary.Ubicacion.#ctor(System.String,System.String)">
             <summary>
             Crea una instancia de la clase Ubicacion
             </summary>
             <param name="ciudad">Ciudad</param>
             <param name="direccion">Dirección</param>
         </member>
-        <member name="M:ClassLibrary.Ubicacion.Redactar">
+        <member name="M:PII_E13.ClassLibrary.Ubicacion.Redactar">
             <summary>
             Genera una cadena de texto con la información de la ubicación
             </summary>
             <returns>Retorna un string con la ubicación formateada</returns>
         </member>
-        <member name="M:ClassLibrary.Ubicacion.ObtenerDistancia(ClassLibrary.Ubicacion)">
+        <member name="M:PII_E13.ClassLibrary.Ubicacion.ObtenerDistancia(PII_E13.ClassLibrary.Ubicacion)">
             <summary>
             Delega la responsabilidad de calcular la distancia al gestor.
             </summary>

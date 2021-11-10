@@ -1,8 +1,8 @@
-digraph "ClassLibrary.Emprendedor"
+digraph "PII_E13.ClassLibrary.Emprendedor"
 {
  // INTERACTIVE_SVG=YES
  // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="{ClassLibrary.Emprendedor\n|+ Id\l+ Nombre\l+ Habilitaciones\l+ Ubicacion\l+ Rubro\l+ OfertasPostuladas\l+ OfertasConsumidas\l|+ Emprendedor()\l+ PostularseAOferta()\l+ PostularseAOferta()\l+ VerOfertasPostuladas()\l+ VerOfertasConsumidas()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Esta clase respresenta los datos basicos y necesarios que todo Emprendedor tiene, además de sus respo..."];
+  Node1 [label="{PII_E13.ClassLibrary.Emprendedor\n|+ Id\l+ Nombre\l+ Habilitaciones\l+ Ubicacion\l+ Rubro\l+ OfertasPostuladas\l+ OfertasConsumidas\l|+ Emprendedor()\l+ PostularseAOferta()\l+ PostularseAOferta()\l+ VerOfertasPostuladas()\l+ VerOfertasConsumidas()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Esta clase respresenta los datos basicos y necesarios que todo Emprendedor tiene, además de sus respo..."];
 }

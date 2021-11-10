@@ -14,9 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{BE2270FE-A
 		docs\Doxify = docs\Doxify
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{4609408A-2219-49AA-87F2-4A5D8B0B25F6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{4609408A-2219-49AA-87F2-4A5D8B0B25F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryTests", "test\LibraryTests\LibraryTests.csproj", "{C5A5123B-F975-417F-948C-EBAB197F5000}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryTests", "src\Test\LibraryTests\LibraryTests.csproj", "{C5A5123B-F975-417F-948C-EBAB197F5000}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
