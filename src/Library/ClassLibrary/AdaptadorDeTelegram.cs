@@ -1,9 +1,12 @@
+using Telegram.Bot.Types;
+
 namespace PII_E13.ClassLibrary
 {
     /// <summary>
-    /// Clase de ejemplo para una implementación de la interfaz ICanal utilizada en los tests donde es relevante tener una implementación de un canal.
+    /// Contiene la información relevante de un mensaje de Telegram.
+    /// Se aplica el patrón Adapter para crear esta clase y desacoplar la información de la API de Telegram.
     /// </summary>
-    public class Canal1 : ICanal
+    public class AdaptadorDeTelegram : IMensaje
     {
         /// <summary>
         /// Envía un mensaje a un usuario de un canal.
