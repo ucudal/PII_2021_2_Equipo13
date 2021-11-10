@@ -8,7 +8,7 @@ namespace ClassLibrary
     ///  Patrones y principios utilizados en esta clase:
     /// Expert conocer la informacion de las ubicaciones a las cuales se desea calcular distancias u obtner coordenadas.
     /// </summary>
-    public class GestorLocacion
+    public class AdaptadorLocacion: IAdaptadorLocacion
     {
         LocationApiClient Client = new LocationApiClient();
 
