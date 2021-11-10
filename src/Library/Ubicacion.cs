@@ -20,7 +20,7 @@ namespace ClassLibrary
         /// <value></value>
         public string Direccion { get; }
 
-        private GestorLocacion GestorLocacion = new GestorLocacion();
+        private IAdaptadorLocacion AdaptadorLocacion = new AdaptadorLocacion();
 
         /// <summary>
         /// Crea una instancia de la clase Ubicacion
@@ -48,7 +48,7 @@ namespace ClassLibrary
         /// <returns></returns>
         public double ObtenerDistancia(Ubicacion target)
         {
-            return GestorLocacion.ObtenerDistancia(this, target);
+            return AdaptadorLocacion.ObtenerDistancia(this, target);
         }
 
     }
