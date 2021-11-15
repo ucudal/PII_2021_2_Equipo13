@@ -8,22 +8,34 @@ namespace PII_E13.ClassLibrary
     /// </summary>
     public class AdaptadorDeTelegram : IMensaje
     {
-        /// <summary>
-        /// Envía un mensaje a un usuario de un canal.
+        private Message _mensaje;
+
+        ///<summary>
+        /// Constructor de la clase.
+        /// <param name="mensaje">Mensaje de Telegram.</param>
         /// </summary>
-        /// <param name="message"></param>
-        public void EnviarMensaje(string message)
+        public AdaptadorDeTelegram(Message mensaje)
         {
-            throw new System.NotImplementedException();
+            _mensaje = mensaje;
         }
 
         /// <summary>
-        /// Recibe un mensaje de un usuario de un canal.
+        /// Obtiene el texto del mensaje.
         /// </summary>
-        public string RecibirMensaje()
-        {
-            throw new System.NotImplementedException();
-        }
+        /// <value>Texto de un mensaje de Telegram</value>
+        public string Texto { get => _mensaje.Text; }
+
+        /// <summary>
+        /// Obtiene la Id en Telegram del chat donde se envió mensaje.
+        /// </summary>
+        /// <value>Id en Telegram de un chat</value>
+        public string IdChat { get => _mensaje.Chat.Id.ToString(); }
+
+        /// <summary>
+        /// Obtiene la Id en Telegram del usuario que envió el mensaje.
+        /// </summary>
+        /// <value>Id en Telegram de un usuario</value>
+        public string IdUsuario { get => _mensaje.From.Id.ToString(); }
     }
 
 }
