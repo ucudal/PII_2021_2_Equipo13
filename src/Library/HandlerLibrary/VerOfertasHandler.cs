@@ -12,6 +12,7 @@ namespace LibraryHandler
             ofertas.forEach(oferta => {
                 respuesta += oferta.RedactarResumen() + "\n";
             });
+            response = respuesta;
         }
     }
 
