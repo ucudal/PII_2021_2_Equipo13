@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
-using Telegram.Bot.Types;
+using PII_E13.ClassLibrary;
 
-namespace LibraryHandler
+namespace PII_E13.HandlerLibrary
 {
     /// <summary>
     /// Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a través de una
@@ -11,48 +11,48 @@ namespace LibraryHandler
     /// "handler" en caso que el mensaje no sea procesado. La responsabilidad de decidir si el mensaje se procesa o no, y
     /// de procesarlo, se delega a las clases sucesoras de esta clase base.
     /// </summary>
-    public abstract class BaseHandler : IHandler
+    public abstract class HandlerBase : IHandler
     {
         /// <summary>
         /// Obtiene el próximo "handler".
         /// </summary>
         /// <value>El "handler" que será invocado si este "handler" no procesa el mensaje.</value>
-        public IHandler Next { get; set; }
+        public IHandler Siguiente { get; set; }
 
         /// <summary>
         /// Obtiene o asigna el conjunto de palabras clave que este "handler" puede procesar.
         /// </summary>
         /// <value>Un array de palabras clave.</value>
-        public string[] Keywords { get; set; }
+        public string[] Etiquetas { get; set; }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="HandlerBase"/>.
         /// </summary>
-        /// <param name="next">El próximo "handler".</param>
-        public BaseHandler(IHandler next)
+        /// <param name="siguiente">El próximo "handler".</param>
+        public HandlerBase(IHandler siguiente)
         {
-            this.Next = next;
+            this.Siguiente = siguiente;
         }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="BaseHandler"/> con una lista de comandos.
+        /// Inicializa una nueva instancia de la clase <see cref="HandlerBase"/> con una lista de comandos.
         /// </summary>
-        /// <param name="keywords">La lista de comandos.</param>
-        /// <param name="next">El próximo "handler".</param>
-        public BaseHandler(string[] keywords, IHandler next)
+        /// <param name="etiquetas">La lista de comandos.</param>
+        /// <param name="siguiente">El próximo "handler".</param>
+        public HandlerBase(string[] etiquetas, IHandler siguiente)
         {
-            this.Keywords = keywords;
-            this.Next = next;
+            this.Etiquetas = etiquetas;
+            this.Siguiente = siguiente;
         }
 
         /// <summary>
         /// Este método debe ser sobreescrito por las clases sucesores. La clase sucesora procesa el mensaje y retorna
         /// true o no lo procesa y retorna false.
         /// </summary>
-        /// <param name="message">El mensaje a procesar.</param>
-        /// <param name="response">La respuesta al mensaje procesado.</param>
+        /// <param name="mensaje">El mensaje a procesar.</param>
+        /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected virtual bool InternalHandle(Message message, out string responder)
+        protected virtual bool ResolverInterno(IMensaje mensaje, out string respuesta)
         {
             throw new InvalidOperationException("Este método debe ser sobrescrito");
         }
@@ -61,46 +61,46 @@ namespace LibraryHandler
         /// Este método puede ser sobreescrito en las clases sucesores que procesan varios mensajes cambiando de estado
         /// entre mensajes deben sobreescribir este método para volver al estado inicial. En la clase base no hace nada.
         /// </summary>
-        protected virtual void InternalCancel()
+        protected virtual void CancelarInterno()
         {
             // Intencionalmente en blanco.
         }
 
         /// <summary>
         /// Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
-        /// <see cref="BaseHandler.Keywords"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
+        /// <see cref="HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
         /// clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
         /// un mensaje.
         /// </summary>
-        /// <param name="message">El mensaje a procesar.</param>
+        /// <param name="mensaje">El mensaje a procesar.</param>
         /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
-        protected virtual bool CanHandle(Message message)
+        protected virtual bool PuedeResolver(IMensaje mensaje)
         {
             // Cuando no hay palabras clave este método debe ser sobreescrito por las clases sucesoras y por lo tanto
             // este método no debería haberse invocado.
-            if (this.Keywords == null || this.Keywords.Length == 0)
+            if (this.Etiquetas == null || this.Etiquetas.Length == 0)
             {
                 throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
             }
 
-            return this.Keywords.Any(s => message.Text.Equals(s, StringComparison.InvariantCultureIgnoreCase));
+            return this.Etiquetas.Any(s => mensaje.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
         /// Procesa el mensaje o la pasa al siguiente "handler" si existe.
         /// </summary>
-        /// <param name="message">El mensaje a procesar.</param>
-        /// <param name="response">La respuesta al mensaje procesado.</param>
+        /// <param name="mensaje">El mensaje a procesar.</param>
+        /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        public IHandler Handle(Message message, out string response)
+        public IHandler Resolver(IMensaje mensaje, out string respuesta)
         {
-            if (this.InternalHandle(message, out response))
+            if (this.ResolverInterno(mensaje, out respuesta))
             {
                 return this;
             }
-            else if (this.Next != null)
+            else if (this.Siguiente != null)
             {
-                return this.Next.Handle(message, out response);
+                return this.Siguiente.Resolver(mensaje, out respuesta);
             }
             else
             {
@@ -113,12 +113,12 @@ namespace LibraryHandler
         /// procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
         /// estado inicial.
         /// </summary>
-        public virtual void Cancel()
+        public virtual void Cancelar()
         {
-            this.InternalCancel();
-            if (this.Next != null)
+            this.CancelarInterno();
+            if (this.Siguiente != null)
             {
-                this.Next.Cancel();
+                this.Siguiente.Cancelar();
             }
         }
     }
