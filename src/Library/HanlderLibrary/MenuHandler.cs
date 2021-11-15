@@ -9,7 +9,7 @@ using System;
 namespace LibraryHandler
 {
     /// <summary>
-    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "chau".
+    /// Un "handler" del patrón Chain of Responsibility que implementa el comando "menu".
     /// </summary>
     public class MenuHandler : BaseHandler
     {
