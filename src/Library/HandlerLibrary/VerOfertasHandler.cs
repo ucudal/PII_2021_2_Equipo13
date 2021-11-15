@@ -1,19 +1,24 @@
 
+using System.Collections.Generic;
+using PII_E13.ClassLibrary;
+using PII_E13.HandlerLibrary;
+
 namespace LibraryHandler
 {
 
     public class VerOfertasHandler: HandlerBase 
     {
-        public IHandler Handle(IMensaje message, out string response)
+        public IHandler Resolver(IMensaje message, out string response)
         {
-            Sistema sistema = new Sistema();
+            Sistema sistema = Sistema();
             List<Oferta> ofertas = Buscador.Instancia.BuscarOfertas(sistema, sistema.ObtenerEmprendedorPorId(message.IdUsuario));
             string respuesta = "";
-            ofertas.forEach(oferta => {
+            ofertas.ForEach(oferta => {
                 respuesta += oferta.RedactarResumen() + "\n";
             });
             response = respuesta;
         }
+
     }
 
 }
