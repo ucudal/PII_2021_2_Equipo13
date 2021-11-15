@@ -24,7 +24,9 @@ namespace PII_E13.ClassLibrary
         }
         
         /// <summary>
-        /// Metodo privato que se encarga de crear el hash en base un input determinado.
+        /// Metodo privado que se encarga de crear el hash en base un input determinado.
+        /// fuente de documentacion de .NET
+        /// https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.hashalgorithm.computehash?view=net-5.0
         /// </summary>
         /// <param name="hashAlgorithm"></param>
         /// <param name="input"></param>
