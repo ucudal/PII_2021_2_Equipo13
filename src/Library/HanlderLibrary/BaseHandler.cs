@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Telegram.Bot.Types;
+using PII_E13.ClassLibrary;
 
 namespace LibraryHandler
 {
@@ -52,7 +53,7 @@ namespace LibraryHandler
         /// <param name="message">El mensaje a procesar.</param>
         /// <param name="response">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected virtual bool InternalHandle(Message message, out string responder)
+        protected virtual bool InternalHandle(Message message, out string response)
         {
             throw new InvalidOperationException("Este método debe ser sobrescrito");
         }
@@ -86,6 +87,9 @@ namespace LibraryHandler
             return this.Keywords.Any(s => message.Text.Equals(s, StringComparison.InvariantCultureIgnoreCase));
         }
 
+
+
+       
         /// <summary>
         /// Procesa el mensaje o la pasa al siguiente "handler" si existe.
         /// </summary>
