@@ -5,7 +5,7 @@ namespace PII_E13.ClassLibrary
 
     /// <summary>
     /// Clase que representa una respuesta a un mensaje de Telegram.
-    /// Se aplica el patrón
+    /// DOCUMENTAR PATRONES APLICADOS
     /// </summary>
     public class RespuestaTelegram : Respuesta
     {

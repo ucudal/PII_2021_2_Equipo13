@@ -3,6 +3,7 @@ namespace PII_E13.ClassLibrary
 
     /// <summary>
     /// Interfaz que representa una respuesta a un mensaje.
+    /// DOCUMENTAR PATRONES APLICADOS
     /// </summary>
     public interface IRespuesta
     {

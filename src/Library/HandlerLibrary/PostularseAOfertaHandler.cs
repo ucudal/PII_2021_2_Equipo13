@@ -53,7 +53,12 @@ namespace PII_E13.HandlerLibrary
             {
                 this.Busquedas.Add(mensaje.IdUsuario, infoPostulacion);
             }
-            List<KeyboardButton> botonesDeCategorias = this.ObtenerBotones(Sistema.Instancia.Materiales);
+
+            List<string> categorias = new List<string>();
+            foreach(Material material in Sistema.Instancia.Materiales){
+                categorias.AddRange(material.Categorias);
+            }
+            List<KeyboardButton> botonesDeCategorias = this.ObtenerBotones(categorias);
 
             switch(infoPostulacion.Estado){
                 
@@ -77,19 +82,49 @@ namespace PII_E13.HandlerLibrary
                     }
                     List<string> etiquetas = mensaje.Texto.Split(' ').ToList();
                     infoPostulacion.Etiquetas = etiquetas;
-                    respuesta.Texto = "Bien, ahora necesitamos que selecciones las categorías que creas adecuadas para los materiales que estás buscando.";
+                    infoPostulacion.IndiceEnCategorias = 0;
+                    respuesta.TecladoTelegram = this.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceEnCategorias);
                     infoPostulacion.Estado = Estados.SeleccionandoCategorias;
+                    respuesta.Texto = "Bien, ahora necesitamos que selecciones las categorías que creas adecuadas para los materiales que estás buscando.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
                     return true;
 
                 case Estados.SeleccionandoCategorias:
-                    respuesta.Texto = "Por favor, selecciona las categorías que creas adecuadas para los materiales que estás buscando.";
-                    if(mensaje.Texto.Equals("Listo")){
-                        infoPostulacion.Estado = Estados.Buscando;
+                    switch(mensaje.Texto){
+                        case "Siguiente":
+                            if(botonesDeCategorias.Count() <= infoPostulacion.IndiceEnCategorias + 8){
+                                infoPostulacion.IndiceEnCategorias = botonesDeCategorias.Count() - 8;
+                            } else {
+                                infoPostulacion.IndiceEnCategorias += 8;
+                            }
+                            respuesta.TecladoTelegram = this.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceEnCategorias);
+                            respuesta.Texto = "Elige una categoría.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
+                        return true;
+
+                        case "Anterior":
+                            if(infoPostulacion.IndiceEnCategorias - 8 < 0){
+                                infoPostulacion.IndiceEnCategorias = 0;
+                            } else {
+                                infoPostulacion.IndiceEnCategorias -= 8;
+                            }
+                            respuesta.TecladoTelegram = this.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceEnCategorias);
+                            respuesta.Texto = "Elige una categoría.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
+                        return true;
+
+                        case "Listo":
+                            infoPostulacion.OfertasEncontradas = Buscador.Instancia.BuscarOfertas(Sistema.Instancia, 
+                                Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario), infoPostulacion.Categorias, 
+                                infoPostulacion.Etiquetas);
+                            respuesta.Texto = "Encontramos estas ofertas para ti:\n\n";
+                            
+                            infoPostulacion.Estado = Estados.Visualizando;
+                        return true;
+
+                        case "Cancelar":
+                            this.Cancelar();
+                        return false;                            
                     }
-                    return true;
-
-                case Estados.Buscando:
-
+                    infoPostulacion.Categorias.Add(mensaje.Texto);
+                    respuesta.Texto = "Hemos añadido \"" + mensaje.Texto + "\" a las categorías que utilizaremos para buscar la oferta.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
                     return true;
 
                 case Estados.Visualizando:
@@ -156,74 +191,45 @@ namespace PII_E13.HandlerLibrary
             }
         }
 
-        private List<KeyboardButton> ObtenerBotones(List<Material> Materiales)
+        /// <summary>
+        /// Genera y retorna una lista de botones de Telegram a partir de una lista de opciones.
+        /// </summary>
+        /// <param name="opciones">La lista de opciones con las cuales crear los botones.</param>
+        /// <returns>Una lista de <see cref="KeyboardButton"/> conteniendo botones con las opciones recibidas por parámetros.</returns>
+        private List<KeyboardButton> ObtenerBotones(List<string> opciones)
         {
             List<KeyboardButton> botones = new List<KeyboardButton>();
-            List<string> categoriasAuxiliar = new List<string>();
-            foreach(Material material in Materiales)
+            List<string> opcionesAuxiliar = new List<string>();
+            foreach(string opcion in opciones)
             {
-                foreach(string categoria in material.Categorias)
-                {
-                    if(!categoriasAuxiliar.Contains(categoria)){
-                        botones.Add(new KeyboardButton(categoria));
-                        categoriasAuxiliar.Add(categoria);
-                    }
+                if(!opcionesAuxiliar.Contains(opcion)){
+                    botones.Add(new KeyboardButton(opcion));
+                    opcionesAuxiliar.Add(opcion);
                 }
             }
             return botones;
         }
 
+        /// <summary>
+        /// Genera y retorna un teclado de Telegram (<see cref="ReplyKeyboardMarkup"/>) con una lista de botones
+        /// y un índice de la lista a partir del cual iniciar.
+        /// </summary>
+        /// <param name="botones">La lista de instancias de <see cref="KeyboardButton"/> con la cual se quiere generar un teclado.</param>
+        /// <param name="indice">El índice de la lista desde el cual iniciar.</param>
+        /// <returns></returns>
         private ReplyKeyboardMarkup ObtenerKeyboard(List<KeyboardButton> botones, int indice)
         {
             ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-            if(botones.Count <= indice){
-                throw new ArgumentOutOfRangeException("Índice fuera de límites");
-            } else if(botones.Count <= indice + 7 && botones.Count > indice + 4){
-                replyKeyboardMarkup = new(new []
-                {
-                    botones.GetRange(indice, indice + 3).ToArray(),
-                    botones.GetRange(indice + 4, botones.Count() - indice).ToArray(),
-                    new KeyboardButton[] { "Anterior" },
-                    new KeyboardButton[] { "Cancelar", "Listo" }
-                })
-                {
-                    ResizeKeyboard = true
-                };
-            return replyKeyboardMarkup;
-            } else if (botones.Count <= indice + 4){
-                replyKeyboardMarkup = new(new []
-                {
-                    botones.GetRange(indice, botones.Count() - indice).ToArray(),
-                    new KeyboardButton[] { "Anterior" },
-                    new KeyboardButton[] { "Cancelar", "Listo" }
-                })
-                {
-                    ResizeKeyboard = true
-                };
-            }
-            else if(indice == 0) {
-                replyKeyboardMarkup = new(new []
-                {
-                    botones.GetRange(indice, indice + 3).ToArray(),
-                    botones.GetRange(indice + 4, indice + 7).ToArray(),
-                    new KeyboardButton[] { "Siguiente" },
-                    new KeyboardButton[] { "Cancelar", "Listo" }
-                })
-                {
-                    ResizeKeyboard = true
-                };
-            } else {
-                replyKeyboardMarkup = new(new []
-                {
-                    botones.GetRange(indice, indice + 3).ToArray(),
-                    botones.GetRange(indice + 4, indice + 7).ToArray(),
-                    new KeyboardButton[] { "Anterior", "Siguiente" },
-                    new KeyboardButton[] { "Cancelar", "Listo" }
-                })
-                {
-                    ResizeKeyboard = true
-                };
-            }
+            replyKeyboardMarkup = new(new []
+            {
+                botones.GetRange(indice, indice + 3).ToArray(),
+                botones.GetRange(indice + 4, indice + 7).ToArray(),
+                new KeyboardButton[] { "Anterior", "Siguiente" },
+                new KeyboardButton[] { "Cancelar", "Listo" }
+            })
+            {
+                ResizeKeyboard = true
+            };
             return replyKeyboardMarkup;
         }
         /// <summary>
@@ -233,7 +239,6 @@ namespace PII_E13.HandlerLibrary
             Etiquetas,
             Categorias,
             SeleccionandoCategorias,
-            Buscando,
             Visualizando,
             Detalle,
             Postulando
@@ -246,19 +251,19 @@ namespace PII_E13.HandlerLibrary
             /// <summary>
             /// Lista de etiquetas que está usando un usuario para buscar una oferta.
             /// </summary>
-            public List<String> Etiquetas { get; set; }
+            public List<string> Etiquetas { get; set; } = new List<string>();
             /// <summary>
             /// Lista de ofertas encontradas en la búsqueda de ofertas.
             /// </summary>
-            public List<Oferta> OfertasEncontradas { get; set; }
+            public List<Oferta> OfertasEncontradas { get; set; } = new List<Oferta>();
             /// <summary>
             /// Lista de categorías que está usando un usuario para buscar una oferta.
             /// </summary>
-            public List<String> Categorias { get; set; }
+            public List<string> Categorias { get; set; } = new List<string>();
             /// <summary>
             /// Estado de la búsqueda de ofertas de un usuario.
             /// </summary>
-            public Estados Estado { get; set; }
+            public Estados Estado { get; set; } = Estados.Etiquetas;
 
             /// <summary>
             /// Oferta seleccionada por un usuario entre la lista de ofertas encontradas.
@@ -268,7 +273,7 @@ namespace PII_E13.HandlerLibrary
             /// <summary>
             /// Indice actual dentro de la lista de categorías.
             /// </summary>
-            public int IndiceEnCategorias { get; set; }
+            public int IndiceEnCategorias { get; set; } = 0;
         }
     }
 }

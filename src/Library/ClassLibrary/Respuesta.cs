@@ -3,6 +3,7 @@ namespace PII_E13.ClassLibrary
 
     /// <summary>
     /// Clase que representa una respuesta a un mensaje.
+    /// DOCUMENTAR PATRONES APLICADOS
     /// </summary>
     public class Respuesta : IRespuesta
     {
