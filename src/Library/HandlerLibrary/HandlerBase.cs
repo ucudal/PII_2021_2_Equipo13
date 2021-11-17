@@ -52,7 +52,7 @@ namespace PII_E13.HandlerLibrary
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected virtual bool ResolverInterno(IMensaje mensaje, out string respuesta)
+        protected virtual bool ResolverInterno(IMensaje mensaje, out RespuestaTelegram respuesta)
         {
             throw new InvalidOperationException("Este método debe ser sobrescrito");
         }
@@ -92,7 +92,7 @@ namespace PII_E13.HandlerLibrary
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        public IHandler Resolver(IMensaje mensaje, out string respuesta)
+        public IHandler Resolver(IMensaje mensaje, out RespuestaTelegram respuesta)
         {
             if (this.ResolverInterno(mensaje, out respuesta))
             {

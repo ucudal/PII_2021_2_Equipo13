@@ -13,7 +13,7 @@ namespace PII_E13.HandlerLibrary
     /// La interfaz se crea en función del principio de inversión de dependencias, para que los clientes de la cadena de
     /// responsabilidad, que pueden ser concretos, no dependan de una clase "handler" que potencialmente es abstracta.
     /// <remarks/>
-    public interface IHandler
+   public interface IHandler
     {
         /// <summary>
         /// Obtiene el próximo "handler".
@@ -25,9 +25,9 @@ namespace PII_E13.HandlerLibrary
         /// Procesa el mensaje o la pasa al siguiente "handler" si existe.
         /// </summary>
         /// <param name="message">El mensaje a procesar.</param>
-        /// <param name="response">La respuesta al mensaje procesado.</param>
+        /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        IHandler Resolver(IMensaje message, out string respuesta);
+        IHandler Resolver(IMensaje message, out RespuestaTelegram respuesta);
 
         /// <summary>
         /// Retorna este "handler" al estado inicial y cancela el próximo "handler" si existe. Es utilizado para que los

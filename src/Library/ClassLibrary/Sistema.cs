@@ -16,16 +16,17 @@ namespace PII_E13.ClassLibrary
     public class Sistema
     {
         /// <summary>
-        /// Crea una instancia de Sistema.
+        /// Crea una instancia de <see cref="Sistema"/>.
         /// </summary>
         private Sistema()
         {
             this.Empresas = new List<Empresa>();
             this.Emprendedores = new List<Emprendedor>();
+            this.Materiales = new List<Material>();
         }
 
         /// <summary>
-        /// Registra una nueva empresa en el sistema.
+        /// Registra una nueva <see cref="Empresa"/> en el sistema.
         /// </summary>
         public void RegistrarEmpresa(string id, string ciudad, string direccion, string rubro, string nombre)
         {
@@ -34,7 +35,7 @@ namespace PII_E13.ClassLibrary
         }
 
         /// <summary>
-        /// Registra un nuevo emprendedor en el sistema.
+        /// Registra un nuevo <see cref="Emprendedor"/> en el sistema.
         /// </summary>
         public void RegistrarEmprendedor(string id, string ciudad, string direccion, string rubro, string nombre,
             List<Habilitacion> habilitaciones)
@@ -47,7 +48,7 @@ namespace PII_E13.ClassLibrary
         /// Recupera una empresa de la lista de empresas utilizando su id y una id dada.
         /// </summary>
         /// <param name="id">Id de la empresa a recuperar.</param>
-        /// <returns>La instancia de Empresa correspondiente a la id dada.</returns>
+        /// <returns>La instancia de <see cref="Empresa"/> correspondiente a la id dada.</returns>
         public Empresa ObtenerEmpresaPorId(string id)
         {
             foreach(Empresa empresa in this.Empresas){
@@ -61,7 +62,7 @@ namespace PII_E13.ClassLibrary
         /// Recupera un emprendedor de la lista de emprendedores utilizando su id y una id dada.
         /// </summary>
         /// <param name="id">Id del emprendedor a recuperar.</param>
-        /// <returns>La instancia de Emprendedor correspondiente a la id dada.</returns>
+        /// <returns>La instancia de <see cref="Emprendedor"/> correspondiente a la id dada.</returns>
         public Emprendedor ObtenerEmprendedorPorId(string id)
         {
             foreach(Emprendedor emprendedor in this.Emprendedores){
@@ -74,20 +75,26 @@ namespace PII_E13.ClassLibrary
         /// <summary>
         /// Lista de empresas registradas en el sistema.
         /// </summary>
-        /// <value>Colección de instancias de <c>Empresa</c></value>
+        /// <value>Colección de instancias de <see cref="Empresa"/></value>
         public List<Empresa> Empresas { get; set; }
 
         /// <summary>
         /// Lista de emprendedores registrados en el sistema.
         /// </summary>
-        /// <value>Colección de instancias de <c>Emprendedor</c></value>
+        /// <value>Colección de instancias de <see cref="Emprendedor"/></value>
         public List<Emprendedor> Emprendedores { get; set; }
+
+        /// <summary>
+        /// Lista de materiales registrados en el sistema.
+        /// </summary>
+        /// <value>Colección de instancias de <see cref="Material"/></value>
+        public List<Material> Materiales { get; set; }
 
         private static Sistema instancia = null;
         /// <summary>
         /// Instancia del sistema durante la ejecución. Se aplica el patrón Singleton.
         /// </summary>
-        /// <value>Una única instancia de <c>Sistema</c></value>
+        /// <value>Una única instancia de <see cref="Sistema"/></value>
         public static Sistema Instancia
         {
             get
