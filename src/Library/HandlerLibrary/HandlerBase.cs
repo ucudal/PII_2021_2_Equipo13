@@ -58,6 +58,18 @@ namespace PII_E13.HandlerLibrary
         }
 
         /// <summary>
+        /// Este método debe ser sobreescrito por las clases sucesores. La clase sucesora procesa el mensaje y retorna
+        /// true o no lo procesa y retorna false.
+        /// </summary>
+        /// <param name="callback">El callback a procesar.</param>
+        /// <param name="respuesta">La respuesta al mensaje procesado.</param>
+        /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
+        protected virtual bool ResolverInterno(ICallBack callback, out RespuestaTelegram respuesta)
+        {
+            throw new InvalidOperationException("Este método debe ser sobrescrito");
+        }
+
+        /// <summary>
         /// Este método puede ser sobreescrito en las clases sucesores que procesan varios mensajes cambiando de estado
         /// entre mensajes deben sobreescribir este método para volver al estado inicial. En la clase base no hace nada.
         /// </summary>
@@ -87,6 +99,26 @@ namespace PII_E13.HandlerLibrary
         }
 
         /// <summary>
+        /// Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
+        /// <see cref="HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
+        /// clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
+        /// un mensaje.
+        /// </summary>
+        /// <param name="callback">El mensaje a procesar.</param>
+        /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
+        protected virtual bool PuedeResolver(ICallBack callback)
+        {
+            // Cuando no hay palabras clave este método debe ser sobreescrito por las clases sucesoras y por lo tanto
+            // este método no debería haberse invocado.
+            if (this.Etiquetas == null || this.Etiquetas.Length == 0)
+            {
+                throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
+            }
+
+            return this.Etiquetas.Any(s => callback.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        /// <summary>
         /// Procesa el mensaje o la pasa al siguiente "handler" si existe.
         /// </summary>
         /// <param name="mensaje">El mensaje a procesar.</param>
@@ -101,6 +133,28 @@ namespace PII_E13.HandlerLibrary
             else if (this.Siguiente != null)
             {
                 return this.Siguiente.Resolver(mensaje, out respuesta);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Procesa el mensaje o la pasa al siguiente "handler" si existe.
+        /// </summary>
+        /// <param name="callback">El mensaje a procesar.</param>
+        /// <param name="respuesta">La respuesta al mensaje procesado.</param>
+        /// <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
+        public IHandler Resolver(ICallBack callback, out RespuestaTelegram respuesta)
+        {
+            if (this.ResolverInterno(callback, out respuesta))
+            {
+                return this;
+            }
+            else if (this.Siguiente != null)
+            {
+                return this.Siguiente.Resolver(callback, out respuesta);
             }
             else
             {

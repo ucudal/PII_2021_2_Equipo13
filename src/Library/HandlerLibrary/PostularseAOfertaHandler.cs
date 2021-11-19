@@ -40,7 +40,8 @@ namespace PII_E13.HandlerLibrary
         protected override bool ResolverInterno(IMensaje mensaje, out RespuestaTelegram respuesta)
         {
             respuesta = new RespuestaTelegram(string.Empty);
-            if(!this.PuedeResolver(mensaje)){
+            if (!this.PuedeResolver(mensaje))
+            {
                 return false;
             }
 
@@ -55,27 +56,32 @@ namespace PII_E13.HandlerLibrary
             }
 
             List<string> categorias = new List<string>();
-            foreach(Material material in Sistema.Instancia.Materiales){
+            foreach (Material material in Sistema.Instancia.Materiales)
+            {
                 categorias.AddRange(material.Categorias);
             }
-            List<KeyboardButton> botonesDeCategorias = this.ObtenerBotones(categorias);
+            List<InlineKeyboardButton> botonesDeCategorias = this.ObtenerBotones(categorias);
 
-            switch(infoPostulacion.Estado){
-                
+            switch (infoPostulacion.Estado)
+            {
+
                 case Estados.Etiquetas:
                     respuesta.Texto = "Por favor, indícanos detalladamente lo qué necesitas, dentro de un mensaje.";
                     infoPostulacion.Estado = Estados.Categorias;
                     return true;
 
                 case Estados.Categorias:
-                    foreach(Material material in Sistema.Instancia.Materiales)
+                    foreach (Material material in Sistema.Instancia.Materiales)
                     {
-                        if(mensaje.Texto.Contains(material.Nombre)){
+                        if (mensaje.Texto.Contains(material.Nombre))
+                        {
                             infoPostulacion.Categorias.AddRange(material.Categorias);
                             continue;
                         }
-                        foreach(string categoria in material.Categorias){
-                            if(mensaje.Texto.Contains(categoria)){
+                        foreach (string categoria in material.Categorias)
+                        {
+                            if (mensaje.Texto.Contains(categoria))
+                            {
                                 infoPostulacion.Categorias.Add(categoria);
                             }
                         }
@@ -89,39 +95,48 @@ namespace PII_E13.HandlerLibrary
                     return true;
 
                 case Estados.SeleccionandoCategorias:
-                    switch(mensaje.Texto){
+                    switch (mensaje.Texto)
+                    {
                         case "Siguiente":
-                            if(botonesDeCategorias.Count() <= infoPostulacion.IndiceEnCategorias + 8){
-                                infoPostulacion.IndiceEnCategorias = botonesDeCategorias.Count() - 8;
-                            } else {
-                                infoPostulacion.IndiceEnCategorias += 8;
+                            if (botonesDeCategorias.Count() <= infoPostulacion.IndiceEnCategorias + 6)
+                            {
+                                infoPostulacion.IndiceEnCategorias = botonesDeCategorias.Count() - 6;
+                            }
+                            else
+                            {
+                                infoPostulacion.IndiceEnCategorias += 6;
                             }
                             respuesta.TecladoTelegram = this.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceEnCategorias);
-                            respuesta.Texto = "Elige una categoría.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
-                        return true;
+                            respuesta.Texto = String.Empty;
+                            //respuesta.Texto = "Elige una categoría.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
+                            return true;
 
                         case "Anterior":
-                            if(infoPostulacion.IndiceEnCategorias - 8 < 0){
+                            if (infoPostulacion.IndiceEnCategorias - 6 < 0)
+                            {
                                 infoPostulacion.IndiceEnCategorias = 0;
-                            } else {
-                                infoPostulacion.IndiceEnCategorias -= 8;
+                            }
+                            else
+                            {
+                                infoPostulacion.IndiceEnCategorias -= 6;
                             }
                             respuesta.TecladoTelegram = this.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceEnCategorias);
-                            respuesta.Texto = "Elige una categoría.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
-                        return true;
+                            //respuesta.Texto = "Elige una categoría.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
+                            respuesta.Texto = String.Empty;
+                            return true;
 
                         case "Listo":
-                            infoPostulacion.OfertasEncontradas = Buscador.Instancia.BuscarOfertas(Sistema.Instancia, 
-                                Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario), infoPostulacion.Categorias, 
+                            infoPostulacion.OfertasEncontradas = Buscador.Instancia.BuscarOfertas(Sistema.Instancia,
+                                Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario), infoPostulacion.Categorias,
                                 infoPostulacion.Etiquetas);
                             respuesta.Texto = "Encontramos estas ofertas para ti:\n\n";
-                            
+
                             infoPostulacion.Estado = Estados.Visualizando;
-                        return true;
+                            return true;
 
                         case "Cancelar":
                             this.Cancelar();
-                        return false;                            
+                            return false;
                     }
                     infoPostulacion.Categorias.Add(mensaje.Texto);
                     respuesta.Texto = "Hemos añadido \"" + mensaje.Texto + "\" a las categorías que utilizaremos para buscar la oferta.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
@@ -140,7 +155,104 @@ namespace PII_E13.HandlerLibrary
                     return true;
             }
             infoPostulacion = new InformacionPostulacion();
-            return false;  
+            return false;
+        }
+
+        /// <summary>
+        /// La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
+        /// </summary>
+        /// <param name="callback">El callback a procesar.</param>
+        /// <param name="respuesta">La respuesta al mensaje procesado.</param>
+        /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
+        protected override bool ResolverInterno(ICallBack callback, out RespuestaTelegram respuesta)
+        {
+            respuesta = new RespuestaTelegram(string.Empty);
+            if (!this.PuedeResolver(callback))
+            {
+                return false;
+            }
+
+            InformacionPostulacion infoPostulacion = new InformacionPostulacion();
+            if (this.Busquedas.ContainsKey(callback.IdUsuario))
+            {
+                infoPostulacion = this.Busquedas[callback.IdUsuario];
+            }
+            else
+            {
+                this.Busquedas.Add(callback.IdUsuario, infoPostulacion);
+            }
+
+            List<string> categorias = new List<string>();
+            foreach (Material material in Sistema.Instancia.Materiales)
+            {
+                categorias.AddRange(material.Categorias);
+            }
+            List<InlineKeyboardButton> botonesDeCategorias = this.ObtenerBotones(categorias);
+
+            switch (infoPostulacion.Estado)
+            {
+                case Estados.SeleccionandoCategorias:
+                    switch (callback.Texto)
+                    {
+                        case "Siguiente":
+                            if (botonesDeCategorias.Count() <= infoPostulacion.IndiceEnCategorias + 6)
+                            {
+                                infoPostulacion.IndiceEnCategorias = botonesDeCategorias.Count() - 6;
+                            }
+                            else
+                            {
+                                infoPostulacion.IndiceEnCategorias += 6;
+                            }
+                            respuesta.TecladoTelegram = this.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceEnCategorias);
+                            respuesta.Texto = String.Empty;
+                            //respuesta.Texto = "Elige una categoría.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
+                            return true;
+
+                        case "Anterior":
+                            if (infoPostulacion.IndiceEnCategorias - 6 < 0)
+                            {
+                                infoPostulacion.IndiceEnCategorias = 0;
+                            }
+                            else
+                            {
+                                infoPostulacion.IndiceEnCategorias -= 6;
+                            }
+                            respuesta.TecladoTelegram = this.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceEnCategorias);
+                            //respuesta.Texto = "Elige una categoría.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
+                            respuesta.Texto = String.Empty;
+                            return true;
+
+                        case "Listo":
+                            infoPostulacion.OfertasEncontradas = Buscador.Instancia.BuscarOfertas(Sistema.Instancia,
+                                Sistema.Instancia.ObtenerEmprendedorPorId(callback.IdUsuario), infoPostulacion.Categorias,
+                                infoPostulacion.Etiquetas);
+                            respuesta.Texto = "Encontramos estas ofertas para ti:\n\n";
+
+                            infoPostulacion.Estado = Estados.Visualizando;
+                            return true;
+
+                        case "Cancelar":
+                            this.Cancelar();
+                            return false;
+                    }
+                    infoPostulacion.Categorias.Add(callback.Texto);
+                    respuesta.Texto = "Hemos añadido \"" + callback.Texto + "\" a las categorías que utilizaremos para buscar la oferta.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
+                    return true;
+
+                case Estados.Visualizando:
+
+                    return true;
+
+                case Estados.Detalle:
+
+                    return true;
+
+                case Estados.Postulando:
+
+                    return true;
+            }
+            infoPostulacion = new InformacionPostulacion();
+            return false;
         }
 
         /// <summary>
@@ -162,22 +274,65 @@ namespace PII_E13.HandlerLibrary
         /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
         protected override bool PuedeResolver(IMensaje mensaje)
         {
-            try{
+            try
+            {
                 Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario);
-            } catch(KeyNotFoundException e){
+            }
+            catch (KeyNotFoundException e)
+            {
                 return false;
             }
             // Cuando no hay palabras clave este método debe ser sobreescrito por las clases sucesoras y por lo tanto
             // este método no debería haberse invocado.
+            /*
             if (this.Etiquetas == null || this.Etiquetas.Length == 0)
             {
                 throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
             }
+            */
 
-            return this.Etiquetas.Any(s => mensaje.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
+            return true;
+            //return this.Etiquetas.Any(s => mensaje.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
         }
 
-         /// <summary>
+        /// <summary>
+        /// Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
+        /// <see cref="HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
+        /// clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
+        /// un mensaje.
+        /// </summary>
+        /// <param name="callback">El callback a procesar.</param>
+        /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
+        protected override bool PuedeResolver(ICallBack callback)
+        {
+            try
+            {
+                Sistema.Instancia.ObtenerEmprendedorPorId(callback.IdUsuario);
+                InformacionPostulacion infoPostulacion = this.Busquedas[callback.IdUsuario];
+                if (infoPostulacion.Estado == Estados.Categorias || infoPostulacion.Estado == Estados.Etiquetas)
+                {
+                    return false;
+                }
+            }
+            catch (KeyNotFoundException e)
+            {
+                return false;
+            }
+
+            // Cuando no hay palabras clave este método debe ser sobreescrito por las clases sucesoras y por lo tanto
+            // este método no debería haberse invocado.
+            /*
+            if (this.Etiquetas == null || this.Etiquetas.Length == 0)
+            {
+                throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
+            }
+            */
+
+            return true;
+            //return this.Etiquetas.Any(s => mensaje.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        /// <summary>
         /// Retorna este "handler" al estado inicial. En los "handler" sin estado no hace nada. Los "handlers" que
         /// procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
         /// estado inicial.
@@ -196,14 +351,19 @@ namespace PII_E13.HandlerLibrary
         /// </summary>
         /// <param name="opciones">La lista de opciones con las cuales crear los botones.</param>
         /// <returns>Una lista de <see cref="KeyboardButton"/> conteniendo botones con las opciones recibidas por parámetros.</returns>
-        private List<KeyboardButton> ObtenerBotones(List<string> opciones)
+        private List<InlineKeyboardButton> ObtenerBotones(List<string> opciones)
         {
-            List<KeyboardButton> botones = new List<KeyboardButton>();
+            List<InlineKeyboardButton> botones = new List<InlineKeyboardButton>();
             List<string> opcionesAuxiliar = new List<string>();
-            foreach(string opcion in opciones)
+            foreach (string opcion in opciones)
             {
-                if(!opcionesAuxiliar.Contains(opcion)){
-                    botones.Add(new KeyboardButton(opcion));
+                if (!opcionesAuxiliar.Contains(opcion))
+                {
+                    InlineKeyboardButton boton = new InlineKeyboardButton();
+                    boton.CallbackData = opcion;
+                    boton.Text = opcion;
+                    botones.Add(boton);
+                    //botones.Add(new InlineKeyboardButton.(opcion));
                     opcionesAuxiliar.Add(opcion);
                 }
             }
@@ -217,25 +377,45 @@ namespace PII_E13.HandlerLibrary
         /// <param name="botones">La lista de instancias de <see cref="KeyboardButton"/> con la cual se quiere generar un teclado.</param>
         /// <param name="indice">El índice de la lista desde el cual iniciar.</param>
         /// <returns></returns>
-        private ReplyKeyboardMarkup ObtenerKeyboard(List<KeyboardButton> botones, int indice)
+        private InlineKeyboardMarkup ObtenerKeyboard(List<InlineKeyboardButton> botones, int indice)
         {
-            ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
-            replyKeyboardMarkup = new(new []
+            InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton());
+            InlineKeyboardButton botonAnterior = new InlineKeyboardButton();
+            botonAnterior.Text = "Anterior";
+            botonAnterior.CallbackData = "Anterior";
+            InlineKeyboardButton botonSiguiente = new InlineKeyboardButton();
+            botonSiguiente.Text = "Siguiente";
+            botonSiguiente.CallbackData = "Siguiente";
+
+            if (indice + 6 >= botones.Count() || indice + 3 >= botones.Count())
             {
-                botones.GetRange(indice, indice + 3).ToArray(),
-                botones.GetRange(indice + 4, indice + 7).ToArray(),
-                new KeyboardButton[] { "Anterior", "Siguiente" },
-                new KeyboardButton[] { "Cancelar", "Listo" }
-            })
+                inlineKeyboardMarkup = new(new[]
+                {
+                    botones.GetRange((botones.Count() - 6), 3).ToArray(),
+                    botones.GetRange((botones.Count() - 3), 3).ToArray(),
+                    new InlineKeyboardButton[] { botonAnterior, botonSiguiente } ,
+                    new InlineKeyboardButton[] { "Cancelar", "Listo" }
+                });
+            }
+            else
             {
-                ResizeKeyboard = true
-            };
-            return replyKeyboardMarkup;
+                inlineKeyboardMarkup = new(new[]
+                {
+                    botones.GetRange(indice, 3).ToArray(),
+                    botones.GetRange((indice + 3), 3).ToArray(),
+                    new InlineKeyboardButton[] { "Anterior", "Siguiente" },
+                    new InlineKeyboardButton[] { "Cancelar", "Listo" }
+                });
+            }
+
+
+            return inlineKeyboardMarkup;
         }
         /// <summary>
         /// Representación de los posibles estados de una postulación a oferta.
         /// </summary>
-        private enum Estados{
+        private enum Estados
+        {
             Etiquetas,
             Categorias,
             SeleccionandoCategorias,
@@ -247,7 +427,8 @@ namespace PII_E13.HandlerLibrary
         /// <summary>
         /// Clase privada contenedora de la información de una postulación a una oferta.
         /// </summary>
-        private class InformacionPostulacion{
+        private class InformacionPostulacion
+        {
             /// <summary>
             /// Lista de etiquetas que está usando un usuario para buscar una oferta.
             /// </summary>

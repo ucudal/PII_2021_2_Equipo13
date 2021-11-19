@@ -11,22 +11,24 @@ namespace PII_E13.ClassLibrary
     {
         /// <summary>
         /// Crea una instancia de <see cref="RespuestaTelegram"/> con un texto y un teclado de tipo
-        /// <see cref="ReplyKeyboardMarkup"/> asignados.
+        /// <see cref="InlineKeyboardMarkup"/> asignados.
         /// </summary>
-        public RespuestaTelegram(string texto, ReplyKeyboardMarkup teclado) : base(texto){
+        public RespuestaTelegram(string texto, InlineKeyboardMarkup teclado) : base(texto)
+        {
             this.TecladoTelegram = teclado;
         }
 
         /// <summary>
         /// Crea una instancia de <see cref="RespuestaTelegram"/> con un texto asignado.
         /// </summary>
-        public RespuestaTelegram(string texto) : base(texto){
+        public RespuestaTelegram(string texto) : base(texto)
+        {
         }
 
         /// <summary>
         /// Teclado de botones predefinidos para Telegram.
         /// </summary>
-        /// <value> Instancia de <see cref="ReplyKeyboardMarkup"/> con botones definidos</value>
-        public ReplyKeyboardMarkup TecladoTelegram { get; set; }
+        /// <value> Instancia de <see cref="InlineKeyboardMarkup"/> con botones definidos</value>
+        public InlineKeyboardMarkup TecladoTelegram { get; set; }
     }
 }
