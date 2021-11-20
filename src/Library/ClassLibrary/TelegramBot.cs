@@ -116,66 +116,6 @@ namespace PII_E13.ClassLibrary
             return botones;
         }
 
-        /*
-
-        /// <summary>
-        /// Genera y retorna un teclado de Telegram (<see cref="InlineKeyboardMarkup"/>) con una lista de botones
-        /// y un índice de la lista a partir del cual iniciar.
-        /// </summary>
-        /// <param name="botones">La lista de instancias de <see cref="InlineKeyboardButton"/> con la cual se quiere generar un teclado.</param>
-        /// <param name="indiceInicial">El índice de la lista desde el cual iniciar. Se define a 0 por defecto</param>
-        /// <param name="largoDePagina">El largo de cada página de botones. Se define a 6 por defecto</param>
-        /// <returns></returns>
-        public InlineKeyboardMarkup ObtenerKeyboard(List<InlineKeyboardButton> botones, int indiceInicial = 0, int largoDePagina = 6)
-        {
-            InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton());
-            InlineKeyboardButton botonAnterior = new InlineKeyboardButton();
-            botonAnterior.Text = "Anterior";
-            botonAnterior.CallbackData = "Anterior";
-            InlineKeyboardButton botonSiguiente = new InlineKeyboardButton();
-            botonSiguiente.Text = "Siguiente";
-            botonSiguiente.CallbackData = "Siguiente";
-            InlineKeyboardButton botonCancelar = new InlineKeyboardButton();
-            botonCancelar.Text = "Cancelar";
-            botonCancelar.CallbackData = "Cancelar";
-            InlineKeyboardButton botonListo = new InlineKeyboardButton();
-            botonListo.Text = "Listo";
-            botonListo.CallbackData = "Listo";
-
-            if (botones.Count < largoDePagina)
-            {
-                inlineKeyboardMarkup = new(new[]
-                {
-                    botones.GetRange(0, botones.Count).ToArray(),
-                    new InlineKeyboardButton[] { botonCancelar, botonListo }
-                });
-            }
-            else if (indiceInicial + largoDePagina >= botones.Count || indiceInicial + (largoDePagina / 2) >= botones.Count)
-            {
-                inlineKeyboardMarkup = new(new[]
-                {
-                    botones.GetRange((botones.Count - largoDePagina), (largoDePagina / 2)).ToArray(),
-                    botones.GetRange((botones.Count - (largoDePagina / 2)), (largoDePagina / 2)).ToArray(),
-                    new InlineKeyboardButton[] { botonAnterior, botonSiguiente } ,
-                    new InlineKeyboardButton[] { botonCancelar, botonListo }
-                });
-            }
-            else
-            {
-                inlineKeyboardMarkup = new(new[]
-                {
-                    botones.GetRange(indiceInicial, (largoDePagina / 2)).ToArray(),
-                    botones.GetRange((indiceInicial + (largoDePagina / 2)), (largoDePagina / 2)).ToArray(),
-                    new InlineKeyboardButton[] { botonAnterior, botonSiguiente },
-                    new InlineKeyboardButton[] { botonCancelar, botonListo }
-                });
-            }
-
-
-            return inlineKeyboardMarkup;
-        }
-        */
-
         /// <summary>
         /// Genera y retorna un teclado de Telegram (<see cref="InlineKeyboardMarkup"/>) con una lista de botones, un índice
         /// índice de la lista a partir del cual iniciar y la cantidad de columnas y filas de botones a mostrar.

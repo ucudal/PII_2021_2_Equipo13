@@ -5,6 +5,7 @@ namespace PII_E13.ClassLibrary
     /// <summary>
     /// Contiene la información relevante de un mensaje de Telegram.
     /// Se aplica el patrón Adapter para crear esta clase y desacoplar la información de la API de Telegram.
+    /// Pegamos ISP
     /// </summary>
     public class AdaptadorDeTelegram : IMensaje, ICallBack
     {

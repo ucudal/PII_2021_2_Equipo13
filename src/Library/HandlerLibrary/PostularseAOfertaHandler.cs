@@ -567,6 +567,14 @@ namespace PII_E13.HandlerLibrary
             Postulando
         }
 
+        public class Sesion
+        {
+            InformacionPostulacion infoPostulacion { get; set; }
+            string idSesion { get; set; }
+            string idUsuario { get; set; }
+            string intentIdentificado { get; set; }
+        }
+
         /// <summary>
         /// Clase privada contenedora de la información de una postulación a una oferta.
         /// </summary>
@@ -585,21 +593,21 @@ namespace PII_E13.HandlerLibrary
             /// </summary>
             public List<string> Categorias { get; set; } = new List<string>();
             /// <summary>
+            /// Lista de categorías disponibles para elegir.
+            /// </summary>
+            public List<string> CategoriasDisponibles { get; set; }
+            /// <summary>
             /// Estado de la búsqueda de ofertas de un usuario.
             /// </summary>
             public Estados Estado { get; set; } = Estados.Etiquetas;
-
             /// <summary>
             /// Oferta seleccionada por un usuario entre la lista de ofertas encontradas.
             /// </summary>
             public Oferta ofertaSeleccionada { get; set; }
-
             /// <summary>
-            /// Indice actual dentro de la lista de categorías.
+            /// Indice actual dentro de cualquier lista paginada.
             /// </summary>
             public int IndiceActual { get; set; } = 0;
-
-            public List<string> CategoriasDisponibles { get; set; }
         }
     }
 }

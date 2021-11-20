@@ -17,6 +17,7 @@ namespace Application
     public static class Program
     {
         private static IHandler handler = new PostularseAOfertaHandler(null);
+
         private static RespuestaTelegram respuestaPredeterminada = new RespuestaTelegram("Lo siento, parece que no puedo resolver esa consulta aún.",
             new InlineKeyboardMarkup(
                 new InlineKeyboardButton[][] {

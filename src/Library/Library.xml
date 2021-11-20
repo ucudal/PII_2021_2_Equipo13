@@ -8,6 +8,7 @@
             <summary>
             Contiene la información relevante de un mensaje de Telegram.
             Se aplica el patrón Adapter para crear esta clase y desacoplar la información de la API de Telegram.
+            Pegamos ISP
             </summary>
         </member>
         <member name="M:PII_E13.ClassLibrary.AdaptadorDeTelegram.#ctor(Telegram.Bot.Types.Message)">
@@ -1162,6 +1163,11 @@
             Lista de categorías que está usando un usuario para buscar una oferta.
             </summary>
         </member>
+        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.CategoriasDisponibles">
+            <summary>
+            Lista de categorías disponibles para elegir.
+            </summary>
+        </member>
         <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.Estado">
             <summary>
             Estado de la búsqueda de ofertas de un usuario.
@@ -1174,7 +1180,7 @@
         </member>
         <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.IndiceActual">
             <summary>
-            Indice actual dentro de la lista de categorías.
+            Indice actual dentro de cualquier lista paginada.
             </summary>
         </member>
         <member name="T:Ucu.Poo.Locations.Client.Distance">
