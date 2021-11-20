@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0"?>
 <doc>
     <assembly>
@@ -15,25 +14,19 @@
             Punto de entrada al programa principal.
             </summary>
         </member>
-    </members>
-</doc>
-=======
-<?xml version="1.0"?>
-<doc>
-    <assembly>
-        <name>Program</name>
-    </assembly>
-    <members>
-        <member name="T:Application.Program">
+        <member name="M:Application.Program.MensajeNuevo(System.Object,Telegram.Bot.Args.MessageEventArgs)">
             <summary>
-            Programa principal.
+            Manejador de evento de mensaje nuevo.
             </summary>
+            <param name="sender">Objeto que generó el evento.</param>
+            <param name="messageEventArgs">Argumentos del evento.</param>
         </member>
-        <member name="M:Application.Program.Main">
+        <member name="M:Application.Program.CallBackNuevo(System.Object,Telegram.Bot.Args.CallbackQueryEventArgs)">
             <summary>
-            Punto de entrada al programa principal.
+            Manejador de evento de callback nuevo.
             </summary>
+            <param name="sender">Objeto que generó el evento.</param>
+            <param name="callbackEventArgs">Argumentos del evento.</param>
         </member>
     </members>
 </doc>
->>>>>>> 8f7f26e6c4feeb88cbf4ae3b96c7049ea5339f2e
