@@ -105,9 +105,7 @@ namespace PII_E13.ClassLibrary
             {
                 if (!opcionesAuxiliar.Contains(opcion))
                 {
-                    InlineKeyboardButton boton = new InlineKeyboardButton();
-                    boton.CallbackData = opcion;
-                    boton.Text = opcion;
+                    InlineKeyboardButton boton = InlineKeyboardButton.WithCallbackData(opcion);
                     botones.Add(boton);
                     //botones.Add(new InlineKeyboardButton.(opcion));
                     opcionesAuxiliar.Add(opcion);
