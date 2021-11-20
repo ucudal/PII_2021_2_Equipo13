@@ -57,6 +57,11 @@ namespace PII_E13.ClassLibrary
             throw new KeyNotFoundException("No se encontró la empresa con el id dado.");
         }
 
+        internal void RegistrarEmprendedor(string iD, string ciudad, string direccion, string rubro, string nombre)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Recupera un emprendedor de la lista de emprendedores utilizando su id y una id dada.
         /// </summary>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using PII_E13.ClassLibrary;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace PII_E13.HandlerLibrary
 {
@@ -14,17 +15,16 @@ namespace PII_E13.HandlerLibrary
 
         public string respuesta{get;set;}
         
-        public HandlerBase(IHandler siguiente)
+        public RegistroHandler(HandlerBase siguiente):base(siguiente)
         {
             this.Siguiente = siguiente;
         }
-       
+              
         protected virtual bool ResolverInterno(IMensaje mensaje, out string respuesta)
         {
             this.Roll = mensaje.Texto;
             this.ID =mensaje.IdUsuario;
             
-
             if (this.Roll=="Empresa")
             {
                 respuesta="Escriba su nombre para el registro";
