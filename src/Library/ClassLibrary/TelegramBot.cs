@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace PII_E13.ClassLibrary
 {
@@ -66,6 +68,154 @@ namespace PII_E13.ClassLibrary
             }
         }
 
+        /// <summary>
+        /// Instancia de <see cref="InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Listo".
+        /// </summary>
+        /// <value>Instancia de <see cref="InlineKeyboardButton"/> con texto y callback "Listo".</value>
+        public readonly InlineKeyboardButton BotonListo = InlineKeyboardButton.WithCallbackData("Listo");
+
+        /// <summary>
+        /// Instancia de <see cref="InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Cancelar".
+        /// </summary>
+        /// <value>Instancia de <see cref="InlineKeyboardButton"/> con texto y callback "Cancelar".</value>
+        public readonly InlineKeyboardButton BotonCancelar = InlineKeyboardButton.WithCallbackData("Cancelar");
+
+        /// <summary>
+        /// Instancia de <see cref="InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Siguiente".
+        /// </summary>
+        /// <value>Instancia de <see cref="InlineKeyboardButton"/> con texto y callback "Siguiente".</value>
+        public readonly InlineKeyboardButton BotonSiguiente = InlineKeyboardButton.WithCallbackData("Siguiente");
+
+        /// <summary>
+        /// Instancia de <see cref="InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Anterior".
+        /// </summary>
+        /// <value>Instancia de <see cref="InlineKeyboardButton"/> con texto y callback "Anterior".</value>
+        public readonly InlineKeyboardButton BotonAnterior = InlineKeyboardButton.WithCallbackData("Anterior");
+
+        /// <summary>
+        /// Genera y retorna una lista de botones de Telegram a partir de una lista de opciones.
+        /// </summary>
+        /// <param name="opciones">La lista de opciones con las cuales crear los botones.</param>
+        /// <returns>Una lista de <see cref="KeyboardButton"/> conteniendo botones con las opciones recibidas por parámetros.</returns>
+        public List<InlineKeyboardButton> ObtenerBotones(List<string> opciones)
+        {
+            List<InlineKeyboardButton> botones = new List<InlineKeyboardButton>();
+            List<string> opcionesAuxiliar = new List<string>();
+            foreach (string opcion in opciones)
+            {
+                if (!opcionesAuxiliar.Contains(opcion))
+                {
+                    InlineKeyboardButton boton = new InlineKeyboardButton();
+                    boton.CallbackData = opcion;
+                    boton.Text = opcion;
+                    botones.Add(boton);
+                    //botones.Add(new InlineKeyboardButton.(opcion));
+                    opcionesAuxiliar.Add(opcion);
+                }
+            }
+            return botones;
+        }
+
+        /*
+
+        /// <summary>
+        /// Genera y retorna un teclado de Telegram (<see cref="InlineKeyboardMarkup"/>) con una lista de botones
+        /// y un índice de la lista a partir del cual iniciar.
+        /// </summary>
+        /// <param name="botones">La lista de instancias de <see cref="InlineKeyboardButton"/> con la cual se quiere generar un teclado.</param>
+        /// <param name="indiceInicial">El índice de la lista desde el cual iniciar. Se define a 0 por defecto</param>
+        /// <param name="largoDePagina">El largo de cada página de botones. Se define a 6 por defecto</param>
+        /// <returns></returns>
+        public InlineKeyboardMarkup ObtenerKeyboard(List<InlineKeyboardButton> botones, int indiceInicial = 0, int largoDePagina = 6)
+        {
+            InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton());
+            InlineKeyboardButton botonAnterior = new InlineKeyboardButton();
+            botonAnterior.Text = "Anterior";
+            botonAnterior.CallbackData = "Anterior";
+            InlineKeyboardButton botonSiguiente = new InlineKeyboardButton();
+            botonSiguiente.Text = "Siguiente";
+            botonSiguiente.CallbackData = "Siguiente";
+            InlineKeyboardButton botonCancelar = new InlineKeyboardButton();
+            botonCancelar.Text = "Cancelar";
+            botonCancelar.CallbackData = "Cancelar";
+            InlineKeyboardButton botonListo = new InlineKeyboardButton();
+            botonListo.Text = "Listo";
+            botonListo.CallbackData = "Listo";
+
+            if (botones.Count < largoDePagina)
+            {
+                inlineKeyboardMarkup = new(new[]
+                {
+                    botones.GetRange(0, botones.Count).ToArray(),
+                    new InlineKeyboardButton[] { botonCancelar, botonListo }
+                });
+            }
+            else if (indiceInicial + largoDePagina >= botones.Count || indiceInicial + (largoDePagina / 2) >= botones.Count)
+            {
+                inlineKeyboardMarkup = new(new[]
+                {
+                    botones.GetRange((botones.Count - largoDePagina), (largoDePagina / 2)).ToArray(),
+                    botones.GetRange((botones.Count - (largoDePagina / 2)), (largoDePagina / 2)).ToArray(),
+                    new InlineKeyboardButton[] { botonAnterior, botonSiguiente } ,
+                    new InlineKeyboardButton[] { botonCancelar, botonListo }
+                });
+            }
+            else
+            {
+                inlineKeyboardMarkup = new(new[]
+                {
+                    botones.GetRange(indiceInicial, (largoDePagina / 2)).ToArray(),
+                    botones.GetRange((indiceInicial + (largoDePagina / 2)), (largoDePagina / 2)).ToArray(),
+                    new InlineKeyboardButton[] { botonAnterior, botonSiguiente },
+                    new InlineKeyboardButton[] { botonCancelar, botonListo }
+                });
+            }
+
+
+            return inlineKeyboardMarkup;
+        }
+        */
+
+        /// <summary>
+        /// Genera y retorna un teclado de Telegram (<see cref="InlineKeyboardMarkup"/>) con una lista de botones, un índice
+        /// índice de la lista a partir del cual iniciar y la cantidad de columnas y filas de botones a mostrar.
+        /// </summary>
+        /// <param name="botones">La lista de instancias de <see cref="InlineKeyboardButton"/> con la cual se quiere generar un teclado.</param>
+        /// <param name="indice">El índice de la lista desde el cual iniciar. Se define a 0 por defecto.</param>
+        /// <param name="columnas">La cantidad de columnas de botones a incluir. Se define a 1 por defecto.</param>
+        /// <param name="filas">La cantidad de filas de botones a incluir. Se define a 1 por defecto.</param>
+        /// <param name="botonesFijos">Matriz de <see cref="InlineKeyboardButton"/> fijos opcional para mostrar al final del teclado.</param>
+        /// <returns></returns>
+        public InlineKeyboardMarkup ObtenerKeyboard(List<InlineKeyboardButton> botones, int indice = 0, int filas = 1, int columnas = 1,
+            List<List<InlineKeyboardButton>> botonesFijos = null)
+        {
+            List<List<InlineKeyboardButton>> matrizBotones = new List<List<InlineKeyboardButton>>();
+            for (int i = 0; i < filas; i++)
+            {
+                List<InlineKeyboardButton> fila = new List<InlineKeyboardButton>();
+                for (int j = 0; j < columnas; j++)
+                {
+                    try
+                    {
+                        fila.Add(botones[indice]);
+                        indice++;
+                    }
+                    catch (Exception e)
+                    {
+                        break;
+                    }
+                }
+                if (fila.Count > 0)
+                {
+                    matrizBotones.Add(fila);
+                }
+            }
+            if (botonesFijos != null)
+            {
+                matrizBotones.AddRange(botonesFijos);
+            }
+            return new InlineKeyboardMarkup(matrizBotones);
+        }
 
         /// <summary>
         /// Obtiene una instancia de la clase <see cref="TelegramBot"/>.

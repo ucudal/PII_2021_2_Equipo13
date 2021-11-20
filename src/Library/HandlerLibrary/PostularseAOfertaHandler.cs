@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using PII_E13.ClassLibrary;
 using Telegram.Bot.Types.ReplyMarkups;
 
@@ -15,6 +16,11 @@ namespace PII_E13.HandlerLibrary
     /// </summary>
     public class PostularseAOfertaHandler : HandlerBase
     {
+        private const int COLUMNAS_CATEGORIAS = 3;
+        private const int FILAS_CATEGORIAS = 2;
+        private const int COLUMNAS_OFERTAS = 1;
+        private const int FILAS_OFERTAS = 3;
+
         /// <summary>
         /// Diccionario utilizado para contener todas las búsquedas que se están realizando por los usuarios.
         /// Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="InformacionPostulacion"/>.
@@ -54,13 +60,32 @@ namespace PII_E13.HandlerLibrary
             {
                 this.Busquedas.Add(mensaje.IdUsuario, infoPostulacion);
             }
+            List<string> titulosOfertas = new List<string>();
 
-            List<string> categorias = new List<string>();
-            foreach (Material material in Sistema.Instancia.Materiales)
+            if (infoPostulacion.CategoriasDisponibles == null)
             {
-                categorias.AddRange(material.Categorias);
+                infoPostulacion.CategoriasDisponibles = new List<string>();
+                foreach (Material material in Sistema.Instancia.Materiales)
+                {
+                    foreach (string categoria in material.Categorias)
+                    {
+                        if (!infoPostulacion.CategoriasDisponibles.Contains(categoria))
+                        {
+                            infoPostulacion.CategoriasDisponibles.Add(categoria);
+                        }
+                    }
+                }
             }
-            List<InlineKeyboardButton> botonesDeCategorias = this.ObtenerBotones(categorias);
+            List<InlineKeyboardButton> botonesDeCategorias = TelegramBot.Instancia.ObtenerBotones(infoPostulacion.CategoriasDisponibles);
+            List<InlineKeyboardButton> botonesDeOfertas = new List<InlineKeyboardButton>();
+            List<List<InlineKeyboardButton>> tecladoFijoCategorias = new List<List<InlineKeyboardButton>>() {
+                new List<InlineKeyboardButton>() {TelegramBot.Instancia.BotonAnterior, TelegramBot.Instancia.BotonSiguiente},
+                new List<InlineKeyboardButton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
+            };
+            List<List<InlineKeyboardButton>> tecladoFijoOfertas = new List<List<InlineKeyboardButton>>() {
+                new List<InlineKeyboardButton>() {TelegramBot.Instancia.BotonAnterior, TelegramBot.Instancia.BotonSiguiente},
+                new List<InlineKeyboardButton>() {InlineKeyboardButton.WithCallbackData("Salir")}
+            };
 
             switch (infoPostulacion.Estado)
             {
@@ -88,8 +113,8 @@ namespace PII_E13.HandlerLibrary
                     }
                     List<string> etiquetas = mensaje.Texto.Split(' ').ToList();
                     infoPostulacion.Etiquetas = etiquetas;
-                    infoPostulacion.IndiceEnCategorias = 0;
-                    respuesta.TecladoTelegram = this.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceEnCategorias);
+                    infoPostulacion.IndiceActual = 0;
+                    respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
                     infoPostulacion.Estado = Estados.SeleccionandoCategorias;
                     respuesta.Texto = "Bien, ahora necesitamos que selecciones las categorías que creas adecuadas para los materiales que estás buscando.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
                     return true;
@@ -98,52 +123,134 @@ namespace PII_E13.HandlerLibrary
                     switch (mensaje.Texto)
                     {
                         case "Siguiente":
-                            if (botonesDeCategorias.Count() <= infoPostulacion.IndiceEnCategorias + 6)
+                            if (!(botonesDeCategorias.Count <= infoPostulacion.IndiceActual + COLUMNAS_CATEGORIAS * FILAS_CATEGORIAS))
                             {
-                                infoPostulacion.IndiceEnCategorias = botonesDeCategorias.Count() - 6;
+                                infoPostulacion.IndiceActual += COLUMNAS_CATEGORIAS * FILAS_CATEGORIAS;
                             }
-                            else
-                            {
-                                infoPostulacion.IndiceEnCategorias += 6;
-                            }
-                            respuesta.TecladoTelegram = this.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceEnCategorias);
+                            respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
                             respuesta.Texto = String.Empty;
-                            //respuesta.Texto = "Elige una categoría.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
                             return true;
 
                         case "Anterior":
-                            if (infoPostulacion.IndiceEnCategorias - 6 < 0)
+                            if (infoPostulacion.IndiceActual - COLUMNAS_CATEGORIAS * FILAS_CATEGORIAS < 0)
                             {
-                                infoPostulacion.IndiceEnCategorias = 0;
+                                infoPostulacion.IndiceActual = 0;
                             }
                             else
                             {
-                                infoPostulacion.IndiceEnCategorias -= 6;
+                                infoPostulacion.IndiceActual -= COLUMNAS_CATEGORIAS * FILAS_CATEGORIAS;
                             }
-                            respuesta.TecladoTelegram = this.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceEnCategorias);
-                            //respuesta.Texto = "Elige una categoría.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
+                            respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
                             respuesta.Texto = String.Empty;
                             return true;
 
                         case "Listo":
+                            infoPostulacion.IndiceActual = 0;
                             infoPostulacion.OfertasEncontradas = Buscador.Instancia.BuscarOfertas(Sistema.Instancia,
                                 Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario), infoPostulacion.Categorias,
                                 infoPostulacion.Etiquetas);
-                            respuesta.Texto = "Encontramos estas ofertas para ti:\n\n";
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.Append("Encontramos estas ofertas para ti:\n\n");
+                            for (int i = infoPostulacion.IndiceActual; i < (infoPostulacion.IndiceActual + COLUMNAS_OFERTAS * FILAS_OFERTAS); i++)
+                            {
+                                try
+                                {
+                                    Oferta oferta = infoPostulacion.OfertasEncontradas[i];
+                                    titulosOfertas.Append(oferta.Titulo);
+                                    stringBuilder.Append($"{oferta.RedactarResumen()}\n\n");
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                    break;
+                                }
+                            }
 
-                            infoPostulacion.Estado = Estados.Visualizando;
+                            botonesDeOfertas = TelegramBot.Instancia.ObtenerBotones(titulosOfertas);
+                            infoPostulacion.Estado = Estados.SeleccionandoOferta;
+                            respuesta.Texto = stringBuilder.ToString();
+                            respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
                             return true;
 
                         case "Cancelar":
                             this.Cancelar();
                             return false;
                     }
+                    if (!infoPostulacion.CategoriasDisponibles.Contains(mensaje.Texto))
+                    {
+                        respuesta.Texto = $"Lo sentimos, la categoría _\"{mensaje.Texto}\"_ todavía no está disponible.\n\nPor favor, selecciona una de las categorías listadas, _\"Listo\"_ cuando quieras continuar la búsqueda, o _\"Cancelar\"_ para detenerla.";
+                        respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
+                        respuesta.EditarMensaje = true;
+                        return true;
+                    }
+
+                    botonesDeCategorias.Remove(botonesDeCategorias.First(b => b.Text == mensaje.Texto));
+                    if (infoPostulacion.IndiceActual >= botonesDeCategorias.Count)
+                    {
+                        infoPostulacion.IndiceActual = botonesDeCategorias.Count - FILAS_CATEGORIAS * COLUMNAS_CATEGORIAS;
+                    }
+                    infoPostulacion.CategoriasDisponibles.Remove(mensaje.Texto);
+                    if (infoPostulacion.CategoriasDisponibles.Count <= (FILAS_CATEGORIAS * COLUMNAS_CATEGORIAS))
+                    {
+                        tecladoFijoCategorias = new List<List<InlineKeyboardButton>>()
+                        {
+                            new List<InlineKeyboardButton>() { TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo }
+                        };
+                    }
                     infoPostulacion.Categorias.Add(mensaje.Texto);
-                    respuesta.Texto = "Hemos añadido \"" + mensaje.Texto + "\" a las categorías que utilizaremos para buscar la oferta.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
+                    respuesta.Texto = $"Hemos añadido _\"{mensaje.Texto}\"_ a las categorías que utilizaremos para buscar la oferta.\n\nSelecciona _\"Listo\"_ cuando quieras continuar la búsqueda, o _\"Cancelar\"_ para detenerla.";
+                    respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
+                    respuesta.EditarMensaje = true;
                     return true;
 
-                case Estados.Visualizando:
+                case Estados.SeleccionandoOferta:
+                    botonesDeOfertas = TelegramBot.Instancia.ObtenerBotones(titulosOfertas);
+                    switch (mensaje.Texto)
+                    {
+                        case "Siguiente":
+                            if (botonesDeOfertas.Count <= infoPostulacion.IndiceActual + COLUMNAS_OFERTAS * FILAS_OFERTAS)
+                            {
+                                infoPostulacion.IndiceActual = botonesDeOfertas.Count - COLUMNAS_OFERTAS * FILAS_OFERTAS;
+                            }
+                            else
+                            {
+                                infoPostulacion.IndiceActual += COLUMNAS_OFERTAS * FILAS_OFERTAS;
+                            }
+                            respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
+                            respuesta.Texto = String.Empty;
+                            return true;
 
+                        case "Anterior":
+                            if (infoPostulacion.IndiceActual - COLUMNAS_OFERTAS * FILAS_OFERTAS < 0)
+                            {
+                                infoPostulacion.IndiceActual = 0;
+                            }
+                            else
+                            {
+                                infoPostulacion.IndiceActual -= COLUMNAS_OFERTAS * FILAS_OFERTAS;
+                            }
+                            respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
+                            respuesta.Texto = String.Empty;
+                            return true;
+
+                        case "Cancelar":
+                            this.Cancelar();
+                            return false;
+                    }
+
+                    Oferta ofertaSeleccionada = infoPostulacion.OfertasEncontradas.Find(of => of.Titulo.Equals(mensaje.Texto));
+                    respuesta.Texto = ofertaSeleccionada.Redactar();
+                    InlineKeyboardButton botonPostular = new InlineKeyboardButton();
+                    botonPostular.Text = "Postularme a esta oferta";
+                    botonPostular.CallbackData = "Postularse";
+                    InlineKeyboardButton botonVolver = new InlineKeyboardButton();
+                    botonVolver.Text = "Ver más ofertas";
+                    botonVolver.CallbackData = "Volver";
+                    respuesta.TecladoTelegram = new InlineKeyboardMarkup(
+                        new[] {
+                            new [] { botonPostular },
+                            new [] { botonVolver}
+                        }
+                    );
                     return true;
 
                 case Estados.Detalle:
@@ -181,13 +288,32 @@ namespace PII_E13.HandlerLibrary
             {
                 this.Busquedas.Add(callback.IdUsuario, infoPostulacion);
             }
+            List<string> titulosOfertas = new List<string>();
 
-            List<string> categorias = new List<string>();
-            foreach (Material material in Sistema.Instancia.Materiales)
+            if (infoPostulacion.CategoriasDisponibles == null)
             {
-                categorias.AddRange(material.Categorias);
+                infoPostulacion.CategoriasDisponibles = new List<string>();
+                foreach (Material material in Sistema.Instancia.Materiales)
+                {
+                    foreach (string categoria in material.Categorias)
+                    {
+                        if (!infoPostulacion.CategoriasDisponibles.Contains(categoria))
+                        {
+                            infoPostulacion.CategoriasDisponibles.Add(categoria);
+                        }
+                    }
+                }
             }
-            List<InlineKeyboardButton> botonesDeCategorias = this.ObtenerBotones(categorias);
+            List<InlineKeyboardButton> botonesDeCategorias = TelegramBot.Instancia.ObtenerBotones(infoPostulacion.CategoriasDisponibles);
+            List<InlineKeyboardButton> botonesDeOfertas = new List<InlineKeyboardButton>();
+            List<List<InlineKeyboardButton>> tecladoFijoCategorias = new List<List<InlineKeyboardButton>>() {
+                new List<InlineKeyboardButton>() {TelegramBot.Instancia.BotonAnterior, TelegramBot.Instancia.BotonSiguiente},
+                new List<InlineKeyboardButton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
+            };
+            List<List<InlineKeyboardButton>> tecladoFijoOfertas = new List<List<InlineKeyboardButton>>() {
+                new List<InlineKeyboardButton>() {TelegramBot.Instancia.BotonAnterior, TelegramBot.Instancia.BotonSiguiente},
+                new List<InlineKeyboardButton>() {InlineKeyboardButton.WithCallbackData("Salir")}
+            };
 
             switch (infoPostulacion.Estado)
             {
@@ -195,52 +321,134 @@ namespace PII_E13.HandlerLibrary
                     switch (callback.Texto)
                     {
                         case "Siguiente":
-                            if (botonesDeCategorias.Count() <= infoPostulacion.IndiceEnCategorias + 6)
+                            if (!(botonesDeCategorias.Count <= infoPostulacion.IndiceActual + COLUMNAS_CATEGORIAS * FILAS_CATEGORIAS))
                             {
-                                infoPostulacion.IndiceEnCategorias = botonesDeCategorias.Count() - 6;
+                                infoPostulacion.IndiceActual += COLUMNAS_CATEGORIAS * FILAS_CATEGORIAS;
                             }
-                            else
-                            {
-                                infoPostulacion.IndiceEnCategorias += 6;
-                            }
-                            respuesta.TecladoTelegram = this.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceEnCategorias);
+                            respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
                             respuesta.Texto = String.Empty;
-                            //respuesta.Texto = "Elige una categoría.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
                             return true;
 
                         case "Anterior":
-                            if (infoPostulacion.IndiceEnCategorias - 6 < 0)
+                            if (infoPostulacion.IndiceActual - COLUMNAS_CATEGORIAS * FILAS_CATEGORIAS < 0)
                             {
-                                infoPostulacion.IndiceEnCategorias = 0;
+                                infoPostulacion.IndiceActual = 0;
                             }
                             else
                             {
-                                infoPostulacion.IndiceEnCategorias -= 6;
+                                infoPostulacion.IndiceActual -= COLUMNAS_CATEGORIAS * FILAS_CATEGORIAS;
                             }
-                            respuesta.TecladoTelegram = this.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceEnCategorias);
-                            //respuesta.Texto = "Elige una categoría.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
+                            respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
                             respuesta.Texto = String.Empty;
                             return true;
 
                         case "Listo":
+                            infoPostulacion.IndiceActual = 0;
                             infoPostulacion.OfertasEncontradas = Buscador.Instancia.BuscarOfertas(Sistema.Instancia,
                                 Sistema.Instancia.ObtenerEmprendedorPorId(callback.IdUsuario), infoPostulacion.Categorias,
                                 infoPostulacion.Etiquetas);
-                            respuesta.Texto = "Encontramos estas ofertas para ti:\n\n";
+                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder.Append("Encontramos estas ofertas para ti:\n\n");
+                            for (int i = infoPostulacion.IndiceActual; i < (infoPostulacion.IndiceActual + COLUMNAS_OFERTAS * FILAS_OFERTAS); i++)
+                            {
+                                try
+                                {
+                                    Oferta oferta = infoPostulacion.OfertasEncontradas[i];
+                                    titulosOfertas.Append(oferta.Titulo);
+                                    stringBuilder.Append($"{oferta.RedactarResumen()}\n\n");
+                                }
+                                catch (ArgumentOutOfRangeException)
+                                {
+                                    break;
+                                }
+                            }
 
-                            infoPostulacion.Estado = Estados.Visualizando;
+                            botonesDeOfertas = TelegramBot.Instancia.ObtenerBotones(titulosOfertas);
+                            infoPostulacion.Estado = Estados.SeleccionandoOferta;
+                            respuesta.Texto = stringBuilder.ToString();
+                            respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
                             return true;
 
                         case "Cancelar":
                             this.Cancelar();
                             return false;
                     }
+                    if (!infoPostulacion.CategoriasDisponibles.Contains(callback.Texto))
+                    {
+                        respuesta.Texto = $"Lo sentimos, la categoría _\"{callback.Texto}\"_ todavía no está disponible.\n\nPor favor, selecciona una de las categorías listadas, _\"Listo\"_ cuando quieras continuar la búsqueda, o _\"Cancelar\"_ para detenerla.";
+                        respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
+                        respuesta.EditarMensaje = true;
+                        return true;
+                    }
+
+                    botonesDeCategorias.Remove(botonesDeCategorias.First(b => b.Text == callback.Texto));
+                    if (infoPostulacion.IndiceActual >= botonesDeCategorias.Count)
+                    {
+                        infoPostulacion.IndiceActual = botonesDeCategorias.Count - FILAS_CATEGORIAS * COLUMNAS_CATEGORIAS;
+                    }
+                    infoPostulacion.CategoriasDisponibles.Remove(callback.Texto);
+                    if (infoPostulacion.CategoriasDisponibles.Count <= (FILAS_CATEGORIAS * COLUMNAS_CATEGORIAS))
+                    {
+                        tecladoFijoCategorias = new List<List<InlineKeyboardButton>>()
+                        {
+                            new List<InlineKeyboardButton>() { TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo }
+                        };
+                    }
                     infoPostulacion.Categorias.Add(callback.Texto);
-                    respuesta.Texto = "Hemos añadido \"" + callback.Texto + "\" a las categorías que utilizaremos para buscar la oferta.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
+                    respuesta.Texto = $"Hemos añadido _\"{callback.Texto}\"_ a las categorías que utilizaremos para buscar la oferta.\n\nSelecciona _\"Listo\"_ cuando quieras continuar la búsqueda, o _\"Cancelar\"_ para detenerla.";
+                    respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
+                    respuesta.EditarMensaje = true;
                     return true;
 
-                case Estados.Visualizando:
+                case Estados.SeleccionandoOferta:
+                    botonesDeOfertas = TelegramBot.Instancia.ObtenerBotones(titulosOfertas);
+                    switch (callback.Texto)
+                    {
+                        case "Siguiente":
+                            if (botonesDeOfertas.Count <= infoPostulacion.IndiceActual + COLUMNAS_OFERTAS * FILAS_OFERTAS)
+                            {
+                                infoPostulacion.IndiceActual = botonesDeOfertas.Count - COLUMNAS_OFERTAS * FILAS_OFERTAS;
+                            }
+                            else
+                            {
+                                infoPostulacion.IndiceActual += COLUMNAS_OFERTAS * FILAS_OFERTAS;
+                            }
+                            respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
+                            respuesta.Texto = String.Empty;
+                            return true;
 
+                        case "Anterior":
+                            if (infoPostulacion.IndiceActual - COLUMNAS_OFERTAS * FILAS_OFERTAS < 0)
+                            {
+                                infoPostulacion.IndiceActual = 0;
+                            }
+                            else
+                            {
+                                infoPostulacion.IndiceActual -= COLUMNAS_OFERTAS * FILAS_OFERTAS;
+                            }
+                            respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
+                            respuesta.Texto = String.Empty;
+                            return true;
+
+                        case "Cancelar":
+                            this.Cancelar();
+                            return false;
+                    }
+
+                    Oferta ofertaSeleccionada = infoPostulacion.OfertasEncontradas.Find(of => of.Titulo.Equals(callback.Texto));
+                    respuesta.Texto = ofertaSeleccionada.Redactar();
+                    InlineKeyboardButton botonPostular = new InlineKeyboardButton();
+                    botonPostular.Text = "Postularme a esta oferta";
+                    botonPostular.CallbackData = "Postularse";
+                    InlineKeyboardButton botonVolver = new InlineKeyboardButton();
+                    botonVolver.Text = "Ver más ofertas";
+                    botonVolver.CallbackData = "Volver";
+                    respuesta.TecladoTelegram = new InlineKeyboardMarkup(
+                        new[] {
+                            new [] { botonPostular },
+                            new [] { botonVolver}
+                        }
+                    );
                     return true;
 
                 case Estados.Detalle:
@@ -309,7 +517,7 @@ namespace PII_E13.HandlerLibrary
             {
                 Sistema.Instancia.ObtenerEmprendedorPorId(callback.IdUsuario);
                 InformacionPostulacion infoPostulacion = this.Busquedas[callback.IdUsuario];
-                if (infoPostulacion.Estado == Estados.Categorias || infoPostulacion.Estado == Estados.Etiquetas)
+                if (infoPostulacion.Estado != Estados.SeleccionandoCategorias)
                 {
                     return false;
                 }
@@ -347,71 +555,6 @@ namespace PII_E13.HandlerLibrary
         }
 
         /// <summary>
-        /// Genera y retorna una lista de botones de Telegram a partir de una lista de opciones.
-        /// </summary>
-        /// <param name="opciones">La lista de opciones con las cuales crear los botones.</param>
-        /// <returns>Una lista de <see cref="KeyboardButton"/> conteniendo botones con las opciones recibidas por parámetros.</returns>
-        private List<InlineKeyboardButton> ObtenerBotones(List<string> opciones)
-        {
-            List<InlineKeyboardButton> botones = new List<InlineKeyboardButton>();
-            List<string> opcionesAuxiliar = new List<string>();
-            foreach (string opcion in opciones)
-            {
-                if (!opcionesAuxiliar.Contains(opcion))
-                {
-                    InlineKeyboardButton boton = new InlineKeyboardButton();
-                    boton.CallbackData = opcion;
-                    boton.Text = opcion;
-                    botones.Add(boton);
-                    //botones.Add(new InlineKeyboardButton.(opcion));
-                    opcionesAuxiliar.Add(opcion);
-                }
-            }
-            return botones;
-        }
-
-        /// <summary>
-        /// Genera y retorna un teclado de Telegram (<see cref="ReplyKeyboardMarkup"/>) con una lista de botones
-        /// y un índice de la lista a partir del cual iniciar.
-        /// </summary>
-        /// <param name="botones">La lista de instancias de <see cref="KeyboardButton"/> con la cual se quiere generar un teclado.</param>
-        /// <param name="indice">El índice de la lista desde el cual iniciar.</param>
-        /// <returns></returns>
-        private InlineKeyboardMarkup ObtenerKeyboard(List<InlineKeyboardButton> botones, int indice)
-        {
-            InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(new InlineKeyboardButton());
-            InlineKeyboardButton botonAnterior = new InlineKeyboardButton();
-            botonAnterior.Text = "Anterior";
-            botonAnterior.CallbackData = "Anterior";
-            InlineKeyboardButton botonSiguiente = new InlineKeyboardButton();
-            botonSiguiente.Text = "Siguiente";
-            botonSiguiente.CallbackData = "Siguiente";
-
-            if (indice + 6 >= botones.Count() || indice + 3 >= botones.Count())
-            {
-                inlineKeyboardMarkup = new(new[]
-                {
-                    botones.GetRange((botones.Count() - 6), 3).ToArray(),
-                    botones.GetRange((botones.Count() - 3), 3).ToArray(),
-                    new InlineKeyboardButton[] { botonAnterior, botonSiguiente } ,
-                    new InlineKeyboardButton[] { "Cancelar", "Listo" }
-                });
-            }
-            else
-            {
-                inlineKeyboardMarkup = new(new[]
-                {
-                    botones.GetRange(indice, 3).ToArray(),
-                    botones.GetRange((indice + 3), 3).ToArray(),
-                    new InlineKeyboardButton[] { "Anterior", "Siguiente" },
-                    new InlineKeyboardButton[] { "Cancelar", "Listo" }
-                });
-            }
-
-
-            return inlineKeyboardMarkup;
-        }
-        /// <summary>
         /// Representación de los posibles estados de una postulación a oferta.
         /// </summary>
         private enum Estados
@@ -419,7 +562,7 @@ namespace PII_E13.HandlerLibrary
             Etiquetas,
             Categorias,
             SeleccionandoCategorias,
-            Visualizando,
+            SeleccionandoOferta,
             Detalle,
             Postulando
         }
@@ -454,7 +597,9 @@ namespace PII_E13.HandlerLibrary
             /// <summary>
             /// Indice actual dentro de la lista de categorías.
             /// </summary>
-            public int IndiceEnCategorias { get; set; } = 0;
+            public int IndiceActual { get; set; } = 0;
+
+            public List<string> CategoriasDisponibles { get; set; }
         }
     }
 }

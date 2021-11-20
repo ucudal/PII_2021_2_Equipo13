@@ -11,5 +11,10 @@ namespace PII_E13.ClassLibrary
         /// Texto del mensaje de la respuesta.
         /// </summary>
         string Texto { get; }
+
+        /// <summary>
+        /// Indica si el último mensaje debe ser editado, de ser posible.
+        /// </summary>
+        bool EditarMensaje { get; }
     }
 }

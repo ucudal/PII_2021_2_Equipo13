@@ -5,8 +5,9 @@ using PII_E13.HandlerLibrary;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.ReplyMarkups;
 using Telegram.Bot.Exceptions;
+using Telegram.Bot.Types.ReplyMarkups;
+using Telegram.Bot.Types.Enums;
 
 namespace Application
 {
@@ -35,16 +36,26 @@ namespace Application
         public static void Main()
         {
             Sistema.Instancia.RegistrarEmprendedor("2101409600", "Montevideo", "Constitución 2450", "Tecnología", "Walter S.A.", new List<Habilitacion>());
-            Sistema.Instancia.Materiales.Add(new Material("Madera de roble", new List<string>() { "Madera", "roble", "carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de abeto", new List<string>() { "Madera", "abeto", "carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de pino", new List<string>() { "Madera", "pino", "carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de cedro", new List<string>() { "Madera", "cedro", "carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de arce", new List<string>() { "Madera", "arce", "carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de haya", new List<string>() { "Madera", "haya", "carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de nogal", new List<string>() { "Madera", "nogal", "carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de cerezo", new List<string>() { "Madera", "cerezo", "carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de caoba", new List<string>() { "Madera", "caoba", "carpintería" }, "Kg"));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de roble", new List<string>() { "Madera", "Roble", "Carpintería" }, "Kg"));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de abeto", new List<string>() { "Madera", "Abeto", "Carpintería" }, "Kg"));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de pino", new List<string>() { "Madera", "Pino", "Carpintería" }, "Kg"));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de cedro", new List<string>() { "Madera", "Cedro", "Carpintería" }, "Kg"));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de arce", new List<string>() { "Madera", "Arce", "Carpintería" }, "Kg"));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de haya", new List<string>() { "Madera", "Haya", "Carpintería" }, "Kg"));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de nogal", new List<string>() { "Madera", "Nogal", "Carpintería" }, "Kg"));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de cerezo", new List<string>() { "Madera", "Cerezo", "Carpintería" }, "Kg"));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de caoba", new List<string>() { "Madera", "Caoba", "Carpintería" }, "Kg"));
+            Sistema.Instancia.Materiales.Add(new Material("Cobre", new List<string>() { "Metal", "Resistente", "Conductor" }, "Kg"));
 
+            Sistema.Instancia.RegistrarEmpresa("126458961523", "Montevideo", "Bv. José Batlle y Ordóñez 3705", "Maderera", "Maderera Jorgito e Hijos");
+            Empresa maderera = Sistema.Instancia.ObtenerEmpresaPorId("126458961523");
+            maderera.PublicarOferta(Encriptador.GetHashCode("123"), "Buena madera de roble", "Madera de roble de buena calidad para carpintería.",
+                DateTime.MaxValue, etiquetas: new List<string>() { "Madera", "Carpintería", "Roble" });
+
+            Sistema.Instancia.RegistrarEmpresa("15648617826", "Montevideo", "Av. 8 de Octubre 2738", "Metalurgia", "Metalera Miguelito e Hijos");
+            Empresa metalera = Sistema.Instancia.ObtenerEmpresaPorId("15648617826");
+            metalera.PublicarOferta(Encriptador.GetHashCode("234"), "Cobre duro y bueno", "Cobre de buena calidad para construir cosas con cobre o hacer cable.",
+                DateTime.MaxValue, etiquetas: new List<string>() { "Metal", "Hierro", "roble" });
 
             //Obtengo una instancia de TelegramBot
             TelegramBot telegramBot = TelegramBot.Instancia;
@@ -88,7 +99,7 @@ namespace Application
 
                 if (resultado == null)
                 {
-                    await client.SendTextMessageAsync(mensaje.IdUsuario, respuestaPredeterminada.Texto, replyMarkup: respuestaPredeterminada.TecladoTelegram);
+                    await client.SendTextMessageAsync(mensaje.IdUsuario, respuestaPredeterminada.Texto, replyMarkup: respuestaPredeterminada.TecladoTelegram, parseMode: ParseMode.Markdown);
                 }
                 else
                 {
@@ -100,12 +111,12 @@ namespace Application
                         }
                         else
                         {
-                            await client.SendTextMessageAsync(mensaje.IdUsuario, respuesta.Texto, replyMarkup: respuesta.TecladoTelegram);
+                            await client.SendTextMessageAsync(mensaje.IdUsuario, respuesta.Texto, replyMarkup: respuesta.TecladoTelegram, parseMode: ParseMode.Markdown);
                         }
                     }
                     else
                     {
-                        await client.SendTextMessageAsync(mensaje.IdUsuario, respuesta.Texto, replyMarkup: new ReplyKeyboardRemove());
+                        await client.SendTextMessageAsync(mensaje.IdUsuario, respuesta.Texto, replyMarkup: new ReplyKeyboardRemove(), parseMode: ParseMode.Markdown);
                     }
                 }
             }
@@ -131,10 +142,23 @@ namespace Application
 
                 if (resultado == null)
                 {
-                    await client.SendTextMessageAsync(callback.IdUsuario, respuestaPredeterminada.Texto, replyMarkup: respuestaPredeterminada.TecladoTelegram);
+                    await client.SendTextMessageAsync(callback.IdUsuario, respuestaPredeterminada.Texto, replyMarkup: respuestaPredeterminada.TecladoTelegram, parseMode: ParseMode.Markdown);
                 }
                 else
                 {
+                    if (respuesta.EditarMensaje)
+                    {
+                        try
+                        {
+                            await client.EditMessageTextAsync(Int32.Parse(callback.IdChat), callback.IdMensaje, respuesta.Texto, replyMarkup: respuesta.TecladoTelegram, parseMode: ParseMode.Markdown);
+                            return;
+                        }
+                        catch (Exception e)
+                        {
+                            return;
+                        }
+                    }
+
                     if (respuesta.TecladoTelegram != null)
                     {
                         if (respuesta.Texto.Equals(String.Empty))
@@ -150,12 +174,12 @@ namespace Application
                         }
                         else
                         {
-                            await client.SendTextMessageAsync(callback.IdUsuario, respuesta.Texto, replyMarkup: respuesta.TecladoTelegram);
+                            await client.SendTextMessageAsync(callback.IdUsuario, respuesta.Texto, replyMarkup: respuesta.TecladoTelegram, parseMode: ParseMode.Markdown);
                         }
                     }
                     else
                     {
-                        await client.SendTextMessageAsync(callback.IdUsuario, respuesta.Texto, replyMarkup: new ReplyKeyboardRemove());
+                        await client.SendTextMessageAsync(callback.IdUsuario, respuesta.Texto, replyMarkup: new ReplyKeyboardRemove(), parseMode: ParseMode.Markdown);
                     }
                 }
             }

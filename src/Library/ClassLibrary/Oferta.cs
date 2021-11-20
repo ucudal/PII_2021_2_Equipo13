@@ -4,21 +4,21 @@ using System.Collections.Generic;
 
 namespace PII_E13.ClassLibrary
 {
-        /// <summary>
-        ///  Patrones y principios aplicados:
-        ///  Principio EXPERT: ya que se le asignaron sus responsabilidades en su calidad
-        ///  de experto en la información, por ser la clase que tiene la información necesaria
-        ///  para poder cumplir con la tarea, mientras que se mantiene la encapsulación 
-        ///  ya que utiliza su propia información para cumplir con las responsabilidades.
-        ///  Patrón Low Coupling: ya que al asignársele responsabilidades a 
-        ///  la clase se buscó que el acoplamiento se mantuviera bajo al no depender de muchas 
-        ///  otras clases.
-        ///  Patrón High Cohesión: ya que las responsabilidades de la clase están
-        ///  fuertemente relacionadas, creando así una clase robusta y fácil de entender. 
-        /// </summary>
-    
-    public class Oferta 
-    {   
+    /// <summary>
+    ///  Patrones y principios aplicados:
+    ///  Principio EXPERT: ya que se le asignaron sus responsabilidades en su calidad
+    ///  de experto en la información, por ser la clase que tiene la información necesaria
+    ///  para poder cumplir con la tarea, mientras que se mantiene la encapsulación 
+    ///  ya que utiliza su propia información para cumplir con las responsabilidades.
+    ///  Patrón Low Coupling: ya que al asignársele responsabilidades a 
+    ///  la clase se buscó que el acoplamiento se mantuviera bajo al no depender de muchas 
+    ///  otras clases.
+    ///  Patrón High Cohesión: ya que las responsabilidades de la clase están
+    ///  fuertemente relacionadas, creando así una clase robusta y fácil de entender. 
+    /// </summary>
+
+    public class Oferta
+    {
         /// <summary>
         ///  La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
         /// </summary>
@@ -30,7 +30,7 @@ namespace PII_E13.ClassLibrary
         /// <param name="descripcion">Descripcion realizada por la empresa</param>
         /// <param name="titulo">Titulo bajo el cual se publica la oferta</param>
         /// <param name="disponibleConstantemente">Para definir si una oferta es recurrente.</param>
-        public Oferta (string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas, List<Habilitacion> habilitaciones, string descripcion, string titulo, bool disponibleConstantemente)
+        public Oferta(string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas, List<Habilitacion> habilitaciones, string descripcion, string titulo, bool disponibleConstantemente)
         {
             this.Id = id;                           //01
             this.Empresa = empresa;                 //02
@@ -44,12 +44,13 @@ namespace PII_E13.ClassLibrary
             this.DisponibleConstantemente = disponibleConstantemente;  //10
             this.EmprendedoresPostulados = new List<Emprendedor>();    //11
             this.Productos = new List<Producto>();                     //12
-        }      
+        }
 
         /// <summary>
         /// Lista de estados posibles en que se puede encontrar una Oferta.
         /// </summary>
-        public enum Estados{
+        public enum Estados
+        {
             /// <summary>
             /// Se le asigna a una oferta para indicar que esta vigente.
             /// </summary>
@@ -73,27 +74,27 @@ namespace PII_E13.ClassLibrary
         /// Es una string que identifica a la oferta y que permite referenciarla a lo largo del sitema.
         /// </summary>
         /// <value>Id es el identificador único de la oferta.</value>
-        public string Id {get; }
+        public string Id { get; }
         /// <summary>
         /// Empresa es quién publica la oferta.
         /// </summary>
         /// <value>Empresa es quién publica la oferta</value>
-        public Empresa Empresa {get; }
+        public Empresa Empresa { get; }
         /// <summary>
         /// Fecha en que se publica la oferta.
         /// </summary>
         /// <value>Fecha en que se publica la oferta.</value>
-        public DateTime FechaCreada {get; }
+        public DateTime FechaCreada { get; }
         /// <summary>
         /// Fecha límite para postularse a la oferta.
         /// </summary>
         /// <value>FechaCierre es la fecha límite para postularse a la oferta.</value>
-        public DateTime FechaCierre {get; }
+        public DateTime FechaCierre { get; }
         /// <summary>
         /// Son etiquetas que permiten categorizar la oferta para mostrarla agrupadas junto a otras que compartan la misma etiqueta.
         /// </summary>
         /// <value>Etiquetas permite categorizar la oferta.</value>
-        public List<string> Etiquetas {get; }
+        public List<string> Etiquetas { get; }
         /// <summary>
         /// Estado indica cuál es la situación actual de una Oferta.
         /// </summary>
@@ -103,7 +104,7 @@ namespace PII_E13.ClassLibrary
         /// Indica cuáles son las habilitaciones que exige la empresa para postularse a la oferta.
         /// </summary>
         /// <value>Habilitaciones exigidas por al empresa.</value>
-        public List<Habilitacion> Habilitaciones {get; }
+        public List<Habilitacion> Habilitaciones { get; }
         /// <summary>
         /// Valor en dólares USA que la empresa ofresa en pago por la realización de la tarea que implica la oferta.
         /// </summary>
@@ -140,17 +141,17 @@ namespace PII_E13.ClassLibrary
         /// Es la descripción que hace la empresa para describir la oferta al publicarla.
         /// </summary>
         /// <value>Descripcion que hace la empresa</value>
-        public string Descripcion {get; }
+        public string Descripcion { get; }
         /// <summary>
         /// Titulo bajo el que se publica la oferta.
         /// </summary>
         /// <value>Titulo bajo el que se publica la oferta.</value>
-        public string Titulo {get; }
+        public string Titulo { get; }
         /// <summary>
         /// Productos es la lista de productos que componen la oferta.
         /// </summary>
         /// <value>Productos es la lista de productos que componen la oferta.</value>
-        public List<Producto> Productos {get; }
+        public List<Producto> Productos { get; }
         /// <summary>
         /// Una propiedad que indica si la oferta es recurrente.
         /// </summary>
@@ -161,7 +162,7 @@ namespace PII_E13.ClassLibrary
         /// </summary>
         /// <value>EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.</value>
         public List<Emprendedor> EmprendedoresPostulados { get; set; }
-      
+
         //aplicando Creator
         /// <summary>
         /// Agrega un producto a la lista de productos.
@@ -172,19 +173,19 @@ namespace PII_E13.ClassLibrary
         /// <param name="cantidadEnUnidades">Cantidad de unidades</param>
         /// <param name="valorUYU">Valor en pesos uruguayos.</param>
         /// <param name="valorUSD">Valor en dolares usa.</param>
-        public void AgregarProducto (Material material, string ciudad, string direccion, double cantidadEnUnidades, double valorUYU, double valorUSD)
+        public void AgregarProducto(Material material, string ciudad, string direccion, double cantidadEnUnidades, double valorUYU, double valorUSD)
         {
-            Producto producto = new Producto ( material,  ciudad, direccion,  cantidadEnUnidades,  valorUYU,  valorUSD);
+            Producto producto = new Producto(material, ciudad, direccion, cantidadEnUnidades, valorUYU, valorUSD);
             this.Productos.Add(producto);
         }
-        
+
         /// <summary>
         /// Quita un producto de la lista.
         /// </summary>
         /// <param name="producto">Detalle del producto a quitar de la lista.</param>
-        public void RemoverProducto (Producto producto)
+        public void RemoverProducto(Producto producto)
         {
-                this.Productos.Remove(producto);      
+            this.Productos.Remove(producto);
         }
 
         /// <summary>
@@ -207,10 +208,17 @@ namespace PII_E13.ClassLibrary
         public string RedactarResumen()
         {
             StringBuilder redaccionCorta = new StringBuilder();
-            
-            redaccionCorta.Append($"Oferta {Titulo}: {Descripcion}. Empresa {FechaCreada} Fecha inicio {Empresa.Nombre}, Fecha cierre: {FechaCierre};.");
 
-            redaccionCorta.Append("Habilitaciones: " + this.Habilitaciones);
+            //redaccionCorta.Append($"*{this.Titulo}*\n_{this.Empresa.Nombre}_\n*Descripción:* {Descripcion}\n");
+            redaccionCorta.Append($"*{this.Titulo}*");
+            if (this.DisponibleConstantemente)
+            {
+                redaccionCorta.Append(" _(Recurrente)_");
+            }
+            redaccionCorta.Append($"\n_{this.Empresa.Nombre}_\n");
+            redaccionCorta.Append($"_Cierre: {this.FechaCierre.ToShortDateString()}_");
+
+            //redaccionCorta.Append("Habilitaciones: " + this.Habilitaciones);
             return redaccionCorta.ToString();
         }
 
@@ -220,10 +228,10 @@ namespace PII_E13.ClassLibrary
         public string RedactarPostulados()
         {
             StringBuilder redaccionPostulados = new StringBuilder();
-            redaccionPostulados.Append("Emprendedores postulados:" );
+            redaccionPostulados.Append("Emprendedores postulados:");
             {
                 //throw new Exception("A la espera de la definición de la persistencia"); 
-                foreach(Emprendedor emprendedores in EmprendedoresPostulados)
+                foreach (Emprendedor emprendedores in EmprendedoresPostulados)
                 {
                     redaccionPostulados.Append(emprendedores.Nombre);
                 }

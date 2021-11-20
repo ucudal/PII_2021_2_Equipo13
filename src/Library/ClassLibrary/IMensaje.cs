@@ -18,9 +18,5 @@ namespace PII_E13.ClassLibrary
         /// Contenido en texto del mensaje.
         /// </summary>
         string Texto { get; }
-        /// <summary>
-        /// Id del mensaje al cual el callback fue enviado como respuesta.
-        /// </summary>
-        int IdMensaje { get; }
     }
 }

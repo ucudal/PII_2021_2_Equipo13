@@ -42,17 +42,17 @@ namespace PII_E13.ClassLibrary
                     int puntaje = 0;
                     foreach (string etiqueta in etiquetas)
                     {
-                        if (oferta.Etiquetas.Contains(etiqueta))
+                        if (oferta.Etiquetas.Any(s => s.Contains(etiqueta, StringComparison.InvariantCultureIgnoreCase)))
                             puntaje++;
                     }
                     foreach (Producto producto in oferta.Productos)
                     {
                         foreach (string categoria in categorias)
                         {
-                            if (producto.Material.Categorias.Contains(categoria))
+                            if (producto.Material.Categorias.Any(s => s.Contains(categoria, StringComparison.InvariantCultureIgnoreCase)))
                                 puntaje += 5;
                         }
-                        distanciaMedia +=  emprendedor.Ubicacion.ObtenerDistancia( producto.Ubicacion);
+                        distanciaMedia += emprendedor.Ubicacion.ObtenerDistancia(producto.Ubicacion);
                     }
                     distanciaMedia /= oferta.Productos.Count;
                     puntaje += this.DistanciaAPuntaje(distanciaMedia, 300, 30);

@@ -15,7 +15,7 @@ namespace PII_E13.ClassLibrary
         /// Id del usuario en el canal de registro.
         /// </summary>
         public string Id { get; }
-        
+
         /// <summary>
         /// Id del usuario en el canal de registro.
         /// </summary>
@@ -25,17 +25,17 @@ namespace PII_E13.ClassLibrary
         /// Ubicación donde está basada la empresa.
         /// </summary>
         public Ubicacion Ubicacion { get; }
-        
+
         /// <summary>
         /// Rubro al que pertenece la empresa.
         /// </summary>
-        public Rubro Rubro { get; } 
-        
+        public Rubro Rubro { get; }
+
         /// <summary>
         /// Nombre comercial de la empresa.
         /// </summary>
         public string Nombre { get; }
-        
+
         /// <summary>
         /// Crea una instancia de Empresa.
         /// </summary>
@@ -62,9 +62,17 @@ namespace PII_E13.ClassLibrary
         /// <param name="descripcion">La descripción de la oferta.</param>
         /// <param name="titulo">El titulo de la oferta.</param>
         /// <param name="disponibleConstantemente">Indica si la oferta está disponible constantemente o puntualmente.</param>
-        public Oferta PublicarOferta(string id, DateTime fechaCierre, List<string> etiquetas,
-            List<Habilitacion> habilitaciones, string descripcion, string titulo, bool disponibleConstantemente)
+        public Oferta PublicarOferta(string id, string titulo, string descripcion, DateTime fechaCierre, bool disponibleConstantemente = false,
+            List<string> etiquetas = null, List<Habilitacion> habilitaciones = null)
         {
+            if (etiquetas == null)
+            {
+                etiquetas = new List<string>();
+            }
+            if (habilitaciones == null)
+            {
+                habilitaciones = new List<Habilitacion>();
+            }
             Oferta oferta = new Oferta(id, this, fechaCierre, etiquetas, habilitaciones, descripcion, titulo, disponibleConstantemente);
             Ofertas.Add(oferta);
             return oferta;
@@ -101,7 +109,7 @@ namespace PII_E13.ClassLibrary
             }
             return ofertasPropias;
         }
-        
+
         /// <summary>
         /// Recupera una oferta de la lista de ofertas utilizando su id y una id dada.
         /// </summary>
@@ -109,7 +117,8 @@ namespace PII_E13.ClassLibrary
         /// <returns>La instancia de Oferta correspondiente a la id dada.</returns>
         public Oferta ObtenerOfertaPorId(string id)
         {
-            foreach(Oferta oferta in this.Ofertas){
+            foreach (Oferta oferta in this.Ofertas)
+            {
                 if (oferta.Id == id)
                     return oferta;
             }
