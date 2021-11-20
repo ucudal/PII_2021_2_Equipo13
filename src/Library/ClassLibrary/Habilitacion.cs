@@ -8,40 +8,53 @@ namespace PII_E13.ClassLibrary
     public class Habilitacion
     {
         /// <summary>
-        /// Se indica el <value>descripcion</value> de la Habiltiacion.
+        /// Nombre de la habilitación.
         /// </summary>
-        public string Descripcion { get; set; }
+        /// <value>Cadena de caracteres con el nombre de una habilitación.</value>
+        public string Nombre { get; }
 
         /// <summary>
-        /// Se indica el <value>nombreInsitucionHabilitada</value> de la Habiltiacion.
+        /// Descripción de la habilitación.
         /// </summary>
-        public string NombreInsitucionHabilitada { get; set; }
+        /// <value>Cadena de caracteres con la descripción de una habilitación.</value>
+        public string Descripcion { get; }
 
         /// <summary>
-        /// Se indica la <value>fechaTramite</value> de la Habiltiacion.
+        /// Nombre de la institución que expedió la habilitación.
         /// </summary>
-        public DateTime FechaTramite { get; set; }
+        /// <value>Cadena de caracteres con el nombre de la institución que expedió una habilitación.</value>
+        public string NombreInsitucionHabilitada { get; }
 
         /// <summary>
-        /// Se indica la <value>fechaVencimiento</value> de la Habiltiacion.
+        /// Fecha del trámite de la habilitación.
         /// </summary>
+        /// <value><see cref="DateTime"/> con la fecha del trámite de una habilitación.</value>
+        public DateTime FechaTramite { get; }
+
+        /// <summary>
+        /// Fecha de vencimiento de la habilitación.
+        /// </summary>
+        /// <value><see cref="DateTime"/> con la fecha de vencimiento de una habilitación.</value>
         public DateTime FechaVencimiento { get; set; }
 
         /// <summary>
-        /// Se indica si la Habilitacion está <value>vigente</value>.
+        /// Indica si la habilitación sigue vigente.
         /// </summary>
+        /// <value>Booleano con valor <c>true</c> si la habilitación sigue vigente y <c>false</c> en caso contrario.</value>
         public bool Vigente { get; set; }
 
         /// <summary>
         /// Crea una instancia de Habilitacion.
         /// </summary>
+        /// <param name="nombre">Nombre de la Habilitacion</param>
         /// <param name="descripcion">Descripcion de la Habilitacion.</param>
-        /// <param name="nombreInsitucionHabilitada">Nombre de la institución que habilitó la habilitación.</param>
+        /// <param name="nombreInsitucionHabilitada">Nombre de la institución que habilitó la Habilitacion.</param>
         /// <param name="fechaTramite">Fecha de Tramite de la Habilitacion.</param>
         /// <param name="fechaVencimiento">Fecha de Vencimiento de la Habilitacion.</param>
         /// <param name="vigente">Indica si la Habilitacion está vigente.</param>
-        public Habilitacion(string descripcion, string nombreInsitucionHabilitada, DateTime fechaTramite, DateTime fechaVencimiento, bool vigente)
+        public Habilitacion(string nombre, string descripcion, string nombreInsitucionHabilitada, DateTime fechaTramite, DateTime fechaVencimiento, bool vigente)
         {
+            this.Nombre = nombre;
             this.Descripcion = descripcion;
             this.NombreInsitucionHabilitada = nombreInsitucionHabilitada;
             this.FechaTramite = fechaTramite;

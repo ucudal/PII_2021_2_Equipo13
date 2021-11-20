@@ -16,8 +16,10 @@ namespace Application
     /// </summary>
     public static class Program
     {
-        private static IHandler handler = new PostularseAOfertaHandler(null);
+        // INSTANCIAR COMO ALGÚN HANDLER.
+        private static IHandler handler;
 
+        // Reemplazar e incluir en handler por defecto.
         private static RespuestaTelegram respuestaPredeterminada = new RespuestaTelegram("Lo siento, parece que no puedo resolver esa consulta aún.",
             new InlineKeyboardMarkup(
                 new InlineKeyboardButton[][] {
@@ -36,6 +38,7 @@ namespace Application
         /// </summary>
         public static void Main()
         {
+            // DATOS DE PRUEBA -------------------------------------------------------------------------------------------
             Sistema.Instancia.RegistrarEmprendedor("2101409600", "Montevideo", "Constitución 2450", "Tecnología", "Walter S.A.", new List<Habilitacion>());
             Sistema.Instancia.Materiales.Add(new Material("Madera de roble", new List<string>() { "Madera", "Roble", "Carpintería" }, "Kg"));
             Sistema.Instancia.Materiales.Add(new Material("Madera de abeto", new List<string>() { "Madera", "Abeto", "Carpintería" }, "Kg"));
@@ -57,6 +60,7 @@ namespace Application
             Empresa metalera = Sistema.Instancia.ObtenerEmpresaPorId("15648617826");
             metalera.PublicarOferta(Encriptador.GetHashCode("234"), "Cobre duro y bueno", "Cobre de buena calidad para construir cosas con cobre o hacer cable.",
                 DateTime.MaxValue, etiquetas: new List<string>() { "Metal", "Hierro", "roble" });
+            // DATOS DE PRUEBA -------------------------------------------------------------------------------------------
 
             //Obtengo una instancia de TelegramBot
             TelegramBot telegramBot = TelegramBot.Instancia;
@@ -106,14 +110,8 @@ namespace Application
                 {
                     if (respuesta.TecladoTelegram != null)
                     {
-                        if (respuesta.Texto.Equals(String.Empty))
-                        {
-                            await client.EditMessageReplyMarkupAsync(mensaje.IdUsuario, replyMarkup: respuesta.TecladoTelegram);
-                        }
-                        else
-                        {
-                            await client.SendTextMessageAsync(mensaje.IdUsuario, respuesta.Texto, replyMarkup: respuesta.TecladoTelegram, parseMode: ParseMode.Markdown);
-                        }
+                        await client.SendTextMessageAsync(mensaje.IdUsuario, respuesta.Texto, replyMarkup: respuesta.TecladoTelegram, parseMode: ParseMode.Markdown);
+
                     }
                     else
                     {

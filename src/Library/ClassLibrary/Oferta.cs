@@ -195,10 +195,22 @@ namespace PII_E13.ClassLibrary
         {
             StringBuilder redaccion = new StringBuilder();
 
-            redaccion.Append($"La oferta {Titulo} consiste en {Descripcion}. Publicada el {FechaCreada} por la empresa .");
+            redaccion.Append($"*{this.Titulo}*, por {this.Empresa.Nombre}");
+            if (this.DisponibleConstantemente)
+            {
+                redaccion.Append($"\n_Esta oferta está disponible recurrentemente. Consulta la frecuencia con el ofertante._");
+            }
+            redaccion.Append($"\n\n*Descripción:* {this.Descripcion}");
+            if (this.Habilitaciones.Count > 0)
+            {
+                redaccion.Append($"\n\nEl ofertante indicó que las siguientes habilitaciones son necesarias para ser considerado para la oferta:");
+                foreach (Habilitacion habilitacion in this.Habilitaciones)
+                {
+                    redaccion.Append($"\n*->* _{habilitacion.Nombre}_");
+                }
+            }
+            redaccion.Append($"```Disponible hasta: {this.FechaCierre.ToShortDateString()}```");
 
-            redaccion.Append($"Para postularse a esta oferta deberá cumplir con la habilitación: {Habilitaciones}.");
-            redaccion.Append($"Tiene tiempo para postularse a esta oferta hasta el día: {this.FechaCierre} inclusive.");
             return redaccion.ToString();
         }
 
@@ -209,7 +221,6 @@ namespace PII_E13.ClassLibrary
         {
             StringBuilder redaccionCorta = new StringBuilder();
 
-            //redaccionCorta.Append($"*{this.Titulo}*\n_{this.Empresa.Nombre}_\n*Descripción:* {Descripcion}\n");
             redaccionCorta.Append($"*{this.Titulo}*");
             if (this.DisponibleConstantemente)
             {
@@ -218,7 +229,6 @@ namespace PII_E13.ClassLibrary
             redaccionCorta.Append($"\n_{this.Empresa.Nombre}_\n");
             redaccionCorta.Append($"_Cierre: {this.FechaCierre.ToShortDateString()}_");
 
-            //redaccionCorta.Append("Habilitaciones: " + this.Habilitaciones);
             return redaccionCorta.ToString();
         }
 
@@ -231,9 +241,9 @@ namespace PII_E13.ClassLibrary
             redaccionPostulados.Append("Emprendedores postulados:");
             {
                 //throw new Exception("A la espera de la definición de la persistencia"); 
-                foreach (Emprendedor emprendedores in EmprendedoresPostulados)
+                foreach (Emprendedor emprendedor in EmprendedoresPostulados)
                 {
-                    redaccionPostulados.Append(emprendedores.Nombre);
+                    redaccionPostulados.Append($"\n*->* _{emprendedor.Nombre}_");
                 }
             }
             return redaccionPostulados.ToString();
