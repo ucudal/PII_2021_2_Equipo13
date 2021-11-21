@@ -17,7 +17,7 @@ namespace Application
     public static class Program
     {
         // INSTANCIAR COMO ALGÚN HANDLER.
-        private static IHandler handler;
+        private static IHandler handler = new RegistrarEmprendedorHandler(null);
 
         // Reemplazar e incluir en handler por defecto.
         private static RespuestaTelegram respuestaPredeterminada = new RespuestaTelegram("Lo siento, parece que no puedo resolver esa consulta aún.",
@@ -39,7 +39,7 @@ namespace Application
         public static void Main()
         {
             // DATOS DE PRUEBA -------------------------------------------------------------------------------------------
-            Sistema.Instancia.RegistrarEmprendedor("2101409600", "Montevideo", "Constitución 2450", "Tecnología", "Walter S.A.", new List<Habilitacion>());
+            Sistema.Instancia.RegistrarEmprendedor("1592373893", "Montevideo", "Constitución 2450", "Tecnología", "Walter S.A.", new List<Habilitacion>());
             Sistema.Instancia.Materiales.Add(new Material("Madera de roble", new List<string>() { "Madera", "Roble", "Carpintería" }, "Kg"));
             Sistema.Instancia.Materiales.Add(new Material("Madera de abeto", new List<string>() { "Madera", "Abeto", "Carpintería" }, "Kg"));
             Sistema.Instancia.Materiales.Add(new Material("Madera de pino", new List<string>() { "Madera", "Pino", "Carpintería" }, "Kg"));
@@ -51,8 +51,8 @@ namespace Application
             Sistema.Instancia.Materiales.Add(new Material("Madera de caoba", new List<string>() { "Madera", "Caoba", "Carpintería" }, "Kg"));
             Sistema.Instancia.Materiales.Add(new Material("Cobre", new List<string>() { "Metal", "Resistente", "Conductor" }, "Kg"));
 
-            Sistema.Instancia.RegistrarEmpresa("126458961523", "Montevideo", "Bv. José Batlle y Ordóñez 3705", "Maderera", "Maderera Jorgito e Hijos");
-            Empresa maderera = Sistema.Instancia.ObtenerEmpresaPorId("126458961523");
+            Sistema.Instancia.RegistrarEmpresa("1592373893", "Montevideo", "Bv. José Batlle y Ordóñez 3705", "Maderera", "Maderera Jorgito e Hijos");
+            Empresa maderera = Sistema.Instancia.ObtenerEmpresaPorId("1592373893");
             maderera.PublicarOferta(Encriptador.GetHashCode("123"), "Buena madera de roble", "Madera de roble de buena calidad para carpintería.",
                 DateTime.MaxValue, etiquetas: new List<string>() { "Madera", "Carpintería", "Roble" });
 
