@@ -16,10 +16,13 @@ namespace PII_E13.HandlerLibrary
     /// </summary>
     public class RegistrarEmpresaHandler : HandlerBase
     {
+        private readonly Random _random = new Random();
+
+        private List<String> datosEmpresa;
         private StringBuilder stringBuilder;
         private string accionPrevia;
-        private const int COLUMNAS_CATEGORIAS = 3;
-        private const int FILAS_CATEGORIAS = 2;
+        private const int COLUMNAS_CATEGORIAS = 1;
+        private const int FILAS_CATEGORIAS = 4;
         private const int COLUMNAS_OFERTAS = 1;
         private const int FILAS_OFERTAS = 3;
 
@@ -38,6 +41,7 @@ namespace PII_E13.HandlerLibrary
         {
             this.Busquedas = new Dictionary<string, InformacionPostulacion>();
             this.stringBuilder = new StringBuilder();
+            this.datosEmpresa = new List<string>();
             stringBuilder.Append("Datos sobre tu empresa: \n\n");
 
         }
@@ -131,19 +135,20 @@ namespace PII_E13.HandlerLibrary
                             stringBuilder.Append("Datos sobre tu empresa: \n\n");
 
 
-                            botonesDeOfertas = TelegramBot.Instancia.ObtenerBotones(titulosOfertas);
-                            respuesta.Texto = this.stringBuilder.ToString();
-                            respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
-                            return true;
+                            return false;
 
                         case "Cancelar":
                             this.Cancelar();
                             return false;
+
+                        
                     }
                     if (!infoPostulacion.CategoriasDisponibles.Contains(mensaje.Texto))
                     {
                         respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{this.accionPrevia}*";
                         this.stringBuilder.Append("\n" + this.accionPrevia + ":   " + mensaje.Texto);
+                        datosEmpresa.Add(mensaje.Texto);
+
                         respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
                         respuesta.EditarMensaje = true;
                         return true;
@@ -168,7 +173,7 @@ namespace PII_E13.HandlerLibrary
                     respuesta.EditarMensaje = true;
                     return true;
 
-                
+
             }
             infoPostulacion = new InformacionPostulacion();
             return false;
@@ -198,7 +203,7 @@ namespace PII_E13.HandlerLibrary
                 this.Busquedas.Add(callback.IdUsuario, infoPostulacion);
             }
             List<string> titulosOfertas = new List<string>();
-           
+
             List<InlineKeyboardButton> botonesDeCategorias = TelegramBot.Instancia.ObtenerBotones(infoPostulacion.CategoriasDisponibles);
             List<InlineKeyboardButton> botonesDeOfertas = new List<InlineKeyboardButton>();
             List<List<InlineKeyboardButton>> tecladoFijoCategorias = new List<List<InlineKeyboardButton>>() {
@@ -215,15 +220,27 @@ namespace PII_E13.HandlerLibrary
                     {
                         case "Listo":
                             botonesDeOfertas = TelegramBot.Instancia.ObtenerBotones(titulosOfertas);
+                            String texto;
+                            int id = _random.Next(1000);
+                            Sistema.Instancia.RegistrarEmpresa(id.ToString(), this.datosEmpresa[3], this.datosEmpresa[1], this.datosEmpresa[2], this.datosEmpresa[0]);
+                            if (Sistema.Instancia.ObtenerEmpresaPorId(id.ToString()).Nombre == this.datosEmpresa[0])
+                            {
+                                this.stringBuilder.Append("Felicidades, su empresa ha sido ingresada en el sistema exitosamentem. Bienvenido!");
+                            }
+                            else
+                            {
+                                this.stringBuilder.Append("Hubo un error con su registro, intente nuevamente");
+                            }
                             respuesta.Texto = this.stringBuilder.ToString();
                             respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
-                            return true;
+                            return false;
+
 
                         case "Cancelar":
                             this.Cancelar();
                             return false;
                     }
-                
+
                     botonesDeCategorias.Remove(botonesDeCategorias.First(b => b.Text == callback.Texto));
                     if (infoPostulacion.IndiceActual >= botonesDeCategorias.Count)
                     {
@@ -244,7 +261,7 @@ namespace PII_E13.HandlerLibrary
                     respuesta.EditarMensaje = true;
                     return true;
 
-               
+
             }
             infoPostulacion = new InformacionPostulacion();
             return false;
@@ -349,7 +366,7 @@ namespace PII_E13.HandlerLibrary
             Inicio,
             Categorias,
             DatosEmpresa
-           
+
         }
 
         /// <summary>

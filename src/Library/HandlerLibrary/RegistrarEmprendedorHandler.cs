@@ -16,6 +16,10 @@ namespace PII_E13.HandlerLibrary
     /// </summary>
     public class RegistrarEmprendedorHandler : HandlerBase
     {
+        private readonly Random _random = new Random();
+
+        private List<String> datosEmprendedor;
+        private List<String> datosHabilitacion;
         private StringBuilder stringBuilder;
         private string accionPrevia;
         private const int COLUMNAS_CATEGORIAS = 1;
@@ -39,6 +43,8 @@ namespace PII_E13.HandlerLibrary
         {
             this.Busquedas = new Dictionary<string, InformacionPostulacion>();
             this.stringBuilder = new StringBuilder();
+            this.datosEmprendedor = new List<string>();
+            this.datosHabilitacion = new List<string>();
             stringBuilder.Append("Datos sobre ti: \n\n");
 
         }
@@ -80,7 +86,6 @@ namespace PII_E13.HandlerLibrary
             opcionesHabilitacion.Add("Nombre Insitucion Habilitada");
             opcionesHabilitacion.Add("Fecha Tramite");
             opcionesHabilitacion.Add("Fecha Vencimiento");
-            opcionesHabilitacion.Add("");
 
 
             if (infoPostulacion.CategoriasDisponibles == null) //Lista de botones con las opciones del registro
@@ -131,7 +136,6 @@ namespace PII_E13.HandlerLibrary
 
                     List<string> etiquetas = mensaje.Texto.Split(' ').ToList();
                     infoPostulacion.Etiquetas = etiquetas;
-                    infoPostulacion.IndiceActual = 0;
                     respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeEmprendedor, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
                     infoPostulacion.Estado = Estados.DatosEmprendedor;
                     StringBuilder st = new StringBuilder();
@@ -147,6 +151,7 @@ namespace PII_E13.HandlerLibrary
                         case "Listo":
                             infoPostulacion.Estado = Estados.DatosHabilitacion;
                             Console.WriteLine("Estado: " + infoPostulacion.Estado);
+                            infoPostulacion.IndiceActual = 0;
 
                             respuesta.Texto = this.stringBuilder.ToString();
                             respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDehabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
@@ -159,6 +164,8 @@ namespace PII_E13.HandlerLibrary
                     {
                         respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{this.accionPrevia}*";
                         this.stringBuilder.Append("\n" + this.accionPrevia + ":   " + mensaje.Texto);
+                        datosEmprendedor.Add(mensaje.Texto);
+
                         respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeEmprendedor, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
                         respuesta.EditarMensaje = true;
                         return true;
@@ -193,6 +200,8 @@ namespace PII_E13.HandlerLibrary
                     {
                         respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{this.accionPrevia}*";
                         this.stringBuilder.Append("\n" + this.accionPrevia + ":   " + mensaje.Texto);
+                        datosHabilitacion.Add(mensaje.Texto);
+
                         respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDehabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
                         respuesta.EditarMensaje = true;
                         return true;
@@ -211,7 +220,7 @@ namespace PII_E13.HandlerLibrary
                         };
                     }
 
-                   
+
                     respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\nSelecciona _\"Listo\"_ cuando quieras finalizar el registro, o _\"Cancelar\"_ para detenerlo.";
                     respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDehabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
                     respuesta.EditarMensaje = true;
@@ -255,7 +264,7 @@ namespace PII_E13.HandlerLibrary
             List<List<InlineKeyboardButton>> tecladoFijoHabilitaciones = new List<List<InlineKeyboardButton>>() {
                 new List<InlineKeyboardButton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
             };
-          
+
 
 
             switch (infoPostulacion.Estado)
@@ -269,6 +278,7 @@ namespace PII_E13.HandlerLibrary
                             botonesDehabilitacion = TelegramBot.Instancia.ObtenerBotones(infoPostulacion.HabilitacionesDisponibles);
                             this.stringBuilder.Append("\n-------------------------------------------------");
                             this.stringBuilder.Append("\n\n\nDatos sobre las habilitaciones: ");
+                            infoPostulacion.IndiceActual = 0;
 
                             respuesta.Texto = this.stringBuilder.ToString();
                             infoPostulacion.Estado = Estados.DatosHabilitacion;
@@ -310,8 +320,16 @@ namespace PII_E13.HandlerLibrary
                     {
                         case "Listo":
                             respuesta.Texto = this.stringBuilder.ToString();
+                            List<Habilitacion> habilitaciones = new List<Habilitacion>();
+                            int id = _random.Next(1000);
+                            habilitaciones.Add(new Habilitacion(this.datosHabilitacion[0], this.datosHabilitacion[1], this.datosHabilitacion[2], Convert.ToDateTime(datosHabilitacion[3]), Convert.ToDateTime(datosHabilitacion[4]), true));
+                            Sistema.Instancia.RegistrarEmprendedor(id.ToString(), this.datosEmprendedor[1], this.datosEmprendedor[2], this.datosEmprendedor[3], this.datosEmprendedor[0], habilitaciones);
+                            Console.WriteLine("id random: " + id.ToString());
+                            if (Sistema.Instancia.ObtenerEmprendedorPorId(id.ToString()).Nombre == this.datosEmprendedor[0])
+                            {
+                                respuesta.Texto = "Usted ha sido ingresado en el sistema exitosamente. Bienvenido.";
 
-
+                            }
                             return true;
                         case "Cancelar":
                             this.Cancelar();
@@ -331,7 +349,13 @@ namespace PII_E13.HandlerLibrary
                             new List<InlineKeyboardButton>() { TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo }
                         };
                     }
-                   
+                    if (infoPostulacion.HabilitacionesDisponibles.Count == 4)
+                    {
+                        tecladoFijoHabilitaciones = new List<List<InlineKeyboardButton>>()
+                        {
+                            new List<InlineKeyboardButton>() { TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo }
+                        };
+                    }
                     infoPostulacion.Categorias.Add(callback.Texto);
                     respuesta.Texto = $"A continuacion se habilito el campo _\"{callback.Texto}\"_ para su ingreso.\n\nSelecciona _\"Listo\"_ cuando quieras continuar la búsqueda, o _\"Cancelar\"_ para detenerla.";
                     this.accionPrevia = callback.Texto;
