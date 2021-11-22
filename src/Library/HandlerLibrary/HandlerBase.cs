@@ -23,7 +23,7 @@ namespace PII_E13.HandlerLibrary
         /// Obtiene o asigna el conjunto de palabras clave que este "handler" puede procesar.
         /// </summary>
         /// <value>Un array de palabras clave.</value>
-        public string[] Etiquetas { get; set; }
+        public string Intencion { get; set; }
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="HandlerBase"/>.
@@ -37,11 +37,11 @@ namespace PII_E13.HandlerLibrary
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="HandlerBase"/> con una lista de comandos.
         /// </summary>
-        /// <param name="etiquetas">La lista de comandos.</param>
+        /// <param name="intencion">La intención utilizada para identificar a este handler.</param>
         /// <param name="siguiente">El próximo "handler".</param>
-        public HandlerBase(string[] etiquetas, IHandler siguiente)
+        public HandlerBase(string intencion, IHandler siguiente)
         {
-            this.Etiquetas = etiquetas;
+            this.Intencion = intencion;
             this.Siguiente = siguiente;
         }
 
@@ -49,10 +49,11 @@ namespace PII_E13.HandlerLibrary
         /// Este método debe ser sobreescrito por las clases sucesores. La clase sucesora procesa el mensaje y retorna
         /// true o no lo procesa y retorna false.
         /// </summary>
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected virtual bool ResolverInterno(IMensaje mensaje, out RespuestaTelegram respuesta)
+        protected virtual bool ResolverInterno(Sesion sesion, IMensaje mensaje, out RespuestaTelegram respuesta)
         {
             throw new InvalidOperationException("Este método debe ser sobrescrito");
         }
@@ -61,10 +62,11 @@ namespace PII_E13.HandlerLibrary
         /// Este método debe ser sobreescrito por las clases sucesores. La clase sucesora procesa el mensaje y retorna
         /// true o no lo procesa y retorna false.
         /// </summary>
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         /// <param name="callback">El callback a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected virtual bool ResolverInterno(ICallBack callback, out RespuestaTelegram respuesta)
+        protected virtual bool ResolverInterno(Sesion sesion, ICallBack callback, out RespuestaTelegram respuesta)
         {
             throw new InvalidOperationException("Este método debe ser sobrescrito");
         }
@@ -79,60 +81,33 @@ namespace PII_E13.HandlerLibrary
         }
 
         /// <summary>
-        /// Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
-        /// <see cref="HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
-        /// clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
-        /// un mensaje.
+        /// Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza procesado de lenguaje natural
+        /// para comprobar que la intención identificada corresponda a la del "handler". Las clases sucesores pueden
+        /// sobreescribir este método para proveer otro mecanismo para determina si procesan o no un mensaje.
         /// </summary>
-        /// <param name="mensaje">El mensaje a procesar.</param>
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
-        protected virtual bool PuedeResolver(IMensaje mensaje)
+        protected virtual bool PuedeResolver(Sesion sesion)
         {
-            // Cuando no hay palabras clave este método debe ser sobreescrito por las clases sucesoras y por lo tanto
-            // este método no debería haberse invocado.
-            if (this.Etiquetas == null || this.Etiquetas.Length == 0)
-            {
-                throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
-            }
-
-            return this.Etiquetas.Any(s => mensaje.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        /// <summary>
-        /// Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
-        /// <see cref="HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
-        /// clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
-        /// un mensaje.
-        /// </summary>
-        /// <param name="callback">El mensaje a procesar.</param>
-        /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
-        protected virtual bool PuedeResolver(ICallBack callback)
-        {
-            // Cuando no hay palabras clave este método debe ser sobreescrito por las clases sucesoras y por lo tanto
-            // este método no debería haberse invocado.
-            if (this.Etiquetas == null || this.Etiquetas.Length == 0)
-            {
-                throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
-            }
-
-            return this.Etiquetas.Any(s => callback.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
+            return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion);
         }
 
         /// <summary>
         /// Procesa el mensaje o la pasa al siguiente "handler" si existe.
         /// </summary>
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        public IHandler Resolver(IMensaje mensaje, out RespuestaTelegram respuesta)
+        public IHandler Resolver(Sesion sesion, IMensaje mensaje, out RespuestaTelegram respuesta)
         {
-            if (this.ResolverInterno(mensaje, out respuesta))
+            if (this.ResolverInterno(sesion, mensaje, out respuesta))
             {
                 return this;
             }
             else if (this.Siguiente != null)
             {
-                return this.Siguiente.Resolver(mensaje, out respuesta);
+                return this.Siguiente.Resolver(sesion, mensaje, out respuesta);
             }
             else
             {
@@ -143,18 +118,19 @@ namespace PII_E13.HandlerLibrary
         /// <summary>
         /// Procesa el mensaje o la pasa al siguiente "handler" si existe.
         /// </summary>
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         /// <param name="callback">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        public IHandler Resolver(ICallBack callback, out RespuestaTelegram respuesta)
+        public IHandler Resolver(Sesion sesion, ICallBack callback, out RespuestaTelegram respuesta)
         {
-            if (this.ResolverInterno(callback, out respuesta))
+            if (this.ResolverInterno(sesion, callback, out respuesta))
             {
                 return this;
             }
             else if (this.Siguiente != null)
             {
-                return this.Siguiente.Resolver(callback, out respuesta);
+                return this.Siguiente.Resolver(sesion, callback, out respuesta);
             }
             else
             {

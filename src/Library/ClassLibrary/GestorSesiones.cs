@@ -21,13 +21,30 @@ namespace PII_E13.ClassLibrary
         }
 
         /// <summary>
-        /// Identificador del usuario. Es único.
+        /// Obtiene una sesión para el identificador único de usuario enviado por parámetros.
+        /// Si el usuario ya tenía una sesión activa, se retorna dicha sesión; de lo contrario, se crea y retorna una nueva.
         /// </summary>
-        /// <param name="usuarioId"></param>
-        public Sesion AgregarSesion(string usuarioId)
+        /// <param name="idUsuario">Identificador único del usuario.</param>
+        /// <param name="nuevaSesion">Booleano que indica si la sesión es nueva.</param>
+        public Sesion ObtenerSesion(string idUsuario, out bool nuevaSesion)
         {
-            Sesion sesion = new Sesion(Encriptador.GetHashCode(usuarioId + DateTimeOffset.Now.ToUnixTimeSeconds().ToString()), usuarioId);
-            Sesiones.Add(sesion.IdSesion, sesion);
+            if (this.Sesiones.ContainsKey(idUsuario))
+            {
+                Sesion sesionUsuario = this.Sesiones[idUsuario];
+                if (sesionUsuario.Activa)
+                {
+                    nuevaSesion = false;
+                    return sesionUsuario;
+                }
+                else
+                {
+                    this.Sesiones.Remove(idUsuario);
+                }
+            }
+            nuevaSesion = true;
+            Sesion sesion = new Sesion(idUsuario);
+
+            this.Sesiones.Add(idUsuario, sesion);
             return sesion;
         }
 

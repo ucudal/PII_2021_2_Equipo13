@@ -42,15 +42,15 @@ namespace PII_E13.ClassLibrary
 
             QueryResult resultadoDeDeteccion = respuestaDeDeteccion.QueryResult;
 
-            this.ultimaIntencionEncontrada = new Intencion(resultadoDeDeteccion.Intent.DisplayName, resultadoDeDeteccion.IntentDetectionConfidence, texto);
+            this.UltimaIntencion = new Intencion(resultadoDeDeteccion.Intent.DisplayName, resultadoDeDeteccion.IntentDetectionConfidence, texto);
 
-            return this.ultimaIntencionEncontrada;
+            return this.UltimaIntencion;
         }
 
         /// <summary>
         /// Representa la última intención encontrada utilizando esta instancia de un procesador de lenguaje natural.
         /// </summary>
         /// <value>Una instancia de <see cref="Intencion"/> con la información de la última intención identificada.</value>
-        public Intencion ultimaIntencionEncontrada { get; private set; }
+        public Intencion UltimaIntencion { get; private set; }
     }
 }
