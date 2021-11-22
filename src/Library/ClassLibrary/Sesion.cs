@@ -5,24 +5,66 @@ using System;
 namespace PII_E13.ClassLibrary
 {
     /// <summary>
-    /// Clase que cumple SRP y Expert ya que se encarga de determinar la información necesaria para diferenciar una sesión y los datos de la misma
+    /// Representa a una sesion de un usuario en el bot.
+    /// Cumple SRP y Expert ya que se encarga de determinar la información necesaria para diferenciar una sesión y los datos de la misma.
     /// </summary>
     public class Sesion
     {
-        public string SesionId { get; }
-
-        public string UsuarioId { get; }
-
-        public DateTime fechaCreacion { get; }
-
-        public DateTime fechaDeExpiracion { get; }
-
-        public Sesion(string sesionId, string usuarioId)
+        /// <summary>
+        /// Crea una instancia 
+        /// </summary>
+        /// <param name="idSesion"></param>
+        /// <param name="idUsuario"></param>
+        public Sesion(string idSesion, string idUsuario)
         {
-            this.SesionId = SesionId;
-            this.UsuarioId = UsuarioId;
-            this.fechaCreacion = DateTime.Now;
-            this.fechaDeExpiracion = DateTime.Now.AddMinutes(30);
+            this.IdSesion = idSesion;
+            this.IdUsuario = idUsuario;
+            this.FechaCreacion = DateTime.Now;
+            this.UltimaActividad = this.FechaCreacion;
+            this.PLN = new LenguajeNatural(idSesion);
         }
+
+        /// <summary>
+        /// Identificador único de la sesión.
+        /// </summary>
+        /// <value>Una cadena de caracteres con el identificador único de una sesión de un usuario.</value>
+        public string IdSesion { get; }
+
+        /// <summary>
+        /// Identificador único del usuario de esta sesión.
+        /// </summary>
+        /// <value>Una cadena de caracteres con el identificador único de un usuario de una sesión.</value>
+        public string IdUsuario { get; }
+
+        /// <summary>
+        /// Fecha de creación de la sesión.
+        /// </summary>
+        /// <value><see cref="DateTime"/> conteniendo el valor temporal del momento en que fue creada la sesión.</value>
+        public DateTime FechaCreacion { get; }
+
+        /// <summary>
+        /// Fecha de expiración de la sesión.
+        /// </summary>
+        /// <value><see cref="DateTime"/> conteniendo el valor temporal del momento en que la sesión expirará.</value>
+        public DateTime UltimaActividad { get; set; }
+
+        /// <summary>
+        /// Indica si la sesión sigue activa. Una sesión es considerad activa si su última actividad ocurrió hace menos de 30 minutos.
+        /// </summary>
+        /// <value>true si la sesión está activa y false en caso contrario.</value>
+        public bool Activa
+        {
+            get
+            {
+                TimeSpan diferenciaTemporal = DateTime.Now - this.UltimaActividad;
+                return diferenciaTemporal.TotalMinutes < 30;
+            }
+        }
+
+        /// <summary>
+        /// Instancia de <see cref="LenguajeNatural"/> utilizada para procesar con procesamiento de lenguaje natural (PLN) los mensajes de los usuarios.
+        /// </summary>
+        /// <value>Una instancia de <see cref="LenguajeNatural"/> para una sesión.</value>
+        public LenguajeNatural PLN { get; }
     }
 }

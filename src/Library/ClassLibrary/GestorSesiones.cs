@@ -13,8 +13,7 @@ namespace PII_E13.ClassLibrary
 
     public class GestorSesiones
     {
-        public Dictionary<string, Sesion> Sesiones { get; }
-
+        private static GestorSesiones instancia = null;
 
         private GestorSesiones()
         {
@@ -25,12 +24,19 @@ namespace PII_E13.ClassLibrary
         /// Identificador del usuario. Es único.
         /// </summary>
         /// <param name="usuarioId"></param>
-        public AgregarSesion(string usuarioId)
+        public Sesion AgregarSesion(string usuarioId)
         {
-            Sesion sesion = new Sesion(Encriptador.GetHashCode(usuarioId), usuarioId);
-            Sesiones.Add(sesion.Id, sesion);
+            Sesion sesion = new Sesion(Encriptador.GetHashCode(usuarioId + DateTimeOffset.Now.ToUnixTimeSeconds().ToString()), usuarioId);
+            Sesiones.Add(sesion.IdSesion, sesion);
+            return sesion;
         }
-        private static GestorSesiones instancia = null;
+
+        /// <summary>
+        /// Diccionario de sesiones existentes actualmente.
+        /// </summary>
+        /// <value>Un diccionario de string, <see cref="Sesion"/> conteniendo todas las sesiones existentes.</value>
+        public Dictionary<string, Sesion> Sesiones { get; }
+
         /// <summary>
         /// Instancia del gestor de sesiones durante la ejecución. Se aplica el patrón Singleton.
         /// </summary>
