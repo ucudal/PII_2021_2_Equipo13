@@ -13,15 +13,14 @@ namespace PII_E13.ClassLibrary
         /// <summary>
         /// Crea una instancia de Sesion
         /// </summary>
-        /// <param name="idSesion"></param>
-        /// <param name="idUsuario"></param>
-        public Sesion(string idSesion, string idUsuario)
+        /// <param name="idUsuario">Identificador único de un usuario.</param>
+        public Sesion(string idUsuario)
         {
-            this.IdSesion = idSesion;
+            this.IdSesion = Encriptador.GetHashCode(idUsuario + DateTimeOffset.Now.ToUnixTimeSeconds().ToString());
             this.IdUsuario = idUsuario;
             this.FechaCreacion = DateTime.Now;
             this.UltimaActividad = this.FechaCreacion;
-            this.PLN = new LenguajeNatural(idSesion);
+            this.PLN = new LenguajeNatural(this.IdSesion);
         }
 
         /// <summary>
