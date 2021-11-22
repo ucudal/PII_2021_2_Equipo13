@@ -11,7 +11,7 @@ namespace PII_E13.ClassLibrary
     public class Sesion
     {
         /// <summary>
-        /// Crea una instancia 
+        /// Crea una instancia de Sesion
         /// </summary>
         /// <param name="idSesion"></param>
         /// <param name="idUsuario"></param>
