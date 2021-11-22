@@ -8,7 +8,7 @@ namespace PII_E13.ClassLibrary
     /// Representa a una sesion de un usuario en el bot.
     /// Cumple SRP y Expert ya que se encarga de determinar la información necesaria para diferenciar una sesión y los datos de la misma.
     /// </summary>
-    public class Sesion: IJsonConvertible
+    public class Sesion
     {
         /// <summary>
         /// Crea una instancia de Sesion
