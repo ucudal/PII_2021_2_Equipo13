@@ -17,7 +17,7 @@ namespace Application
     public static class Program
     {
         // INSTANCIAR COMO ALGÚN HANDLER.
-        private static IHandler handler;
+        private static IHandler handler = new PostularseAOfertaHandler(null);
 
         // Reemplazar e incluir en handler por defecto.
         private static RespuestaTelegram respuestaPredeterminada = new RespuestaTelegram("Lo siento, parece que no puedo resolver esa consulta aún.",
