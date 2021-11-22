@@ -530,8 +530,10 @@ namespace PII_E13.HandlerLibrary
                 return false;
             }
             return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion) ||
-                (this.Busquedas.ContainsKey(sesion.IdUsuario) && sesion.PLN.UltimaIntencion.Nombre.Equals("Default Fallback Intent")) ||
-                (sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 60);
+                (
+                    this.Busquedas.ContainsKey(sesion.IdUsuario) &&
+                    (sesion.PLN.UltimaIntencion.Nombre.Equals("Default Fallback Intent") || (sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 60))
+                );
         }
 
         /// <summary>
