@@ -32,7 +32,19 @@ namespace PII_E13.HandlerLibrary
         /// Inicializa una nueva instancia de la clase <see cref="PostularseAOfertaHandler"/>. 
         /// Esta clase procesa la postulación a una oferta.
         /// </summary>
+        /// <param name="siguiente">El próximo "handler".</param>
         public PostularseAOfertaHandler(HandlerBase siguiente) : base(siguiente)
+        {
+            this.Busquedas = new Dictionary<string, InformacionPostulacion>();
+        }
+
+        /// <summary>
+        /// Inicializa una nueva instancia de la clase <see cref="PostularseAOfertaHandler"/>. 
+        /// Esta clase procesa la postulación a una oferta.
+        /// </summary>
+        /// <param name="siguiente">El próximo "handler".</param>
+        /// <param name="intencion">La intención utilizada para identificar a este handler.</param>
+        public PostularseAOfertaHandler(HandlerBase siguiente, string intencion) : base(siguiente, intencion)
         {
             this.Busquedas = new Dictionary<string, InformacionPostulacion>();
         }
@@ -274,7 +286,7 @@ namespace PII_E13.HandlerLibrary
         /// <param name="callback">El callback a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected bool ResolverInterno(Sesion sesion, ICallBack callback, out RespuestaTelegram respuesta)
+        protected override bool ResolverInterno(Sesion sesion, ICallBack callback, out RespuestaTelegram respuesta)
         {
             respuesta = new RespuestaTelegram(string.Empty);
             if (!this.PuedeResolver(sesion))
@@ -321,6 +333,7 @@ namespace PII_E13.HandlerLibrary
             switch (infoPostulacion.Estado)
             {
                 case Estados.SeleccionandoCategorias:
+                    // Procesando paginado =========================================================================================================
                     switch (callback.Texto)
                     {
                         case "Siguiente":
@@ -377,6 +390,9 @@ namespace PII_E13.HandlerLibrary
                             this.Cancelar(sesion);
                             return false;
                     }
+                    // Procesando paginado =========================================================================================================
+
+
                     if (!infoPostulacion.CategoriasDisponibles.Contains(callback.Texto))
                     {
                         respuesta.Texto = $"Lo sentimos, la categoría _\"{callback.Texto}\"_ todavía no está disponible.\n\nPor favor, selecciona una de las categorías listadas, _\"Listo\"_ cuando quieras continuar la búsqueda, o _\"Cancelar\"_ para detenerla.";
@@ -406,6 +422,7 @@ namespace PII_E13.HandlerLibrary
 
                 case Estados.SeleccionandoOferta:
                     botonesDeOfertas = TelegramBot.Instancia.ObtenerBotones(titulosOfertas);
+                    // Procesando paginado =========================================================================================================
                     switch (callback.Texto)
                     {
                         case "Siguiente":
@@ -438,6 +455,8 @@ namespace PII_E13.HandlerLibrary
                             this.Cancelar(sesion);
                             return false;
                     }
+                    // Procesando paginado =========================================================================================================
+
 
                     Oferta ofertaSeleccionada = infoPostulacion.OfertasEncontradas.Find(of => of.Titulo.Equals(callback.Texto));
                     respuesta.Texto = ofertaSeleccionada.Redactar();

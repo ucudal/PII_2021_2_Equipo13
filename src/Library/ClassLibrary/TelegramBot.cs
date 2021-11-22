@@ -15,7 +15,7 @@ namespace PII_E13.ClassLibrary
     public class TelegramBot
     {
 
-        private const string TOKEN_BOT_DE_TELEGRAM = "";
+        private const string TOKEN_BOT_DE_TELEGRAM = "2133543111:AAHtlHAp1B-irzg7ZhfUH2olwG7InxVT9Yw";
         private static TelegramBot instancia;
         private ITelegramBotClient bot;
 

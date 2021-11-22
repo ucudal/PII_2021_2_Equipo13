@@ -17,7 +17,7 @@ namespace Application
     public static class Program
     {
         // INSTANCIAR COMO ALGÚN HANDLER.
-        private static IHandler handler = new PostularseAOfertaHandler(null);
+        private static IHandler handler = new PostularseAOfertaHandler(null, "Saludo");
 
         private static GestorSesiones gestorSesiones = GestorSesiones.Instancia;
 
@@ -104,9 +104,10 @@ namespace Application
                     System.Console.WriteLine($"[NUEVA SESIÓN] - ID: {sesionUsuario.IdSesion} - ID USUARIO: {mensaje.IdUsuario}");
                 }
                 ITelegramBotClient client = TelegramBot.Instancia.Cliente;
-                Console.WriteLine($"[NUEVO MENSAJE] - ID USUARIO: {mensaje.IdUsuario} ENVIÓ: {mensaje.Texto}");
 
                 sesionUsuario.PLN.ObtenerIntencion(mensaje.Texto);
+
+                Console.WriteLine($"[NUEVO MENSAJE] - ID USUARIO: {mensaje.IdUsuario} INTENCIÓN: {sesionUsuario.PLN.UltimaIntencion.Nombre} - ENVIÓ: {mensaje.Texto}");
 
                 RespuestaTelegram respuesta;
                 IHandler resultado = handler.Resolver(sesionUsuario, mensaje, out respuesta);

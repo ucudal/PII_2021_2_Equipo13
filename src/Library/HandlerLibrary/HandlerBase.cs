@@ -39,7 +39,7 @@ namespace PII_E13.HandlerLibrary
         /// </summary>
         /// <param name="intencion">La intención utilizada para identificar a este handler.</param>
         /// <param name="siguiente">El próximo "handler".</param>
-        public HandlerBase(string intencion, IHandler siguiente)
+        public HandlerBase(IHandler siguiente, string intencion)
         {
             this.Intencion = intencion;
             this.Siguiente = siguiente;
