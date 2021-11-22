@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace PII_E13.ClassLibrary
 {
     /// <summary>
@@ -18,5 +20,10 @@ namespace PII_E13.ClassLibrary
         /// Contenido en texto del mensaje.
         /// </summary>
         string Texto { get; }
+
+        /// <summary>
+        /// Lista de botones enviados junto al mensaje
+        /// </summary>
+        List<IBoton> Botones { get; }
     }
 }

@@ -26,7 +26,7 @@ namespace Application
             new InlineKeyboardMarkup(
                 new InlineKeyboardButton[][] {
                     new InlineKeyboardButton[] {
-                        "Buscar ofertas"
+                        InlineKeyboardButton.WithCallbackData("Buscar ofertas", "Hola")
                         },
                         new InlineKeyboardButton[] {
                         "Consultar tus postulaciones"
@@ -79,7 +79,6 @@ namespace Application
             //Inicio la escucha de mensajes
             bot.StartReceiving();
 
-            Console.WriteLine("Presiona una tecla para terminar");
             Console.ReadKey();
 
             //Detengo la escucha de mensajes 

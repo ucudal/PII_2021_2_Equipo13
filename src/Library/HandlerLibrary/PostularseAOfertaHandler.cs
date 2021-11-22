@@ -169,12 +169,11 @@ namespace PII_E13.HandlerLibrary
                                 try
                                 {
                                     Oferta oferta = infoPostulacion.OfertasEncontradas[i];
-                                    titulosOfertas.Append(oferta.Titulo);
+                                    titulosOfertas.Add(oferta.Titulo);
                                     stringBuilder.Append($"{oferta.RedactarResumen()}\n\n");
                                 }
                                 catch (ArgumentOutOfRangeException e)
                                 {
-                                    System.Console.WriteLine($"[EXCEPCIÓN] {e.ToString()}");
                                     break;
                                 }
                             }
@@ -370,12 +369,11 @@ namespace PII_E13.HandlerLibrary
                                 try
                                 {
                                     Oferta oferta = infoPostulacion.OfertasEncontradas[i];
-                                    titulosOfertas.Append(oferta.Titulo);
+                                    titulosOfertas.Add(oferta.Titulo.Replace("*", ""));
                                     stringBuilder.Append($"{oferta.RedactarResumen()}\n\n");
                                 }
                                 catch (ArgumentOutOfRangeException e)
                                 {
-                                    System.Console.WriteLine($"[EXCEPCIÓN] {e.ToString()}");
                                     break;
                                 }
                             }
@@ -458,13 +456,13 @@ namespace PII_E13.HandlerLibrary
                     // Procesando paginado =========================================================================================================
 
 
-                    Oferta ofertaSeleccionada = infoPostulacion.OfertasEncontradas.Find(of => of.Titulo.Equals(callback.Texto));
+                    Oferta ofertaSeleccionada = infoPostulacion.OfertasEncontradas.Find(of => of.Titulo.Contains(callback.Texto));
                     respuesta.Texto = ofertaSeleccionada.Redactar();
                     InlineKeyboardButton botonPostular = new InlineKeyboardButton();
                     botonPostular.Text = "Postularme a esta oferta";
                     botonPostular.CallbackData = "Postularse";
                     InlineKeyboardButton botonVolver = new InlineKeyboardButton();
-                    botonVolver.Text = "Ver más ofertas";
+                    botonVolver.Text = "Seguir viendo ofertas";
                     botonVolver.CallbackData = "Volver";
                     respuesta.TecladoTelegram = new InlineKeyboardMarkup(
                         new[] {
@@ -472,11 +470,43 @@ namespace PII_E13.HandlerLibrary
                             new [] { botonVolver}
                         }
                     );
+                    infoPostulacion.Estado = Estados.Detalle;
                     return true;
 
                 case Estados.Detalle:
+                    switch (callback.Texto)
+                        {
+                            case "Postularse":
+                                InlineKeyboardButton botonMenu = InlineKeyboardButton.WithCallbackData("Volver al menú");
+                                InlineKeyboardMarkup botonMarkup = new InlineKeyboardMarkup(new[] { new[] { botonMenu } });
+                                respuesta.TecladoTelegram = botonMarkup;
+                                respuesta.Texto = "Felicidades, te has postulado a esta oferta exitosamente.";
+                                return true;
 
-                    return true;
+                            case "Volver":
+                                StringBuilder stringBuilder = new StringBuilder();
+                                stringBuilder.Append("Encontramos estas ofertas para ti:\n\n");
+                                for (int i = infoPostulacion.IndiceActual; i < (infoPostulacion.IndiceActual + COLUMNAS_OFERTAS * FILAS_OFERTAS); i++)
+                                {
+                                    try
+                                    {
+                                        Oferta oferta = infoPostulacion.OfertasEncontradas[i];
+                                        titulosOfertas.Add(oferta.Titulo.Replace("*", ""));
+                                        stringBuilder.Append($"{oferta.RedactarResumen()}\n\n");
+                                    }
+                                    catch (ArgumentOutOfRangeException e)
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                botonesDeOfertas = TelegramBot.Instancia.ObtenerBotones(titulosOfertas);
+                                infoPostulacion.Estado = Estados.SeleccionandoOferta;
+                                respuesta.Texto = stringBuilder.ToString();
+                                respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
+                                return true;
+                        }
+                    return false;
 
                 case Estados.Postulando:
 
@@ -526,7 +556,6 @@ namespace PII_E13.HandlerLibrary
             }
             catch (KeyNotFoundException e)
             {
-                System.Console.WriteLine($"[EXCEPCIÓN] {e.ToString()}");
                 return false;
             }
             return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion) ||
