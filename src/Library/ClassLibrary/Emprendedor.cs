@@ -13,7 +13,7 @@ namespace PII_E13.ClassLibrary
     ///    Cumple con Expert porque tiene toda la información necesaria para poder cumplir con la responsabilidad de dar de alta un emprendedor y consumir ofertas.
 
 
-    public class Emprendedor
+    public class Emprendedor: IJsonConvertible
     {   
         /// <summary>
         /// Se indica el <value>Id</value> en Telegram del emprendedor.

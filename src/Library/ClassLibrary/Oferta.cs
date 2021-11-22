@@ -17,7 +17,7 @@ namespace PII_E13.ClassLibrary
     ///  fuertemente relacionadas, creando así una clase robusta y fácil de entender. 
     /// </summary>
 
-    public class Oferta
+    public class Oferta: IJsonConvertible
     {
         /// <summary>
         ///  La clase Oferta se encarga de conocer todo lo relativo a la Oferta.

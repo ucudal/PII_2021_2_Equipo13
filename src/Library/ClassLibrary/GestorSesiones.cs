@@ -11,7 +11,7 @@ namespace PII_E13.ClassLibrary
     /// Cumple con creator para agregar más sesiones al listado general de sesiones.
     /// </summary>
 
-    public class GestorSesiones
+    public class GestorSesiones: IJsonConvertible
     {
         private static GestorSesiones instancia = null;
 

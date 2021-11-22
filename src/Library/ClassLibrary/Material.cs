@@ -10,7 +10,7 @@ namespace PII_E13.ClassLibrary
         /// Procurando que la clase tenga solo una razón para cambiar. 
         /// Patrón OCP: la clase es abierta a la extensión mediante herencia y/o composición, pero cerrada a cambios ya que no es posible y no es necesario realizar cambios en su código.
         /// </summary>
-    public class Material
+    public class Material: IJsonConvertible
     {
         /// <summary>
         /// La clase material se encarga de conocer lo relativo al material que consituye el producto.

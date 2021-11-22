@@ -9,7 +9,7 @@ namespace PII_E13.ClassLibrary
     /// Creator ya que crea una instancia de oferta en esta clase con los parametros necesarios para ello.
     /// Expert ya que se le da la responsabilidad de generar las publicaciones, debido a que es la clase más experta de la información.
     /// </summary>
-    public class Empresa
+    public class Empresa: IJsonConvertible
     {
         /// <summary>
         /// Id del usuario en el canal de registro.

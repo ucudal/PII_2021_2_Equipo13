@@ -7,7 +7,7 @@ namespace PII_E13.ClassLibrary
     /// ISP ya que segmenta las operaciones de la interface en la persistencia.
     /// Expert ya que se le da la responsabilidad de gestionar las coordenas de una ubicacion, debido a que es la clase más experta de la información.
     /// </summary>
-    public class Ubicacion
+    public class Ubicacion: IJsonConvertible
     {
         /// <summary>
         /// Nombre de la ciudad de la ubicación
