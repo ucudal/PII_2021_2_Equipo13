@@ -141,7 +141,7 @@ namespace PII_E13.HandlerLibrary
                             this.Cancelar();
                             return false;
 
-                        
+
                     }
                     if (!infoPostulacion.CategoriasDisponibles.Contains(mensaje.Texto))
                     {
@@ -220,12 +220,18 @@ namespace PII_E13.HandlerLibrary
                     {
                         case "Listo":
                             botonesDeOfertas = TelegramBot.Instancia.ObtenerBotones(titulosOfertas);
-                            String texto;
+
                             int id = _random.Next(1000);
                             Sistema.Instancia.RegistrarEmpresa(id.ToString(), this.datosEmpresa[3], this.datosEmpresa[1], this.datosEmpresa[2], this.datosEmpresa[0]);
+                            Console.WriteLine("Validando usuario....");
+                            Console.WriteLine("ID usuario a validar: " + id.ToString());
+                            Console.WriteLine("Nombre persona obtenido: " + Sistema.Instancia.ObtenerEmpresaPorId(id.ToString()).Nombre);
+                            Console.WriteLine("Nombre persona ingresado: " + this.datosEmpresa[0]);
+
+
                             if (Sistema.Instancia.ObtenerEmpresaPorId(id.ToString()).Nombre == this.datosEmpresa[0])
                             {
-                                this.stringBuilder.Append("Felicidades, su empresa ha sido ingresada en el sistema exitosamentem. Bienvenido!");
+                                this.stringBuilder.Append("\n\nFelicidades, su empresa ha sido ingresada en el sistema exitosamente. Bienvenido!");
                             }
                             else
                             {
@@ -233,7 +239,7 @@ namespace PII_E13.HandlerLibrary
                             }
                             respuesta.Texto = this.stringBuilder.ToString();
                             respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
-                            return false;
+                            return true;
 
 
                         case "Cancelar":
