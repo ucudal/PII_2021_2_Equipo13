@@ -94,6 +94,10 @@ namespace PII_E13.HandlerLibrary
             {
                 throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
             }
+            if (Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario) != null)
+            {
+                throw new InvalidOperationException("Usted ya está registrado.");
+            }
 
             return this.Etiquetas.Any(s => mensaje.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
         }
@@ -113,6 +117,10 @@ namespace PII_E13.HandlerLibrary
             if (this.Etiquetas == null || this.Etiquetas.Length == 0)
             {
                 throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
+            }
+              if (Sistema.Instancia.ObtenerEmprendedorPorId(callback.IdUsuario) != null)
+            {
+                throw new InvalidOperationException("Usted ya está registrado.");
             }
 
             return this.Etiquetas.Any(s => callback.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));

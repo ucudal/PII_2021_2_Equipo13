@@ -21,6 +21,10 @@ namespace PII_E13.HandlerLibrary
         private List<String> datosEmprendedor;
         private List<String> datosHabilitacion;
         private StringBuilder stringBuilder;
+
+
+        Dictionary<string, string> DiccDatosEmprendedor = new Dictionary<string, string>();
+        Dictionary<string, string> DiccDatosHabilitacion = new Dictionary<string, string>();
         private string accionPrevia;
         private const int COLUMNAS_CATEGORIAS = 1;
         private const int FILAS_CATEGORIAS = 4;
@@ -46,7 +50,6 @@ namespace PII_E13.HandlerLibrary
             this.datosEmprendedor = new List<string>();
             this.datosHabilitacion = new List<string>();
             stringBuilder.Append("Datos sobre ti: \n\n");
-
         }
 
         /// <summary>
@@ -57,6 +60,7 @@ namespace PII_E13.HandlerLibrary
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
         protected override bool ResolverInterno(IMensaje mensaje, out RespuestaTelegram respuesta)
         {
+
             respuesta = new RespuestaTelegram(string.Empty);
             if (!this.PuedeResolver(mensaje))
             {
@@ -71,6 +75,7 @@ namespace PII_E13.HandlerLibrary
             else
             {
                 this.Busquedas.Add(mensaje.IdUsuario, infoPostulacion);
+
             }
             List<string> titulosOfertas = new List<string>();
             List<string> opcionesRegistro = new List<string>(); //Opciones para registro
@@ -140,7 +145,7 @@ namespace PII_E13.HandlerLibrary
                     infoPostulacion.Estado = Estados.DatosEmprendedor;
                     StringBuilder st = new StringBuilder();
                     st.Append("############   REGISTRO EMPRENDEDOR   ############");
-                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
+                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
                     respuesta.Texto = st.ToString();
                     return true;
 
@@ -164,6 +169,8 @@ namespace PII_E13.HandlerLibrary
                     {
                         respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{this.accionPrevia}*";
                         this.stringBuilder.Append("\n" + this.accionPrevia + ":   " + mensaje.Texto);
+                        DiccDatosEmprendedor.Add(this.accionPrevia, mensaje.Texto);
+
                         datosEmprendedor.Add(mensaje.Texto);
 
                         respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeEmprendedor, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
@@ -201,7 +208,7 @@ namespace PII_E13.HandlerLibrary
                         respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{this.accionPrevia}*";
                         this.stringBuilder.Append("\n" + this.accionPrevia + ":   " + mensaje.Texto);
                         datosHabilitacion.Add(mensaje.Texto);
-
+                        this.DiccDatosHabilitacion.Add(this.accionPrevia, mensaje.Texto);
                         respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDehabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
                         respuesta.EditarMensaje = true;
                         return true;
@@ -306,7 +313,7 @@ namespace PII_E13.HandlerLibrary
                     }
 
                     infoPostulacion.Categorias.Add(callback.Texto);
-                    respuesta.Texto = $"A continuacion se habilito el campo _\"{callback.Texto}\"_ para su ingreso.\n\nSelecciona _\"Listo\"_ cuando quieras continuar la búsqueda, o _\"Cancelar\"_ para detenerla.";
+                    respuesta.Texto = $"A continuacion se habilito el campo _\"{callback.Texto}\"_ para su ingreso.\n\nSelecciona _\"Listo\"_ cuando quieras continuar con el registro, o _\"Cancelar\"_ para detenerlo.";
                     this.accionPrevia = callback.Texto;
                     respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
                     respuesta.EditarMensaje = true;
@@ -322,12 +329,16 @@ namespace PII_E13.HandlerLibrary
                             respuesta.Texto = this.stringBuilder.ToString();
                             List<Habilitacion> habilitaciones = new List<Habilitacion>();
                             int id = _random.Next(1000);
-                            habilitaciones.Add(new Habilitacion(this.datosHabilitacion[0], this.datosHabilitacion[1], this.datosHabilitacion[2], Convert.ToDateTime(datosHabilitacion[3]), Convert.ToDateTime(datosHabilitacion[4]), true));
-                            Sistema.Instancia.RegistrarEmprendedor(id.ToString(), this.datosEmprendedor[1], this.datosEmprendedor[2], this.datosEmprendedor[3], this.datosEmprendedor[0], habilitaciones);
-                            Console.WriteLine("id random: " + id.ToString());
-                            if (Sistema.Instancia.ObtenerEmprendedorPorId(id.ToString()).Nombre == this.datosEmprendedor[0])
+
+
+                            habilitaciones.Add(new Habilitacion(this.DiccDatosHabilitacion["Nombre"], this.DiccDatosHabilitacion["Descripcion"], this.DiccDatosHabilitacion["Nombre Insitucion Habilitada"], Convert.ToDateTime(this.DiccDatosHabilitacion["Fecha Tramite"]), Convert.ToDateTime(this.DiccDatosHabilitacion["Fecha Vencimiento"]), true));
+                            Sistema.Instancia.RegistrarEmprendedor(callback.IdUsuario.ToString(), this.DiccDatosEmprendedor["Ciudad"], this.DiccDatosEmprendedor["Direccion"], this.DiccDatosEmprendedor["Rubro"], this.DiccDatosEmprendedor["Nombre"], habilitaciones);
+                            Console.WriteLine("id random: " + callback.IdUsuario.ToString());
+                            if (Sistema.Instancia.ObtenerEmprendedorPorId(callback.IdUsuario.ToString()).Nombre == this.datosEmprendedor[0])
                             {
-                                respuesta.Texto = "Usted ha sido ingresado en el sistema exitosamente. Bienvenido.";
+                                this.stringBuilder.Append("\n\nUsted ha sido ingresado en el sistema exitosamente. Bienvenido.");
+
+                                respuesta.Texto = this.stringBuilder.ToString();
 
                             }
                             return true;
@@ -357,7 +368,16 @@ namespace PII_E13.HandlerLibrary
                         };
                     }
                     infoPostulacion.Categorias.Add(callback.Texto);
-                    respuesta.Texto = $"A continuacion se habilito el campo _\"{callback.Texto}\"_ para su ingreso.\n\nSelecciona _\"Listo\"_ cuando quieras continuar la búsqueda, o _\"Cancelar\"_ para detenerla.";
+                    if (callback.Texto == "Fecha Tramite" ^ callback.Texto == "Fecha Vencimiento")
+                    {
+                        respuesta.Texto = $"A continuacion se habilito el campo _\"{callback.Texto}\"_ para su ingreso, debido a que se trata de una fecha es necesario que se ingrese en el siguiente formato:\n\n *DD-MM-YYYY*\n\nSelecciona _\"Listo\"_ cuando quieras continuar con el registro, o _\"Cancelar\"_ para detenerlo.";
+
+                    }
+                    else
+                    {
+                        respuesta.Texto = $"A continuacion se habilito el campo _\"{callback.Texto}\"_ para su ingreso.\n\nSelecciona _\"Listo\"_ cuando quieras continuar con el registro, o _\"Cancelar\"_ para detenerlo.";
+
+                    }
                     this.accionPrevia = callback.Texto;
                     Console.WriteLine("accion previa: " + this.accionPrevia);
                     respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDehabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
@@ -392,10 +412,13 @@ namespace PII_E13.HandlerLibrary
             try
             {
                 Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario);
+                if( Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario) != null){
+                    return false;
+                }
             }
             catch (KeyNotFoundException e)
             {
-                return false;
+                return true;
             }
             // Cuando no hay palabras clave este método debe ser sobreescrito por las clases sucesoras y por lo tanto
             // este método no debería haberse invocado.
@@ -431,7 +454,7 @@ namespace PII_E13.HandlerLibrary
             }
             catch (KeyNotFoundException e)
             {
-                return false;
+                return true;
             }
 
             // Cuando no hay palabras clave este método debe ser sobreescrito por las clases sucesoras y por lo tanto
