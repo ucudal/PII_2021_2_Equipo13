@@ -44,6 +44,7 @@ namespace PII_E13.HandlerLibrary
         /// "handlers" que procesan varios mensajes cambiando de estado entre mensajes puedan volver al estado inicial en
         /// caso de error por ejemplo.
         /// </summary>
-        void Cancelar();
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
+        void Cancelar(Sesion sesion);
     }
 }

@@ -75,7 +75,8 @@ namespace PII_E13.HandlerLibrary
         /// Este método puede ser sobreescrito en las clases sucesores que procesan varios mensajes cambiando de estado
         /// entre mensajes deben sobreescribir este método para volver al estado inicial. En la clase base no hace nada.
         /// </summary>
-        protected virtual void CancelarInterno()
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
+        protected virtual void CancelarInterno(Sesion sesion)
         {
             // Intencionalmente en blanco.
         }
@@ -143,12 +144,13 @@ namespace PII_E13.HandlerLibrary
         /// procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
         /// estado inicial.
         /// </summary>
-        public virtual void Cancelar()
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
+        public virtual void Cancelar(Sesion sesion)
         {
-            this.CancelarInterno();
+            this.CancelarInterno(sesion);
             if (this.Siguiente != null)
             {
-                this.Siguiente.Cancelar();
+                this.Siguiente.Cancelar(sesion);
             }
         }
     }
