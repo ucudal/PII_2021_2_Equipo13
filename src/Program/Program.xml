@@ -28,5 +28,11 @@
             <param name="sender">Objeto que generó el evento.</param>
             <param name="callbackEventArgs">Argumentos del evento.</param>
         </member>
+        <member name="M:Application.Program.EventoNuevo(PII_E13.ClassLibrary.IMensaje)">
+            <summary>
+            Manejador general de eventos nuevos provenientes del bot.
+            </summary>
+            <param name="mensaje">Instancia de una implementación de <see cref="T:PII_E13.ClassLibrary.IMensaje"/> con la información de un mensaje en una plataforma de mensajería.</param>
+        </member>
     </members>
 </doc>
