@@ -6,29 +6,29 @@ using System;
 
 
 
-namespace LibraryHandler
+namespace PII_E13.HandlerLibrary
 {
     /// <summary>
     /// Un "handler" del patrón Chain of Responsibility que implementa el comando "menu".
     /// </summary>
-    public class MenuHandler : BaseHandler
+    public class MenuHandler : HandlerBase
     {
 
         private Empresa empresa;
         private Emprendedor emprendedor;
 
 
-        public MenuHandler(BaseHandler next) : base(next)
+        public MenuHandler(HandlerBase next) : base(next)
         {
-            
+
             this.Keywords = new string[] { "menu" };
         }
 
 
-        protected override bool InternalHandle(Message message, out string response)
+        protected override bool ResolverInterno(Message message, out string response)
         {
 
-            if (this.CanHandle(message))
+            if (this.PuedeResolver(message))
             {
 
                 try
@@ -95,19 +95,6 @@ namespace LibraryHandler
 
                     response = stringResponse.ToString();
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             }
 
