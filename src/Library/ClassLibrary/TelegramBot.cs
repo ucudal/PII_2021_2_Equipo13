@@ -5,6 +5,7 @@ using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Exceptions;
 
 namespace PII_E13.ClassLibrary
 {
@@ -13,7 +14,7 @@ namespace PII_E13.ClassLibrary
     /// Se aplica el patrón de Adapter para definir una clase que funcione como adaptador entre nuestra solución y la API de Telegram.
     /// También se aplica el patrón de diseño Singleton para que sólo exista una instancia de la clase.
     /// </summary>
-    public class TelegramBot: IEnviador
+    public class TelegramBot : IEnviador
     {
         private const string TOKEN_BOT_DE_TELEGRAM = "2133543111:AAHtlHAp1B-irzg7ZhfUH2olwG7InxVT9Yw";
         private static TelegramBot instancia;
@@ -75,7 +76,8 @@ namespace PII_E13.ClassLibrary
         public async void EnviarMensaje(IRespuesta respuesta)
         {
             IReplyMarkup markupDeBotones = new ReplyKeyboardRemove();
-            if(respuesta.Botones != null){
+            if (respuesta.Botones != null)
+            {
                 List<List<InlineKeyboardButton>> matrizBotones = new List<List<InlineKeyboardButton>>();
 
                 foreach (List<IBoton> fila in respuesta.Botones)
@@ -90,33 +92,70 @@ namespace PII_E13.ClassLibrary
                 }
                 markupDeBotones = new InlineKeyboardMarkup(matrizBotones);
             }
-            
-            await this.Cliente.SendTextMessageAsync(respuesta.IdUsuario, respuesta.Texto, replyMarkup: markupDeBotones, parseMode: ParseMode.Markdown);
+            IMensaje mensajePrevio = respuesta.MensajePrevio;
+
+            if (respuesta.EditarMensaje)
+            {
+                if (respuesta.Texto.Equals(String.Empty))
+                {
+                    try
+                    {
+                        await this.Cliente.EditMessageReplyMarkupAsync(mensajePrevio.IdChat, mensajePrevio.IdMensaje, replyMarkup: markupDeBotones as InlineKeyboardMarkup);
+                    }
+                    catch (Exception e)
+                    {
+                        System.Console.WriteLine($"[EXCEPCIÓN ENVIANDO MENSAJE] {e.ToString()}");
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        await this.Cliente.EditMessageTextAsync(Int32.Parse(mensajePrevio.IdChat), mensajePrevio.IdMensaje, respuesta.Texto, parseMode: ParseMode.Markdown, replyMarkup: markupDeBotones as InlineKeyboardMarkup);
+
+                    }
+                    catch (Exception e)
+                    {
+                        System.Console.WriteLine($"[EXCEPCIÓN ENVIANDO MENSAJE] {e.ToString()}");
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    await this.Cliente.SendTextMessageAsync(mensajePrevio.IdUsuario, respuesta.Texto, replyMarkup: markupDeBotones, parseMode: ParseMode.Markdown);
+                }
+                catch (Exception e)
+                {
+                    System.Console.WriteLine($"[EXCEPCIÓN ENVIANDO MENSAJE] {e.ToString()}");
+                }
+            }
         }
 
         /// <summary>
-        /// Instancia de <see cref="InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Listo".
+        /// Instancia de <see cref="Boton"/> predefinida para representar a un botón con texto y callback "Listo".
         /// </summary>
-        /// <value>Instancia de <see cref="InlineKeyboardButton"/> con texto y callback "Listo".</value>
-        public readonly InlineKeyboardButton BotonListo = InlineKeyboardButton.WithCallbackData("Listo");
+        /// <value>Instancia de <see cref="Boton"/> con texto y callback "Listo".</value>
+        public readonly Boton BotonListo = new Boton("Listo");
 
         /// <summary>
-        /// Instancia de <see cref="InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Cancelar".
+        /// Instancia de <see cref="Boton"/> predefinida para representar a un botón con texto y callback "Cancelar".
         /// </summary>
-        /// <value>Instancia de <see cref="InlineKeyboardButton"/> con texto y callback "Cancelar".</value>
-        public readonly InlineKeyboardButton BotonCancelar = InlineKeyboardButton.WithCallbackData("Cancelar");
+        /// <value>Instancia de <see cref="Boton"/> con texto y callback "Cancelar".</value>
+        public readonly Boton BotonCancelar = new Boton("Cancelar");
 
         /// <summary>
-        /// Instancia de <see cref="InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Siguiente".
+        /// Instancia de <see cref="Boton"/> predefinida para representar a un botón con texto y callback "Siguiente".
         /// </summary>
-        /// <value>Instancia de <see cref="InlineKeyboardButton"/> con texto y callback "Siguiente".</value>
-        public readonly InlineKeyboardButton BotonSiguiente = InlineKeyboardButton.WithCallbackData("Siguiente");
+        /// <value>Instancia de <see cref="Boton"/> con texto y callback "Siguiente".</value>
+        public readonly Boton BotonSiguiente = new Boton("Siguiente");
 
         /// <summary>
-        /// Instancia de <see cref="InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Anterior".
+        /// Instancia de <see cref="Boton"/> predefinida para representar a un botón con texto y callback "Anterior".
         /// </summary>
-        /// <value>Instancia de <see cref="InlineKeyboardButton"/> con texto y callback "Anterior".</value>
-        public readonly InlineKeyboardButton BotonAnterior = InlineKeyboardButton.WithCallbackData("Anterior");
+        /// <value>Instancia de <see cref="Boton"/> con texto y callback "Anterior".</value>
+        public readonly Boton BotonAnterior = new Boton("Anterior");
 
         /// <summary>
         /// Obtiene una instancia de la clase <see cref="TelegramBot"/>.

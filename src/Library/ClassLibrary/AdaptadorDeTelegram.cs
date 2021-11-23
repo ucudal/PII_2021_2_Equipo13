@@ -8,7 +8,7 @@ namespace PII_E13.ClassLibrary
     /// Se aplica el patrón Adapter para crear esta clase y desacoplar la información de la API de Telegram.
     /// Pegamos ISP
     /// </summary>
-    public class AdaptadorDeTelegram : IMensaje, ICallBack
+    public class AdaptadorDeTelegram : IMensaje
     {
         private Message _mensaje;
         private CallbackQuery _callback;
@@ -20,6 +20,7 @@ namespace PII_E13.ClassLibrary
         public AdaptadorDeTelegram(Message mensaje)
         {
             _mensaje = mensaje;
+            this.UsarPLN = true;
         }
 
         ///<summary>
@@ -29,6 +30,7 @@ namespace PII_E13.ClassLibrary
         public AdaptadorDeTelegram(CallbackQuery callbackQuery)
         {
             _callback = callbackQuery;
+            this.UsarPLN = false;
         }
 
         /// <summary>
@@ -54,5 +56,11 @@ namespace PII_E13.ClassLibrary
         /// </summary>
         /// <value>Id en Telegram de un usuario</value>
         public int IdMensaje { get => _mensaje != null ? _mensaje.MessageId : _callback.Message.MessageId; }
+
+        /// <summary>
+        /// Indica si debe usarse procesado de lenguaje natural (PLN) para procesar este mensaje, si el recurso está disponible.
+        /// </summary>
+        /// <value>true si debe usarse PLN para procesar el mensaje, false en caso contrario.</value>
+        public bool UsarPLN { get; set; }
     }
 }

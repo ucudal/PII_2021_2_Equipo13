@@ -47,6 +47,12 @@
             </summary>
             <value>Id en Telegram de un usuario</value>
         </member>
+        <member name="P:PII_E13.ClassLibrary.AdaptadorDeTelegram.UsarPLN">
+            <summary>
+            Indica si debe usarse procesado de lenguaje natural (PLN) para procesar este mensaje, si el recurso está disponible.
+            </summary>
+            <value>true si debe usarse PLN para procesar el mensaje, false en caso contrario.</value>
+        </member>
         <member name="T:PII_E13.ClassLibrary.AdaptadorLocacion">
             <summary>
              Patrones y principios utilizados en esta clase:
@@ -60,6 +66,35 @@
             <param name="primaria">ubicacion primaria</param>
             <param name="secundaria">ubicacion secundaria</param>
             <returns></returns>
+        </member>
+        <member name="T:PII_E13.ClassLibrary.Boton">
+            <summary>
+            Interfaz que representa un botón adjuntado a un mensaje.
+            Se aplica el patrón adapter y se define una interfaz genérica de botón para disminuir el acoplamiento con las APIs de mensajería.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Boton.#ctor(System.String)">
+            <summary>
+            Constructor de la clase con callback igual al texto del botón.
+            </summary>
+            <param name="texto">Texto del botón.</param>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Boton.#ctor(System.String,System.String)">
+            <summary>
+            Constructor de la clase con callback y texto definidos explícitamente.
+            </summary>
+            <param name="texto">Texto del botón.</param>
+            <param name="callback">Callback con respuesta recibida.</param>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Boton.Texto">
+            <summary>
+            Texto del botón.
+            </summary>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Boton.Callback">
+            <summary>
+            Texto recibido por el sistema cuando este botón es seleccionado.
+            </summary>
         </member>
         <member name="T:PII_E13.ClassLibrary.Buscador">
             <summary>
@@ -382,31 +417,33 @@
             <param name="secundaria"></param>
             <returns></returns>
         </member>
-        <member name="T:PII_E13.ClassLibrary.ICallBack">
+        <member name="T:PII_E13.ClassLibrary.IBoton">
             <summary>
-            Representa una respuesta de callback enviado por un usuario a través de una plataforma de mensajería.
-            Se aplica el patrón Adapter para desacoplar la información recibida a través de las APIs y almacenarla en instancias de clases que implementen a esta interfaz.
+            Interfaz que representa un botón adjuntado a un mensaje.
+            Se aplica el patrón adapter y se define una interfaz genérica de botón para disminuir el acoplamiento con las APIs de mensajería.
             </summary>
         </member>
-        <member name="P:PII_E13.ClassLibrary.ICallBack.IdChat">
+        <member name="P:PII_E13.ClassLibrary.IBoton.Texto">
             <summary>
-            Id del chat en el que fue enviado el callback.
+            Texto del botón.
             </summary>
         </member>
-        <member name="P:PII_E13.ClassLibrary.ICallBack.IdUsuario">
+        <member name="P:PII_E13.ClassLibrary.IBoton.Callback">
             <summary>
-            Id del usuario remitente.
+            Texto recibido por el sistema cuando este botón es seleccionado.
             </summary>
         </member>
-        <member name="P:PII_E13.ClassLibrary.ICallBack.Texto">
+        <member name="T:PII_E13.ClassLibrary.IEnviador">
             <summary>
-            Contenido en texto del callback.
+            Interfaz que representa un botón adjuntado a un mensaje.
+            Se aplica el patrón adapter y se define una interfaz genérica de botón para disminuir el acoplamiento con las APIs de mensajería.
             </summary>
         </member>
-        <member name="P:PII_E13.ClassLibrary.ICallBack.IdMensaje">
+        <member name="M:PII_E13.ClassLibrary.IEnviador.EnviarMensaje(PII_E13.ClassLibrary.IRespuesta)">
             <summary>
-            Id del mensaje al cual el callback fue enviado como respuesta.
+            Envia un mensaje a la plataforma específica de este enviador.
             </summary>
+            <param name="respuesta">Respuesta a enviar a la plataforma específica.</param>
         </member>
         <member name="T:PII_E13.ClassLibrary.IMensaje">
             <summary>
@@ -427,6 +464,16 @@
         <member name="P:PII_E13.ClassLibrary.IMensaje.Texto">
             <summary>
             Contenido en texto del mensaje.
+            </summary>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.IMensaje.IdMensaje">
+            <summary>
+            Id del mensaje al cual el callback fue enviado como respuesta.
+            </summary>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.IMensaje.UsarPLN">
+            <summary>
+            Indica si debe usarse procesado de lenguaje natural (PLN) para procesar este mensaje, si el recurso está disponible.
             </summary>
         </member>
         <member name="T:PII_E13.ClassLibrary.Intencion">
@@ -492,9 +539,19 @@
             Texto del mensaje de la respuesta.
             </summary>
         </member>
+        <member name="P:PII_E13.ClassLibrary.IRespuesta.MensajePrevio">
+            <summary>
+            Mensaje que provocó esta respuesta.
+            </summary>
+        </member>
         <member name="P:PII_E13.ClassLibrary.IRespuesta.EditarMensaje">
             <summary>
             Indica si el último mensaje debe ser editado, de ser posible.
+            </summary>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.IRespuesta.Botones">
+            <summary>
+            Matriz de botones enviados junto al mensaje
             </summary>
         </member>
         <member name="T:PII_E13.ClassLibrary.LenguajeNatural">
@@ -785,7 +842,13 @@
             DOCUMENTAR PATRONES APLICADOS
             </summary>
         </member>
-        <member name="M:PII_E13.ClassLibrary.Respuesta.#ctor(System.String,System.Boolean)">
+        <member name="M:PII_E13.ClassLibrary.Respuesta.#ctor(PII_E13.ClassLibrary.IMensaje)">
+            <summary>
+            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.Respuesta"/> con un mensaje previo asignado.
+            El resto de propiedades son inicializadas en valores predeterminados.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Respuesta.#ctor(PII_E13.ClassLibrary.IMensaje,System.String,System.Boolean)">
             <summary>
             Crea una instancia de <see cref="T:PII_E13.ClassLibrary.Respuesta"/> con un texto asignado y la indicación explícita
             sobre si se debe editar el último mensaje.
@@ -801,45 +864,20 @@
             Texto del mensaje de la <see cref="T:PII_E13.ClassLibrary.Respuesta"/>.
             </summary>
         </member>
+        <member name="P:PII_E13.ClassLibrary.Respuesta.MensajePrevio">
+            <summary>
+            Mensaje que provocó esta respuesta.
+            </summary>
+        </member>
         <member name="P:PII_E13.ClassLibrary.Respuesta.EditarMensaje">
             <summary>
             Indica si el último mensaje debe ser editado, de ser posible.
             </summary>
         </member>
-        <member name="T:PII_E13.ClassLibrary.RespuestaTelegram">
+        <member name="P:PII_E13.ClassLibrary.Respuesta.Botones">
             <summary>
-            Clase que representa una respuesta a un mensaje de Telegram.
-            DOCUMENTAR PATRONES APLICADOS
+            Matriz de botones enviados junto al mensaje
             </summary>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.RespuestaTelegram.#ctor(System.String,Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup)">
-            <summary>
-            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.RespuestaTelegram"/> con un texto y un teclado de tipo
-            <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup"/> asignados.
-            </summary>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.RespuestaTelegram.#ctor(System.String,Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup,System.Boolean)">
-            <summary>
-            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.RespuestaTelegram"/> con un texto, un teclado de tipo
-            <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup"/> asignados y una indicación explícita sobre si debe editarse el último mensaje.
-            </summary>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.RespuestaTelegram.#ctor(System.String)">
-            <summary>
-            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.RespuestaTelegram"/> con un texto asignado.
-            </summary>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.RespuestaTelegram.#ctor(System.String,System.Boolean)">
-            <summary>
-            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.RespuestaTelegram"/> con un texto asignado y la indicación explícita 
-            sobre si se debe editar el último mensaje.
-            </summary>
-        </member>
-        <member name="P:PII_E13.ClassLibrary.RespuestaTelegram.TecladoTelegram">
-            <summary>
-            Teclado de botones predefinidos para Telegram.
-            </summary>
-            <value> Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup"/> con botones definidos</value>
         </member>
         <member name="T:PII_E13.ClassLibrary.Rubro">
             <summary>
@@ -995,48 +1033,35 @@
             </summary>
             <value>Cadena de caracteres correspondiente al nombre en Telegram del bot.</value>
         </member>
+        <member name="M:PII_E13.ClassLibrary.TelegramBot.EnviarMensaje(PII_E13.ClassLibrary.IRespuesta)">
+            <summary>
+            Envia un mensaje a la plataforma específica de este enviador.
+            </summary>
+            <param name="respuesta">Respuesta a enviar a la plataforma específica.</param>
+        </member>
         <member name="F:PII_E13.ClassLibrary.TelegramBot.BotonListo">
             <summary>
-            Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Listo".
+            Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> predefinida para representar a un botón con texto y callback "Listo".
             </summary>
-            <value>Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> con texto y callback "Listo".</value>
+            <value>Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> con texto y callback "Listo".</value>
         </member>
         <member name="F:PII_E13.ClassLibrary.TelegramBot.BotonCancelar">
             <summary>
-            Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Cancelar".
+            Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> predefinida para representar a un botón con texto y callback "Cancelar".
             </summary>
-            <value>Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> con texto y callback "Cancelar".</value>
+            <value>Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> con texto y callback "Cancelar".</value>
         </member>
         <member name="F:PII_E13.ClassLibrary.TelegramBot.BotonSiguiente">
             <summary>
-            Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Siguiente".
+            Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> predefinida para representar a un botón con texto y callback "Siguiente".
             </summary>
-            <value>Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> con texto y callback "Siguiente".</value>
+            <value>Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> con texto y callback "Siguiente".</value>
         </member>
         <member name="F:PII_E13.ClassLibrary.TelegramBot.BotonAnterior">
             <summary>
-            Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Anterior".
+            Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> predefinida para representar a un botón con texto y callback "Anterior".
             </summary>
-            <value>Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> con texto y callback "Anterior".</value>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.TelegramBot.ObtenerBotones(System.Collections.Generic.List{System.String})">
-            <summary>
-            Genera y retorna una lista de botones de Telegram a partir de una lista de opciones.
-            </summary>
-            <param name="opciones">La lista de opciones con las cuales crear los botones.</param>
-            <returns>Una lista de <see cref="T:Telegram.Bot.Types.ReplyMarkups.KeyboardButton"/> conteniendo botones con las opciones recibidas por parámetros.</returns>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.TelegramBot.ObtenerKeyboard(System.Collections.Generic.List{Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton},System.Int32,System.Int32,System.Int32,System.Collections.Generic.List{System.Collections.Generic.List{Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton}})">
-            <summary>
-            Genera y retorna un teclado de Telegram (<see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup"/>) con una lista de botones, un índice
-            índice de la lista a partir del cual iniciar y la cantidad de columnas y filas de botones a mostrar.
-            </summary>
-            <param name="botones">La lista de instancias de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> con la cual se quiere generar un teclado.</param>
-            <param name="indice">El índice de la lista desde el cual iniciar. Se define a 0 por defecto.</param>
-            <param name="columnas">La cantidad de columnas de botones a incluir. Se define a 1 por defecto.</param>
-            <param name="filas">La cantidad de filas de botones a incluir. Se define a 1 por defecto.</param>
-            <param name="botonesFijos">Matriz de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> fijos opcional para mostrar al final del teclado.</param>
-            <returns></returns>
+            <value>Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> con texto y callback "Anterior".</value>
         </member>
         <member name="P:PII_E13.ClassLibrary.TelegramBot.Instancia">
             <summary>
@@ -1116,23 +1141,13 @@
             <param name="intencion">La intención utilizada para identificar a este handler.</param>
             <param name="siguiente">El próximo "handler".</param>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.ResolverInterno(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.RespuestaTelegram@)">
+        <member name="M:PII_E13.HandlerLibrary.HandlerBase.ResolverInterno(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.IRespuesta@)">
             <summary>
             Este método debe ser sobreescrito por las clases sucesores. La clase sucesora procesa el mensaje y retorna
             true o no lo procesa y retorna false.
             </summary>
             <param name="sesion">La sesión en la cual se envió el mensaje.</param>
             <param name="mensaje">El mensaje a procesar.</param>
-            <param name="respuesta">La respuesta al mensaje procesado.</param>
-            <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.ResolverInterno(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.ICallBack,PII_E13.ClassLibrary.RespuestaTelegram@)">
-            <summary>
-            Este método debe ser sobreescrito por las clases sucesores. La clase sucesora procesa el mensaje y retorna
-            true o no lo procesa y retorna false.
-            </summary>
-            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
-            <param name="callback">El callback a procesar.</param>
             <param name="respuesta">La respuesta al mensaje procesado.</param>
             <returns>true si el mensaje fue procesado; false en caso contrario</returns>
         </member>
@@ -1152,21 +1167,12 @@
             <param name="sesion">La sesión en la cual se envió el mensaje.</param>
             <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.Resolver(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.RespuestaTelegram@)">
+        <member name="M:PII_E13.HandlerLibrary.HandlerBase.Resolver(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.IRespuesta@)">
             <summary>
             Procesa el mensaje o la pasa al siguiente "handler" si existe.
             </summary>
             <param name="sesion">La sesión en la cual se envió el mensaje.</param>
             <param name="mensaje">El mensaje a procesar.</param>
-            <param name="respuesta">La respuesta al mensaje procesado.</param>
-            <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.Resolver(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.ICallBack,PII_E13.ClassLibrary.RespuestaTelegram@)">
-            <summary>
-            Procesa el mensaje o la pasa al siguiente "handler" si existe.
-            </summary>
-            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
-            <param name="callback">El mensaje a procesar.</param>
             <param name="respuesta">La respuesta al mensaje procesado.</param>
             <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
         </member>
@@ -1185,21 +1191,12 @@
             </summary>
             <value>El "handler" que será invocado si este "handler" no procesa el mensaje.</value>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.IHandler.Resolver(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.RespuestaTelegram@)">
+        <member name="M:PII_E13.HandlerLibrary.IHandler.Resolver(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.IRespuesta@)">
             <summary>
             Procesa el mensaje o la pasa al siguiente "handler" si existe.
             </summary>
             <param name="sesion">La sesión en la cual se envió el mensaje.</param>
             <param name="mensaje">El mensaje a procesar.</param>
-            <param name="respuesta">La respuesta al mensaje procesado.</param>
-            <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.IHandler.Resolver(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.ICallBack,PII_E13.ClassLibrary.RespuestaTelegram@)">
-            <summary>
-            Procesa el mensaje o la pasa al siguiente "handler" si existe.
-            </summary>
-            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
-            <param name="callBack">El callback a procesar.</param>
             <param name="respuesta">La respuesta al mensaje procesado.</param>
             <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
         </member>
@@ -1242,21 +1239,12 @@
             <param name="siguiente">El próximo "handler".</param>
             <param name="intencion">La intención utilizada para identificar a este handler.</param>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.ResolverInterno(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.RespuestaTelegram@)">
+        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.ResolverInterno(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.IRespuesta@)">
             <summary>
             La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
             </summary>
             <param name="sesion">La sesión en la cual se envió el mensaje.</param>
             <param name="mensaje">El mensaje a procesar.</param>
-            <param name="respuesta">La respuesta al mensaje procesado.</param>
-            <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.ResolverInterno(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.ICallBack,PII_E13.ClassLibrary.RespuestaTelegram@)">
-            <summary>
-            La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
-            </summary>
-            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
-            <param name="callback">El callback a procesar.</param>
             <param name="respuesta">La respuesta al mensaje procesado.</param>
             <returns>true si el mensaje fue procesado; false en caso contrario</returns>
         </member>
