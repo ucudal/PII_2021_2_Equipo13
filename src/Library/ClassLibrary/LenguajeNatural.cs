@@ -42,7 +42,7 @@ namespace PII_E13.ClassLibrary
 
             QueryResult resultadoDeDeteccion = respuestaDeDeteccion.QueryResult;
 
-            this.UltimaIntencion = new Intencion(resultadoDeDeteccion.Intent.DisplayName, resultadoDeDeteccion.IntentDetectionConfidence, texto);
+            this.UltimaIntencion = new Intencion(resultadoDeDeteccion.Intent.DisplayName, (resultadoDeDeteccion.IntentDetectionConfidence * 100), texto);
 
             return this.UltimaIntencion;
         }

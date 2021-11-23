@@ -194,8 +194,7 @@ namespace PII_E13.ClassLibrary
         public string Redactar()
         {
             StringBuilder redaccion = new StringBuilder();
-
-            redaccion.Append($"*{this.Titulo}*, por {this.Empresa.Nombre}");
+            redaccion.Append($"*{this.Titulo}*\n_Por {this.Empresa.Nombre}_");
             if (this.DisponibleConstantemente)
             {
                 redaccion.Append($"\n_Esta oferta está disponible recurrentemente. Consulta la frecuencia con el ofertante._");
@@ -209,7 +208,8 @@ namespace PII_E13.ClassLibrary
                     redaccion.Append($"\n*->* _{habilitacion.Nombre}_");
                 }
             }
-            redaccion.Append($"```Disponible hasta: {this.FechaCierre.ToShortDateString()}```");
+            redaccion.Append($"\n\nFecha de publicación: _{this.FechaCreada.ToShortDateString()}_");
+            redaccion.Append($"\nFecha de cierre: _{this.FechaCierre.ToShortDateString()}_");
 
             return redaccion.ToString();
         }

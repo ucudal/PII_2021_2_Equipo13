@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace PII_E13.ClassLibrary
 {
     /// <summary>
@@ -18,5 +20,13 @@ namespace PII_E13.ClassLibrary
         /// Contenido en texto del mensaje.
         /// </summary>
         string Texto { get; }
+        /// <summary>
+        /// Id del mensaje al cual el callback fue enviado como respuesta.
+        /// </summary>
+        int IdMensaje { get; }
+        /// <summary>
+        /// Indica si debe usarse procesado de lenguaje natural (PLN) para procesar este mensaje, si el recurso está disponible.
+        /// </summary>
+        bool UsarPLN { get; set; }
     }
 }
