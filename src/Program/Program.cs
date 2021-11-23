@@ -19,6 +19,8 @@ namespace Application
         // INSTANCIAR COMO ALGÚN HANDLER.
         private static IHandler handler = new RegistrarEmprendedorHandler(null);
 
+        private static GestorSesiones gestorSesiones = GestorSesiones.Instancia;
+
         // Reemplazar e incluir en handler por defecto.
         private static RespuestaTelegram respuestaPredeterminada = new RespuestaTelegram("Lo siento, parece que no puedo resolver esa consulta aún.",
             new InlineKeyboardMarkup(
@@ -86,12 +88,19 @@ namespace Application
 
             if (mensaje.Texto != null)
             {
+                bool nuevaSesion;
+                Sesion sesionUsuario = gestorSesiones.ObtenerSesion(mensaje.IdUsuario, out nuevaSesion);
+                if (nuevaSesion)
+                {
+                    System.Console.WriteLine($"[NUEVA SESIÓN] - ID: {sesionUsuario.IdSesion} - ID USUARIO: {mensaje.IdUsuario}");
+                }
                 ITelegramBotClient client = TelegramBot.Instancia.Cliente;
-                Console.WriteLine($"[NUEVO MENSAJE] - {mensaje.IdUsuario} envió: {mensaje.Texto}");
+                Console.WriteLine($"[NUEVO MENSAJE] - ID USUARIO: {mensaje.IdUsuario} ENVIÓ: {mensaje.Texto}");
+
+                sesionUsuario.PLN.ObtenerIntencion(mensaje.Texto);
 
                 RespuestaTelegram respuesta;
-
-                IHandler resultado = handler.Resolver(mensaje, out respuesta);
+                IHandler resultado = handler.Resolver(sesionUsuario, mensaje, out respuesta);
 
                 if (resultado == null)
                 {
@@ -123,12 +132,14 @@ namespace Application
 
             if (callback.Texto != null)
             {
+                bool nuevaSesion;
+                Sesion sesionUsuario = gestorSesiones.ObtenerSesion(callback.IdUsuario, out nuevaSesion);
                 ITelegramBotClient client = TelegramBot.Instancia.Cliente;
-                Console.WriteLine($"[NUEVO CALLBACK] - {callback.IdUsuario} envió: {callback.Texto}");
+                Console.WriteLine($"[NUEVO CALLBACK] - ID USUARIO: {callback.IdUsuario} ENVIÓ: {callback.Texto}");
 
                 RespuestaTelegram respuesta;
 
-                IHandler resultado = handler.Resolver(callback, out respuesta);
+                IHandler resultado = handler.Resolver(sesionUsuario, callback, out respuesta);
 
                 if (resultado == null)
                 {

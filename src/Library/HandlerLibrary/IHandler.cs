@@ -24,18 +24,20 @@ namespace PII_E13.HandlerLibrary
         /// <summary>
         /// Procesa el mensaje o la pasa al siguiente "handler" si existe.
         /// </summary>
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        IHandler Resolver(IMensaje mensaje, out RespuestaTelegram respuesta);
+        IHandler Resolver(Sesion sesion, IMensaje mensaje, out RespuestaTelegram respuesta);
 
         /// <summary>
         /// Procesa el mensaje o la pasa al siguiente "handler" si existe.
         /// </summary>
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         /// <param name="callBack">El callback a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        IHandler Resolver(ICallBack callBack, out RespuestaTelegram respuesta);
+        IHandler Resolver(Sesion sesion, ICallBack callBack, out RespuestaTelegram respuesta);
 
         /// <summary>
         /// Retorna este "handler" al estado inicial y cancela el próximo "handler" si existe. Es utilizado para que los
