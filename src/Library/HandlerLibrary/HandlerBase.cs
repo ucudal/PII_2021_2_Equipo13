@@ -80,6 +80,9 @@ namespace PII_E13.HandlerLibrary
             return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion);
         }
 
+
+
+
         /// <summary>
         /// Procesa el mensaje o la pasa al siguiente "handler" si existe.
         /// </summary>
