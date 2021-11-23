@@ -54,11 +54,5 @@ namespace PII_E13.ClassLibrary
         /// </summary>
         /// <value>Id en Telegram de un usuario</value>
         public int IdMensaje { get => _mensaje != null ? _mensaje.MessageId : _callback.Message.MessageId; }
-
-        /// <summary>
-        /// Lista de botones enviados junto al mensaje
-        /// </summary>
-        public List<IBoton> Botones { get; } 
     }
-
 }

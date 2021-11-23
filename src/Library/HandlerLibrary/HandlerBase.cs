@@ -53,7 +53,7 @@ namespace PII_E13.HandlerLibrary
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected virtual bool ResolverInterno(Sesion sesion, IMensaje mensaje, out RespuestaTelegram respuesta)
+        protected virtual bool ResolverInterno(Sesion sesion, IMensaje mensaje, out IRespuesta respuesta)
         {
             throw new InvalidOperationException("Este método debe ser sobrescrito");
         }
@@ -66,7 +66,7 @@ namespace PII_E13.HandlerLibrary
         /// <param name="callback">El callback a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected virtual bool ResolverInterno(Sesion sesion, ICallBack callback, out RespuestaTelegram respuesta)
+        protected virtual bool ResolverInterno(Sesion sesion, ICallBack callback, out IRespuesta respuesta)
         {
             throw new InvalidOperationException("Este método debe ser sobrescrito");
         }
@@ -100,7 +100,7 @@ namespace PII_E13.HandlerLibrary
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        public IHandler Resolver(Sesion sesion, IMensaje mensaje, out RespuestaTelegram respuesta)
+        public IHandler Resolver(Sesion sesion, IMensaje mensaje, out IRespuesta respuesta)
         {
             if (this.ResolverInterno(sesion, mensaje, out respuesta))
             {
@@ -123,7 +123,7 @@ namespace PII_E13.HandlerLibrary
         /// <param name="callback">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        public IHandler Resolver(Sesion sesion, ICallBack callback, out RespuestaTelegram respuesta)
+        public IHandler Resolver(Sesion sesion, ICallBack callback, out IRespuesta respuesta)
         {
             if (this.ResolverInterno(sesion, callback, out respuesta))
             {

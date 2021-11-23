@@ -56,9 +56,9 @@ namespace PII_E13.HandlerLibrary
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected override bool ResolverInterno(Sesion sesion, IMensaje mensaje, out RespuestaTelegram respuesta)
+        protected override bool ResolverInterno(Sesion sesion, IMensaje mensaje, out IRespuesta respuesta)
         {
-            respuesta = new RespuestaTelegram(string.Empty);
+            respuesta = new Respuesta(string.Empty);
             if (!this.PuedeResolver(sesion))
             {
                 return false;
@@ -285,9 +285,9 @@ namespace PII_E13.HandlerLibrary
         /// <param name="callback">El callback a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected override bool ResolverInterno(Sesion sesion, ICallBack callback, out RespuestaTelegram respuesta)
+        protected override bool ResolverInterno(Sesion sesion, ICallBack callback, out IRespuesta respuesta)
         {
-            respuesta = new RespuestaTelegram(string.Empty);
+            respuesta = new Respuesta(string.Empty);
             if (!this.PuedeResolver(sesion))
             {
                 return false;

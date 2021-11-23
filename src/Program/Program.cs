@@ -21,20 +21,6 @@ namespace Application
 
         private static GestorSesiones gestorSesiones = GestorSesiones.Instancia;
 
-        // Reemplazar e incluir en handler por defecto.
-        private static RespuestaTelegram respuestaPredeterminada = new RespuestaTelegram("Lo siento, parece que no puedo resolver esa consulta aún.",
-            new InlineKeyboardMarkup(
-                new InlineKeyboardButton[][] {
-                    new InlineKeyboardButton[] {
-                        InlineKeyboardButton.WithCallbackData("Buscar ofertas", "Hola")
-                        },
-                        new InlineKeyboardButton[] {
-                        "Consultar tus postulaciones"
-                        }
-                    }
-                )
-            );
-
         /// <summary>
         /// Punto de entrada al programa principal.
         /// </summary>
@@ -120,7 +106,6 @@ namespace Application
                     if (respuesta.TecladoTelegram != null)
                     {
                         await client.SendTextMessageAsync(mensaje.IdUsuario, respuesta.Texto, replyMarkup: respuesta.TecladoTelegram, parseMode: ParseMode.Markdown);
-
                     }
                     else
                     {

@@ -4,6 +4,7 @@ using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.ReplyMarkups;
+using Telegram.Bot.Types.Enums;
 
 namespace PII_E13.ClassLibrary
 {
@@ -12,9 +13,8 @@ namespace PII_E13.ClassLibrary
     /// Se aplica el patrón de Adapter para definir una clase que funcione como adaptador entre nuestra solución y la API de Telegram.
     /// También se aplica el patrón de diseño Singleton para que sólo exista una instancia de la clase.
     /// </summary>
-    public class TelegramBot
+    public class TelegramBot: IEnviador
     {
-
         private const string TOKEN_BOT_DE_TELEGRAM = "2133543111:AAHtlHAp1B-irzg7ZhfUH2olwG7InxVT9Yw";
         private static TelegramBot instancia;
         private ITelegramBotClient bot;
@@ -69,6 +69,32 @@ namespace PII_E13.ClassLibrary
         }
 
         /// <summary>
+        /// Envia un mensaje a la plataforma específica de este enviador.
+        /// </summary>
+        /// <param name="respuesta">Respuesta a enviar a la plataforma específica.</param>
+        public async void EnviarMensaje(IRespuesta respuesta)
+        {
+            IReplyMarkup markupDeBotones = new ReplyKeyboardRemove();
+            if(respuesta.Botones != null){
+                List<List<InlineKeyboardButton>> matrizBotones = new List<List<InlineKeyboardButton>>();
+
+                foreach (List<IBoton> fila in respuesta.Botones)
+                {
+                    List<InlineKeyboardButton> botonesFila = new List<InlineKeyboardButton>();
+                    foreach (IBoton boton in fila)
+                    {
+                        InlineKeyboardButton botonTelegram = InlineKeyboardButton.WithCallbackData(boton.Texto, boton.Callback);
+                        botonesFila.Add(botonTelegram);
+                    }
+                    matrizBotones.Add(botonesFila);
+                }
+                markupDeBotones = new InlineKeyboardMarkup(matrizBotones);
+            }
+            
+            await this.Cliente.SendTextMessageAsync(respuesta.IdUsuario, respuesta.Texto, replyMarkup: markupDeBotones, parseMode: ParseMode.Markdown);
+        }
+
+        /// <summary>
         /// Instancia de <see cref="InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Listo".
         /// </summary>
         /// <value>Instancia de <see cref="InlineKeyboardButton"/> con texto y callback "Listo".</value>
@@ -91,69 +117,6 @@ namespace PII_E13.ClassLibrary
         /// </summary>
         /// <value>Instancia de <see cref="InlineKeyboardButton"/> con texto y callback "Anterior".</value>
         public readonly InlineKeyboardButton BotonAnterior = InlineKeyboardButton.WithCallbackData("Anterior");
-
-        /// <summary>
-        /// Genera y retorna una lista de botones de Telegram a partir de una lista de opciones.
-        /// </summary>
-        /// <param name="opciones">La lista de opciones con las cuales crear los botones.</param>
-        /// <returns>Una lista de <see cref="KeyboardButton"/> conteniendo botones con las opciones recibidas por parámetros.</returns>
-        public List<InlineKeyboardButton> ObtenerBotones(List<string> opciones)
-        {
-            List<InlineKeyboardButton> botones = new List<InlineKeyboardButton>();
-            List<string> opcionesAuxiliar = new List<string>();
-            foreach (string opcion in opciones)
-            {
-                if (!opcionesAuxiliar.Contains(opcion))
-                {
-                    InlineKeyboardButton boton = InlineKeyboardButton.WithCallbackData(opcion);
-                    botones.Add(boton);
-                    //botones.Add(new InlineKeyboardButton.(opcion));
-                    opcionesAuxiliar.Add(opcion);
-                }
-            }
-            return botones;
-        }
-
-        /// <summary>
-        /// Genera y retorna un teclado de Telegram (<see cref="InlineKeyboardMarkup"/>) con una lista de botones, un índice
-        /// índice de la lista a partir del cual iniciar y la cantidad de columnas y filas de botones a mostrar.
-        /// </summary>
-        /// <param name="botones">La lista de instancias de <see cref="InlineKeyboardButton"/> con la cual se quiere generar un teclado.</param>
-        /// <param name="indice">El índice de la lista desde el cual iniciar. Se define a 0 por defecto.</param>
-        /// <param name="columnas">La cantidad de columnas de botones a incluir. Se define a 1 por defecto.</param>
-        /// <param name="filas">La cantidad de filas de botones a incluir. Se define a 1 por defecto.</param>
-        /// <param name="botonesFijos">Matriz de <see cref="InlineKeyboardButton"/> fijos opcional para mostrar al final del teclado.</param>
-        /// <returns></returns>
-        public InlineKeyboardMarkup ObtenerKeyboard(List<InlineKeyboardButton> botones, int indice = 0, int filas = 1, int columnas = 1,
-            List<List<InlineKeyboardButton>> botonesFijos = null)
-        {
-            List<List<InlineKeyboardButton>> matrizBotones = new List<List<InlineKeyboardButton>>();
-            for (int i = 0; i < filas; i++)
-            {
-                List<InlineKeyboardButton> fila = new List<InlineKeyboardButton>();
-                for (int j = 0; j < columnas; j++)
-                {
-                    try
-                    {
-                        fila.Add(botones[indice]);
-                        indice++;
-                    }
-                    catch (Exception e)
-                    {
-                        break;
-                    }
-                }
-                if (fila.Count > 0)
-                {
-                    matrizBotones.Add(fila);
-                }
-            }
-            if (botonesFijos != null)
-            {
-                matrizBotones.AddRange(botonesFijos);
-            }
-            return new InlineKeyboardMarkup(matrizBotones);
-        }
 
         /// <summary>
         /// Obtiene una instancia de la clase <see cref="TelegramBot"/>.
