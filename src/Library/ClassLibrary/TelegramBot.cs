@@ -16,6 +16,7 @@ namespace PII_E13.ClassLibrary
     {
 
         private const string TOKEN_BOT_DE_TELEGRAM = "";
+
         private static TelegramBot instancia;
         private ITelegramBotClient bot;
 
@@ -85,6 +86,8 @@ namespace PII_E13.ClassLibrary
         /// </summary>
         /// <value>Instancia de <see cref="InlineKeyboardButton"/> con texto y callback "Siguiente".</value>
         public readonly InlineKeyboardButton BotonSiguiente = InlineKeyboardButton.WithCallbackData("Siguiente");
+                public readonly InlineKeyboardButton BotonSalir = InlineKeyboardButton.WithCallbackData("Salir");
+
 
         /// <summary>
         /// Instancia de <see cref="InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Anterior".
