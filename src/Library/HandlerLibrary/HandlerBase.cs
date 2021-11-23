@@ -73,45 +73,10 @@ namespace PII_E13.HandlerLibrary
         /// para comprobar que la intención identificada corresponda a la del "handler". Las clases sucesores pueden
         /// sobreescribir este método para proveer otro mecanismo para determina si procesan o no un mensaje.
         /// </summary>
-        /// <param name="mensaje">El mensaje a procesar.</param>
-        /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
-        protected virtual bool PuedeResolver(IMensaje mensaje)
-        {
-            // Cuando no hay palabras clave este método debe ser sobreescrito por las clases sucesoras y por lo tanto
-            // este método no debería haberse invocado.
-            if (this.Etiquetas == null || this.Etiquetas.Length == 0)
-            {
-                throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
-            }
-            if (Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario) != null)
-            {
-                throw new InvalidOperationException("Usted ya está registrado.");
-            }
-
-            return this.Etiquetas.Any(s => mensaje.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        /// <summary>
-        /// Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
-        /// <see cref="HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
-        /// clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
-        /// un mensaje.
-        /// </summary>
-        /// <param name="callback">El mensaje a procesar.</param>
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
         protected virtual bool PuedeResolver(Sesion sesion)
         {
-            // Cuando no hay palabras clave este método debe ser sobreescrito por las clases sucesoras y por lo tanto
-            // este método no debería haberse invocado.
-            if (this.Etiquetas == null || this.Etiquetas.Length == 0)
-            {
-                throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
-            }
-              if (Sistema.Instancia.ObtenerEmprendedorPorId(callback.IdUsuario) != null)
-            {
-                throw new InvalidOperationException("Usted ya está registrado.");
-            }
-
             return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion);
         }
 
