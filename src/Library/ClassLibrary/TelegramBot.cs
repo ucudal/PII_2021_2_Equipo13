@@ -12,6 +12,7 @@ namespace PII_E13.ClassLibrary
     /// <summary>
     /// Clase que representa un bot de Telegram.
     /// Se aplica el patrón de Adapter para definir una clase que funcione como adaptador entre nuestra solución y la API de Telegram.
+    /// Se aplica DIP para asignar la responsabilidad de enviar mensajes a una abstraccion de tipo IEnviador e implementarla para Telegram en esta clase.
     /// También se aplica el patrón de diseño Singleton para que sólo exista una instancia de la clase.
     /// </summary>
     public class TelegramBot : IEnviador

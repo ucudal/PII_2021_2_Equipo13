@@ -39,7 +39,7 @@ namespace Application
             Sistema.Instancia.Materiales.Add(new Material("Madera de caoba", new List<string>() { "Madera", "Caoba", "Carpintería" }, "Kg"));
             Sistema.Instancia.Materiales.Add(new Material("Cobre", new List<string>() { "Metal", "Resistente", "Conductor" }, "Kg"));
 
-           
+
             // DATOS DE PRUEBA -------------------------------------------------------------------------------------------
 
             //Obtengo una instancia de TelegramBot
@@ -101,10 +101,9 @@ namespace Application
                 {
                     System.Console.WriteLine($"[NUEVA SESIÓN] - ID: {sesionUsuario.IdSesion} - ID USUARIO: {mensaje.IdUsuario}");
                 }
-                if (mensaje.UsarPLN)
-                {
-                    sesionUsuario.PLN.ObtenerIntencion(mensaje.Texto);
-                }
+
+                sesionUsuario.PLN.ObtenerIntencion(mensaje.Texto);
+
                 try
                 {
                     Console.WriteLine($"[NUEVO MENSAJE] - ID USUARIO: {mensaje.IdUsuario} INTENCIÓN: {sesionUsuario.PLN.UltimaIntencion.Nombre} ({sesionUsuario.PLN.UltimaIntencion.ConfianzaDeteccion}%) - ENVIÓ: {mensaje.Texto}");
