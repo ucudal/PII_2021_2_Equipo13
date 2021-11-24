@@ -1,6 +1,8 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using Recipes;
+using System.Text.Json;
 
 namespace PII_E13.ClassLibrary
 {
@@ -16,7 +18,6 @@ namespace PII_E13.ClassLibrary
     ///  Patrón High Cohesión: ya que las responsabilidades de la clase están
     ///  fuertemente relacionadas, creando así una clase robusta y fácil de entender. 
     /// </summary>
-
     public class Oferta: IJsonConvertible
     {
         /// <summary>
@@ -247,6 +248,17 @@ namespace PII_E13.ClassLibrary
                 }
             }
             return redaccionPostulados.ToString();
+        }
+
+        public string ConvertToJson()
+        {
+           JsonSerializerOptions options = new()
+            {
+                ReferenceHandler = MyReferenceHandler.Instance,
+                WriteIndented = true
+            };
+
+            return JsonSerializer.Serialize(this, options);
         }
     }
 }
