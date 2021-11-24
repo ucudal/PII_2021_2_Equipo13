@@ -1,10 +1,10 @@
-using Google.Cloud.Dialogflow.V2;
 
 namespace PII_E13.ClassLibrary
 {
     /// <summary>
     /// Representa una intención obtenida a través de procesamiento de lenguaje natural (PLN) a partir de un texto.
-    /// Se aplica el patrón Adapter para utilizar las APIs de Google para PLN a través de esta clase y su clase constructora
+    /// Es una clase contenedora de información.
+    /// Se aplica el patrón Adapter para desacoplar las APIs de Google para PLN a través de esta clase y su clase constructora.
     /// <see cref="LenguajeNatural"/>, que representa a un procesador de lenguaje natural.
     /// </summary>
     public class Intencion

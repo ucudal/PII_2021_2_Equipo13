@@ -9,32 +9,12 @@ namespace PII_E13.ClassLibrary
     /// Creator ya que crea una instancia de oferta en esta clase con los parametros necesarios para ello.
     /// Expert ya que se le da la responsabilidad de generar las publicaciones, debido a que es la clase más experta de la información.
     /// </summary>
-    public class Empresa: IJsonConvertible
+    public class Empresa : Usuario
     {
         /// <summary>
         /// Id del usuario en el canal de registro.
         /// </summary>
-        public string Id { get; }
-
-        /// <summary>
-        /// Id del usuario en el canal de registro.
-        /// </summary>
         public List<Oferta> Ofertas { get; }
-
-        /// <summary>
-        /// Ubicación donde está basada la empresa.
-        /// </summary>
-        public Ubicacion Ubicacion { get; }
-
-        /// <summary>
-        /// Rubro al que pertenece la empresa.
-        /// </summary>
-        public Rubro Rubro { get; }
-
-        /// <summary>
-        /// Nombre comercial de la empresa.
-        /// </summary>
-        public string Nombre { get; }
 
         /// <summary>
         /// Crea una instancia de Empresa.
@@ -44,13 +24,9 @@ namespace PII_E13.ClassLibrary
         /// <param name="direccion">Direccion de la empresa.</param>
         /// <param name="rubro">Rubro al que pertenece la empresa.</param>
         /// <param name="nombre">Nombre comercial de la empresa.</param>
-        public Empresa(string id, string ciudad, string direccion, string rubro, string nombre)
+        public Empresa(string id, string ciudad, string direccion, string rubro, string nombre) : base(id, nombre, direccion, ciudad, rubro)
         {
-            this.Id = id;
             this.Ofertas = new List<Oferta>();
-            this.Ubicacion = new Ubicacion(ciudad, direccion);
-            this.Rubro = new Rubro(rubro);
-            this.Nombre = nombre;
         }
         /// <summary>
         /// Crea una nueva Oferta y la añade a la lista de ofertas de la empresa.

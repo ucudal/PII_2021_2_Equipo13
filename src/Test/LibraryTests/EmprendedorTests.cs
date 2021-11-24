@@ -17,7 +17,7 @@ public class EmprendedorTests
         habilitaciones.Add(h1);
         habilitaciones.Add(h2);
 
-        Ubicacion u1 = new Ubicacion("montevideo", "Calle 1 1892");
+        IUbicacion u1 = new UbicacionBase("montevideo", "Calle 1 1892");
 
         Emprendedor e1 = new Emprendedor("1", "Emprendedor S.A", habilitaciones, "montevideo", "Calle 1 1892", "reciclaje");
         string expectedName = "Emprendedor S.A";
@@ -34,7 +34,7 @@ public class EmprendedorTests
         habilitaciones.Add(h1);
         habilitaciones.Add(h2);
 
-        Ubicacion u1 = new Ubicacion("montevideo", "Calle 1 1892");
+        IUbicacion u1 = new UbicacionBase("montevideo", "Calle 1 1892");
 
         Emprendedor e1 = new Emprendedor("1", "Emprendedor S.A", habilitaciones, "montevideo", "Calle 1 1892", "reciclaje");
 

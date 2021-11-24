@@ -17,23 +17,10 @@ namespace Application
     public static class Program
     {
         // INSTANCIAR COMO ALGÚN HANDLER.
-        private static IHandler handler;
+        private static IHandler handler = new PostularseAOfertaHandler(null, "Saludo");
+        //private static IHandler handler = new RegistrarEmprendedorHandler(null);
 
         private static GestorSesiones gestorSesiones = GestorSesiones.Instancia;
-
-        // Reemplazar e incluir en handler por defecto.
-        private static RespuestaTelegram respuestaPredeterminada = new RespuestaTelegram("Lo siento, parece que no puedo resolver esa consulta aún.",
-            new InlineKeyboardMarkup(
-                new InlineKeyboardButton[][] {
-                    new InlineKeyboardButton[] {
-                        "Buscar ofertas"
-                        },
-                        new InlineKeyboardButton[] {
-                        "Consultar tus postulaciones"
-                        }
-                    }
-                )
-            );
 
         /// <summary>
         /// Punto de entrada al programa principal.
@@ -41,7 +28,6 @@ namespace Application
         public static void Main()
         {
             // DATOS DE PRUEBA -------------------------------------------------------------------------------------------
-            Sistema.Instancia.RegistrarEmprendedor("2101409600", "Montevideo", "Constitución 2450", "Tecnología", "Walter S.A.", new List<Habilitacion>());
             Sistema.Instancia.Materiales.Add(new Material("Madera de roble", new List<string>() { "Madera", "Roble", "Carpintería" }, "Kg"));
             Sistema.Instancia.Materiales.Add(new Material("Madera de abeto", new List<string>() { "Madera", "Abeto", "Carpintería" }, "Kg"));
             Sistema.Instancia.Materiales.Add(new Material("Madera de pino", new List<string>() { "Madera", "Pino", "Carpintería" }, "Kg"));
@@ -53,15 +39,7 @@ namespace Application
             Sistema.Instancia.Materiales.Add(new Material("Madera de caoba", new List<string>() { "Madera", "Caoba", "Carpintería" }, "Kg"));
             Sistema.Instancia.Materiales.Add(new Material("Cobre", new List<string>() { "Metal", "Resistente", "Conductor" }, "Kg"));
 
-            Sistema.Instancia.RegistrarEmpresa("126458961523", "Montevideo", "Bv. José Batlle y Ordóñez 3705", "Maderera", "Maderera Jorgito e Hijos");
-            Empresa maderera = Sistema.Instancia.ObtenerEmpresaPorId("126458961523");
-            maderera.PublicarOferta(Encriptador.GetHashCode("123"), "Buena madera de roble", "Madera de roble de buena calidad para carpintería.",
-                DateTime.MaxValue, etiquetas: new List<string>() { "Madera", "Carpintería", "Roble" });
 
-            Sistema.Instancia.RegistrarEmpresa("15648617826", "Montevideo", "Av. 8 de Octubre 2738", "Metalurgia", "Metalera Miguelito e Hijos");
-            Empresa metalera = Sistema.Instancia.ObtenerEmpresaPorId("15648617826");
-            metalera.PublicarOferta(Encriptador.GetHashCode("234"), "Cobre duro y bueno", "Cobre de buena calidad para construir cosas con cobre o hacer cable.",
-                DateTime.MaxValue, etiquetas: new List<string>() { "Metal", "Hierro", "roble" });
             // DATOS DE PRUEBA -------------------------------------------------------------------------------------------
 
             //Obtengo una instancia de TelegramBot
@@ -79,7 +57,6 @@ namespace Application
             //Inicio la escucha de mensajes
             bot.StartReceiving();
 
-            Console.WriteLine("Presiona una tecla para terminar");
             Console.ReadKey();
 
             //Detengo la escucha de mensajes 
@@ -94,40 +71,7 @@ namespace Application
         private static async void MensajeNuevo(object sender, MessageEventArgs messageEventArgs)
         {
             IMensaje mensaje = new AdaptadorDeTelegram(messageEventArgs.Message);
-
-            if (mensaje.Texto != null)
-            {
-                bool nuevaSesion;
-                Sesion sesionUsuario = gestorSesiones.ObtenerSesion(mensaje.IdUsuario, out nuevaSesion);
-                if (nuevaSesion)
-                {
-                    System.Console.WriteLine($"[NUEVA SESIÓN] - ID: {sesionUsuario.IdSesion} - ID USUARIO: {mensaje.IdUsuario}");
-                }
-                ITelegramBotClient client = TelegramBot.Instancia.Cliente;
-                Console.WriteLine($"[NUEVO MENSAJE] - ID USUARIO: {mensaje.IdUsuario} ENVIÓ: {mensaje.Texto}");
-
-                sesionUsuario.PLN.ObtenerIntencion(mensaje.Texto);
-
-                RespuestaTelegram respuesta;
-                IHandler resultado = handler.Resolver(sesionUsuario, mensaje, out respuesta);
-
-                if (resultado == null)
-                {
-                    await client.SendTextMessageAsync(mensaje.IdUsuario, respuestaPredeterminada.Texto, replyMarkup: respuestaPredeterminada.TecladoTelegram, parseMode: ParseMode.Markdown);
-                }
-                else
-                {
-                    if (respuesta.TecladoTelegram != null)
-                    {
-                        await client.SendTextMessageAsync(mensaje.IdUsuario, respuesta.Texto, replyMarkup: respuesta.TecladoTelegram, parseMode: ParseMode.Markdown);
-
-                    }
-                    else
-                    {
-                        await client.SendTextMessageAsync(mensaje.IdUsuario, respuesta.Texto, replyMarkup: new ReplyKeyboardRemove(), parseMode: ParseMode.Markdown);
-                    }
-                }
-            }
+            EventoNuevo(mensaje);
         }
 
         /// <summary>
@@ -137,60 +81,46 @@ namespace Application
         /// <param name="callbackEventArgs">Argumentos del evento.</param>
         private static async void CallBackNuevo(object sender, CallbackQueryEventArgs callbackEventArgs)
         {
-            ICallBack callback = new AdaptadorDeTelegram(callbackEventArgs.CallbackQuery);
+            IMensaje callback = new AdaptadorDeTelegram(callbackEventArgs.CallbackQuery);
+            EventoNuevo(callback);
+        }
 
-            if (callback.Texto != null)
+        /// <summary>
+        /// Manejador general de eventos nuevos provenientes del bot.
+        /// </summary>
+        /// <param name="mensaje">Instancia de una implementación de <see cref="IMensaje"/> con la información de un mensaje en una plataforma de mensajería.</param>
+        private static async void EventoNuevo(IMensaje mensaje)
+        {
+            if (mensaje.Texto != null)
             {
                 bool nuevaSesion;
-                Sesion sesionUsuario = gestorSesiones.ObtenerSesion(callback.IdUsuario, out nuevaSesion);
-                ITelegramBotClient client = TelegramBot.Instancia.Cliente;
-                Console.WriteLine($"[NUEVO CALLBACK] - ID USUARIO: {callback.IdUsuario} ENVIÓ: {callback.Texto}");
-
-                RespuestaTelegram respuesta;
-
-                IHandler resultado = handler.Resolver(sesionUsuario, callback, out respuesta);
-
-                if (resultado == null)
+                IRespuesta respuesta;
+                IEnviador cliente = TelegramBot.Instancia;
+                Sesion sesionUsuario = gestorSesiones.ObtenerSesion(mensaje.IdUsuario, out nuevaSesion);
+                if (nuevaSesion)
                 {
-                    await client.SendTextMessageAsync(callback.IdUsuario, respuestaPredeterminada.Texto, replyMarkup: respuestaPredeterminada.TecladoTelegram, parseMode: ParseMode.Markdown);
+                    System.Console.WriteLine($"[NUEVA SESIÓN] - ID: {sesionUsuario.IdSesion} - ID USUARIO: {mensaje.IdUsuario}");
                 }
-                else
-                {
-                    if (respuesta.EditarMensaje)
-                    {
-                        try
-                        {
-                            await client.EditMessageTextAsync(Int32.Parse(callback.IdChat), callback.IdMensaje, respuesta.Texto, replyMarkup: respuesta.TecladoTelegram, parseMode: ParseMode.Markdown);
-                            return;
-                        }
-                        catch (Exception e)
-                        {
-                            return;
-                        }
-                    }
 
-                    if (respuesta.TecladoTelegram != null)
-                    {
-                        if (respuesta.Texto.Equals(String.Empty))
-                        {
-                            try
-                            {
-                                await client.EditMessageReplyMarkupAsync(callback.IdChat, callback.IdMensaje, replyMarkup: respuesta.TecladoTelegram);
-                            }
-                            catch (MessageIsNotModifiedException)
-                            {
-                                /* No hay que hacer nada. */
-                            }
-                        }
-                        else
-                        {
-                            await client.SendTextMessageAsync(callback.IdUsuario, respuesta.Texto, replyMarkup: respuesta.TecladoTelegram, parseMode: ParseMode.Markdown);
-                        }
-                    }
-                    else
-                    {
-                        await client.SendTextMessageAsync(callback.IdUsuario, respuesta.Texto, replyMarkup: new ReplyKeyboardRemove(), parseMode: ParseMode.Markdown);
-                    }
+                sesionUsuario.PLN.ObtenerIntencion(mensaje.Texto);
+
+                try
+                {
+                    Console.WriteLine($"[NUEVO MENSAJE] - ID USUARIO: {mensaje.IdUsuario} INTENCIÓN: {sesionUsuario.PLN.UltimaIntencion.Nombre} ({sesionUsuario.PLN.UltimaIntencion.ConfianzaDeteccion}%) - ENVIÓ: {mensaje.Texto}");
+                }
+                catch (Exception e)
+                {
+                }
+
+                IHandler resultado = handler.Resolver(sesionUsuario, mensaje, out respuesta);
+
+                try
+                {
+                    cliente.EnviarMensaje(respuesta);
+                }
+                catch (Exception e)
+                {
+                    System.Console.WriteLine($"[EXCEPCIÓN] - {e.ToString()}");
                 }
             }
         }

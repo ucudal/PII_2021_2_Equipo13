@@ -47,6 +47,12 @@
             </summary>
             <value>Id en Telegram de un usuario</value>
         </member>
+        <member name="P:PII_E13.ClassLibrary.AdaptadorDeTelegram.UsarPLN">
+            <summary>
+            Indica si debe usarse procesado de lenguaje natural (PLN) para procesar este mensaje, si el recurso está disponible.
+            </summary>
+            <value>true si debe usarse PLN para procesar el mensaje, false en caso contrario.</value>
+        </member>
         <member name="T:PII_E13.ClassLibrary.AdaptadorLocacion">
             <summary>
              Patrones y principios utilizados en esta clase:
@@ -60,6 +66,35 @@
             <param name="primaria">ubicacion primaria</param>
             <param name="secundaria">ubicacion secundaria</param>
             <returns></returns>
+        </member>
+        <member name="T:PII_E13.ClassLibrary.Boton">
+            <summary>
+            Interfaz que representa un botón adjuntado a un mensaje.
+            Se aplica el patrón adapter y se define una interfaz genérica de botón para disminuir el acoplamiento con las APIs de mensajería.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Boton.#ctor(System.String)">
+            <summary>
+            Constructor de la clase con callback igual al texto del botón.
+            </summary>
+            <param name="texto">Texto del botón.</param>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Boton.#ctor(System.String,System.String)">
+            <summary>
+            Constructor de la clase con callback y texto definidos explícitamente.
+            </summary>
+            <param name="texto">Texto del botón.</param>
+            <param name="callback">Callback con respuesta recibida.</param>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Boton.Texto">
+            <summary>
+            Texto del botón.
+            </summary>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Boton.Callback">
+            <summary>
+            Texto recibido por el sistema cuando este botón es seleccionado.
+            </summary>
         </member>
         <member name="T:PII_E13.ClassLibrary.Buscador">
             <summary>
@@ -287,42 +322,81 @@
             <param name="input"></param>
             <returns></returns>
         </member>
+        <member name="T:PII_E13.ClassLibrary.GestorSesiones">
+            <summary>
+            Clase encargada de administrar todas las sesiones del sistema por lo que cumple con SRP y Expert.
+            Cumple con Singleton para asegurarnos de no duplicar los datos en varias instancias
+            y que esta clase actua a forma de servicio de ser el referente de almacenar las sesiones y gestionarlas.
+            Cumple con creator para agregar más sesiones al listado general de sesiones.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.GestorSesiones.ObtenerSesion(System.String,System.Boolean@)">
+            <summary>
+            Obtiene una sesión para el identificador único de usuario enviado por parámetros.
+            Si el usuario ya tenía una sesión activa, se retorna dicha sesión; de lo contrario, se crea y retorna una nueva.
+            </summary>
+            <param name="idUsuario">Identificador único del usuario.</param>
+            <param name="nuevaSesion">Booleano que indica si la sesión es nueva.</param>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.GestorSesiones.Sesiones">
+            <summary>
+            Diccionario de sesiones existentes actualmente.
+            </summary>
+            <value>Un diccionario de string, <see cref="T:PII_E13.ClassLibrary.Sesion"/> conteniendo todas las sesiones existentes.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.GestorSesiones.Instancia">
+            <summary>
+            Instancia del gestor de sesiones durante la ejecución. Se aplica el patrón Singleton.
+            </summary>
+        </member>
         <member name="T:PII_E13.ClassLibrary.Habilitacion">
             <summary>
             Esta clase respresenta los datos basicos y necesarios de una Habilitación.
             </summary>
         </member>
+        <member name="P:PII_E13.ClassLibrary.Habilitacion.Nombre">
+            <summary>
+            Nombre de la habilitación.
+            </summary>
+            <value>Cadena de caracteres con el nombre de una habilitación.</value>
+        </member>
         <member name="P:PII_E13.ClassLibrary.Habilitacion.Descripcion">
             <summary>
-            Se indica el <value>descripcion</value> de la Habiltiacion.
+            Descripción de la habilitación.
             </summary>
+            <value>Cadena de caracteres con la descripción de una habilitación.</value>
         </member>
         <member name="P:PII_E13.ClassLibrary.Habilitacion.NombreInsitucionHabilitada">
             <summary>
-            Se indica el <value>nombreInsitucionHabilitada</value> de la Habiltiacion.
+            Nombre de la institución que expedió la habilitación.
             </summary>
+            <value>Cadena de caracteres con el nombre de la institución que expedió una habilitación.</value>
         </member>
         <member name="P:PII_E13.ClassLibrary.Habilitacion.FechaTramite">
             <summary>
-            Se indica la <value>fechaTramite</value> de la Habiltiacion.
+            Fecha del trámite de la habilitación.
             </summary>
+            <value><see cref="T:System.DateTime"/> con la fecha del trámite de una habilitación.</value>
         </member>
         <member name="P:PII_E13.ClassLibrary.Habilitacion.FechaVencimiento">
             <summary>
-            Se indica la <value>fechaVencimiento</value> de la Habiltiacion.
+            Fecha de vencimiento de la habilitación.
             </summary>
+            <value><see cref="T:System.DateTime"/> con la fecha de vencimiento de una habilitación.</value>
         </member>
         <member name="P:PII_E13.ClassLibrary.Habilitacion.Vigente">
             <summary>
-            Se indica si la Habilitacion está <value>vigente</value>.
+            Indica si la habilitación sigue vigente.
             </summary>
+            <value>Booleano con valor <c>true</c> si la habilitación sigue vigente y <c>false</c> en caso contrario.</value>
         </member>
-        <member name="M:PII_E13.ClassLibrary.Habilitacion.#ctor(System.String,System.String,System.DateTime,System.DateTime,System.Boolean)">
+        <member name="M:PII_E13.ClassLibrary.Habilitacion.#ctor(System.String,System.String,System.String,System.DateTime,System.DateTime,System.Boolean)">
             <summary>
             Crea una instancia de Habilitacion.
             </summary>
+            <param name="nombre">Nombre de la Habilitacion</param>
             <param name="descripcion">Descripcion de la Habilitacion.</param>
-            <param name="nombreInsitucionHabilitada">Nombre de la institución que habilitó la habilitación.</param>
+            <param name="nombreInsitucionHabilitada">Nombre de la institución que habilitó la Habilitacion.</param>
             <param name="fechaTramite">Fecha de Tramite de la Habilitacion.</param>
             <param name="fechaVencimiento">Fecha de Vencimiento de la Habilitacion.</param>
             <param name="vigente">Indica si la Habilitacion está vigente.</param>
@@ -343,31 +417,33 @@
             <param name="secundaria"></param>
             <returns></returns>
         </member>
-        <member name="T:PII_E13.ClassLibrary.ICallBack">
+        <member name="T:PII_E13.ClassLibrary.IBoton">
             <summary>
-            Representa una respuesta de callback enviado por un usuario a través de una plataforma de mensajería.
-            Se aplica el patrón Adapter para desacoplar la información recibida a través de las APIs y almacenarla en instancias de clases que implementen a esta interfaz.
+            Interfaz que representa un botón adjuntado a un mensaje.
+            Se aplica el patrón adapter y se define una interfaz genérica de botón para disminuir el acoplamiento con las APIs de mensajería.
             </summary>
         </member>
-        <member name="P:PII_E13.ClassLibrary.ICallBack.IdChat">
+        <member name="P:PII_E13.ClassLibrary.IBoton.Texto">
             <summary>
-            Id del chat en el que fue enviado el callback.
+            Texto del botón.
             </summary>
         </member>
-        <member name="P:PII_E13.ClassLibrary.ICallBack.IdUsuario">
+        <member name="P:PII_E13.ClassLibrary.IBoton.Callback">
             <summary>
-            Id del usuario remitente.
+            Texto recibido por el sistema cuando este botón es seleccionado.
             </summary>
         </member>
-        <member name="P:PII_E13.ClassLibrary.ICallBack.Texto">
+        <member name="T:PII_E13.ClassLibrary.IEnviador">
             <summary>
-            Contenido en texto del callback.
+            Interfaz que representa un botón adjuntado a un mensaje.
+            Se aplica el patrón adapter y se define una interfaz genérica de botón para disminuir el acoplamiento con las APIs de mensajería.
             </summary>
         </member>
-        <member name="P:PII_E13.ClassLibrary.ICallBack.IdMensaje">
+        <member name="M:PII_E13.ClassLibrary.IEnviador.EnviarMensaje(PII_E13.ClassLibrary.IRespuesta)">
             <summary>
-            Id del mensaje al cual el callback fue enviado como respuesta.
+            Envia un mensaje a la plataforma específica de este enviador.
             </summary>
+            <param name="respuesta">Respuesta a enviar a la plataforma específica.</param>
         </member>
         <member name="T:PII_E13.ClassLibrary.IMensaje">
             <summary>
@@ -389,6 +465,49 @@
             <summary>
             Contenido en texto del mensaje.
             </summary>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.IMensaje.IdMensaje">
+            <summary>
+            Id del mensaje al cual el callback fue enviado como respuesta.
+            </summary>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.IMensaje.UsarPLN">
+            <summary>
+            Indica si debe usarse procesado de lenguaje natural (PLN) para procesar este mensaje, si el recurso está disponible.
+            </summary>
+        </member>
+        <member name="T:PII_E13.ClassLibrary.Intencion">
+            <summary>
+            Representa una intención obtenida a través de procesamiento de lenguaje natural (PLN) a partir de un texto.
+            Se aplica el patrón Adapter para utilizar las APIs de Google para PLN a través de esta clase y su clase constructora
+            <see cref="T:PII_E13.ClassLibrary.LenguajeNatural"/>, que representa a un procesador de lenguaje natural.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Intencion.#ctor(System.String,System.Single,System.String)">
+            <summary>
+            Crea una instancia de una <see cref="T:PII_E13.ClassLibrary.Intencion"/> obtenida a partir de analizar un texto con PLN.
+            </summary>
+            <param name="nombre">El Display Name de la <see cref="T:PII_E13.ClassLibrary.Intencion"/> en Dialogflow.</param>
+            <param name="confianzaDeteccion">El porcentaje, de 0 al 100, de confianza en la detección de la <see cref="T:PII_E13.ClassLibrary.Intencion"/>.</param>
+            <param name="entrada">La entrada de texto que se analizó para encontrar esta <see cref="T:PII_E13.ClassLibrary.Intencion"/>.</param>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Intencion.Entrada">
+            <summary>
+            La entrada de texto que se analizó para encontrar esta <see cref="T:PII_E13.ClassLibrary.Intencion"/>.
+            </summary>
+            <value>Una cadena de caracteres conteniendo la entrada de texto analizada para encontrar esta <see cref="T:PII_E13.ClassLibrary.Intencion"/>.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Intencion.Nombre">
+            <summary>
+            El Display Name de la <see cref="T:PII_E13.ClassLibrary.Intencion"/> en Dialogflow.
+            </summary>
+            <value>Una cadena de caracteres conteniendo el nombre de la <see cref="T:PII_E13.ClassLibrary.Intencion"/>.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Intencion.ConfianzaDeteccion">
+            <summary>
+            El porcentaje, de 0 al 100, de confianza en la detección de la <see cref="T:PII_E13.ClassLibrary.Intencion"/>.
+            </summary>
+            <value>Un valor float del 0 al 100 representando el porcentaje de confianza en la identificación de la <see cref="T:PII_E13.ClassLibrary.Intencion"/>.</value>
         </member>
         <member name="T:PII_E13.ClassLibrary.IPersistencia">
             <summary>
@@ -420,10 +539,46 @@
             Texto del mensaje de la respuesta.
             </summary>
         </member>
+        <member name="P:PII_E13.ClassLibrary.IRespuesta.MensajePrevio">
+            <summary>
+            Mensaje que provocó esta respuesta.
+            </summary>
+        </member>
         <member name="P:PII_E13.ClassLibrary.IRespuesta.EditarMensaje">
             <summary>
             Indica si el último mensaje debe ser editado, de ser posible.
             </summary>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.IRespuesta.Botones">
+            <summary>
+            Matriz de botones enviados junto al mensaje
+            </summary>
+        </member>
+        <member name="T:PII_E13.ClassLibrary.LenguajeNatural">
+            <summary>
+            Representa un procesador de lenguaje natural que utiliza el servicio de Google Cloud "Dialogflow" para reconocer intenciones en texto.
+            Se aplica el patrón Adapter para utilizar los servicios de las APIs de Google para procesado de lenguaje natural a través de esta clase,
+            además aplicando Constructor al generar instancias de la clase <see cref="T:PII_E13.ClassLibrary.Intencion"/>, la cual representa a una intención hallada.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.LenguajeNatural.#ctor(System.String)">
+            <summary>
+            Crea una instancia de un procesador de lenguaje natural para una sesión.
+            </summary>
+            <param name="idSesion">Id única de la <see cref="T:PII_E13.ClassLibrary.Sesion"/> dentro de la cual se está utilizando este procesador de lenguaje natural</param>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.LenguajeNatural.ObtenerIntencion(System.String)">
+            <summary>
+            Genera una intención utilizando procesamiento de lenguaje natural (PLN) a partir de una cadena de texto.
+            </summary>
+            <param name="texto">La cadena de texto cuya intención se quiere encontrar con PLN.</param>
+            <returns>Una instancia de <see cref="T:PII_E13.ClassLibrary.Intencion"/> con la información de la intención identificada.</returns>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.LenguajeNatural.UltimaIntencion">
+            <summary>
+            Representa la última intención encontrada utilizando esta instancia de un procesador de lenguaje natural.
+            </summary>
+            <value>Una instancia de <see cref="T:PII_E13.ClassLibrary.Intencion"/> con la información de la última intención identificada.</value>
         </member>
         <member name="T:PII_E13.ClassLibrary.Material">
             <summary>
@@ -687,7 +842,13 @@
             DOCUMENTAR PATRONES APLICADOS
             </summary>
         </member>
-        <member name="M:PII_E13.ClassLibrary.Respuesta.#ctor(System.String,System.Boolean)">
+        <member name="M:PII_E13.ClassLibrary.Respuesta.#ctor(PII_E13.ClassLibrary.IMensaje)">
+            <summary>
+            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.Respuesta"/> con un mensaje previo asignado.
+            El resto de propiedades son inicializadas en valores predeterminados.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Respuesta.#ctor(PII_E13.ClassLibrary.IMensaje,System.String,System.Boolean)">
             <summary>
             Crea una instancia de <see cref="T:PII_E13.ClassLibrary.Respuesta"/> con un texto asignado y la indicación explícita
             sobre si se debe editar el último mensaje.
@@ -703,45 +864,20 @@
             Texto del mensaje de la <see cref="T:PII_E13.ClassLibrary.Respuesta"/>.
             </summary>
         </member>
+        <member name="P:PII_E13.ClassLibrary.Respuesta.MensajePrevio">
+            <summary>
+            Mensaje que provocó esta respuesta.
+            </summary>
+        </member>
         <member name="P:PII_E13.ClassLibrary.Respuesta.EditarMensaje">
             <summary>
             Indica si el último mensaje debe ser editado, de ser posible.
             </summary>
         </member>
-        <member name="T:PII_E13.ClassLibrary.RespuestaTelegram">
+        <member name="P:PII_E13.ClassLibrary.Respuesta.Botones">
             <summary>
-            Clase que representa una respuesta a un mensaje de Telegram.
-            DOCUMENTAR PATRONES APLICADOS
+            Matriz de botones enviados junto al mensaje
             </summary>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.RespuestaTelegram.#ctor(System.String,Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup)">
-            <summary>
-            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.RespuestaTelegram"/> con un texto y un teclado de tipo
-            <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup"/> asignados.
-            </summary>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.RespuestaTelegram.#ctor(System.String,Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup,System.Boolean)">
-            <summary>
-            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.RespuestaTelegram"/> con un texto, un teclado de tipo
-            <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup"/> asignados y una indicación explícita sobre si debe editarse el último mensaje.
-            </summary>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.RespuestaTelegram.#ctor(System.String)">
-            <summary>
-            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.RespuestaTelegram"/> con un texto asignado.
-            </summary>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.RespuestaTelegram.#ctor(System.String,System.Boolean)">
-            <summary>
-            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.RespuestaTelegram"/> con un texto asignado y la indicación explícita 
-            sobre si se debe editar el último mensaje.
-            </summary>
-        </member>
-        <member name="P:PII_E13.ClassLibrary.RespuestaTelegram.TecladoTelegram">
-            <summary>
-            Teclado de botones predefinidos para Telegram.
-            </summary>
-            <value> Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup"/> con botones definidos</value>
         </member>
         <member name="T:PII_E13.ClassLibrary.Rubro">
             <summary>
@@ -758,6 +894,54 @@
             Se indica el nombre <value>rubro</value> del rubro
             </summary>
             <param name="rubro">rubro</param>        
+        </member>
+        <member name="T:PII_E13.ClassLibrary.Sesion">
+            <summary>
+            Representa a una sesion de un usuario en el bot.
+            Cumple SRP y Expert ya que se encarga de determinar la información necesaria para diferenciar una sesión y los datos de la misma.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Sesion.#ctor(System.String)">
+            <summary>
+            Crea una instancia de Sesion
+            </summary>
+            <param name="idUsuario">Identificador único de un usuario.</param>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Sesion.IdSesion">
+            <summary>
+            Identificador único de la sesión.
+            </summary>
+            <value>Una cadena de caracteres con el identificador único de una sesión de un usuario.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Sesion.IdUsuario">
+            <summary>
+            Identificador único del usuario de esta sesión.
+            </summary>
+            <value>Una cadena de caracteres con el identificador único de un usuario de una sesión.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Sesion.FechaCreacion">
+            <summary>
+            Fecha de creación de la sesión.
+            </summary>
+            <value><see cref="T:System.DateTime"/> conteniendo el valor temporal del momento en que fue creada la sesión.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Sesion.UltimaActividad">
+            <summary>
+            Fecha de expiración de la sesión.
+            </summary>
+            <value><see cref="T:System.DateTime"/> conteniendo el valor temporal del momento en que la sesión expirará.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Sesion.Activa">
+            <summary>
+            Indica si la sesión sigue activa. Una sesión es considerad activa si su última actividad ocurrió hace menos de 30 minutos.
+            </summary>
+            <value>true si la sesión está activa y false en caso contrario.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Sesion.PLN">
+            <summary>
+            Instancia de <see cref="T:PII_E13.ClassLibrary.LenguajeNatural"/> utilizada para procesar con procesamiento de lenguaje natural (PLN) los mensajes de los usuarios.
+            </summary>
+            <value>Una instancia de <see cref="T:PII_E13.ClassLibrary.LenguajeNatural"/> para una sesión.</value>
         </member>
         <member name="T:PII_E13.ClassLibrary.Sistema">
             <summary>
@@ -849,48 +1033,35 @@
             </summary>
             <value>Cadena de caracteres correspondiente al nombre en Telegram del bot.</value>
         </member>
+        <member name="M:PII_E13.ClassLibrary.TelegramBot.EnviarMensaje(PII_E13.ClassLibrary.IRespuesta)">
+            <summary>
+            Envia un mensaje a la plataforma específica de este enviador.
+            </summary>
+            <param name="respuesta">Respuesta a enviar a la plataforma específica.</param>
+        </member>
         <member name="F:PII_E13.ClassLibrary.TelegramBot.BotonListo">
             <summary>
-            Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Listo".
+            Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> predefinida para representar a un botón con texto y callback "Listo".
             </summary>
-            <value>Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> con texto y callback "Listo".</value>
+            <value>Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> con texto y callback "Listo".</value>
         </member>
         <member name="F:PII_E13.ClassLibrary.TelegramBot.BotonCancelar">
             <summary>
-            Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Cancelar".
+            Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> predefinida para representar a un botón con texto y callback "Cancelar".
             </summary>
-            <value>Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> con texto y callback "Cancelar".</value>
+            <value>Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> con texto y callback "Cancelar".</value>
         </member>
         <member name="F:PII_E13.ClassLibrary.TelegramBot.BotonSiguiente">
             <summary>
-            Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Siguiente".
+            Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> predefinida para representar a un botón con texto y callback "Siguiente".
             </summary>
-            <value>Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> con texto y callback "Siguiente".</value>
+            <value>Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> con texto y callback "Siguiente".</value>
         </member>
         <member name="F:PII_E13.ClassLibrary.TelegramBot.BotonAnterior">
             <summary>
-            Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> predefinida para representar a un botón con texto y callback "Anterior".
+            Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> predefinida para representar a un botón con texto y callback "Anterior".
             </summary>
-            <value>Instancia de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> con texto y callback "Anterior".</value>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.TelegramBot.ObtenerBotones(System.Collections.Generic.List{System.String})">
-            <summary>
-            Genera y retorna una lista de botones de Telegram a partir de una lista de opciones.
-            </summary>
-            <param name="opciones">La lista de opciones con las cuales crear los botones.</param>
-            <returns>Una lista de <see cref="T:Telegram.Bot.Types.ReplyMarkups.KeyboardButton"/> conteniendo botones con las opciones recibidas por parámetros.</returns>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.TelegramBot.ObtenerKeyboard(System.Collections.Generic.List{Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton},System.Int32,System.Int32,System.Int32,System.Collections.Generic.List{System.Collections.Generic.List{Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton}})">
-            <summary>
-            Genera y retorna un teclado de Telegram (<see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup"/>) con una lista de botones, un índice
-            índice de la lista a partir del cual iniciar y la cantidad de columnas y filas de botones a mostrar.
-            </summary>
-            <param name="botones">La lista de instancias de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> con la cual se quiere generar un teclado.</param>
-            <param name="indice">El índice de la lista desde el cual iniciar. Se define a 0 por defecto.</param>
-            <param name="columnas">La cantidad de columnas de botones a incluir. Se define a 1 por defecto.</param>
-            <param name="filas">La cantidad de filas de botones a incluir. Se define a 1 por defecto.</param>
-            <param name="botonesFijos">Matriz de <see cref="T:Telegram.Bot.Types.ReplyMarkups.InlineKeyboardButton"/> fijos opcional para mostrar al final del teclado.</param>
-            <returns></returns>
+            <value>Instancia de <see cref="T:PII_E13.ClassLibrary.Boton"/> con texto y callback "Anterior".</value>
         </member>
         <member name="P:PII_E13.ClassLibrary.TelegramBot.Instancia">
             <summary>
@@ -951,7 +1122,7 @@
             </summary>
             <value>El "handler" que será invocado si este "handler" no procesa el mensaje.</value>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.HandlerBase.Etiquetas">
+        <member name="P:PII_E13.HandlerLibrary.HandlerBase.Intencion">
             <summary>
             Obtiene o asigna el conjunto de palabras clave que este "handler" puede procesar.
             </summary>
@@ -963,79 +1134,55 @@
             </summary>
             <param name="siguiente">El próximo "handler".</param>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.#ctor(System.String[],PII_E13.HandlerLibrary.IHandler)">
+        <member name="M:PII_E13.HandlerLibrary.HandlerBase.#ctor(PII_E13.HandlerLibrary.IHandler,System.String)">
             <summary>
             Inicializa una nueva instancia de la clase <see cref="T:PII_E13.HandlerLibrary.HandlerBase"/> con una lista de comandos.
             </summary>
-            <param name="etiquetas">La lista de comandos.</param>
+            <param name="intencion">La intención utilizada para identificar a este handler.</param>
             <param name="siguiente">El próximo "handler".</param>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.ResolverInterno(PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.RespuestaTelegram@)">
+        <member name="M:PII_E13.HandlerLibrary.HandlerBase.ResolverInterno(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.IRespuesta@)">
             <summary>
             Este método debe ser sobreescrito por las clases sucesores. La clase sucesora procesa el mensaje y retorna
             true o no lo procesa y retorna false.
             </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
             <param name="mensaje">El mensaje a procesar.</param>
             <param name="respuesta">La respuesta al mensaje procesado.</param>
             <returns>true si el mensaje fue procesado; false en caso contrario</returns>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.ResolverInterno(PII_E13.ClassLibrary.ICallBack,PII_E13.ClassLibrary.RespuestaTelegram@)">
-            <summary>
-            Este método debe ser sobreescrito por las clases sucesores. La clase sucesora procesa el mensaje y retorna
-            true o no lo procesa y retorna false.
-            </summary>
-            <param name="callback">El callback a procesar.</param>
-            <param name="respuesta">La respuesta al mensaje procesado.</param>
-            <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.CancelarInterno">
+        <member name="M:PII_E13.HandlerLibrary.HandlerBase.CancelarInterno(PII_E13.ClassLibrary.Sesion)">
             <summary>
             Este método puede ser sobreescrito en las clases sucesores que procesan varios mensajes cambiando de estado
             entre mensajes deben sobreescribir este método para volver al estado inicial. En la clase base no hace nada.
             </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.PuedeResolver(PII_E13.ClassLibrary.IMensaje)">
+        <member name="M:PII_E13.HandlerLibrary.HandlerBase.PuedeResolver(PII_E13.ClassLibrary.Sesion)">
             <summary>
-            Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
-            <see cref="P:PII_E13.HandlerLibrary.HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
-            clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
-            un mensaje.
+            Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza procesado de lenguaje natural
+            para comprobar que la intención identificada corresponda a la del "handler". Las clases sucesores pueden
+            sobreescribir este método para proveer otro mecanismo para determina si procesan o no un mensaje.
             </summary>
-            <param name="mensaje">El mensaje a procesar.</param>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
             <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.PuedeResolver(PII_E13.ClassLibrary.ICallBack)">
-            <summary>
-            Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
-            <see cref="P:PII_E13.HandlerLibrary.HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
-            clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
-            un mensaje.
-            </summary>
-            <param name="callback">El mensaje a procesar.</param>
-            <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.Resolver(PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.RespuestaTelegram@)">
+        <member name="M:PII_E13.HandlerLibrary.HandlerBase.Resolver(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.IRespuesta@)">
             <summary>
             Procesa el mensaje o la pasa al siguiente "handler" si existe.
             </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
             <param name="mensaje">El mensaje a procesar.</param>
             <param name="respuesta">La respuesta al mensaje procesado.</param>
             <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.Resolver(PII_E13.ClassLibrary.ICallBack,PII_E13.ClassLibrary.RespuestaTelegram@)">
-            <summary>
-            Procesa el mensaje o la pasa al siguiente "handler" si existe.
-            </summary>
-            <param name="callback">El mensaje a procesar.</param>
-            <param name="respuesta">La respuesta al mensaje procesado.</param>
-            <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.HandlerBase.Cancelar">
+        <member name="M:PII_E13.HandlerLibrary.HandlerBase.Cancelar(PII_E13.ClassLibrary.Sesion)">
             <summary>
             Retorna este "handler" al estado inicial. En los "handler" sin estado no hace nada. Los "handlers" que
             procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
             estado inicial.
             </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         </member>
         <!-- Badly formed XML comment ignored for member "T:PII_E13.HandlerLibrary.IHandler" -->
         <member name="P:PII_E13.HandlerLibrary.IHandler.Siguiente">
@@ -1044,30 +1191,24 @@
             </summary>
             <value>El "handler" que será invocado si este "handler" no procesa el mensaje.</value>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.IHandler.Resolver(PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.RespuestaTelegram@)">
+        <member name="M:PII_E13.HandlerLibrary.IHandler.Resolver(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.IRespuesta@)">
             <summary>
             Procesa el mensaje o la pasa al siguiente "handler" si existe.
             </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
             <param name="mensaje">El mensaje a procesar.</param>
             <param name="respuesta">La respuesta al mensaje procesado.</param>
             <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.IHandler.Resolver(PII_E13.ClassLibrary.ICallBack,PII_E13.ClassLibrary.RespuestaTelegram@)">
-            <summary>
-            Procesa el mensaje o la pasa al siguiente "handler" si existe.
-            </summary>
-            <param name="callBack">El callback a procesar.</param>
-            <param name="respuesta">La respuesta al mensaje procesado.</param>
-            <returns>El "handler" que procesó el mensaje si el mensaje fue procesado; null en caso contrario.</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.IHandler.Cancelar">
+        <member name="M:PII_E13.HandlerLibrary.IHandler.Cancelar(PII_E13.ClassLibrary.Sesion)">
             <summary>
             Retorna este "handler" al estado inicial y cancela el próximo "handler" si existe. Es utilizado para que los
             "handlers" que procesan varios mensajes cambiando de estado entre mensajes puedan volver al estado inicial en
             caso de error por ejemplo.
             </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         </member>
-        <member name="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler">
+        <member name="T:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler">
             <summary>
             Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a través de una
             cadena de "handlers" que pueden procesar o no el mensaje. Cada "handler" decide si procesa el mensaje, o si se lo
@@ -1076,111 +1217,217 @@
             de procesarlo, se delega a las clases sucesoras de esta clase base.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.Busquedas">
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.Busquedas">
             <summary>
             Diccionario utilizado para contener todas las búsquedas que se están realizando por los usuarios.
-            Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion"/>.
+            Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="T:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion"/>.
             </summary>
-            <value>Diccionario de instancias de <see cref="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion"/> identificadas por ids de usuarios en string</value>
+            <value>Diccionario de instancias de <see cref="T:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion"/> identificadas por ids de usuarios en string</value>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.#ctor(PII_E13.HandlerLibrary.HandlerBase)">
+        <member name="M:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.#ctor(PII_E13.HandlerLibrary.HandlerBase)">
+            <summary>
+            Inicializa una nueva instancia de la clase <see cref="!:PostularseAOfertaHandler"/>. 
+            Esta clase procesa la postulación a una oferta.
+            </summary>
+            <param name="siguiente">El próximo "handler".</param>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.#ctor(PII_E13.HandlerLibrary.HandlerBase,System.String)">
             <summary>
             Inicializa una nueva instancia de la clase <see cref="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler"/>. 
             Esta clase procesa la postulación a una oferta.
             </summary>
+            <param name="siguiente">El próximo "handler".</param>
+            <param name="intencion">La intención utilizada para identificar a este handler.</param>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.ResolverInterno(PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.RespuestaTelegram@)">
+        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.ResolverInterno(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.IRespuesta@)">
             <summary>
             La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
             </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
             <param name="mensaje">El mensaje a procesar.</param>
             <param name="respuesta">La respuesta al mensaje procesado.</param>
             <returns>true si el mensaje fue procesado; false en caso contrario</returns>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.ResolverInterno(PII_E13.ClassLibrary.ICallBack,PII_E13.ClassLibrary.RespuestaTelegram@)">
+        <member name="M:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.CancelarInterno(System.String)">
             <summary>
-            La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
+            Retorna este "handler" al estado inicial. En los "handler" sin estado no hace nada. Los "handlers" que
+            procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
+            estado inicial.
             </summary>
-            <param name="callback">El callback a procesar.</param>
-            <param name="respuesta">La respuesta al mensaje procesado.</param>
-            <returns>true si el mensaje fue procesado; false en caso contrario</returns>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.CancelarInterno(System.String)">
+        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.CancelarInterno(PII_E13.ClassLibrary.Sesion)">
             <summary>
             Este método puede ser sobreescrito en las clases sucesores que procesan varios mensajes cambiando de estado
             entre mensajes deben sobreescribir este método para volver al estado inicial. En la clase base no hace nada.
             </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.PuedeResolver(PII_E13.ClassLibrary.IMensaje)">
+        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.PuedeResolver(PII_E13.ClassLibrary.Sesion)">
             <summary>
-            Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
-            <see cref="P:PII_E13.HandlerLibrary.HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
-            clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
-            un mensaje.
+            Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza procesado de lenguaje natural
+            para comprobar que la intención identificada corresponda a la del "handler". Las clases sucesores pueden
+            sobreescribir este método para proveer otro mecanismo para determina si procesan o no un mensaje.
             </summary>
-            <param name="mensaje">El mensaje a procesar.</param>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
             <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.PuedeResolver(PII_E13.ClassLibrary.ICallBack)">
-            <summary>
-            Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
-            <see cref="P:PII_E13.HandlerLibrary.HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
-            clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
-            un mensaje.
-            </summary>
-            <param name="callback">El callback a procesar.</param>
-            <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.Cancelar(System.String)">
+        <member name="M:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.Cancelar(System.String)">
             <summary>
             Retorna este "handler" al estado inicial. En los "handler" sin estado no hace nada. Los "handlers" que
             procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
             estado inicial.
             </summary>
         </member>
-        <member name="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler.Estados">
+        <member name="T:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.Estados">
             <summary>
             Representación de los posibles estados de una postulación a oferta.
             </summary>
         </member>
-        <member name="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion">
+        <member name="T:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion">
             <summary>
             Clase privada contenedora de la información de una postulación a una oferta.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.Etiquetas">
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion.Etiquetas">
             <summary>
             Lista de etiquetas que está usando un usuario para buscar una oferta.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.OfertasEncontradas">
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion.OfertasEncontradas">
             <summary>
             Lista de ofertas encontradas en la búsqueda de ofertas.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.Categorias">
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion.Categorias">
             <summary>
             Lista de categorías que está usando un usuario para buscar una oferta.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.CategoriasDisponibles">
-            <summary>
-            Lista de categorías disponibles para elegir.
-            </summary>
-        </member>
-        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.Estado">
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion.Estado">
             <summary>
             Estado de la búsqueda de ofertas de un usuario.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.ofertaSeleccionada">
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion.ofertaSeleccionada">
             <summary>
             Oferta seleccionada por un usuario entre la lista de ofertas encontradas.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.IndiceActual">
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion.IndiceActual">
             <summary>
-            Indice actual dentro de cualquier lista paginada.
+            Indice actual dentro de la lista de categorías.
+            </summary>
+        </member>
+        <member name="T:PII_E13.HandlerLibrary.RegistrarEmpresaHandler">
+            <summary>
+            Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a través de una
+            cadena de "handlers" que pueden procesar o no el mensaje. Cada "handler" decide si procesa el mensaje, o si se lo
+            pasa al siguiente. Esta clase base implmementa la responsabilidad de recibir el mensaje y pasarlo al siguiente
+            "handler" en caso que el mensaje no sea procesado. La responsabilidad de decidir si el mensaje se procesa o no, y
+            de procesarlo, se delega a las clases sucesoras de esta clase base.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.Busquedas">
+            <summary>
+            Diccionario utilizado para contener todas las búsquedas que se están realizando por los usuarios.
+            Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="T:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion"/>.
+            </summary>
+            <value>Diccionario de instancias de <see cref="T:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion"/> identificadas por ids de usuarios en string</value>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.#ctor(PII_E13.HandlerLibrary.HandlerBase)">
+            <summary>
+            Inicializa una nueva instancia de la clase <see cref="!:PostularseAOfertaHandler"/>. 
+            Esta clase procesa la postulación a una oferta.
+            </summary>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.ResolverInterno(PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.RespuestaTelegram@)">
+            <summary>
+            La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
+            </summary>
+            <param name="mensaje">El mensaje a procesar.</param>
+            <param name="respuesta">La respuesta al mensaje procesado.</param>
+            <returns>true si el mensaje fue procesado; false en caso contrario</returns>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.ResolverInterno(PII_E13.ClassLibrary.ICallBack,PII_E13.ClassLibrary.RespuestaTelegram@)">
+            <summary>
+            La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
+            </summary>
+            <param name="callback">El callback a procesar.</param>
+            <param name="respuesta">La respuesta al mensaje procesado.</param>
+            <returns>true si el mensaje fue procesado; false en caso contrario</returns>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.CancelarInterno(System.String)">
+            <summary>
+            Este método puede ser sobreescrito en las clases sucesores que procesan varios mensajes cambiando de estado
+            entre mensajes deben sobreescribir este método para volver al estado inicial. En la clase base no hace nada.
+            </summary>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.PuedeResolver(PII_E13.ClassLibrary.IMensaje)">
+            <summary>
+            Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
+            <see cref="P:PII_E13.HandlerLibrary.HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
+            clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
+            un mensaje.
+            </summary>
+            <param name="mensaje">El mensaje a procesar.</param>
+            <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.PuedeResolver(PII_E13.ClassLibrary.ICallBack)">
+            <summary>
+            Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
+            <see cref="P:PII_E13.HandlerLibrary.HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
+            clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
+            un mensaje.
+            </summary>
+            <param name="callback">El callback a procesar.</param>
+            <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.Cancelar(System.String)">
+            <summary>
+            Retorna este "handler" al estado inicial. En los "handler" sin estado no hace nada. Los "handlers" que
+            procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
+            estado inicial.
+            </summary>
+        </member>
+        <member name="T:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.Estados">
+            <summary>
+            Representación de los posibles estados de una postulación a oferta.
+            </summary>
+        </member>
+        <member name="T:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion">
+            <summary>
+            Clase privada contenedora de la información de una postulación a una oferta.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion.Etiquetas">
+            <summary>
+            Lista de etiquetas que está usando un usuario para buscar una oferta.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion.OfertasEncontradas">
+            <summary>
+            Lista de ofertas encontradas en la búsqueda de ofertas.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion.Categorias">
+            <summary>
+            Lista de categorías que está usando un usuario para buscar una oferta.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion.Estado">
+            <summary>
+            Estado de la búsqueda de ofertas de un usuario.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion.ofertaSeleccionada">
+            <summary>
+            Oferta seleccionada por un usuario entre la lista de ofertas encontradas.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion.IndiceActual">
+            <summary>
+            Indice actual dentro de la lista de categorías.
             </summary>
         </member>
         <member name="T:Ucu.Poo.Locations.Client.Distance">

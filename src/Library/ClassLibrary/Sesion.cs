@@ -16,7 +16,8 @@ namespace PII_E13.ClassLibrary
         /// <param name="idUsuario">Identificador único de un usuario.</param>
         public Sesion(string idUsuario)
         {
-            this.IdSesion = Encriptador.GetHashCode(idUsuario + DateTimeOffset.Now.ToUnixTimeSeconds().ToString());
+            IEncriptador encriptador = new EncriptadorSHA256();
+            this.IdSesion = encriptador.ObtenerCodigo(idUsuario + DateTimeOffset.Now.ToUnixTimeSeconds().ToString());
             this.IdUsuario = idUsuario;
             this.FechaCreacion = DateTime.Now;
             this.UltimaActividad = this.FechaCreacion;

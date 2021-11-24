@@ -16,6 +16,6 @@ namespace PII_E13.ClassLibrary
         /// <param name="primaria"></param>
         /// <param name="secundaria"></param>
         /// <returns></returns>
-        double ObtenerDistancia(Ubicacion primaria, Ubicacion secundaria);
+        double ObtenerDistancia(IUbicacion primaria, IUbicacion secundaria);
     }
 }
