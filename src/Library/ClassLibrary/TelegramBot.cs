@@ -12,12 +12,13 @@ namespace PII_E13.ClassLibrary
     /// <summary>
     /// Clase que representa un bot de Telegram.
     /// Se aplica el patrón de Adapter para definir una clase que funcione como adaptador entre nuestra solución y la API de Telegram.
+    /// Se aplica DIP para asignar la responsabilidad de enviar mensajes a una abstraccion de tipo IEnviador e implementarla para Telegram en esta clase.
     /// También se aplica el patrón de diseño Singleton para que sólo exista una instancia de la clase.
     /// </summary>
     public class TelegramBot : IEnviador
     {
         // Este token es de un bot que puede usarse para la entrega.
-        private const string TOKEN_BOT_DE_TELEGRAM = "2130672830:AAFm625kdCFpfVaYbDsR9YTEMJf2oY9XUac";
+        private const string TOKEN_BOT_DE_TELEGRAM = "2127167243:AAGc76rlD6hoOqdYIx1e31o_TZ0nfWD-RKQ";
 
         private static TelegramBot instancia;
         private ITelegramBotClient bot;

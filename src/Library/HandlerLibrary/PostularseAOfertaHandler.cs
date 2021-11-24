@@ -532,6 +532,8 @@ namespace PII_E13.HandlerLibrary
             Postulado
         }
 
+        
+
         /// <summary>
         /// Clase privada contenedora de la información de una postulación a una oferta.
         /// </summary>
