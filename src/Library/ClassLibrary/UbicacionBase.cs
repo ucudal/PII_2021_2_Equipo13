@@ -6,11 +6,7 @@ namespace PII_E13.ClassLibrary
     /// Representa a la implementación básica del tipo <see cref="IUbicacion"/>, incluyendo implementaciones para todas sus operaciones.
     /// Aplica Expert ya que se le da la responsabilidad de gestionar las coordenas de una ubicacion, debido a que es la clase más experta de la información.
     /// </summary>
-<<<<<<< HEAD:src/Library/ClassLibrary/Ubicacion.cs
-    public class Ubicacion: IJsonConvertible
-=======
     public class UbicacionBase : IUbicacion
->>>>>>> bc3017627df2b469b1cacc4fbf01ea8dc05709d7:src/Library/ClassLibrary/UbicacionBase.cs
     {
         /// <summary>
         /// Nombre de la ciudad de la ubicación

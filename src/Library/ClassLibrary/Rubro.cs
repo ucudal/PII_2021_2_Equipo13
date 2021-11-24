@@ -3,7 +3,7 @@ namespace PII_E13.ClassLibrary
      /// <summary>
     /// Esta clase respresenta los datos basicos y necesarios de los rubros.
     /// </summary>
-    public class Rubro: IJsonConvertible
+    public class Rubro
     {
         /// <summary>
         /// Se indica el nombre <value>rubro</value> del rubro

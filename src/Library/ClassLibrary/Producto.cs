@@ -11,7 +11,7 @@ namespace PII_E13.ClassLibrary
     /// al asignarle únicamente las responsabilidades de contener información sobre un producto y redactarla adecuadamente,
     /// enfocando sus propiedades y métodos para estos objetivos.
     /// </summary>
-    public class Producto: IJsonConvertible
+    public class Producto
     {
         /// <summary>
         /// Crea una instancia de Producto.

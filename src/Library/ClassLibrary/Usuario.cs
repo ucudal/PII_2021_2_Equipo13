@@ -6,7 +6,7 @@ namespace PII_E13.ClassLibrary
     /// <summary>
     /// Representa a las abstracciones de un usuario en el sistema.
     /// </summary>
-    public abstract class Usuario
+    public abstract class Usuario: IJsonConvertible
     {
 
         /// <summary>

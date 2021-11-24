@@ -5,7 +5,7 @@ namespace PII_E13.ClassLibrary
     /// <summary>
     /// Esta clase respresenta los datos basicos y necesarios de una Habilitación.
     /// </summary>
-    public class Habilitacion: IJsonConvertible
+    public class Habilitacion
     {
         /// <summary>
         /// Nombre de la habilitación.
