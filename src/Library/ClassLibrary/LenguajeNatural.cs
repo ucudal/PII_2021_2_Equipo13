@@ -10,7 +10,7 @@ namespace PII_E13.ClassLibrary
     public class LenguajeNatural
     {
         private const string PROYECTO_GCS = "lofty-hybrid-332616";
-        private const string CODIGO_ESPANOL_LATINO = "es-419";
+        private const string CODIGO_IDIOMA = "es-419";
         private readonly SessionsClient clienteDeSesiones = SessionsClient.Create();
         private SessionName sesion;
 
@@ -33,7 +33,7 @@ namespace PII_E13.ClassLibrary
         {
             TextInput entradaDeTexto = new TextInput();
             entradaDeTexto.Text = texto;
-            entradaDeTexto.LanguageCode = CODIGO_ESPANOL_LATINO;
+            entradaDeTexto.LanguageCode = CODIGO_IDIOMA;
 
             QueryInput entradaDeConsultas = new QueryInput();
             entradaDeConsultas.Text = entradaDeTexto;

@@ -3,11 +3,10 @@ using System.Threading.Tasks;
 namespace PII_E13.ClassLibrary
 {
     /// <summary>
-    /// Patrones y principios utilizados en esta clase:
-    /// ISP ya que segmenta las operaciones de la interface en la persistencia.
-    /// Expert ya que se le da la responsabilidad de gestionar las coordenas de una ubicacion, debido a que es la clase más experta de la información.
+    /// Representa a la implementación básica del tipo <see cref="IUbicacion"/>, incluyendo implementaciones para todas sus operaciones.
+    /// Aplica Expert ya que se le da la responsabilidad de gestionar las coordenas de una ubicacion, debido a que es la clase más experta de la información.
     /// </summary>
-    public class Ubicacion
+    public class UbicacionBase : IUbicacion
     {
         /// <summary>
         /// Nombre de la ciudad de la ubicación
@@ -27,7 +26,7 @@ namespace PII_E13.ClassLibrary
         /// </summary>
         /// <param name="ciudad">Ciudad</param>
         /// <param name="direccion">Dirección</param>
-        public Ubicacion(string ciudad, string direccion)
+        public UbicacionBase(string ciudad, string direccion)
         {
             this.Ciudad = ciudad;
             this.Direccion = direccion;
@@ -42,14 +41,14 @@ namespace PII_E13.ClassLibrary
         }
 
         /// <summary>
+        /// Calcula la distancia entre dos instancias de implementaciones de <see cref="IUbicacion"/>
         /// Delega la responsabilidad de calcular la distancia al gestor.
         /// </summary>
-        /// <param name="target">Distancia objectivo</param>
-        /// <returns></returns>
-        public double ObtenerDistancia(Ubicacion target)
+        /// <param name="otraUbicacion">Otra ubicación, cuya distancia hacia esta instancia se quiere obtener.</param>
+        /// <returns>Un double conteniendo la distancia entre las ubicaciones</returns>
+        public double ObtenerDistancia(IUbicacion otraUbicacion)
         {
-            return AdaptadorLocacion.ObtenerDistancia(this, target);
+            return AdaptadorLocacion.ObtenerDistancia(this, otraUbicacion);
         }
-
     }
 }

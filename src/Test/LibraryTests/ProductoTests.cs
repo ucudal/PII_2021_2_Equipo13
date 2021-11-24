@@ -11,29 +11,29 @@ public class ProductoTests
     /// <summary>
     /// Instancia de Ubicacion usada en los tests.
     /// </summary>
-    static Ubicacion ubicacionTest = new Ubicacion("Ciudad Test", "333 Test");
-   
+    static IUbicacion ubicacionTest = new UbicacionBase("Ciudad Test", "333 Test");
+
     /// <summary>
     /// Instancia de Material que le paso a producto para testear.
     /// </summary>
-    static Material materialTest = new Material("cobre",new List<string>(){"cat01","cat02","cat03"},"Kilogramos");
-    
+    static Material materialTest = new Material("cobre", new List<string>() { "cat01", "cat02", "cat03" }, "Kilogramos");
+
     /// <summary>
     /// Instancia de Producto que testeo.
     /// </summary>
-    static Producto productoTest = new Producto(materialTest,"Ciudad Test", "333 Test",30,4396,100);
-    
+    static Producto productoTest = new Producto(materialTest, "Ciudad Test", "333 Test", 30, 4396, 100);
+
     /// <summary>
     /// Testeo las características de producto.
     /// </summary>
     [Test]
     public void TestProducto()
     {
-        Assert.AreSame(materialTest,productoTest.Material);
-        Assert.AreEqual(ubicacionTest.Direccion,productoTest.Ubicacion.Direccion);
-        Assert.AreEqual(ubicacionTest.Ciudad,productoTest.Ubicacion.Ciudad);
-        Assert.AreEqual(30,productoTest.CantidadEnUnidad);
-        Assert.AreEqual(4396,productoTest.ValorUYU);
-        Assert.AreEqual(100,productoTest.ValorUSD);
+        Assert.AreSame(materialTest, productoTest.Material);
+        Assert.AreEqual(ubicacionTest.Direccion, productoTest.Ubicacion.Direccion);
+        Assert.AreEqual(ubicacionTest.Ciudad, productoTest.Ubicacion.Ciudad);
+        Assert.AreEqual(30, productoTest.CantidadEnUnidad);
+        Assert.AreEqual(4396, productoTest.ValorUYU);
+        Assert.AreEqual(100, productoTest.ValorUSD);
     }
 }

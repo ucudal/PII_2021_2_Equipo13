@@ -8,7 +8,7 @@ namespace PII_E13.ClassLibrary
     ///  Patrones y principios utilizados en esta clase:
     /// Expert conocer la informacion de las ubicaciones a las cuales se desea calcular distancias u obtner coordenadas.
     /// </summary>
-    public class AdaptadorLocacion: IAdaptadorLocacion
+    public class AdaptadorLocacion : IAdaptadorLocacion
     {
         LocationApiClient Client = new LocationApiClient();
 
@@ -18,7 +18,7 @@ namespace PII_E13.ClassLibrary
         /// <param name="primaria">ubicacion primaria</param>
         /// <param name="secundaria">ubicacion secundaria</param>
         /// <returns></returns>
-        public double ObtenerDistancia(Ubicacion primaria, Ubicacion secundaria)
+        public double ObtenerDistancia(IUbicacion primaria, IUbicacion secundaria)
         {
             Location locationA = new Location();
             locationA.AddresLine = primaria.Direccion;
@@ -32,9 +32,12 @@ namespace PII_E13.ClassLibrary
             taskDistance.Wait();
             Distance distance = taskDistance.Result;
 
-            if (distance.Found ) {
+            if (distance.Found)
+            {
                 return distance.TravelDistance;
-            } else {
+            }
+            else
+            {
                 throw new InvalidOperationException();
             }
         }

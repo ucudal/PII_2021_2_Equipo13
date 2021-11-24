@@ -13,17 +13,8 @@ namespace PII_E13.ClassLibrary
     ///    Cumple con Expert porque tiene toda la información necesaria para poder cumplir con la responsabilidad de dar de alta un emprendedor y consumir ofertas.
 
 
-    public class Emprendedor
-    {   
-        /// <summary>
-        /// Se indica el <value>Id</value> en Telegram del emprendedor.
-        /// </summary>
-        public string Id { get; set; }
-
-        /// <summary>
-        /// Se indica el <value>Nombre</value> del emprendedor.
-        /// </summary>
-        public string Nombre { get; set; }
+    public class Emprendedor : Usuario
+    {
 
         /// <summary>
         /// Mediante una lista de <value>Habilitaciones</value> indicaremos todas las habiltiaciones con las que el emprendedor cuenta.
@@ -31,25 +22,15 @@ namespace PII_E13.ClassLibrary
         public List<Habilitacion> Habilitaciones { get; set; }
 
         /// <summary>
-        /// Se indica la <value>Ubicacion</value> del emprendedor.
-        /// </summary>
-        public Ubicacion Ubicacion { get; set; }
-
-        /// <summary>
-        /// Mediante una lista de <value>Rubo</value> indicaremos los rubros en el que el emprendedor se maneja.
-        /// </summary>
-        public Rubro Rubro { get; set; }
-
-        /// <summary>
         /// Mediante una lista de <value>Ofertas</value> indicaremos las ofertas a las cual se postuló.
         /// </summary>
         public List<Oferta> OfertasPostuladas { get; set; }
-        
+
         /// <summary>
         /// Mediante una lista de <value>Ofertas</value> indicaremos las ofertas consumidas a las cual se postuló.
         /// </summary>
         public List<Oferta> OfertasConsumidas { get; set; }
-        
+
         /// <summary>
         /// Crea una instancia de Emprendedor
         /// </summary>
@@ -59,13 +40,10 @@ namespace PII_E13.ClassLibrary
         /// <param name="ciudad">La ciudad donde se basa el emprendedor.</param>
         /// <param name="direccion">La direccion de la base de operaciones del emprendedor en la ciudad.</param>
         /// <param name="rubro">El rubro dentro del cual trabaja el emprendedor.</param>
-        public Emprendedor(string id, string nombre, List<Habilitacion> habilitaciones, string ciudad, string direccion, string rubro)
+        public Emprendedor(string id, string nombre, List<Habilitacion> habilitaciones, string ciudad, string direccion, string rubro) : base(id, nombre, direccion, ciudad, rubro)
+
         {
-            this.Id = id;
-            this.Nombre = nombre;
             this.Habilitaciones = habilitaciones;
-            this.Ubicacion = new Ubicacion(ciudad, direccion);
-            this.Rubro = new Rubro(rubro);
             this.OfertasConsumidas = new List<Oferta>();
             this.OfertasPostuladas = new List<Oferta>();
         }
@@ -74,18 +52,21 @@ namespace PII_E13.ClassLibrary
         /// Mediante una oferta esté se postulará a ella.
         /// </summary>
         /// <param name="ofertas">Lista de ofertas a postularse.</param>
-        public void PostularseAOferta(List<Oferta> ofertas){
-            foreach(Oferta oferta in ofertas){
+        public void PostularseAOferta(List<Oferta> ofertas)
+        {
+            foreach (Oferta oferta in ofertas)
+            {
                 OfertasPostuladas.Add(oferta);
                 oferta.EmprendedoresPostulados.Add(this);
             }
         }
-      
+
         /// <summary>
         /// Mediante una oferta esté se postulará a ella.
         /// </summary>
         /// <param name="oferta">Oferta a postularse.</param>
-        public void PostularseAOferta(Oferta oferta){
+        public void PostularseAOferta(Oferta oferta)
+        {
             OfertasPostuladas.Add(oferta);
             oferta.EmprendedoresPostulados.Add(this);
         }
