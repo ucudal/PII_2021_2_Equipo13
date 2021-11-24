@@ -8,7 +8,6 @@
             <summary>
             Contiene la información relevante de un mensaje de Telegram.
             Se aplica el patrón Adapter para crear esta clase y desacoplar la información de la API de Telegram.
-            Pegamos ISP
             </summary>
         </member>
         <member name="M:PII_E13.ClassLibrary.AdaptadorDeTelegram.#ctor(Telegram.Bot.Types.Message)">
@@ -47,7 +46,7 @@
             </summary>
             <value>Id en Telegram de un usuario</value>
         </member>
-        <member name="P:PII_E13.ClassLibrary.AdaptadorDeTelegram.UsarPLN">
+        <member name="P:PII_E13.ClassLibrary.AdaptadorDeTelegram.Tipo">
             <summary>
             Indica si debe usarse procesado de lenguaje natural (PLN) para procesar este mensaje, si el recurso está disponible.
             </summary>
@@ -59,7 +58,7 @@
             Expert conocer la informacion de las ubicaciones a las cuales se desea calcular distancias u obtner coordenadas.
             </summary>
         </member>
-        <member name="M:PII_E13.ClassLibrary.AdaptadorLocacion.ObtenerDistancia(PII_E13.ClassLibrary.Ubicacion,PII_E13.ClassLibrary.Ubicacion)">
+        <member name="M:PII_E13.ClassLibrary.AdaptadorLocacion.ObtenerDistancia(PII_E13.ClassLibrary.IUbicacion,PII_E13.ClassLibrary.IUbicacion)">
             <summary>
             Sirve para obtener la distancia entre dos ubicaciones.
             </summary>
@@ -151,29 +150,9 @@
                Cumple con OSP porque está abierta a la extención y cerrada a la modificación.
                Cumple con Expert porque tiene toda la información necesaria para poder cumplir con la responsabilidad de dar de alta un emprendedor y consumir ofertas.
         </member>
-        <member name="P:PII_E13.ClassLibrary.Emprendedor.Id">
-            <summary>
-            Se indica el <value>Id</value> en Telegram del emprendedor.
-            </summary>
-        </member>
-        <member name="P:PII_E13.ClassLibrary.Emprendedor.Nombre">
-            <summary>
-            Se indica el <value>Nombre</value> del emprendedor.
-            </summary>
-        </member>
         <member name="P:PII_E13.ClassLibrary.Emprendedor.Habilitaciones">
             <summary>
             Mediante una lista de <value>Habilitaciones</value> indicaremos todas las habiltiaciones con las que el emprendedor cuenta.
-            </summary>
-        </member>
-        <member name="P:PII_E13.ClassLibrary.Emprendedor.Ubicacion">
-            <summary>
-            Se indica la <value>Ubicacion</value> del emprendedor.
-            </summary>
-        </member>
-        <member name="P:PII_E13.ClassLibrary.Emprendedor.Rubro">
-            <summary>
-            Mediante una lista de <value>Rubo</value> indicaremos los rubros en el que el emprendedor se maneja.
             </summary>
         </member>
         <member name="P:PII_E13.ClassLibrary.Emprendedor.OfertasPostuladas">
@@ -233,29 +212,9 @@
             Expert ya que se le da la responsabilidad de generar las publicaciones, debido a que es la clase más experta de la información.
             </summary>
         </member>
-        <member name="P:PII_E13.ClassLibrary.Empresa.Id">
-            <summary>
-            Id del usuario en el canal de registro.
-            </summary>
-        </member>
         <member name="P:PII_E13.ClassLibrary.Empresa.Ofertas">
             <summary>
             Id del usuario en el canal de registro.
-            </summary>
-        </member>
-        <member name="P:PII_E13.ClassLibrary.Empresa.Ubicacion">
-            <summary>
-            Ubicación donde está basada la empresa.
-            </summary>
-        </member>
-        <member name="P:PII_E13.ClassLibrary.Empresa.Rubro">
-            <summary>
-            Rubro al que pertenece la empresa.
-            </summary>
-        </member>
-        <member name="P:PII_E13.ClassLibrary.Empresa.Nombre">
-            <summary>
-            Nombre comercial de la empresa.
             </summary>
         </member>
         <member name="M:PII_E13.ClassLibrary.Empresa.#ctor(System.String,System.String,System.String,System.String,System.String)">
@@ -300,26 +259,26 @@
             <param name="id">Id de la oferta a recuperar.</param>
             <returns>La instancia de Oferta correspondiente a la id dada.</returns>
         </member>
-        <member name="T:PII_E13.ClassLibrary.Encriptador">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="M:PII_E13.ClassLibrary.Encriptador.GetHashCode(System.String)">
+        <member name="T:PII_E13.ClassLibrary.EncriptadorSHA256">
             <summary>
             Clase encargada de generar un hash identificador para los objetos del sistema.
             </summary>
-            <param name="input"></param>
-            <returns></returns>
         </member>
-        <member name="M:PII_E13.ClassLibrary.Encriptador.GetHash(System.Security.Cryptography.HashAlgorithm,System.String)">
+        <member name="M:PII_E13.ClassLibrary.EncriptadorSHA256.ObtenerCodigo(System.String)">
+            <summary>
+            Genera un hash utilizando SHA256 con una entrada
+            </summary>
+            <param name="entrada">Semilla para la generación del hash.</param>
+            <returns>Una cadena de caracteres correspondiente a un hash obtenido de codificar la entrada con SHA256.</returns>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.EncriptadorSHA256.ObtenerHash(System.Security.Cryptography.HashAlgorithm,System.String)">
             <summary>
             Metodo privado que se encarga de crear el hash en base un input determinado.
-            fuente de documentacion de .NET
+            Extraído de la documentación de .NET:
             https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.hashalgorithm.computehash?view=net-5.0
             </summary>
-            <param name="hashAlgorithm"></param>
-            <param name="input"></param>
+            <param name="algoritmoDeHash">Algoritmo de hash a utilizar.</param>
+            <param name="entrada">Semilla para la generación del hash.</param>
             <returns></returns>
         </member>
         <member name="T:PII_E13.ClassLibrary.GestorSesiones">
@@ -409,7 +368,7 @@
             de la clase AdaptadorLocacion quien se comunica con la libreria brindada por los profesores.
             </summary>
         </member>
-        <member name="M:PII_E13.ClassLibrary.IAdaptadorLocacion.ObtenerDistancia(PII_E13.ClassLibrary.Ubicacion,PII_E13.ClassLibrary.Ubicacion)">
+        <member name="M:PII_E13.ClassLibrary.IAdaptadorLocacion.ObtenerDistancia(PII_E13.ClassLibrary.IUbicacion,PII_E13.ClassLibrary.IUbicacion)">
             <summary>
             
             </summary>
@@ -433,10 +392,24 @@
             Texto recibido por el sistema cuando este botón es seleccionado.
             </summary>
         </member>
+        <member name="T:PII_E13.ClassLibrary.IEncriptador">
+            <summary>
+            Interfaz encargada de generar un código de encriptación recibiendo una entrada.
+            Se aplica DIP para asignarle esta responsabilidad a una abstracción, en forma de interfaz.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.IEncriptador.ObtenerCodigo(System.String)">
+            <summary>
+            Genera un hash utilizando un algoritmo de encriptación.
+            </summary>
+            <param name="entrada">Semilla para la generación del hash.</param>
+            <returns>Una cadena de caracteres correspondiente a un hash obtenido al codificar la entrada.</returns>
+        </member>
         <member name="T:PII_E13.ClassLibrary.IEnviador">
             <summary>
-            Interfaz que representa un botón adjuntado a un mensaje.
-            Se aplica el patrón adapter y se define una interfaz genérica de botón para disminuir el acoplamiento con las APIs de mensajería.
+            Interfaz que representa un tipo capaz de enviar un mensaje a una plataforma de mensajería.
+            Se aplica DIP para asignar la responsabilidad de enviar mensajes a una abstraccion de tipo IEnviador y realizar la implementación
+            correspondiente a cada plataforma en subtipos de éste.
             </summary>
         </member>
         <member name="M:PII_E13.ClassLibrary.IEnviador.EnviarMensaje(PII_E13.ClassLibrary.IRespuesta)">
@@ -471,15 +444,28 @@
             Id del mensaje al cual el callback fue enviado como respuesta.
             </summary>
         </member>
-        <member name="P:PII_E13.ClassLibrary.IMensaje.UsarPLN">
+        <member name="P:PII_E13.ClassLibrary.IMensaje.Tipo">
             <summary>
-            Indica si debe usarse procesado de lenguaje natural (PLN) para procesar este mensaje, si el recurso está disponible.
+            Tipo del mensaje.
             </summary>
+        </member>
+        <member name="T:PII_E13.ClassLibrary.IMensaje.Tipos">
+            <summary>
+            Tipos de mensajes.
+            </summary>
+            <type name="Mensaje"></type>
+        </member>
+        <member name="F:PII_E13.ClassLibrary.IMensaje.Tipos.Mensaje">
+            <summary>Mensaje de texto.</summary>
+        </member>
+        <member name="F:PII_E13.ClassLibrary.IMensaje.Tipos.Callback">
+            <summary>Callback enviado a través de un botón.</summary>
         </member>
         <member name="T:PII_E13.ClassLibrary.Intencion">
             <summary>
             Representa una intención obtenida a través de procesamiento de lenguaje natural (PLN) a partir de un texto.
-            Se aplica el patrón Adapter para utilizar las APIs de Google para PLN a través de esta clase y su clase constructora
+            Es una clase contenedora de información.
+            Se aplica el patrón Adapter para desacoplar las APIs de Google para PLN a través de esta clase y su clase constructora.
             <see cref="T:PII_E13.ClassLibrary.LenguajeNatural"/>, que representa a un procesador de lenguaje natural.
             </summary>
         </member>
@@ -553,6 +539,37 @@
             <summary>
             Matriz de botones enviados junto al mensaje
             </summary>
+        </member>
+        <member name="T:PII_E13.ClassLibrary.IUbicacion">
+            <summary>
+            Representa a la información y operaciones básicas de una ubicación.
+            Se aplica DIP al aplicar dependencias en una abstracción de una ubicación, en lugar de una clase específica.
+            </summary>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.IUbicacion.Ciudad">
+            <summary>
+            Nombre de la ciudad de la ubicación
+            </summary>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.IUbicacion.Direccion">
+            <summary>
+            Dirección correspondiente a la ubicación
+            </summary>
+            <value></value>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.IUbicacion.Redactar">
+            <summary>
+            Genera una cadena de texto con la información de la ubicación
+            </summary>
+            <returns>Retorna un string con la ubicación formateada</returns>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.IUbicacion.ObtenerDistancia(PII_E13.ClassLibrary.IUbicacion)">
+            <summary>
+            Calcula la distancia entre dos instancias de implementaciones de <see cref="T:PII_E13.ClassLibrary.IUbicacion"/>
+            Delega la responsabilidad de calcular la distancia al gestor.
+            </summary>
+            <param name="otraUbicacion">Otra ubicación, cuya distancia hacia esta instancia se quiere obtener.</param>
+            <returns>Un double conteniendo la distancia entre las ubicaciones</returns>
         </member>
         <member name="T:PII_E13.ClassLibrary.LenguajeNatural">
             <summary>
@@ -787,7 +804,7 @@
         </member>
         <member name="T:PII_E13.ClassLibrary.Producto">
             <summary>
-            Clase que representa un Producto dentro del dominio del problema.
+            /// Clase que representa un Producto dentro del dominio del problema.
             Un Producto representa una instancia de venta de un Material, conteniendo su cantidad en su unidad específica,
             un valor en UYU y otro en dólares asignados por su vendedor y la ubicación donde se almacena.
             Se aplica el patrón de SRP y se obtiene una alta cohesión dentro de la clase Producto,
@@ -1012,6 +1029,7 @@
             <summary>
             Clase que representa un bot de Telegram.
             Se aplica el patrón de Adapter para definir una clase que funcione como adaptador entre nuestra solución y la API de Telegram.
+            Se aplica DIP para asignar la responsabilidad de enviar mensajes a una abstraccion de tipo IEnviador e implementarla para Telegram en esta clase.
             También se aplica el patrón de diseño Singleton para que sólo exista una instancia de la clase.
             </summary>
         </member>
@@ -1069,43 +1087,182 @@
             </summary>
             <value>Instancia de la clase <see cref="T:PII_E13.ClassLibrary.TelegramBot"/>.</value>
         </member>
-        <member name="T:PII_E13.ClassLibrary.Ubicacion">
+        <member name="T:PII_E13.ClassLibrary.UbicacionBase">
             <summary>
-            Patrones y principios utilizados en esta clase:
-            ISP ya que segmenta las operaciones de la interface en la persistencia.
-            Expert ya que se le da la responsabilidad de gestionar las coordenas de una ubicacion, debido a que es la clase más experta de la información.
+            Representa a la implementación básica del tipo <see cref="T:PII_E13.ClassLibrary.IUbicacion"/>, incluyendo implementaciones para todas sus operaciones.
+            Aplica Expert ya que se le da la responsabilidad de gestionar las coordenas de una ubicacion, debido a que es la clase más experta de la información.
             </summary>
         </member>
-        <member name="P:PII_E13.ClassLibrary.Ubicacion.Ciudad">
+        <member name="P:PII_E13.ClassLibrary.UbicacionBase.Ciudad">
             <summary>
             Nombre de la ciudad de la ubicación
             </summary>
         </member>
-        <member name="P:PII_E13.ClassLibrary.Ubicacion.Direccion">
+        <member name="P:PII_E13.ClassLibrary.UbicacionBase.Direccion">
             <summary>
             Dirección correspondiente a la ubicación
             </summary>
             <value></value>
         </member>
-        <member name="M:PII_E13.ClassLibrary.Ubicacion.#ctor(System.String,System.String)">
+        <member name="M:PII_E13.ClassLibrary.UbicacionBase.#ctor(System.String,System.String)">
             <summary>
             Crea una instancia de la clase Ubicacion
             </summary>
             <param name="ciudad">Ciudad</param>
             <param name="direccion">Dirección</param>
         </member>
-        <member name="M:PII_E13.ClassLibrary.Ubicacion.Redactar">
+        <member name="M:PII_E13.ClassLibrary.UbicacionBase.Redactar">
             <summary>
             Genera una cadena de texto con la información de la ubicación
             </summary>
             <returns>Retorna un string con la ubicación formateada</returns>
         </member>
-        <member name="M:PII_E13.ClassLibrary.Ubicacion.ObtenerDistancia(PII_E13.ClassLibrary.Ubicacion)">
+        <member name="M:PII_E13.ClassLibrary.UbicacionBase.ObtenerDistancia(PII_E13.ClassLibrary.IUbicacion)">
             <summary>
+            Calcula la distancia entre dos instancias de implementaciones de <see cref="T:PII_E13.ClassLibrary.IUbicacion"/>
             Delega la responsabilidad de calcular la distancia al gestor.
             </summary>
-            <param name="target">Distancia objectivo</param>
-            <returns></returns>
+            <param name="otraUbicacion">Otra ubicación, cuya distancia hacia esta instancia se quiere obtener.</param>
+            <returns>Un double conteniendo la distancia entre las ubicaciones</returns>
+        </member>
+        <member name="T:PII_E13.ClassLibrary.Usuario">
+            <summary>
+            Representa a las abstracciones de un usuario en el sistema.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Usuario.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Crea una instancia de Usuario
+            </summary>
+            <param name="id">Id del emprendedor en Telegram.</param>
+            <param name="nombre">Nombre de la empresa del emprendedor.</param>
+            <param name="ciudad">La ciudad donde se basa el emprendedor.</param>
+            <param name="direccion">La direccion de la base de operaciones del emprendedor en la ciudad.</param>
+            <param name="rubro">El rubro dentro del cual trabaja el emprendedor.</param>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Usuario.Id">
+            <summary>
+            Identificador único de un usuario en el sistema.
+            </summary>
+            <value>Una cadena de caracteres conteniendo al identificador del usuario en el sistema.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Usuario.Nombre">
+            <summary>
+            Nombre de registro del usuario.
+            </summary>
+            <value>Una cadena de caracteres conteniendo el nombre de registro del usuario.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Usuario.Ubicacion">
+            <summary>
+            Ubicación de registro de un usuario.
+            </summary>
+            <value>Una instancia de una implementación de <see cref="T:PII_E13.ClassLibrary.IUbicacion"/> correspondiente a la ubicación de registro del usuario.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Usuario.Rubro">
+            <summary>
+            Rubro al que pertence el usuario, indicado por éste durante su registro.
+            </summary>
+            <value>Una instancia de <see cref="P:PII_E13.ClassLibrary.Usuario.Rubro"/> correspondiente al rubro de registro del usuario.</value>
+        </member>
+        <member name="T:PII_E13.HandlerLibrary.CrearOfertaHandler">
+            <summary>
+            Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a través de una
+            cadena de "handlers" que pueden procesar o no el mensaje. Cada "handler" decide si procesa el mensaje, o si se lo
+            pasa al siguiente. Esta clase base implmementa la responsabilidad de recibir el mensaje y pasarlo al siguiente
+            "handler" en caso que el mensaje no sea procesado. La responsabilidad de decidir si el mensaje se procesa o no, y
+            de procesarlo, se delega a las clases sucesoras de esta clase base.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.CrearOfertaHandler.Busquedas">
+            <summary>
+            Diccionario utilizado para contener todas las búsquedas que se están realizando por los usuarios.
+            Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="T:PII_E13.HandlerLibrary.CrearOfertaHandler.InformacionPostulacion"/>.
+            </summary>
+            <value>Diccionario de instancias de <see cref="T:PII_E13.HandlerLibrary.CrearOfertaHandler.InformacionPostulacion"/> identificadas por ids de usuarios en string</value>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.CrearOfertaHandler.#ctor(PII_E13.HandlerLibrary.HandlerBase,System.String)">
+            <summary>
+            Inicializa una nueva instancia de la clase <see cref="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler"/>. 
+            Esta clase procesa la postulación a una oferta.
+            </summary>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.CrearOfertaHandler.ResolverInterno(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.IRespuesta@)">
+            <summary>
+            La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
+            </summary>
+            <param name="mensaje">El mensaje a procesar.</param>
+            <param name="respuesta">La respuesta al mensaje procesado.</param>
+            <returns>true si el mensaje fue procesado; false en caso contrario</returns>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.CrearOfertaHandler.PuedeResolver(PII_E13.ClassLibrary.Sesion)">
+            <summary>
+            Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
+            <see cref="!:HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
+            clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
+            un mensaje.
+            </summary>
+            <param name="mensaje">El mensaje a procesar.</param>
+            <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.CrearOfertaHandler.Cancelar(PII_E13.ClassLibrary.Sesion)">
+            <summary>
+            Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
+            <see cref="!:HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
+            clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
+            un mensaje.
+            </summary>
+            <param name="callback">El callback a procesar.</param>
+            <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
+            <summary>
+            Retorna este "handler" al estado inicial. En los "handler" sin estado no hace nada. Los "handlers" que
+            procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
+            estado inicial.
+            </summary>
+        </member>
+        <member name="T:PII_E13.HandlerLibrary.CrearOfertaHandler.Estados">
+            <summary>
+            Representación de los posibles estados de una postulación a oferta.
+            </summary>
+        </member>
+        <member name="T:PII_E13.HandlerLibrary.CrearOfertaHandler.TipoMensaje">
+            <summary>
+            Representación de los posibles tipos de mensajes.
+            </summary>
+        </member>
+        <member name="T:PII_E13.HandlerLibrary.CrearOfertaHandler.InformacionPostulacion">
+            <summary>
+            Clase privada contenedora de la información de una postulación a una oferta.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.CrearOfertaHandler.InformacionPostulacion.Etiquetas">
+            <summary>
+            Lista de etiquetas que está usando un usuario para buscar una oferta.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.CrearOfertaHandler.InformacionPostulacion.OfertasEncontradas">
+            <summary>
+            Lista de ofertas encontradas en la búsqueda de ofertas.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.CrearOfertaHandler.InformacionPostulacion.Categorias">
+            <summary>
+            Lista de categorías que está usando un usuario para buscar una oferta.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.CrearOfertaHandler.InformacionPostulacion.Estado">
+            <summary>
+            Estado de la búsqueda de ofertas de un usuario.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.CrearOfertaHandler.InformacionPostulacion.ofertaSeleccionada">
+            <summary>
+            Oferta seleccionada por un usuario entre la lista de ofertas encontradas.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.CrearOfertaHandler.InformacionPostulacion.IndiceActual">
+            <summary>
+            Indice actual dentro de la lista de categorías.
+            </summary>
         </member>
         <member name="T:PII_E13.HandlerLibrary.HandlerBase">
             <summary>
@@ -1208,7 +1365,7 @@
             </summary>
             <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         </member>
-        <member name="T:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler">
+        <member name="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler">
             <summary>
             Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a través de una
             cadena de "handlers" que pueden procesar o no el mensaje. Cada "handler" decide si procesa el mensaje, o si se lo
@@ -1217,16 +1374,16 @@
             de procesarlo, se delega a las clases sucesoras de esta clase base.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.Busquedas">
+        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.Busquedas">
             <summary>
             Diccionario utilizado para contener todas las búsquedas que se están realizando por los usuarios.
-            Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="T:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion"/>.
+            Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion"/>.
             </summary>
-            <value>Diccionario de instancias de <see cref="T:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion"/> identificadas por ids de usuarios en string</value>
+            <value>Diccionario de instancias de <see cref="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion"/> identificadas por ids de usuarios en string</value>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.#ctor(PII_E13.HandlerLibrary.HandlerBase)">
+        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.#ctor(PII_E13.HandlerLibrary.HandlerBase)">
             <summary>
-            Inicializa una nueva instancia de la clase <see cref="!:PostularseAOfertaHandler"/>. 
+            Inicializa una nueva instancia de la clase <see cref="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler"/>. 
             Esta clase procesa la postulación a una oferta.
             </summary>
             <param name="siguiente">El próximo "handler".</param>
@@ -1248,7 +1405,7 @@
             <param name="respuesta">La respuesta al mensaje procesado.</param>
             <returns>true si el mensaje fue procesado; false en caso contrario</returns>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.CancelarInterno(System.String)">
+        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.Cancelar(PII_E13.ClassLibrary.Sesion)">
             <summary>
             Retorna este "handler" al estado inicial. En los "handler" sin estado no hace nada. Los "handlers" que
             procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
@@ -1272,162 +1429,61 @@
             <param name="sesion">La sesión en la cual se envió el mensaje.</param>
             <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
         </member>
-        <member name="M:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.Cancelar(System.String)">
+        <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.ObtenerMatrizDeBotones(System.Collections.Generic.List{PII_E13.ClassLibrary.IBoton},System.Int32,System.Int32,System.Int32,System.Collections.Generic.List{System.Collections.Generic.List{PII_E13.ClassLibrary.IBoton}})">
             <summary>
-            Retorna este "handler" al estado inicial. En los "handler" sin estado no hace nada. Los "handlers" que
-            procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
-            estado inicial.
+            Método privado para construir una matriz de botones recibiendo una lista, el indice inicial de botones, la cantidad de filas y columnas
+            de botones en la matriz y una lista de botones fijos, incluidos al final de la misma.
             </summary>
+            <param name="botones">Lista de instancias de implementaciones de <see cref="T:PII_E13.ClassLibrary.IBoton"/>.</param>
+            <param name="indiceInicial">Entero correspondiente al índice de la lista a partir del cual se desean utilizar elementos.</param>
+            <param name="filas">Entero correspondiente a la cantidad de filas de botones de la matriz.</param>
+            <param name="columnas">Entero correspondiente a la cantidad de columnas de botones de la matriz.</param>
+            <param name="botonesFijos">Lista de instancias de implementaciones de <see cref="T:PII_E13.ClassLibrary.IBoton"/> a incluir al final de la lista.</param>
+            <returns></returns>
         </member>
-        <member name="T:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.Estados">
+        <member name="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler.Estados">
             <summary>
             Representación de los posibles estados de una postulación a oferta.
             </summary>
         </member>
-        <member name="T:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion">
+        <member name="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion">
             <summary>
             Clase privada contenedora de la información de una postulación a una oferta.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion.Etiquetas">
+        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.Etiquetas">
             <summary>
             Lista de etiquetas que está usando un usuario para buscar una oferta.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion.OfertasEncontradas">
+        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.OfertasEncontradas">
             <summary>
             Lista de ofertas encontradas en la búsqueda de ofertas.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion.Categorias">
+        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.Categorias">
             <summary>
             Lista de categorías que está usando un usuario para buscar una oferta.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion.Estado">
+        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.CategoriasDisponibles">
+            <summary>
+            Lista de categorías disponibles para elegir.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.Estado">
             <summary>
             Estado de la búsqueda de ofertas de un usuario.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion.ofertaSeleccionada">
+        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.ofertaSeleccionada">
             <summary>
             Oferta seleccionada por un usuario entre la lista de ofertas encontradas.
             </summary>
         </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.InformacionPostulacion.IndiceActual">
+        <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.InformacionPostulacion.IndiceActual">
             <summary>
-            Indice actual dentro de la lista de categorías.
-            </summary>
-        </member>
-        <member name="T:PII_E13.HandlerLibrary.RegistrarEmpresaHandler">
-            <summary>
-            Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a través de una
-            cadena de "handlers" que pueden procesar o no el mensaje. Cada "handler" decide si procesa el mensaje, o si se lo
-            pasa al siguiente. Esta clase base implmementa la responsabilidad de recibir el mensaje y pasarlo al siguiente
-            "handler" en caso que el mensaje no sea procesado. La responsabilidad de decidir si el mensaje se procesa o no, y
-            de procesarlo, se delega a las clases sucesoras de esta clase base.
-            </summary>
-        </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.Busquedas">
-            <summary>
-            Diccionario utilizado para contener todas las búsquedas que se están realizando por los usuarios.
-            Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="T:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion"/>.
-            </summary>
-            <value>Diccionario de instancias de <see cref="T:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion"/> identificadas por ids de usuarios en string</value>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.#ctor(PII_E13.HandlerLibrary.HandlerBase)">
-            <summary>
-            Inicializa una nueva instancia de la clase <see cref="!:PostularseAOfertaHandler"/>. 
-            Esta clase procesa la postulación a una oferta.
-            </summary>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.ResolverInterno(PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.RespuestaTelegram@)">
-            <summary>
-            La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
-            </summary>
-            <param name="mensaje">El mensaje a procesar.</param>
-            <param name="respuesta">La respuesta al mensaje procesado.</param>
-            <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.ResolverInterno(PII_E13.ClassLibrary.ICallBack,PII_E13.ClassLibrary.RespuestaTelegram@)">
-            <summary>
-            La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
-            </summary>
-            <param name="callback">El callback a procesar.</param>
-            <param name="respuesta">La respuesta al mensaje procesado.</param>
-            <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.CancelarInterno(System.String)">
-            <summary>
-            Este método puede ser sobreescrito en las clases sucesores que procesan varios mensajes cambiando de estado
-            entre mensajes deben sobreescribir este método para volver al estado inicial. En la clase base no hace nada.
-            </summary>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.PuedeResolver(PII_E13.ClassLibrary.IMensaje)">
-            <summary>
-            Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
-            <see cref="P:PII_E13.HandlerLibrary.HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
-            clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
-            un mensaje.
-            </summary>
-            <param name="mensaje">El mensaje a procesar.</param>
-            <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.PuedeResolver(PII_E13.ClassLibrary.ICallBack)">
-            <summary>
-            Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
-            <see cref="P:PII_E13.HandlerLibrary.HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
-            clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
-            un mensaje.
-            </summary>
-            <param name="callback">El callback a procesar.</param>
-            <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
-        </member>
-        <member name="M:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.Cancelar(System.String)">
-            <summary>
-            Retorna este "handler" al estado inicial. En los "handler" sin estado no hace nada. Los "handlers" que
-            procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
-            estado inicial.
-            </summary>
-        </member>
-        <member name="T:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.Estados">
-            <summary>
-            Representación de los posibles estados de una postulación a oferta.
-            </summary>
-        </member>
-        <member name="T:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion">
-            <summary>
-            Clase privada contenedora de la información de una postulación a una oferta.
-            </summary>
-        </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion.Etiquetas">
-            <summary>
-            Lista de etiquetas que está usando un usuario para buscar una oferta.
-            </summary>
-        </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion.OfertasEncontradas">
-            <summary>
-            Lista de ofertas encontradas en la búsqueda de ofertas.
-            </summary>
-        </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion.Categorias">
-            <summary>
-            Lista de categorías que está usando un usuario para buscar una oferta.
-            </summary>
-        </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion.Estado">
-            <summary>
-            Estado de la búsqueda de ofertas de un usuario.
-            </summary>
-        </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion.ofertaSeleccionada">
-            <summary>
-            Oferta seleccionada por un usuario entre la lista de ofertas encontradas.
-            </summary>
-        </member>
-        <member name="P:PII_E13.HandlerLibrary.RegistrarEmpresaHandler.InformacionPostulacion.IndiceActual">
-            <summary>
-            Indice actual dentro de la lista de categorías.
+            Indice actual dentro de cualquier lista paginada.
             </summary>
         </member>
         <member name="T:Ucu.Poo.Locations.Client.Distance">
