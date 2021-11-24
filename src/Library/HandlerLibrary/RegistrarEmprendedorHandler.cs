@@ -22,8 +22,8 @@ namespace PII_E13.HandlerLibrary
         Dictionary<string, string> DiccDatosEmprendedor = new Dictionary<string, string>();
         Dictionary<string, string> DiccDatosHabilitacion = new Dictionary<string, string>();
         private string accionPrevia;
-        private const int COLUMNAS_CATEGORIAS = 1;
-        private const int FILAS_CATEGORIAS = 4;
+        private const int COLUMNAS_EMPRENDEDOR = 1;
+        private const int FILAS_EMPRENDEDOR = 4;
         private const int COLUMNAS_HABILTIACIONES = 1;
         private const int FILAS_HABILTIACIONES = 5;
         private const int COLUMNAS_OFERTAS = 1;
@@ -40,13 +40,13 @@ namespace PII_E13.HandlerLibrary
         /// Esta clase procesa la postulación a una oferta.
         /// </summary>
 
-     
 
-         public RegistrarEmprendedorHandler(HandlerBase siguiente, string intencion) : base(siguiente, intencion)
+
+        public RegistrarEmprendedorHandler(HandlerBase siguiente, string intencion) : base(siguiente, intencion)
         {
             this.Busquedas = new Dictionary<string, InformacionPostulacion>();
             this.stringBuilder = new StringBuilder();
-            stringBuilder.Append("Datos sobre ti: \n\n");
+            stringBuilder.Append("Datos sobre ti: \n");
         }
 
         /// <summary>
@@ -119,13 +119,18 @@ namespace PII_E13.HandlerLibrary
             List<IBoton> botonesDeHabilitacion = new List<IBoton>();
             List<List<IBoton>> tecladoFijoCategorias = new List<List<IBoton>>()
             {
-                new List<IBoton>() {TelegramBot.Instancia.BotonAnterior, TelegramBot.Instancia.BotonSiguiente},
                 new List<IBoton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
+
             };
 
             foreach (string opcion in infoPostulacion.DatosEmprendedorDisponibles)
             {
                 botonesDeEmprendedor.Add(new Boton(opcion));
+            }
+
+            foreach (string opcion in infoPostulacion.HabilitacionesDisponibles)
+            {
+                botonesDeHabilitacion.Add(new Boton(opcion));
             }
 
 
@@ -136,6 +141,8 @@ namespace PII_E13.HandlerLibrary
                     Console.WriteLine("Estado: " + infoPostulacion.Estado);
                     respuesta.Texto = "Por favor, indícanos detalladamente lo qué necesitas, dentro de un mensaje.";
                     infoPostulacion.Estado = Estados.Categorias;
+                    infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+
                     return true;
 
                 case Estados.Categorias:
@@ -143,249 +150,154 @@ namespace PII_E13.HandlerLibrary
 
                     List<string> etiquetas = mensaje.Texto.Split(' ').ToList();
                     infoPostulacion.Etiquetas = etiquetas;
-                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmprendedor, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
+                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmprendedor, infoPostulacion.IndiceActual, FILAS_EMPRENDEDOR, COLUMNAS_EMPRENDEDOR, tecladoFijoCategorias);
                     infoPostulacion.Estado = Estados.DatosEmprendedor;
+                    foreach (string nombreBoton in opcionesRegistro)
+                    {
+                        if (mensaje.Texto == nombreBoton)
+                        {
+                            infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+
+                        }
+                    }
                     StringBuilder st = new StringBuilder();
                     st.Append("############   REGISTRO EMPRENDEDOR   ############");
-                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
+                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
                     respuesta.Texto = st.ToString();
                     return true;
 
+
+
                 case Estados.DatosEmprendedor:
-                    Console.WriteLine("Estado: " + infoPostulacion.Estado);
-                    switch (mensaje.Texto)
+                    //Deteccion de tipo de mensaje en base a si el mensaje de entrada es igual a algún tipo de boton
+                    foreach (string nombreBoton in opcionesRegistro)
                     {
-                        case "Listo":
-                            infoPostulacion.Estado = Estados.DatosHabilitacion;
-                            Console.WriteLine("Estado: " + infoPostulacion.Estado);
-                            infoPostulacion.IndiceActual = 0;
-
-                            respuesta.Texto = this.stringBuilder.ToString();
-                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
-                            return true;
-                        case "Cancelar":
-                            this.Cancelar(sesion);
-                            return false;
-                    }
-                    if (!infoPostulacion.DatosEmprendedorDisponibles.Contains(mensaje.Texto))
-                    {
-                        respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{this.accionPrevia}*";
-                        this.stringBuilder.Append("\n" + this.accionPrevia + ":   " + mensaje.Texto);
-                        DiccDatosEmprendedor.Add(this.accionPrevia, mensaje.Texto);
-
-
-                        respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmprendedor, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
-                        respuesta.EditarMensaje = true;
-                        return true;
-                    }
-
-                    if (infoPostulacion.IndiceActual >= botonesDeEmprendedor.Count)
-                    {
-                        infoPostulacion.IndiceActual = botonesDeEmprendedor.Count - FILAS_CATEGORIAS * COLUMNAS_CATEGORIAS;
-                    }
-                    infoPostulacion.DatosEmprendedorDisponibles.Remove(mensaje.Texto);
-                    if (infoPostulacion.DatosEmprendedorDisponibles.Count <= (FILAS_CATEGORIAS * COLUMNAS_CATEGORIAS))
-                    {
-                        respuesta.Botones = new List<List<IBoton>>()
-                                    {
-                                        new List<IBoton>() {new Boton("Volver al menú")},
-                                        new List<IBoton>() {new Boton("a")}
-
-                                    };
-                    }
-
-                    respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\nSelecciona _\"Listo\"_ cuando quieras finalizar el registro, o _\"Cancelar\"_ para detenerlo.";
-                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmprendedor, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
-                    respuesta.EditarMensaje = true;
-                    return true;
-
-
-
-
-                case Estados.DatosHabilitacion:
-
-                    Console.WriteLine("Estado: " + infoPostulacion.Estado);
-
-                    if (!infoPostulacion.HabilitacionesDisponibles.Contains(mensaje.Texto))
-                    {
-                        respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{this.accionPrevia}*";
-                        this.stringBuilder.Append("\n" + this.accionPrevia + ":   " + mensaje.Texto);
-                        this.DiccDatosHabilitacion.Add(this.accionPrevia, mensaje.Texto);
-                        respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
-                        return true;
-                    }
-
-                    if (botonesDeHabilitacion.Count <= infoPostulacion.IndiceActual + COLUMNAS_HABILTIACIONES * FILAS_HABILTIACIONES)
-                    {
-                        infoPostulacion.IndiceActual = botonesDeHabilitacion.Count - COLUMNAS_HABILTIACIONES * FILAS_HABILTIACIONES;
-                    }
-                    infoPostulacion.HabilitacionesDisponibles.Remove(mensaje.Texto);
-                    if (infoPostulacion.HabilitacionesDisponibles.Count <= (FILAS_HABILTIACIONES * COLUMNAS_HABILTIACIONES))
-                    {
-                        respuesta.Botones = new List<List<IBoton>>()
-                                    {
-                                        new List<IBoton>() {new Boton("Volver al menú")},
-                                        new List<IBoton>() {new Boton("a")}
-
-                                    };
-                    }
-
-
-                    respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\nSelecciona _\"Listo\"_ cuando quieras finalizar el registro, o _\"Cancelar\"_ para detenerlo.";
-                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
-                    respuesta.EditarMensaje = true;
-                    return true;
-
-            }
-            infoPostulacion = new InformacionPostulacion();
-            return false;
-        }
-
-        /// <summary>
-        /// La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
-        /// </summary>
-        /// <param name="callback">El callback a procesar.</param>
-        /// <param name="respuesta">La respuesta al mensaje procesado.</param>
-        /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        /*
-        protected override bool ResolverInterno(ICallBack callback, out RespuestaTelegram respuesta)
-        {
-            respuesta = new RespuestaTelegram(string.Empty);
-            if (!this.PuedeResolver(callback))
-            {
-                return false;
-            }
-
-            InformacionPostulacion infoPostulacion = new InformacionPostulacion();
-            if (this.Busquedas.ContainsKey(callback.IdUsuario))
-            {
-                infoPostulacion = this.Busquedas[callback.IdUsuario];
-            }
-            else
-            {
-                this.Busquedas.Add(callback.IdUsuario, infoPostulacion);
-            }
-            List<string> titulosOfertas = new List<string>();
-
-            List<InlineKeyboardButton> botonesDeCategorias = TelegramBot.Instancia.ObtenerBotones(infoPostulacion.CategoriasDisponibles);
-            List<InlineKeyboardButton> botonesDehabilitacion = TelegramBot.Instancia.ObtenerBotones(infoPostulacion.HabilitacionesDisponibles);
-            List<List<InlineKeyboardButton>> tecladoFijoCategorias = new List<List<InlineKeyboardButton>>() {
-                new List<InlineKeyboardButton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
-            };
-            List<List<InlineKeyboardButton>> tecladoFijoHabilitaciones = new List<List<InlineKeyboardButton>>() {
-                new List<InlineKeyboardButton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
-            };
-
-
-
-            switch (infoPostulacion.Estado)
-            {
-                case Estados.DatosEmprendedor:
-                    switch (callback.Texto)
-                    {
-                        case "Listo":
-                            Console.WriteLine("Estado: " + infoPostulacion.Estado);
-
-                            botonesDehabilitacion = TelegramBot.Instancia.ObtenerBotones(infoPostulacion.HabilitacionesDisponibles);
-                            this.stringBuilder.Append("\n-------------------------------------------------");
-                            this.stringBuilder.Append("\n\n\nDatos sobre las habilitaciones: ");
-                            infoPostulacion.IndiceActual = 0;
-
-                            respuesta.Texto = this.stringBuilder.ToString();
-                            infoPostulacion.Estado = Estados.DatosHabilitacion;
-
-                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
-                            return true;
-
-                        case "Cancelar":
-                            this.Cancelar();
-                            return false;
-                    }
-
-                    botonesDeCategorias.Remove(botonesDeCategorias.First(b => b.Text == callback.Texto));
-                    if (infoPostulacion.IndiceActual >= botonesDeCategorias.Count)
-                    {
-                        infoPostulacion.IndiceActual = botonesDeCategorias.Count - FILAS_CATEGORIAS * COLUMNAS_CATEGORIAS;
-                    }
-                    infoPostulacion.CategoriasDisponibles.Remove(callback.Texto);
-                    if (infoPostulacion.CategoriasDisponibles.Count <= (FILAS_CATEGORIAS * COLUMNAS_CATEGORIAS))
-                    {
-                        tecladoFijoCategorias = new List<List<InlineKeyboardButton>>()
+                        if ((mensaje.Texto == nombreBoton) ^ (mensaje.Texto == "Listo") ^ (mensaje.Texto == "Cancelar"))
                         {
-                            new List<InlineKeyboardButton>() { TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo }
-                        };
+                            infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+                            break;
+                        }
+                        else
+                        {
+                            infoPostulacion.tipoMensaje = TipoMensaje.Mensaje;
+                        }
                     }
-
-                    infoPostulacion.Categorias.Add(callback.Texto);
-                    respuesta.Texto = $"A continuacion se habilito el campo _\"{callback.Texto}\"_ para su ingreso.\n\nSelecciona _\"Listo\"_ cuando quieras continuar con el registro, o _\"Cancelar\"_ para detenerlo.";
-                    this.accionPrevia = callback.Texto;
-                    respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
-                    respuesta.EditarMensaje = true;
-                    return true;
-
-
-                case Estados.DatosHabilitacion:
-
-
-                    switch (callback.Texto)
+                    switch (infoPostulacion.tipoMensaje)
                     {
-                        case "Listo":
-                            respuesta.Texto = this.stringBuilder.ToString();
-                            List<Habilitacion> habilitaciones = new List<Habilitacion>();
-                            int id = _random.Next(1000);
+                        case TipoMensaje.Callback:
+                            Console.WriteLine("ESTADO: " + infoPostulacion.tipoMensaje);
 
-
-                            habilitaciones.Add(new Habilitacion(this.DiccDatosHabilitacion["Nombre"], this.DiccDatosHabilitacion["Descripcion"], this.DiccDatosHabilitacion["Nombre Insitucion Habilitada"], Convert.ToDateTime(this.DiccDatosHabilitacion["Fecha Tramite"]), Convert.ToDateTime(this.DiccDatosHabilitacion["Fecha Vencimiento"]), true));
-                            Sistema.Instancia.RegistrarEmprendedor(callback.IdUsuario.ToString(), this.DiccDatosEmprendedor["Ciudad"], this.DiccDatosEmprendedor["Direccion"], this.DiccDatosEmprendedor["Rubro"], this.DiccDatosEmprendedor["Nombre"], habilitaciones);
-                            Console.WriteLine("id random: " + callback.IdUsuario.ToString());
-                            if (Sistema.Instancia.ObtenerEmprendedorPorId(callback.IdUsuario.ToString()).Nombre == this.datosEmprendedor[0])
+                            switch (mensaje.Texto)
                             {
-                                this.stringBuilder.Append("\n\nUsted ha sido ingresado en el sistema exitosamente. Bienvenido.");
-
-                                respuesta.Texto = this.stringBuilder.ToString();
-
+                                case "Listo":
+                                    foreach (var item in DiccDatosEmprendedor)
+                                    {
+                                        this.stringBuilder.Append("\n" + item.Key + ":   " + item.Value);
+                                    }
+                                    respuesta.Texto = this.stringBuilder.ToString();
+                                    infoPostulacion.Estado = Estados.DatosHabilitacion;
+                                    respuesta.Texto = $"A continuación repetiremos el proceso para ingresar sus habiltiaciones.\n\nSelecciona _\"Listo\"_ cuando quieras finalziar con el registro, o _\"Cancelar\"_ para no ingresar habilitaciones.";
+                                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
+                                    return true;
+                                case "Cancelar":
+                                    return false;
                             }
+                            respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
+                            this.accionPrevia = mensaje.Texto;
+                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmprendedor, infoPostulacion.IndiceActual, FILAS_EMPRENDEDOR, COLUMNAS_EMPRENDEDOR, tecladoFijoCategorias);
+                            respuesta.EditarMensaje = true;
                             return true;
-                        case "Cancelar":
-                            this.Cancelar();
-                            return false;
-                    }
 
-                    botonesDehabilitacion.Remove(botonesDehabilitacion.First(b => b.Text == callback.Texto));
-                    if (infoPostulacion.IndiceActual >= botonesDehabilitacion.Count)
-                    {
-                        infoPostulacion.IndiceActual = botonesDehabilitacion.Count - FILAS_HABILTIACIONES * COLUMNAS_HABILTIACIONES;
+
+
+                        case TipoMensaje.Mensaje:
+                            Console.WriteLine("ESTADO: " + infoPostulacion.tipoMensaje);
+                            respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{this.accionPrevia}*";
+                            DiccDatosEmprendedor[accionPrevia] = mensaje.Texto;
+                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmprendedor, infoPostulacion.IndiceActual, FILAS_EMPRENDEDOR, COLUMNAS_EMPRENDEDOR, tecladoFijoCategorias);
+                            return true;
                     }
-                    infoPostulacion.HabilitacionesDisponibles.Remove(callback.Texto);
-                    if (infoPostulacion.HabilitacionesDisponibles.Count <= (FILAS_HABILTIACIONES * COLUMNAS_HABILTIACIONES))
+                    return true;
+
+
+
+                case Estados.DatosHabilitacion:
+                    //Deteccion de tipo de mensaje en base a si el mensaje de entrada es igual a algún tipo de boton
+                    foreach (string nombreBoton in opcionesHabilitacion)
                     {
-                        tecladoFijoHabilitaciones = new List<List<InlineKeyboardButton>>()
+                        if ((mensaje.Texto == nombreBoton) ^ (mensaje.Texto == "Listo") ^ (mensaje.Texto == "Cancelar"))
                         {
-                            new List<InlineKeyboardButton>() { TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo }
-                        };
-                    }
-                    if (infoPostulacion.HabilitacionesDisponibles.Count == 4)
-                    {
-                        tecladoFijoHabilitaciones = new List<List<InlineKeyboardButton>>()
+                            infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+                            break;
+                        }
+                        else
                         {
-                            new List<InlineKeyboardButton>() { TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo }
-                        };
+                            infoPostulacion.tipoMensaje = TipoMensaje.Mensaje;
+                        }
                     }
-                    infoPostulacion.Categorias.Add(callback.Texto);
-                    if (callback.Texto == "Fecha Tramite" ^ callback.Texto == "Fecha Vencimiento")
-                    {
-                        respuesta.Texto = $"A continuacion se habilito el campo _\"{callback.Texto}\"_ para su ingreso, debido a que se trata de una fecha es necesario que se ingrese en el siguiente formato:\n\n *DD-MM-YYYY*\n\nSelecciona _\"Listo\"_ cuando quieras continuar con el registro, o _\"Cancelar\"_ para detenerlo.";
 
-                    }
-                    else
+                    switch (infoPostulacion.tipoMensaje)
                     {
-                        respuesta.Texto = $"A continuacion se habilito el campo _\"{callback.Texto}\"_ para su ingreso.\n\nSelecciona _\"Listo\"_ cuando quieras continuar con el registro, o _\"Cancelar\"_ para detenerlo.";
+                        case TipoMensaje.Callback:
+                            Console.WriteLine("ESTADO: " + infoPostulacion.tipoMensaje);
+                            switch (mensaje.Texto)
+                            {
+                                case "Listo":
+                                    this.stringBuilder.Append("\n\n\nDatos sobre tus habilitaciones: \n");
 
+                                    foreach (var item in DiccDatosHabilitacion)
+                                    {
+                                        this.stringBuilder.Append("\n" + item.Key + ":   " + item.Value);
+                                    }
+
+                                    List<Habilitacion> habilitaciones = new List<Habilitacion>();
+                                    habilitaciones.Add(new Habilitacion(this.DiccDatosHabilitacion["Nombre"], this.DiccDatosHabilitacion["Descripcion"], this.DiccDatosHabilitacion["Nombre Insitucion Habilitada"], Convert.ToDateTime(this.DiccDatosHabilitacion["Fecha Tramite"]), Convert.ToDateTime(this.DiccDatosHabilitacion["Fecha Vencimiento"]), true));
+                                    Sistema.Instancia.RegistrarEmprendedor(mensaje.IdUsuario.ToString(), this.DiccDatosEmprendedor["Ciudad"], this.DiccDatosEmprendedor["Direccion"], this.DiccDatosEmprendedor["Rubro"], this.DiccDatosEmprendedor["Nombre"], habilitaciones);
+
+                                    Console.WriteLine("id empresa registrado: " + mensaje.IdUsuario.ToString());
+
+                                    if (Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario.ToString()).Nombre == this.DiccDatosEmprendedor["Nombre"])
+                                    {
+                                        this.stringBuilder.Append("\n\nUsted ha sido ingresado en el sistema exitosamente. Bienvenido.");
+                                    }
+                                    respuesta.Texto = this.stringBuilder.ToString();
+                                    return true;
+
+
+
+                                case "Cancelar":
+                                    Sistema.Instancia.RegistrarEmprendedor(mensaje.IdUsuario.ToString(), this.DiccDatosEmprendedor["Ciudad"], this.DiccDatosEmprendedor["Direccion"], this.DiccDatosEmprendedor["Rubro"], this.DiccDatosEmprendedor["Nombre"], null);
+                                    Console.WriteLine("id empresa registrado: " + mensaje.IdUsuario.ToString());
+                                    if (Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario.ToString()).Nombre == this.DiccDatosEmprendedor["Nombre"])
+                                    {
+                                        this.stringBuilder.Append("\n\nUsted ha sido ingresado en el sistema exitosamente. Bienvenido.");
+                                    }
+                                    respuesta.Texto = this.stringBuilder.ToString();
+
+                                    return true;
+                            }
+                            if (mensaje.Texto == "Fecha Tramite" ^ mensaje.Texto == "Fecha Vencimiento")
+                            {
+                                respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso, debido a que se trata de una fecha es necesario que se ingrese en el siguiente formato:\n\n *DD-MM-YYYY*";
+                            }
+                            else
+                            {
+                                respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
+                            }
+                            this.accionPrevia = mensaje.Texto;
+                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
+                            respuesta.EditarMensaje = true;
+                            return true;
+
+
+
+                        case TipoMensaje.Mensaje:
+                            Console.WriteLine("ESTADO: " + infoPostulacion.tipoMensaje);
+                            respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{this.accionPrevia}*";
+                            DiccDatosHabilitacion[accionPrevia] = mensaje.Texto;
+                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
+                            return true;
                     }
-                    this.accionPrevia = callback.Texto;
-                    Console.WriteLine("accion previa: " + this.accionPrevia);
-                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
-                    respuesta.EditarMensaje = true;
                     return true;
 
 
@@ -393,12 +305,7 @@ namespace PII_E13.HandlerLibrary
             infoPostulacion = new InformacionPostulacion();
             return false;
         }
-        */
 
-        /// <summary>
-        /// Este método puede ser sobreescrito en las clases sucesores que procesan varios mensajes cambiando de estado
-        /// entre mensajes deben sobreescribir este método para volver al estado inicial. En la clase base no hace nada.
-        /// </summary>
         protected void CancelarInterno(string idUsuario)
         {
             this.Busquedas.Remove(idUsuario);
@@ -414,7 +321,7 @@ namespace PII_E13.HandlerLibrary
         /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
         protected override bool PuedeResolver(Sesion sesion)
         {
-           return true;
+            return true;
         }
 
         /// <summary>
@@ -425,14 +332,14 @@ namespace PII_E13.HandlerLibrary
         /// </summary>
         /// <param name="callback">El callback a procesar.</param>
         /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
-       
+
 
         /// <summary>
         /// Retorna este "handler" al estado inicial. En los "handler" sin estado no hace nada. Los "handlers" que
         /// procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
         /// estado inicial.
         /// </summary>
-         public override void Cancelar(Sesion sesion)
+        public override void Cancelar(Sesion sesion)
         {
             this.CancelarInterno(sesion);
             if (this.Siguiente != null)
@@ -484,6 +391,15 @@ namespace PII_E13.HandlerLibrary
         }
 
         /// <summary>
+        /// Representación de los posibles tipos de mensajes.
+        /// </summary>
+        private enum TipoMensaje
+        {
+
+            Mensaje,
+            Callback
+        }
+        /// <summary>
         /// Clase privada contenedora de la información de una postulación a una oferta.
         /// </summary>
         private class InformacionPostulacion
@@ -506,6 +422,13 @@ namespace PII_E13.HandlerLibrary
             /// Estado de la búsqueda de ofertas de un usuario.
             /// </summary>
             public Estados Estado { get; set; } = Estados.Inicio;
+
+
+
+
+
+            public TipoMensaje tipoMensaje { get; set; }
+
 
             /// <summary>
             /// Oferta seleccionada por un usuario entre la lista de ofertas encontradas.

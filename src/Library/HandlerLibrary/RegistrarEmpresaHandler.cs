@@ -19,14 +19,11 @@ namespace PII_E13.HandlerLibrary
         private StringBuilder stringBuilder;
 
 
-        Dictionary<string, string> DiccDatosEmprendedor = new Dictionary<string, string>();
-        Dictionary<string, string> DiccDatosHabilitacion = new Dictionary<string, string>();
+        Dictionary<string, string> DiccDatosEpresa = new Dictionary<string, string>();
         private string accionPrevia;
-        private const int COLUMNAS_CATEGORIAS = 1;
-        private const int FILAS_CATEGORIAS = 4;
-        private const int COLUMNAS_HABILTIACIONES = 1;
-        private const int FILAS_HABILTIACIONES = 5;
-        private const int COLUMNAS_OFERTAS = 1;
+        private const int COLUMNAS_EMPRESA = 1;
+        private const int FILAS_EMPRESA = 4;
+
 
         /// <summary>
         /// Diccionario utilizado para contener todas las búsquedas que se están realizando por los usuarios.
@@ -46,7 +43,7 @@ namespace PII_E13.HandlerLibrary
         {
             this.Busquedas = new Dictionary<string, InformacionPostulacion>();
             this.stringBuilder = new StringBuilder();
-            stringBuilder.Append("Datos sobre ti: \n\n");
+            stringBuilder.Append("Datos sobre ti: \n");
         }
 
         /// <summary>
@@ -82,56 +79,35 @@ namespace PII_E13.HandlerLibrary
             opcionesRegistro.Add("Rubro");
 
 
-            List<string> opcionesHabilitacion = new List<string>(); //Opciones para el ingreso de Habiltiaciones
-            opcionesHabilitacion.Add("Nombre");
-            opcionesHabilitacion.Add("Descripcion");
-            opcionesHabilitacion.Add("Nombre Insitucion Habilitada");
-            opcionesHabilitacion.Add("Fecha Tramite");
-            opcionesHabilitacion.Add("Fecha Vencimiento");
 
 
-            if (infoPostulacion.DatosEmprendedorDisponibles == null) //Lista de botones con las opciones del registro
+            if (infoPostulacion.DatosEmpresaDisponibles == null) //Lista de botones con las opciones del registro
             {
-                infoPostulacion.DatosEmprendedorDisponibles = new List<string>();
+                infoPostulacion.DatosEmpresaDisponibles = new List<string>();
 
                 foreach (string opcion in opcionesRegistro)
                 {
-                    if (!infoPostulacion.DatosEmprendedorDisponibles.Contains(opcion))
+                    if (!infoPostulacion.DatosEmpresaDisponibles.Contains(opcion))
                     {
-                        infoPostulacion.DatosEmprendedorDisponibles.Add(opcion);
+                        infoPostulacion.DatosEmpresaDisponibles.Add(opcion);
                     }
                 }
             }
 
-            if (infoPostulacion.HabilitacionesDisponibles == null)//Lista de botones con las opciones del registro de habiltiaciones
-            {
-                infoPostulacion.HabilitacionesDisponibles = new List<string>();
 
-                foreach (string opcion in opcionesHabilitacion)
-                {
-                    if (!infoPostulacion.HabilitacionesDisponibles.Contains(opcion))
-                    {
-                        infoPostulacion.HabilitacionesDisponibles.Add(opcion);
-                    }
-                }
-            }
-            List<IBoton> botonesDeEmprendedor = new List<IBoton>();
-            List<IBoton> botonesDeHabilitacion = new List<IBoton>();
+            List<IBoton> botonesDeEmpresa = new List<IBoton>();
             List<List<IBoton>> tecladoFijoCategorias = new List<List<IBoton>>()
             {
-                new List<IBoton>() {TelegramBot.Instancia.BotonAnterior, TelegramBot.Instancia.BotonSiguiente},
                 new List<IBoton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
+
             };
 
-            foreach (string opcion in infoPostulacion.DatosEmprendedorDisponibles)
+            foreach (string opcion in infoPostulacion.DatosEmpresaDisponibles)
             {
-                botonesDeEmprendedor.Add(new Boton(opcion));
+                botonesDeEmpresa.Add(new Boton(opcion));
             }
 
-            foreach (string opcion in infoPostulacion.HabilitacionesDisponibles)
-            {
-                botonesDeHabilitacion.Add(new Boton(opcion));
-            }
+
 
 
             switch (infoPostulacion.Estado)
@@ -141,6 +117,8 @@ namespace PII_E13.HandlerLibrary
                     Console.WriteLine("Estado: " + infoPostulacion.Estado);
                     respuesta.Texto = "Por favor, indícanos detalladamente lo qué necesitas, dentro de un mensaje.";
                     infoPostulacion.Estado = Estados.Categorias;
+                    infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+
                     return true;
 
                 case Estados.Categorias:
@@ -148,43 +126,83 @@ namespace PII_E13.HandlerLibrary
 
                     List<string> etiquetas = mensaje.Texto.Split(' ').ToList();
                     infoPostulacion.Etiquetas = etiquetas;
-                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoPostulacion.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
-                    infoPostulacion.Estado = Estados.DatosEmprendedor;
+                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoPostulacion.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
+                    infoPostulacion.Estado = Estados.DatosEmpresa;
+                    foreach (string nombreBoton in opcionesRegistro)
+                    {
+                        if (mensaje.Texto == nombreBoton)
+                        {
+                            infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+
+                        }
+                    }
                     StringBuilder st = new StringBuilder();
-                    st.Append("############   REGISTRO EMPRENDEDOR   ############");
-                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
+                    st.Append("############   REGISTRO EMPRESA   ############");
+                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
                     respuesta.Texto = st.ToString();
                     return true;
 
-                case Estados.DatosEmprendedor:
-                    switch (mensaje.Tipo)
+
+
+                case Estados.DatosEmpresa:
+                    //Deteccion de tipo de mensaje en base a si el mensaje de entrada es igual a algún tipo de boton
+                    foreach (string nombreBoton in opcionesRegistro)
                     {
-
-                        case IMensaje.Tipos.Callback:
-
-
-                            return true;
-
-                        case IMensaje.Tipos.Mensaje:
-                            foreach (string nombreBoton in opcionesRegistro)
-                            {
-                                if (mensaje.Texto == nombreBoton)
-                                {
-
-                                }
-                            }
-
-                            return true;
-
+                        if ((mensaje.Texto == nombreBoton) ^ (mensaje.Texto == "Listo") ^ (mensaje.Texto == "Cancelar"))
+                        {
+                            infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+                            break;
+                        }
+                        else
+                        {
+                            infoPostulacion.tipoMensaje = TipoMensaje.Mensaje;
+                        }
                     }
+                    switch (infoPostulacion.tipoMensaje)
+                    {
+                        case TipoMensaje.Callback:
+                            Console.WriteLine("ESTADO: " + infoPostulacion.tipoMensaje);
+
+                            switch (mensaje.Texto)
+                            {
+                                case "Listo":
+                                    this.stringBuilder.Append("\n\n\nDatos sobre tus habilitaciones: \n");
+
+                                    foreach (var item in DiccDatosEpresa)
+                                    {
+                                        this.stringBuilder.Append("\n" + item.Key + ":   " + item.Value);
+                                    }
+
+                                    Sistema.Instancia.RegistrarEmpresa(mensaje.IdUsuario.ToString(), this.DiccDatosEpresa["Ciudad"], this.DiccDatosEpresa["Direccion"], this.DiccDatosEpresa["Rubro"], this.DiccDatosEpresa["Nombre"]);
+
+                                    Console.WriteLine("id empresa registrado: " + mensaje.IdUsuario.ToString());
+
+                                    if (Sistema.Instancia.ObtenerEmpresaPorId(mensaje.IdUsuario.ToString()).Nombre == this.DiccDatosEpresa["Nombre"])
+                                    {
+                                        this.stringBuilder.Append("\n\nUsted ha sido ingresado en el sistema exitosamente. Bienvenido.");
+                                    }
+                                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoPostulacion.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
+                                    respuesta.Texto = this.stringBuilder.ToString();
+                                    return true;
+
+                                case "Cancelar":
+                                    return false;
+                            }
+                            respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
+                            this.accionPrevia = mensaje.Texto;
+                            respuesta.EditarMensaje = true;
+                            return true;
 
 
 
+                        case TipoMensaje.Mensaje:
+                            Console.WriteLine("ESTADO: " + infoPostulacion.tipoMensaje);
+                            respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{this.accionPrevia}*";
+                            DiccDatosEpresa[accionPrevia] = mensaje.Texto;
+                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoPostulacion.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
+                            return true;
+                    }
                     return true;
-                case Estados.DatosHabilitacion:
-
-                    return true;
-
 
             }
             infoPostulacion = new InformacionPostulacion();
@@ -270,8 +288,7 @@ namespace PII_E13.HandlerLibrary
         {
             Inicio,
             Categorias,
-            DatosEmprendedor,
-            DatosHabilitacion
+            DatosEmpresa,
 
         }
 
@@ -293,15 +310,11 @@ namespace PII_E13.HandlerLibrary
             /// Lista de etiquetas que está usando un usuario para buscar una oferta.
             /// </summary>
             public List<string> Etiquetas { get; set; } = new List<string>();
-            /// <summary>
-            /// Lista de ofertas encontradas en la búsqueda de ofertas.
-            /// </summary>
-            public List<Oferta> OfertasEncontradas { get; set; } = new List<Oferta>();
+
             /// <summary>
             /// Lista de categorías que está usando un usuario para buscar una oferta.
             /// </summary>
             public List<string> Categorias { get; set; } = new List<string>();
-            public List<string> Habilitaciones { get; set; } = new List<string>();
 
             /// <summary>
             /// Estado de la búsqueda de ofertas de un usuario.
@@ -325,8 +338,7 @@ namespace PII_E13.HandlerLibrary
             /// </summary>
             public int IndiceActual { get; set; } = 0;
 
-            public List<string> DatosEmprendedorDisponibles { get; set; }
-            public List<string> HabilitacionesDisponibles { get; set; }
+            public List<string> DatosEmpresaDisponibles { get; set; }
 
         }
     }
