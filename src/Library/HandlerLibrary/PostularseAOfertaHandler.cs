@@ -474,7 +474,7 @@ namespace PII_E13.HandlerLibrary
             return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion) ||
                 (
                     this.Busquedas.ContainsKey(sesion.IdUsuario) &&
-                    (sesion.PLN.UltimaIntencion.Nombre.Equals("Default Fallback Intent") || (sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 75))
+                    (sesion.PLN.UltimaIntencion.Nombre.Equals("Default Fallback Intent") || (sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 80))
                 );
         }
 

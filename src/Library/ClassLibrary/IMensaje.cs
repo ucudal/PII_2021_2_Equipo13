@@ -24,9 +24,22 @@ namespace PII_E13.ClassLibrary
         /// Id del mensaje al cual el callback fue enviado como respuesta.
         /// </summary>
         int IdMensaje { get; }
+
         /// <summary>
-        /// Indica si debe usarse procesado de lenguaje natural (PLN) para procesar este mensaje, si el recurso está disponible.
+        /// Tipo del mensaje.
         /// </summary>
-        bool UsarPLN { get; set; }
+        Tipos Tipo { get; }
+
+        /// <summary>
+        /// Tipos de mensajes.
+        /// </summary>
+        /// <type name="Mensaje"></type>
+        enum Tipos
+        {
+            /// <summary>Mensaje de texto.</summary>
+            Mensaje,
+            /// <summary>Callback enviado a través de un botón.</summary>
+            Callback
+        }
     }
 }
