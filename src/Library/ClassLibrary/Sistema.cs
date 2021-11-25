@@ -19,7 +19,9 @@ namespace PII_E13.ClassLibrary
         /// Crea una instancia de <see cref="Sistema"/>.
         /// </summary>
         private Sistema()
-        {
+        {   
+            JsonPersistible jsonPersistible = new JsonPersistible();
+        
             this.Empresas = new List<Empresa>();
             this.Emprendedores = new List<Emprendedor>();
             this.Materiales = new List<Material>();

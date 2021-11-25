@@ -8,22 +8,23 @@ namespace PII_E13.ClassLibrary
     /// <summary>
     /// Clase encargada de mantener la información  escencial del sistema en archivos JSON.
     /// </summary>
-    public static class JsonPersistible: IPersistible
+    public class JsonPersistible : IPersistencia
     {
 
-        public static void GuardarEn(string ruta, string json)
+        public void EscribirArchivo(string ruta, string json)
         {
             if (!File.Exists(ruta))
             {
                 File.CreateText(ruta);
-                 File.AppendAllText(ruta, json);
-            } else 
+                File.AppendAllText(ruta, json);
+            }
+            else
             {
                 File.WriteAllText(ruta, json);
             }
         }
 
-        public static string CargarDesde(string ruta)
+        public string LeerArchivo(string ruta)
         {
             return File.ReadAllText(ruta);
         }
