@@ -51,7 +51,7 @@ namespace PII_E13.ClassLibrary
         /// <value>Una instancia de <see cref="Rubro"/> correspondiente al rubro de registro del usuario.</value>
         public Rubro Rubro { get; set; }
 
-        public string ConvertToJson()
+        public static string ConvertToJson()
         {
             JsonSerializerOptions options = new()
             {

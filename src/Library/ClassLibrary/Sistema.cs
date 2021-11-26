@@ -21,10 +21,9 @@ namespace PII_E13.ClassLibrary
         private Sistema()
         {   
             JsonPersistible jsonPersistible = new JsonPersistible();
-        
-            this.Empresas = new List<Empresa>();
-            this.Emprendedores = new List<Emprendedor>();
-            this.Materiales = new List<Material>();
+            this.Empresas = Usuario.ConvertToJson(jsonPersistible.LeerArchivo("Empresas.json"));
+            this.Emprendedores = Usuario.ConvertToJson(jsonPersistible.LeerArchivo("Emprendedores.json"));
+            this.Materiales = Material.ConvertToJson(jsonPersistible.LeerArchivo("Materiales.json"));
         }
 
         /// <summary>

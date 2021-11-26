@@ -50,7 +50,7 @@ namespace PII_E13.ClassLibrary
         /// <value></value>
         public string UnidadEstandar { get; }
 
-        public string ConvertToJson()
+        public static string ConvertToJson()
         {
             JsonSerializerOptions options = new()
             {
