@@ -149,6 +149,9 @@ namespace PII_E13.ClassLibrary
         public readonly Boton BotonCancelar = new Boton("Cancelar");
         public readonly Boton BotonAvanzar = new Boton("Avanzar");
         public readonly Boton BotonFinalizar = new Boton("Finalizar");
+        public readonly Boton BotonAgregar = new Boton("Agregar");
+
+        public readonly Boton BotonAgregarOtro = new Boton("Agregar Otro");
 
         /// <summary>
         /// Instancia de <see cref="Boton"/> predefinida para representar a un botón con texto y callback "Siguiente".

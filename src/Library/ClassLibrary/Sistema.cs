@@ -51,7 +51,8 @@ namespace PII_E13.ClassLibrary
         /// <returns>La instancia de <see cref="Empresa"/> correspondiente a la id dada.</returns>
         public Empresa ObtenerEmpresaPorId(string id)
         {
-            foreach(Empresa empresa in this.Empresas){
+            foreach (Empresa empresa in this.Empresas)
+            {
                 if (empresa.Id == id)
                     return empresa;
             }
@@ -65,11 +66,26 @@ namespace PII_E13.ClassLibrary
         /// <returns>La instancia de <see cref="Emprendedor"/> correspondiente a la id dada.</returns>
         public Emprendedor ObtenerEmprendedorPorId(string id)
         {
-            foreach(Emprendedor emprendedor in this.Emprendedores){
+            foreach (Emprendedor emprendedor in this.Emprendedores)
+            {
                 if (emprendedor.Id == id)
                     return emprendedor;
             }
             throw new KeyNotFoundException("No se encontró el emprendedor con el id dado.");
+        }
+
+        public Material ObtenerMaterialPorNombre(string nombre)
+        {
+
+            foreach (Material material in this.Materiales)
+            {
+                if (material.Nombre == nombre)
+                {
+                    return material;
+                }
+            }
+            throw new KeyNotFoundException("No se encontró el material con el nombre dado.");
+
         }
 
         /// <summary>

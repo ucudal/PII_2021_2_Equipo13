@@ -179,6 +179,12 @@ namespace PII_E13.ClassLibrary
             this.Productos.Add(producto);
         }
 
+        public void AgregarHabilitacion(string nombre, string descripcion, string nombreInsitucionHabilitada)
+        {
+            Habilitacion habilitacion = new Habilitacion(nombre, descripcion, nombreInsitucionHabilitada, Convert.ToDateTime(null), Convert.ToDateTime(null), true);
+            this.Habilitaciones.Add(habilitacion);
+        }
+
         /// <summary>
         /// Quita un producto de la lista.
         /// </summary>
