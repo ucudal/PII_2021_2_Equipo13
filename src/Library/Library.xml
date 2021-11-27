@@ -781,6 +781,14 @@
             <param name="valorUYU">Valor en pesos uruguayos.</param>
             <param name="valorUSD">Valor en dolares usa.</param>
         </member>
+        <member name="M:PII_E13.ClassLibrary.Oferta.AgregarHabilitacion(System.String,System.String,System.String)">
+            <summary>
+            Agrega una Habilitacion a la lista.
+            </summary>
+            <param name="nombre">Nombre de la habilitacion.</param>
+            <param name="descripcion">Descripcion de la habilitaicon.</param> 
+            <param name="nombreInsitucionHabilitada">Nombre de la institucion.</param>      
+        </member>
         <member name="M:PII_E13.ClassLibrary.Oferta.RemoverProducto(PII_E13.ClassLibrary.Producto)">
             <summary>
             Quita un producto de la lista.

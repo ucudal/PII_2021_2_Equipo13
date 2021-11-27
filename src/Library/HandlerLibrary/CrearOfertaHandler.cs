@@ -19,9 +19,7 @@ namespace PII_E13.HandlerLibrary
         private StringBuilder stringBuilder;
         private StringBuilder S4;
         private Oferta oferta;
-
-
-
+        private bool yaMostrado = false;
 
         Dictionary<string, string> DiccDatosOferta = new Dictionary<string, string>();
         Dictionary<string, string> DiccDatosProducto = new Dictionary<string, string>();
@@ -208,6 +206,12 @@ namespace PII_E13.HandlerLibrary
                 new List<IBoton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonFinalizar}
 
             };
+            List<List<IBoton>> tecladoFijoSoloCancelar = new List<List<IBoton>>()
+            {
+                new List<IBoton>() {TelegramBot.Instancia.BotonCancelar}
+
+            };
+
             List<List<IBoton>> tecladoFijoAgregarOtro = new List<List<IBoton>>()
             {
                 new List<IBoton>() {TelegramBot.Instancia.BotonCancelar,TelegramBot.Instancia.BotonAgregarOtro, TelegramBot.Instancia.BotonFinalizar}
@@ -260,7 +264,7 @@ namespace PII_E13.HandlerLibrary
                     List<string> etiquetas = mensaje.Texto.Split(' ').ToList();
                     infoPostulacion.Etiquetas = etiquetas;
                     infoPostulacion.IndiceActual = 0;
-                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeOferta, infoPostulacion.IndiceActual, FILAS_OFERTA, COLUMNAS_OFERTA, tecladoFijoCancelar);
+                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeOferta, infoPostulacion.IndiceActual, FILAS_OFERTA, COLUMNAS_OFERTA, tecladoFijoSoloCancelar);
                     infoPostulacion.Estado = Estados.DatosOferta;
                     foreach (string nombreBoton in opcionesOferta)
                     {
@@ -317,9 +321,23 @@ namespace PII_E13.HandlerLibrary
                                     return false;
 
                             }
-                            respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
+                            if (mensaje.Texto == "Fecha Cierre")
+                            {
+                                respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso, debido a que se trata de una fecha es necesario que se ingrese en el siguiente formato:\n\n *DD-MM-YYYY*";
+                            }
+                            else
+                            {
+                                respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
+                            }
                             this.accionPrevia = mensaje.Texto;
-                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeOferta, infoPostulacion.IndiceActual, FILAS_OFERTA, COLUMNAS_OFERTA, tecladoFijoCategorias);
+                            if (this.DiccDatosOferta.Count >= 3)
+                            {
+                                respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeOferta, infoPostulacion.IndiceActual, FILAS_OFERTA, COLUMNAS_OFERTA, tecladoFijoCategorias);
+                            }
+                            else
+                            {
+                                respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeOferta, infoPostulacion.IndiceActual, FILAS_OFERTA, COLUMNAS_OFERTA, tecladoFijoSoloCancelar);
+                            }
                             respuesta.EditarMensaje = true;
                             return true;
 
@@ -363,6 +381,8 @@ namespace PII_E13.HandlerLibrary
                                     infoPostulacion.Estado = Estados.DatosMaterial;
 
                                     respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeMateriales, infoPostulacion.IndiceActual, FILAS_MATERIAL, COLUMNAS_MATERIAL, tecladoFijoMaterial);
+                                    respuesta.EditarMensaje = true;
+
                                     return true;
                                 case "Cancelar":
                                     return false;
@@ -438,9 +458,10 @@ namespace PII_E13.HandlerLibrary
 
                                     respuesta.Texto = this.stringBuilder.ToString();
                                     this.S4.Append("\n\nPresione  \"Avanzar\" para continuar con los datos de la oferta o \"Finalizar\" para crear la oferta");
-
+                                    respuesta.EditarMensaje = true;
                                     respuesta.Texto = this.S4.ToString();
                                     respuesta.Botones = this.ObtenerMatrizDeBotones(null, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoAvanzar);
+                                    respuesta.EditarMensaje = true;
 
                                     try
                                     {
@@ -458,7 +479,7 @@ namespace PII_E13.HandlerLibrary
                                 case "Avanzar":
 
                                     infoPostulacion.Estado = Estados.DatosProducto;
-                                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeProducto, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoCancelar);
+                                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeProducto, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoSoloCancelar);
                                     respuesta.EditarMensaje = true;
                                     return true;
 
@@ -470,6 +491,7 @@ namespace PII_E13.HandlerLibrary
 
 
                             this.material = Sistema.Instancia.ObtenerMaterialPorNombre(mensaje.Texto);
+                            respuesta.EditarMensaje = true;
 
                             respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeMateriales, infoPostulacion.IndiceActual, FILAS_MATERIAL, COLUMNAS_MATERIAL, tecladoFijoMaterial);
                             respuesta.Texto = $"Usted selecciono el material _\"{mensaje.Texto}\"_\n\nPresione  \"Listo\" para ingresar el material o  \"Finalizar\" para crear la oferta";
@@ -512,21 +534,27 @@ namespace PII_E13.HandlerLibrary
                                     foreach (Producto p in productos)
                                     {
                                         this.oferta.AgregarProducto(p.Material, p.Ubicacion.Ciudad, p.Ubicacion.Direccion, p.CantidadEnUnidad, p.ValorUYU, p.ValorUSD);
+                                        Console.WriteLine("Titulo Oferta: " + this.oferta.Titulo);
                                     }
-                                    respuesta.Texto = "Oferta creada exitosamente!\n\nA continuacion se ingresaran las habilitaciones de la oferta. \nPresione  \"Listo\" para avanzar \"Cancelar\" no ingresar habilitaciones.";
+                                    respuesta.Texto = "A continuacion se ingresaran las habilitaciones de la oferta. \nPresione  \"Listo\" para avanzar \"Cancelar\" no ingresar habilitaciones.";
                                     infoPostulacion.Estado = Estados.DatosHabilitacion;
-                                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitaciones, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoCancelar);
+                                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitaciones, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoSoloCancelar);
 
                                     return true;
 
                                 case "Agregar":
-                                    this.stringBuilder.Append("Datos sobre la Oferta");
-
-                                    foreach (var item in DiccDatosOferta)
+                                    if (this.yaMostrado == false)
                                     {
-                                        this.stringBuilder.Append("\n" + item.Key + ":   " + item.Value);
+                                        this.stringBuilder.Append("Datos sobre la Oferta");
+
+                                        foreach (var item in DiccDatosOferta)
+                                        {
+                                            this.stringBuilder.Append("\n" + item.Key + ":   " + item.Value);
+                                        }
+                                        this.yaMostrado = true;
+                                        this.stringBuilder.Append("\n\n\n");
                                     }
-                                    this.stringBuilder.Append("\n\n\n");
+
                                     this.stringBuilder.Append("Datos sobre el producto:");
                                     this.stringBuilder.Append("\n");
                                     this.stringBuilder.Append("\nMaterial Producto: " + this.material.Nombre);
@@ -547,6 +575,34 @@ namespace PII_E13.HandlerLibrary
                                     return true;
 
                                 case "Cancelar":
+                                    if (this.yaMostrado == false)
+                                    {
+                                        this.stringBuilder.Append("Datos sobre la Oferta");
+
+                                        foreach (var item in DiccDatosOferta)
+                                        {
+                                            this.stringBuilder.Append("\n" + item.Key + ":   " + item.Value);
+                                        }
+                                        this.yaMostrado = true;
+                                    }
+
+                                    this.stringBuilder.Append("\n\n\n");
+                                    this.stringBuilder.Append("Datos sobre el producto:");
+                                    this.stringBuilder.Append("\n");
+                                    this.stringBuilder.Append("\nMaterial Producto: " + this.material.Nombre);
+                                    foreach (var item in DiccDatosProducto)
+                                    {
+                                        this.stringBuilder.Append("\n" + item.Key + ":   " + item.Value);
+                                    }
+                                    this.stringBuilder.Append("\n\n");
+
+                                    respuesta.Texto = this.stringBuilder.ToString();
+                                    infoPostulacion.Estado = Estados.DatosProducto;
+                                    this.productos.Add(new Producto(material, DiccDatosProducto["Ciudad"], DiccDatosProducto["Direccion"], Convert.ToDouble(DiccDatosProducto["Cantidad en unidades"]), Convert.ToDouble(DiccDatosProducto["Valor en UYU"]), Convert.ToDouble(DiccDatosProducto["Valor en USD"])));
+                                    this.DiccDatosProducto.Clear();
+                                    respuesta.Texto = this.stringBuilder.ToString();
+                                    respuesta.Botones = this.ObtenerMatrizDeBotones(null, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoAgregarOtro);
+                                    respuesta.EditarMensaje = true;
 
                                     return true;
                             }
@@ -562,8 +618,9 @@ namespace PII_E13.HandlerLibrary
                             }
                             else
                             {
-                                respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeProducto, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoCancelar);
+                                respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeProducto, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoSoloCancelar);
                             }
+                            respuesta.EditarMensaje = true;
 
                             return true;
 
@@ -622,6 +679,7 @@ namespace PII_E13.HandlerLibrary
 
                                     List<Habilitacion> habilitaciones = new List<Habilitacion>();
                                     habilitaciones.Add(new Habilitacion(this.DiccDatosHabilitacion["Nombre"], this.DiccDatosHabilitacion["Descripcion"], this.DiccDatosHabilitacion["Nombre Insitucion Habilitada"], Convert.ToDateTime(null), Convert.ToDateTime(null), true));
+
                                     this.oferta.AgregarHabilitacion(this.DiccDatosHabilitacion["Nombre"], this.DiccDatosHabilitacion["Descripcion"], this.DiccDatosHabilitacion["Nombre Insitucion Habilitada"]);
                                     respuesta.Botones = this.ObtenerMatrizDeBotones(null, infoPostulacion.IndiceActual, FILAS_OFERTA, COLUMNAS_OFERTA, tecladoFijoAgregarOtro);
                                     this.DiccDatosHabilitacion.Clear();
@@ -630,16 +688,26 @@ namespace PII_E13.HandlerLibrary
 
 
                                 case "Cancelar":
-
-                                    respuesta.Texto = "No se ingresaron habilitaciones!";
-
+                                    respuesta.Texto = "Felicidades, su oferta se ingresó correctamente!!";
                                     return true;
+                                case "Finalizar":
+
+                                    respuesta.Texto = "Felicidades, su oferta se ingresó correctamente!!";
+
+                                    return false;
                             }
                             respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
                             this.accionPrevia = mensaje.Texto;
 
 
-                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitaciones, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoCancelar);
+                            if (this.DiccDatosHabilitacion.Count >= 3)
+                            {
+                                respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitaciones, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoCancelar);
+                            }
+                            else
+                            {
+                                respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitaciones, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoSoloCancelar);
+                            }
                             respuesta.EditarMensaje = true;
                             return true;
 
@@ -649,7 +717,16 @@ namespace PII_E13.HandlerLibrary
                             Console.WriteLine("ESTADO: " + infoPostulacion.tipoMensaje);
                             respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{this.accionPrevia}*";
                             DiccDatosHabilitacion[accionPrevia] = mensaje.Texto;
-                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitaciones, infoPostulacion.IndiceActual, FILAS_OFERTA, COLUMNAS_OFERTA, tecladoFijoCategorias);
+
+                            if (this.DiccDatosHabilitacion.Count >= 3)
+                            {
+                                respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitaciones, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoCategorias);
+                            }
+                            else
+                            {
+                                respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitaciones, infoPostulacion.IndiceActual, FILAS_PRODUCTO, COLUMNAS_PRODUCTO, tecladoFijoSoloCancelar);
+                            }
+
                             return true;
                     }
 

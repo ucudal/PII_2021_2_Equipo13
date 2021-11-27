@@ -38,7 +38,7 @@ namespace PII_E13.ClassLibrary
             this.FechaCierre = fechaCierre;         //04
             this.Etiquetas = etiquetas;             //05
             this.Estado = Estados.Habilitada;       //06
-            this.Habilitaciones = habilitaciones;   //07
+            this.Habilitaciones = new List<Habilitacion>();   //07
             this.Descripcion = descripcion;         //08
             this.Titulo = titulo;                   //09
             this.DisponibleConstantemente = disponibleConstantemente;  //10
@@ -178,7 +178,13 @@ namespace PII_E13.ClassLibrary
             Producto producto = new Producto(material, ciudad, direccion, cantidadEnUnidades, valorUYU, valorUSD);
             this.Productos.Add(producto);
         }
-
+        //aplicando Creator
+        /// <summary>
+        /// Agrega una Habilitacion a la lista.
+        /// </summary>
+        /// <param name="nombre">Nombre de la habilitacion.</param>
+        /// <param name="descripcion">Descripcion de la habilitaicon.</param> 
+        /// <param name="nombreInsitucionHabilitada">Nombre de la institucion.</param>      
         public void AgregarHabilitacion(string nombre, string descripcion, string nombreInsitucionHabilitada)
         {
             Habilitacion habilitacion = new Habilitacion(nombre, descripcion, nombreInsitucionHabilitada, Convert.ToDateTime(null), Convert.ToDateTime(null), true);
