@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using Recipes;
 
 namespace PII_E13.ClassLibrary
 {
     /// <summary>
-    /// Representa a las abstracciones de un usuario en el sistema.
+    /// Representa a las abstracciones de un usuario en el sistema
     /// </summary>
-    public abstract class Usuario
+    public abstract class Usuario: IJsonConvertible
     {
 
         /// <summary>
@@ -48,5 +50,16 @@ namespace PII_E13.ClassLibrary
         /// </summary>
         /// <value>Una instancia de <see cref="Rubro"/> correspondiente al rubro de registro del usuario.</value>
         public Rubro Rubro { get; set; }
+
+        public static string ConvertToJson()
+        {
+            JsonSerializerOptions options = new()
+            {
+                ReferenceHandler = MyReferenceHandler.Instance,
+                WriteIndented = true
+            };
+
+            return JsonSerializer.Serialize(this, options);
+        }
     }
 }
