@@ -60,9 +60,17 @@ namespace PII_E13.ClassLibrary
         /// <param name="descripcion">La descripción de la oferta.</param>
         /// <param name="titulo">El titulo de la oferta.</param>
         /// <param name="disponibleConstantemente">Indica si la oferta está disponible constantemente o puntualmente.</param>
+        /// <exception cref="ArgumentException">Si el id de la <see cref="Oferta"/> ya existe.</exception>
         public Oferta PublicarOferta(string id, string titulo, string descripcion, DateTime fechaCierre, bool disponibleConstantemente = false,
             List<string> etiquetas = null, List<Habilitacion> habilitaciones = null)
         {
+            try
+            {
+                Sistema.Instancia.ObtenerOfertaPorId(id);
+                throw new ArgumentException("La id proveída no es válida ya que está repetida.");
+            }
+            catch (KeyNotFoundException e) { }
+
             if (etiquetas == null)
             {
                 etiquetas = new List<string>();
