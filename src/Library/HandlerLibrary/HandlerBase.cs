@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using PII_E13.ClassLibrary;
 
 namespace PII_E13.HandlerLibrary
@@ -115,6 +116,46 @@ namespace PII_E13.HandlerLibrary
             {
                 this.Siguiente.Cancelar(sesion);
             }
+        }
+
+        /// <summary>
+        /// Genera una matriz de botones en base a una lista de instancias de implementaciones de <see cref="IBoton"/>, un índice del cual empezar, 
+        /// las filas y columnas en las que agrupar los botones y una matriz de botones fijos incluidos al final.
+        /// </summary>
+        /// <param name="botones">Lista de instancias de <see cref="IBoton"/> a utilizar para generar la matriz.</param>
+        /// <param name="indiceInicial">Índice de la lista desde el cual empezar. (Opcional, 0 por defecto)</param>
+        /// <param name="filas">Cantidad de filas de botones para la matriz. (Opcional, 1 por defecto)</param>
+        /// <param name="columnas">Cantidad de botones a incluir por fila de la matriz. (Opcional, 1 por defecto)</param>
+        /// <param name="botonesFijos">Matriz de botones fijos incluida al final de la matriz. (Opcional)</param>
+        /// <returns>Una matriz de instancias de implementaciones de <see cref="IBoton"/>.</returns>
+        protected List<List<IBoton>> ObtenerMatrizDeBotones(List<IBoton> botones, int indiceInicial = 0, int filas = 1, int columnas = 1, List<List<IBoton>> botonesFijos = null)
+        {
+            List<List<IBoton>> matrizBotones = new List<List<IBoton>>();
+            for (int i = 0; i < filas; i++)
+            {
+                List<IBoton> fila = new List<IBoton>();
+                for (int j = 0; j < columnas; j++)
+                {
+                    try
+                    {
+                        fila.Add(botones[indiceInicial]);
+                        indiceInicial++;
+                    }
+                    catch (Exception e)
+                    {
+                        break;
+                    }
+                }
+                if (fila.Count > 0)
+                {
+                    matrizBotones.Add(fila);
+                }
+            }
+            if (botonesFijos != null)
+            {
+                matrizBotones.AddRange(botonesFijos);
+            }
+            return matrizBotones;
         }
     }
 }
