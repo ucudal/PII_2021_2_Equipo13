@@ -474,47 +474,6 @@ namespace PII_E13.HandlerLibrary
                 );
         }
 
-
-        /// <summary>
-        /// Método privado para construir una matriz de botones recibiendo una lista, el indice inicial de botones, la cantidad de filas y columnas
-        /// de botones en la matriz y una lista de botones fijos, incluidos al final de la misma.
-        /// </summary>
-        /// <param name="botones">Lista de instancias de implementaciones de <see cref="IBoton"/>.</param>
-        /// <param name="indiceInicial">Entero correspondiente al índice de la lista a partir del cual se desean utilizar elementos.</param>
-        /// <param name="filas">Entero correspondiente a la cantidad de filas de botones de la matriz.</param>
-        /// <param name="columnas">Entero correspondiente a la cantidad de columnas de botones de la matriz.</param>
-        /// <param name="botonesFijos">Lista de instancias de implementaciones de <see cref="IBoton"/> a incluir al final de la lista.</param>
-        /// <returns></returns>
-        private List<List<IBoton>> ObtenerMatrizDeBotones(List<IBoton> botones, int indiceInicial = 0, int filas = 1, int columnas = 1, List<List<IBoton>> botonesFijos = null)
-        {
-            List<List<IBoton>> matrizBotones = new List<List<IBoton>>();
-            for (int i = 0; i < filas; i++)
-            {
-                List<IBoton> fila = new List<IBoton>();
-                for (int j = 0; j < columnas; j++)
-                {
-                    try
-                    {
-                        fila.Add(botones[indiceInicial]);
-                        indiceInicial++;
-                    }
-                    catch (Exception e)
-                    {
-                        break;
-                    }
-                }
-                if (fila.Count > 0)
-                {
-                    matrizBotones.Add(fila);
-                }
-            }
-            if (botonesFijos != null)
-            {
-                matrizBotones.AddRange(botonesFijos);
-            }
-            return matrizBotones;
-        }
-
         /// <summary>
         /// Representación de los posibles estados de una postulación a oferta.
         /// </summary>

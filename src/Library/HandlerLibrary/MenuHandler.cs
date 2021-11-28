@@ -289,36 +289,6 @@ namespace PII_E13.HandlerLibrary
             }
         }
 
-        private List<List<IBoton>> ObtenerMatrizDeBotones(List<IBoton> botones, int indiceInicial = 0, int filas = 1, int columnas = 1, List<List<IBoton>> botonesFijos = null)
-        {
-            List<List<IBoton>> matrizBotones = new List<List<IBoton>>();
-            for (int i = 0; i < filas; i++)
-            {
-                List<IBoton> fila = new List<IBoton>();
-                for (int j = 0; j < columnas; j++)
-                {
-                    try
-                    {
-                        fila.Add(botones[indiceInicial]);
-                        indiceInicial++;
-                    }
-                    catch (Exception e)
-                    {
-                        break;
-                    }
-                }
-                if (fila.Count > 0)
-                {
-                    matrizBotones.Add(fila);
-                }
-            }
-            if (botonesFijos != null)
-            {
-                matrizBotones.AddRange(botonesFijos);
-            }
-            return matrizBotones;
-        }
-
         /// <summary>
         /// Representación de los posibles estados de una postulación a oferta.
         /// </summary>
@@ -360,11 +330,6 @@ namespace PII_E13.HandlerLibrary
 
             public TipoMensaje tipoMensaje { get; set; }
 
-
-            /// <summary>
-            /// Oferta seleccionada por un usuario entre la lista de ofertas encontradas.
-            /// </summary>
-            public Oferta ofertaSeleccionada { get; set; }
 
             /// <summary>
             /// Indice actual dentro de la lista de categorías.
