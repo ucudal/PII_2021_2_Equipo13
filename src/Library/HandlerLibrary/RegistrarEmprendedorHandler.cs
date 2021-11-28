@@ -1,4 +1,4 @@
-/*
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -413,7 +413,8 @@ namespace PII_E13.HandlerLibrary
             try
             {
                 Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario);
-                if( Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario) != null){
+                if (Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario) != null)
+                {
                     return false;
                 }
             }
@@ -429,7 +430,7 @@ namespace PII_E13.HandlerLibrary
                 throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
             }
             */
-/*
+
             return true;
             //return this.Etiquetas.Any(s => mensaje.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
         }
@@ -466,7 +467,7 @@ namespace PII_E13.HandlerLibrary
                 throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
             }
             */
-/*
+
             return true;
             //return this.Etiquetas.Any(s => mensaje.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
         }
@@ -537,4 +538,3 @@ namespace PII_E13.HandlerLibrary
         }
     }
 }
-*/
