@@ -216,6 +216,8 @@ namespace PII_E13.ClassLibrary
         {
             Habilitacion habilitacion = new Habilitacion(nombre, descripcion, nombreInsitucionHabilitada, Convert.ToDateTime(null), Convert.ToDateTime(null), true);
             this.Habilitaciones.Add(habilitacion);
+            IPersistor persistor = new PersistorDeJson();
+            persistor.Escribir<Empresa>("Empresas.json", Sistema.Instancia.ObtenerEmpresaPorId(this.Empresa));
         }
 
         /// <summary>
