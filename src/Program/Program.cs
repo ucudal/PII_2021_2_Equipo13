@@ -13,7 +13,8 @@ namespace Application
     public static class Program
     {
         // INSTANCIAR COMO ALGÚN HANDLER.
-        private static IHandler handler = new PostularseAOfertaHandler(null, "Buscar Ofertas");
+        private static IHandler handler = new CrearOfertaHandler(null, "Publicar Oferta");
+        //private static IHandler handler = new PostularseAOfertaHandler(null, "Buscar Ofertas");
         //private static IHandler handler = new RegistrarEmprendedorHandler(null);
 
         private static GestorSesiones gestorSesiones = GestorSesiones.Instancia;

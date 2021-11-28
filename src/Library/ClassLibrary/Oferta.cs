@@ -205,6 +205,18 @@ namespace PII_E13.ClassLibrary
             IPersistor persistor = new PersistorDeJson();
             persistor.Escribir<Empresa>("Empresas.json", Sistema.Instancia.ObtenerEmpresaPorId(this.Empresa));
         }
+        //aplicando Creator
+        /// <summary>
+        /// Agrega una Habilitacion a la lista.
+        /// </summary>
+        /// <param name="nombre">Nombre de la habilitacion.</param>
+        /// <param name="descripcion">Descripcion de la habilitaicon.</param> 
+        /// <param name="nombreInsitucionHabilitada">Nombre de la institucion.</param>      
+        public void AgregarHabilitacion(string nombre, string descripcion, string nombreInsitucionHabilitada)
+        {
+            Habilitacion habilitacion = new Habilitacion(nombre, descripcion, nombreInsitucionHabilitada, Convert.ToDateTime(null), Convert.ToDateTime(null), true);
+            this.Habilitaciones.Add(habilitacion);
+        }
 
         /// <summary>
         /// Quita un producto de la lista.

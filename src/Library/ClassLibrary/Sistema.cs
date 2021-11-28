@@ -95,6 +95,20 @@ namespace PII_E13.ClassLibrary
             throw new KeyNotFoundException("No se encontró el emprendedor con el id dado.");
         }
 
+        public Material ObtenerMaterialPorNombre(string nombre)
+        {
+
+            foreach (Material material in this.Materiales)
+            {
+                if (material.Nombre == nombre)
+                {
+                    return material;
+                }
+            }
+            throw new KeyNotFoundException("No se encontró el material con el nombre dado.");
+
+        }
+
         /// <summary>
         /// Recupera una instancia de <see cref="Oferta"/> de la lista de de emprendedores y sus respectivas listas de ofertas.
         /// </summary>

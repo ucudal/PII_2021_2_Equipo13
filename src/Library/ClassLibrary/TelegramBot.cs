@@ -16,9 +16,7 @@ namespace PII_E13.ClassLibrary
     public class TelegramBot : IEnviador
     {
         // Este token es de un bot que puede usarse para la entrega.
-        //private const string TOKEN_BOT_DE_TELEGRAM = "2130672830:AAFm625kdCFpfVaYbDsR9YTEMJf2oY9XUac";
-        private const string TOKEN_BOT_DE_TELEGRAM = "2133543111:AAHtlHAp1B-irzg7ZhfUH2olwG7InxVT9Yw";
-
+        private const string TOKEN_BOT_DE_TELEGRAM = "2130672830:AAFm625kdCFpfVaYbDsR9YTEMJf2oY9XUac";
 
         private static TelegramBot instancia;
         private ITelegramBotClient bot;
@@ -147,6 +145,11 @@ namespace PII_E13.ClassLibrary
         /// </summary>
         /// <value>Instancia de <see cref="Boton"/> con texto y callback "Cancelar".</value>
         public readonly Boton BotonCancelar = new Boton("Cancelar");
+        public readonly Boton BotonAvanzar = new Boton("Avanzar");
+        public readonly Boton BotonFinalizar = new Boton("Finalizar");
+        public readonly Boton BotonAgregar = new Boton("Agregar");
+
+        public readonly Boton BotonAgregarOtro = new Boton("Agregar Otro");
 
         /// <summary>
         /// Instancia de <see cref="Boton"/> predefinida para representar a un botón con texto y callback "Siguiente".
