@@ -79,9 +79,6 @@ namespace PII_E13.HandlerLibrary
             return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion) && sesion.PLN.UltimaIntencion.ConfianzaDeteccion > 75;
         }
 
-
-
-
         /// <summary>
         /// Procesa el mensaje o la pasa al siguiente "handler" si existe.
         /// </summary>

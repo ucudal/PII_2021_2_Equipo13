@@ -424,9 +424,7 @@ namespace PII_E13.HandlerLibrary
         }
 
         /// <summary>
-        /// Retorna este "handler" al estado inicial. En los "handler" sin estado no hace nada. Los "handlers" que
-        /// procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
-        /// estado inicial.
+        /// Retorna este "handler" al estado inicial.
         /// </summary>
         /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         public override void Cancelar(Sesion sesion)
@@ -439,8 +437,7 @@ namespace PII_E13.HandlerLibrary
         }
 
         /// <summary>
-        /// Este método puede ser sobreescrito en las clases sucesores que procesan varios mensajes cambiando de estado
-        /// entre mensajes deben sobreescribir este método para volver al estado inicial. En la clase base no hace nada.
+        /// Retorna este "handler" al estado inicial.
         /// </summary>
         /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         protected override void CancelarInterno(Sesion sesion)

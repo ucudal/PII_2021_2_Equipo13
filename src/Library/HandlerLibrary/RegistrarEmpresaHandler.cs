@@ -3,28 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using PII_E13.ClassLibrary;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace PII_E13.HandlerLibrary
 {
     /// <summary>
-    /// Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a través de una
-    /// cadena de "handlers" que pueden procesar o no el mensaje. Cada "handler" decide si procesa el mensaje, o si se lo
-    /// pasa al siguiente. Esta clase base implmementa la responsabilidad de recibir el mensaje y pasarlo al siguiente
-    /// "handler" en caso que el mensaje no sea procesado. La responsabilidad de decidir si el mensaje se procesa o no, y
-    /// de procesarlo, se delega a las clases sucesoras de esta clase base.
+    /// Handler encargado de procesar el registro de una empresa.
     /// </summary>
     public class RegistrarEmpresaHandler : HandlerBase
     {
-        private readonly Random _random = new Random();
+        //private StringBuilder stringBuilder;
+        private Dictionary<Sesion, StringBuilder> SbSesion = new Dictionary<Sesion, StringBuilder>();
 
-        private List<String> datosEmpresa;
-        private StringBuilder stringBuilder;
-        private string accionPrevia;
-        private const int COLUMNAS_CATEGORIAS = 1;
-        private const int FILAS_CATEGORIAS = 4;
-        private const int COLUMNAS_OFERTAS = 1;
-        private const int FILAS_OFERTAS = 3;
+        //Dictionary<string, string> DiccDatosEpresa = new Dictionary<string, string>();
+        private Dictionary<Sesion, Dictionary<string, string>> Sesiones = new Dictionary<Sesion, Dictionary<string, string>>();
+
+        //private string accionPrevia;
+        private Dictionary<Sesion, string> accionPreviaSesion = new Dictionary<Sesion, string>();
+        private const int COLUMNAS_EMPRESA = 1;
+        private const int FILAS_EMPRESA = 4;
+
 
         /// <summary>
         /// Diccionario utilizado para contener todas las búsquedas que se están realizando por los usuarios.
@@ -34,31 +31,45 @@ namespace PII_E13.HandlerLibrary
         private Dictionary<string, InformacionPostulacion> Busquedas { get; set; }
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="PostularseAOfertaHandler"/>. 
-        /// Esta clase procesa la postulación a una oferta.
+        /// Inicializa una nueva instancia de la clase <see cref="RegistrarEmpresaHandler"/>. 
         /// </summary>
-        public RegistrarEmpresaHandler(HandlerBase siguiente) : base(siguiente)
+        public RegistrarEmpresaHandler(HandlerBase siguiente, string intencion) : base(siguiente, intencion)
         {
             this.Busquedas = new Dictionary<string, InformacionPostulacion>();
-            this.stringBuilder = new StringBuilder();
-            this.datosEmpresa = new List<string>();
-            stringBuilder.Append("Datos sobre tu empresa: \n\n");
-
         }
 
         /// <summary>
         /// La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
         /// </summary>
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         /// <param name="mensaje">El mensaje a procesar.</param>
         /// <param name="respuesta">La respuesta al mensaje procesado.</param>
         /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected override bool ResolverInterno(IMensaje mensaje, out RespuestaTelegram respuesta)
+        protected override bool ResolverInterno(Sesion sesion, IMensaje mensaje, out IRespuesta respuesta)
         {
-            respuesta = new RespuestaTelegram(string.Empty);
-            if (!this.PuedeResolver(mensaje))
+            respuesta = new Respuesta(mensaje);
+            if (!this.PuedeResolver(sesion))
             {
                 return false;
             }
+
+            if (!this.SbSesion.ContainsKey(sesion))
+            {
+                this.SbSesion.Add(sesion, new StringBuilder("Datos sobre ti: \n"));
+            }
+            StringBuilder stringBuilder = this.SbSesion[sesion];
+
+            if (!this.accionPreviaSesion.ContainsKey(sesion))
+            {
+                this.accionPreviaSesion.Add(sesion, String.Empty);
+            }
+            string accionPrevia = this.accionPreviaSesion[sesion];
+
+            if (!this.Sesiones.ContainsKey(sesion))
+            {
+                this.Sesiones.Add(sesion, new Dictionary<string, string>());
+            }
+            Dictionary<string, string> DiccDatosEpresa = this.Sesiones[sesion];
 
             InformacionPostulacion infoPostulacion = new InformacionPostulacion();
             if (this.Busquedas.ContainsKey(mensaje.IdUsuario))
@@ -68,205 +79,140 @@ namespace PII_E13.HandlerLibrary
             else
             {
                 this.Busquedas.Add(mensaje.IdUsuario, infoPostulacion);
+
             }
             List<string> titulosOfertas = new List<string>();
-            List<string> opciones = new List<string>();
-            opciones.Add("Nombre");
-            opciones.Add("Direccion");
-            opciones.Add("Rubro");
-            opciones.Add("Ciudad");
+            List<string> opcionesRegistro = new List<string>(); //Opciones para registro
+            opcionesRegistro.Add("Nombre");
+            opcionesRegistro.Add("Ciudad");
+            opcionesRegistro.Add("Direccion");
+            opcionesRegistro.Add("Rubro");
 
-            if (infoPostulacion.CategoriasDisponibles == null)
+
+
+
+            if (infoPostulacion.DatosEmpresaDisponibles == null) //Lista de botones con las opciones del registro
             {
-                infoPostulacion.CategoriasDisponibles = new List<string>();
+                infoPostulacion.DatosEmpresaDisponibles = new List<string>();
 
-                foreach (string opcion in opciones)
+                foreach (string opcion in opcionesRegistro)
                 {
-                    if (!infoPostulacion.CategoriasDisponibles.Contains(opcion))
+                    if (!infoPostulacion.DatosEmpresaDisponibles.Contains(opcion))
                     {
-                        infoPostulacion.CategoriasDisponibles.Add(opcion);
+                        infoPostulacion.DatosEmpresaDisponibles.Add(opcion);
                     }
                 }
-
             }
-            List<InlineKeyboardButton> botonesDeCategorias = TelegramBot.Instancia.ObtenerBotones(infoPostulacion.CategoriasDisponibles);
-            List<InlineKeyboardButton> botonesDeOfertas = new List<InlineKeyboardButton>();
-            List<List<InlineKeyboardButton>> tecladoFijoCategorias = new List<List<InlineKeyboardButton>>() {
-                new List<InlineKeyboardButton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
+
+
+            List<IBoton> botonesDeEmpresa = new List<IBoton>();
+            List<List<IBoton>> tecladoFijoCategorias = new List<List<IBoton>>()
+            {
+                new List<IBoton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
+
             };
-            List<List<InlineKeyboardButton>> tecladoFijoOfertas = new List<List<InlineKeyboardButton>>() {
-                new List<InlineKeyboardButton>() {InlineKeyboardButton.WithCallbackData("Salir")}
-            };
+
+            foreach (string opcion in infoPostulacion.DatosEmpresaDisponibles)
+            {
+                botonesDeEmpresa.Add(new Boton(opcion));
+            }
+
+
+
 
             switch (infoPostulacion.Estado)
             {
 
                 case Estados.Inicio:
+                    Console.WriteLine("Estado: " + infoPostulacion.Estado);
                     respuesta.Texto = "Por favor, indícanos detalladamente lo qué necesitas, dentro de un mensaje.";
                     infoPostulacion.Estado = Estados.Categorias;
+                    infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+
                     return true;
 
                 case Estados.Categorias:
-                    // for each con los botones para el registro
-                    foreach (string opcion in opciones)
-                    {
-                        if (!infoPostulacion.CategoriasDisponibles.Contains(opcion))
-                        {
-                            infoPostulacion.CategoriasDisponibles.Add(opcion);
-                        }
-                    }
+                    Console.WriteLine("Estado: " + infoPostulacion.Estado);
 
                     List<string> etiquetas = mensaje.Texto.Split(' ').ToList();
                     infoPostulacion.Etiquetas = etiquetas;
-                    infoPostulacion.IndiceActual = 0;
-                    respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
+                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoPostulacion.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
                     infoPostulacion.Estado = Estados.DatosEmpresa;
+                    foreach (string nombreBoton in opcionesRegistro)
+                    {
+                        if (mensaje.Texto == nombreBoton)
+                        {
+                            infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+
+                        }
+                    }
                     StringBuilder st = new StringBuilder();
                     st.Append("############   REGISTRO EMPRESA   ############");
-                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
+                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
                     respuesta.Texto = st.ToString();
                     return true;
 
+
+
                 case Estados.DatosEmpresa:
-                    switch (mensaje.Texto)
+                    //Deteccion de tipo de mensaje en base a si el mensaje de entrada es igual a algún tipo de boton
+                    foreach (string nombreBoton in opcionesRegistro)
                     {
-                        case "Listo":
-
-                            stringBuilder.Append("Datos sobre tu empresa: \n\n");
-
-
-                            return false;
-
-                        case "Cancelar":
-                            this.Cancelar();
-                            return false;
-
-
-                    }
-                    if (!infoPostulacion.CategoriasDisponibles.Contains(mensaje.Texto))
-                    {
-                        respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{this.accionPrevia}*";
-                        this.stringBuilder.Append("\n" + this.accionPrevia + ":   " + mensaje.Texto);
-                        datosEmpresa.Add(mensaje.Texto);
-
-                        respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
-                        respuesta.EditarMensaje = true;
-                        return true;
-                    }
-
-                    botonesDeCategorias.Remove(botonesDeCategorias.First(b => b.Text == mensaje.Texto));
-                    if (infoPostulacion.IndiceActual >= botonesDeCategorias.Count)
-                    {
-                        infoPostulacion.IndiceActual = botonesDeCategorias.Count - FILAS_CATEGORIAS * COLUMNAS_CATEGORIAS;
-                    }
-                    infoPostulacion.CategoriasDisponibles.Remove(mensaje.Texto);
-                    if (infoPostulacion.CategoriasDisponibles.Count <= (FILAS_CATEGORIAS * COLUMNAS_CATEGORIAS))
-                    {
-                        tecladoFijoCategorias = new List<List<InlineKeyboardButton>>()
+                        if ((mensaje.Texto == nombreBoton) ^ (mensaje.Texto == "Listo") ^ (mensaje.Texto == "Cancelar"))
                         {
-                            new List<InlineKeyboardButton>() { TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo }
-                        };
+                            infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+                            break;
+                        }
+                        else
+                        {
+                            infoPostulacion.tipoMensaje = TipoMensaje.Mensaje;
+                        }
                     }
-                    infoPostulacion.Categorias.Add(mensaje.Texto);
-                    respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\nSelecciona _\"Listo\"_ cuando quieras finalizar el registro, o _\"Cancelar\"_ para detenerlo.";
-                    respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
-                    respuesta.EditarMensaje = true;
-                    return true;
-
-
-            }
-            infoPostulacion = new InformacionPostulacion();
-            return false;
-        }
-
-        /// <summary>
-        /// La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
-        /// </summary>
-        /// <param name="callback">El callback a procesar.</param>
-        /// <param name="respuesta">La respuesta al mensaje procesado.</param>
-        /// <returns>true si el mensaje fue procesado; false en caso contrario</returns>
-        protected override bool ResolverInterno(ICallBack callback, out RespuestaTelegram respuesta)
-        {
-            respuesta = new RespuestaTelegram(string.Empty);
-            if (!this.PuedeResolver(callback))
-            {
-                return false;
-            }
-
-            InformacionPostulacion infoPostulacion = new InformacionPostulacion();
-            if (this.Busquedas.ContainsKey(callback.IdUsuario))
-            {
-                infoPostulacion = this.Busquedas[callback.IdUsuario];
-            }
-            else
-            {
-                this.Busquedas.Add(callback.IdUsuario, infoPostulacion);
-            }
-            List<string> titulosOfertas = new List<string>();
-
-            List<InlineKeyboardButton> botonesDeCategorias = TelegramBot.Instancia.ObtenerBotones(infoPostulacion.CategoriasDisponibles);
-            List<InlineKeyboardButton> botonesDeOfertas = new List<InlineKeyboardButton>();
-            List<List<InlineKeyboardButton>> tecladoFijoCategorias = new List<List<InlineKeyboardButton>>() {
-                new List<InlineKeyboardButton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
-            };
-            List<List<InlineKeyboardButton>> tecladoFijoOfertas = new List<List<InlineKeyboardButton>>() {
-                new List<InlineKeyboardButton>() {InlineKeyboardButton.WithCallbackData("Salir")}
-            };
-
-            switch (infoPostulacion.Estado)
-            {
-                case Estados.DatosEmpresa:
-                    switch (callback.Texto)
+                    switch (infoPostulacion.tipoMensaje)
                     {
-                        case "Listo":
-                            botonesDeOfertas = TelegramBot.Instancia.ObtenerBotones(titulosOfertas);
+                        case TipoMensaje.Callback:
+                            Console.WriteLine("ESTADO: " + infoPostulacion.tipoMensaje);
 
-                            int id = _random.Next(1000);
-                            Sistema.Instancia.RegistrarEmpresa(id.ToString(), this.datosEmpresa[3], this.datosEmpresa[1], this.datosEmpresa[2], this.datosEmpresa[0]);
-                            Console.WriteLine("Validando usuario....");
-                            Console.WriteLine("ID usuario a validar: " + id.ToString());
-                            Console.WriteLine("Nombre persona obtenido: " + Sistema.Instancia.ObtenerEmpresaPorId(id.ToString()).Nombre);
-                            Console.WriteLine("Nombre persona ingresado: " + this.datosEmpresa[0]);
-
-
-                            if (Sistema.Instancia.ObtenerEmpresaPorId(id.ToString()).Nombre == this.datosEmpresa[0])
+                            switch (mensaje.Texto)
                             {
-                                this.stringBuilder.Append("\n\nFelicidades, su empresa ha sido ingresada en el sistema exitosamente. Bienvenido!");
+                                case "Listo":
+                                    stringBuilder.Append("\n\n\nDatos sobre tus habilitaciones: \n");
+
+                                    foreach (var item in DiccDatosEpresa)
+                                    {
+                                        stringBuilder.Append("\n" + item.Key + ":   " + item.Value);
+                                    }
+
+                                    Sistema.Instancia.RegistrarEmpresa(mensaje.IdUsuario.ToString(), DiccDatosEpresa["Ciudad"], DiccDatosEpresa["Direccion"], DiccDatosEpresa["Rubro"], DiccDatosEpresa["Nombre"]);
+
+                                    Console.WriteLine("id empresa registrado: " + mensaje.IdUsuario.ToString());
+
+                                    if (Sistema.Instancia.ObtenerEmpresaPorId(mensaje.IdUsuario.ToString()).Nombre == DiccDatosEpresa["Nombre"])
+                                    {
+                                        stringBuilder.Append("\n\nUsted ha sido ingresado en el sistema exitosamente. Bienvenido.");
+                                    }
+                                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoPostulacion.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
+                                    respuesta.Texto = stringBuilder.ToString();
+                                    return true;
+
+                                case "Cancelar":
+                                    return false;
                             }
-                            else
-                            {
-                                this.stringBuilder.Append("Hubo un error con su registro, intente nuevamente");
-                            }
-                            respuesta.Texto = this.stringBuilder.ToString();
-                            respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
+                            respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
+                            accionPrevia = mensaje.Texto;
+                            respuesta.EditarMensaje = true;
                             return true;
 
 
-                        case "Cancelar":
-                            this.Cancelar();
-                            return false;
-                    }
 
-                    botonesDeCategorias.Remove(botonesDeCategorias.First(b => b.Text == callback.Texto));
-                    if (infoPostulacion.IndiceActual >= botonesDeCategorias.Count)
-                    {
-                        infoPostulacion.IndiceActual = botonesDeCategorias.Count - FILAS_CATEGORIAS * COLUMNAS_CATEGORIAS;
+                        case TipoMensaje.Mensaje:
+                            Console.WriteLine("ESTADO: " + infoPostulacion.tipoMensaje);
+                            respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{accionPrevia}*";
+                            DiccDatosEpresa[accionPrevia] = mensaje.Texto;
+                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoPostulacion.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
+                            return true;
                     }
-                    infoPostulacion.CategoriasDisponibles.Remove(callback.Texto);
-                    if (infoPostulacion.CategoriasDisponibles.Count <= (FILAS_CATEGORIAS * COLUMNAS_CATEGORIAS))
-                    {
-                        tecladoFijoCategorias = new List<List<InlineKeyboardButton>>()
-                        {
-                            new List<InlineKeyboardButton>() { TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo }
-                        };
-                    }
-                    infoPostulacion.Categorias.Add(callback.Texto);
-                    respuesta.Texto = $"A continuacion se habilito el campo _\"{callback.Texto}\"_ para su ingreso.\n\nSelecciona _\"Listo\"_ cuando quieras continuar la búsqueda, o _\"Cancelar\"_ para detenerla.";
-                    this.accionPrevia = callback.Texto;
-                    respuesta.TecladoTelegram = TelegramBot.Instancia.ObtenerKeyboard(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
-                    respuesta.EditarMensaje = true;
                     return true;
-
 
             }
             infoPostulacion = new InformacionPostulacion();
@@ -274,94 +220,93 @@ namespace PII_E13.HandlerLibrary
         }
 
         /// <summary>
-        /// Este método puede ser sobreescrito en las clases sucesores que procesan varios mensajes cambiando de estado
-        /// entre mensajes deben sobreescribir este método para volver al estado inicial. En la clase base no hace nada.
+        /// Retorna este "handler" al estado inicial.
         /// </summary>
-        protected void CancelarInterno(string idUsuario)
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
+        protected override void CancelarInterno(Sesion sesion)
         {
-            this.Busquedas.Remove(idUsuario);
+            this.Busquedas.Remove(sesion.IdUsuario);
         }
 
         /// <summary>
-        /// Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
-        /// <see cref="HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
-        /// clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
-        /// un mensaje.
+        /// Determina si este "handler" puede procesar el mensaje.
         /// </summary>
-        /// <param name="mensaje">El mensaje a procesar.</param>
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
-        protected override bool PuedeResolver(IMensaje mensaje)
+        protected override bool PuedeResolver(Sesion sesion)
         {
             try
             {
-                Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario);
+                Sistema.Instancia.ObtenerEmprendedorPorId(sesion.IdUsuario);
+                return false;
             }
             catch (KeyNotFoundException e)
             {
-                return false;
-            }
-            // Cuando no hay palabras clave este método debe ser sobreescrito por las clases sucesoras y por lo tanto
-            // este método no debería haberse invocado.
-            /*
-            if (this.Etiquetas == null || this.Etiquetas.Length == 0)
-            {
-                throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
-            }
-            */
-
-            return true;
-            //return this.Etiquetas.Any(s => mensaje.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        /// <summary>
-        /// Determina si este "handler" puede procesar el mensaje. En la clase base se utiliza el array
-        /// <see cref="HandlerBase.Etiquetas"/> para buscar el texto en el mensaje ignorando mayúsculas y minúsculas. Las
-        /// clases sucesores pueden sobreescribir este método para proveer otro mecanismo para determina si procesan o no
-        /// un mensaje.
-        /// </summary>
-        /// <param name="callback">El callback a procesar.</param>
-        /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
-        protected override bool PuedeResolver(ICallBack callback)
-        {
-            try
-            {
-                Sistema.Instancia.ObtenerEmprendedorPorId(callback.IdUsuario);
-                InformacionPostulacion infoPostulacion = this.Busquedas[callback.IdUsuario];
-                if (infoPostulacion.Estado != Estados.DatosEmpresa)
+                try
                 {
+                    Sistema.Instancia.ObtenerEmprendedorPorId(sesion.IdUsuario);
                     return false;
                 }
-            }
-            catch (KeyNotFoundException e)
-            {
-                return false;
-            }
+                catch (KeyNotFoundException e2)
+                {
+                    Intencion intencion = sesion.PLN.UltimaIntencion;
+                    if (intencion.Entrada.Equals("Empresa"))
+                    {
+                        return true;
+                    }
+                    else if (intencion.Entrada.Equals("Emprendedor"))
+                    {
+                        return false;
+                    }
 
-            // Cuando no hay palabras clave este método debe ser sobreescrito por las clases sucesoras y por lo tanto
-            // este método no debería haberse invocado.
-            /*
-            if (this.Etiquetas == null || this.Etiquetas.Length == 0)
-            {
-                throw new InvalidOperationException("No hay palabras clave que puedan ser procesadas");
+                    return (this.Busquedas.ContainsKey(sesion.IdUsuario) &&
+                        (intencion.Nombre.Equals("Default") || sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 90)
+                    );
+                }
             }
-            */
-
-            return true;
-            //return this.Etiquetas.Any(s => mensaje.Texto.Equals(s, StringComparison.InvariantCultureIgnoreCase));
         }
 
         /// <summary>
-        /// Retorna este "handler" al estado inicial. En los "handler" sin estado no hace nada. Los "handlers" que
-        /// procesan varios mensajes cambiando de estado entre mensajes deben sobreescribir este método para volver al
-        /// estado inicial.
+        /// Retorna este "handler" al estado inicial.
         /// </summary>
-        public void Cancelar(string idUsuario)
+        /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
+        public override void Cancelar(Sesion sesion)
         {
-            this.CancelarInterno(idUsuario);
+            this.CancelarInterno(sesion);
             if (this.Siguiente != null)
             {
-                this.Siguiente.Cancelar();
+                this.Siguiente.Cancelar(sesion);
             }
+        }
+
+        private List<List<IBoton>> ObtenerMatrizDeBotones(List<IBoton> botones, int indiceInicial = 0, int filas = 1, int columnas = 1, List<List<IBoton>> botonesFijos = null)
+        {
+            List<List<IBoton>> matrizBotones = new List<List<IBoton>>();
+            for (int i = 0; i < filas; i++)
+            {
+                List<IBoton> fila = new List<IBoton>();
+                for (int j = 0; j < columnas; j++)
+                {
+                    try
+                    {
+                        fila.Add(botones[indiceInicial]);
+                        indiceInicial++;
+                    }
+                    catch (Exception e)
+                    {
+                        break;
+                    }
+                }
+                if (fila.Count > 0)
+                {
+                    matrizBotones.Add(fila);
+                }
+            }
+            if (botonesFijos != null)
+            {
+                matrizBotones.AddRange(botonesFijos);
+            }
+            return matrizBotones;
         }
 
         /// <summary>
@@ -371,10 +316,18 @@ namespace PII_E13.HandlerLibrary
         {
             Inicio,
             Categorias,
-            DatosEmpresa
-
+            DatosEmpresa,
         }
 
+        /// <summary>
+        /// Representación de los posibles tipos de mensajes.
+        /// </summary>
+        private enum TipoMensaje
+        {
+
+            Mensaje,
+            Callback
+        }
         /// <summary>
         /// Clase privada contenedora de la información de una postulación a una oferta.
         /// </summary>
@@ -384,18 +337,19 @@ namespace PII_E13.HandlerLibrary
             /// Lista de etiquetas que está usando un usuario para buscar una oferta.
             /// </summary>
             public List<string> Etiquetas { get; set; } = new List<string>();
-            /// <summary>
-            /// Lista de ofertas encontradas en la búsqueda de ofertas.
-            /// </summary>
-            public List<Oferta> OfertasEncontradas { get; set; } = new List<Oferta>();
+
             /// <summary>
             /// Lista de categorías que está usando un usuario para buscar una oferta.
             /// </summary>
             public List<string> Categorias { get; set; } = new List<string>();
+
             /// <summary>
             /// Estado de la búsqueda de ofertas de un usuario.
             /// </summary>
             public Estados Estado { get; set; } = Estados.Inicio;
+
+            public TipoMensaje tipoMensaje { get; set; }
+
 
             /// <summary>
             /// Oferta seleccionada por un usuario entre la lista de ofertas encontradas.
@@ -407,7 +361,8 @@ namespace PII_E13.HandlerLibrary
             /// </summary>
             public int IndiceActual { get; set; } = 0;
 
-            public List<string> CategoriasDisponibles { get; set; }
+            public List<string> DatosEmpresaDisponibles { get; set; }
+
         }
     }
 }
