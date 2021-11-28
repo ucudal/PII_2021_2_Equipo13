@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace PII_E13.ClassLibrary
 {
@@ -13,8 +14,27 @@ namespace PII_E13.ClassLibrary
     /// </summary>
     public class Producto
     {
+
         /// <summary>
-        /// Crea una instancia de Producto.
+        /// Crea una instancia de <see cref="Producto"/> a través de la deserialización de un objeto en formato JSON.
+        /// </summary>
+        /// <param name="material">Material que compone al producto.</param>
+        /// <param name="ubicacion">Ubicación donde está almacenado el producto</param>
+        /// <param name="cantidadEnUnidad">Cantidad del producto en la unidad estándar de su material.</param>
+        /// <param name="valorUYU">Valor en pesos uruguayos del producto.</param>
+        /// <param name="valorUSD">Valor en dolares del producto.</param>
+        [JsonConstructor]
+        public Producto(Material material, UbicacionBase ubicacion, double cantidadEnUnidad, double valorUYU, double valorUSD)
+        {
+            this.Material = material;
+            this.Ubicacion = ubicacion;
+            this.CantidadEnUnidad = cantidadEnUnidad;
+            this.ValorUYU = valorUYU;
+            this.ValorUSD = valorUSD;
+        }
+
+        /// <summary>
+        /// Crea una instancia de <see cref="Producto"/>.
         /// </summary>
         /// <param name="material">Material que compone al producto.</param>
         /// <param name="ciudad">Ciudad en la que está localizado el producto.</param>
@@ -22,7 +42,6 @@ namespace PII_E13.ClassLibrary
         /// <param name="cantidadEnUnidad">Cantidad del producto en la unidad estándar de su material.</param>
         /// <param name="valorUYU">Valor en pesos uruguayos del producto.</param>
         /// <param name="valorUSD">Valor en dolares del producto.</param>
-
         public Producto(Material material, string ciudad, string direccion, double cantidadEnUnidad, double valorUYU, double valorUSD)
         {
             this.Material = material;
@@ -40,7 +59,7 @@ namespace PII_E13.ClassLibrary
         /// <summary>
         /// Instancia de ubicacion correspondiente a la ubicacion donde se almacena el producto.
         /// </summary>
-        public IUbicacion Ubicacion { get; set; }
+        public UbicacionBase Ubicacion { get; set; }
 
         /// <summary>
         /// Cantidad del material en su unidad especifica.
@@ -64,7 +83,7 @@ namespace PII_E13.ClassLibrary
         {
             get
             {
-                return ($"{this.CantidadEnUnidad} {this.Material.UnidadEstandar} de {this.Material.Nombre}");
+                return ($"{this.CantidadEnUnidad} {this.Material.UnidadEstandar} de {this.Material.Nombre}.\n_${this.ValorUYU} UYU_ o _${this.ValorUSD} USD_");
             }
         }
     }

@@ -157,17 +157,22 @@
         </member>
         <member name="P:PII_E13.ClassLibrary.Emprendedor.OfertasPostuladas">
             <summary>
-            Mediante una lista de <value>Ofertas</value> indicaremos las ofertas a las cual se postuló.
+            Mediante una lista de identificadores únicos de instancias de <see cref="T:PII_E13.ClassLibrary.Oferta"/> indicaremos las ofertas a las cual se postuló.
             </summary>
         </member>
         <member name="P:PII_E13.ClassLibrary.Emprendedor.OfertasConsumidas">
             <summary>
-            Mediante una lista de <value>Ofertas</value> indicaremos las ofertas consumidas a las cual se postuló.
+            Mediante una lista de identificadores únicos de instancias de <see cref="T:PII_E13.ClassLibrary.Oferta"/> indicaremos las ofertas consumidas a las cual se postuló.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Emprendedor.#ctor">
+            <summary>
+            Crea una instancia vacía de <see cref="T:PII_E13.ClassLibrary.Emprendedor"/>
             </summary>
         </member>
         <member name="M:PII_E13.ClassLibrary.Emprendedor.#ctor(System.String,System.String,System.Collections.Generic.List{PII_E13.ClassLibrary.Habilitacion},System.String,System.String,System.String)">
             <summary>
-            Crea una instancia de Emprendedor
+            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.Emprendedor"/>
             </summary>
             <param name="id">Id del emprendedor en Telegram.</param>
             <param name="nombre">Nombre de la empresa del emprendedor.</param>
@@ -176,15 +181,20 @@
             <param name="direccion">La direccion de la base de operaciones del emprendedor en la ciudad.</param>
             <param name="rubro">El rubro dentro del cual trabaja el emprendedor.</param>
         </member>
+        <member name="M:PII_E13.ClassLibrary.Emprendedor.#ctor(System.String,System.String,PII_E13.ClassLibrary.UbicacionBase,PII_E13.ClassLibrary.Rubro,System.Collections.Generic.List{PII_E13.ClassLibrary.Habilitacion},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String})">
+            <summary>
+            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.Emprendedor"/> a través de deserialización.
+            </summary>
+        </member>
         <member name="M:PII_E13.ClassLibrary.Emprendedor.PostularseAOferta(System.Collections.Generic.List{PII_E13.ClassLibrary.Oferta})">
             <summary>
-            Mediante una oferta esté se postulará a ella.
+            Mediante una oferta, éste emprendedor se postulará a ella.
             </summary>
             <param name="ofertas">Lista de ofertas a postularse.</param>
         </member>
         <member name="M:PII_E13.ClassLibrary.Emprendedor.PostularseAOferta(PII_E13.ClassLibrary.Oferta)">
             <summary>
-            Mediante una oferta esté se postulará a ella.
+            Mediante una oferta, éste emprendedor se postulará a ella.
             </summary>
             <param name="oferta">Oferta a postularse.</param>
         </member>
@@ -217,6 +227,11 @@
             Id del usuario en el canal de registro.
             </summary>
         </member>
+        <member name="M:PII_E13.ClassLibrary.Empresa.#ctor">
+            <summary>
+            Crea una instancia vacía de <see cref="T:PII_E13.ClassLibrary.Empresa"/>.
+            </summary>
+        </member>
         <member name="M:PII_E13.ClassLibrary.Empresa.#ctor(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Crea una instancia de Empresa.
@@ -226,6 +241,17 @@
             <param name="direccion">Direccion de la empresa.</param>
             <param name="rubro">Rubro al que pertenece la empresa.</param>
             <param name="nombre">Nombre comercial de la empresa.</param>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Empresa.#ctor(System.String,PII_E13.ClassLibrary.UbicacionBase,PII_E13.ClassLibrary.Rubro,System.String,System.Collections.Generic.List{PII_E13.ClassLibrary.Oferta})">
+            <summary>
+            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.Empresa"/> a través de deserialización.
+            </summary>
+            <param name="id">Id del usuario en el canal de registro.</param>
+            <param name="ubicacion">Instancia de <see cref="T:PII_E13.ClassLibrary.UbicacionBase"/> correspondiente a la ubicacion del usuario.</param>
+            <param name="rubro">Instancia de <see cref="T:PII_E13.ClassLibrary.Rubro"/> correspondiente al rubro del usuario.</param>
+            <param name="nombre">Nombre comercial de la empresa.</param>
+            <param name="ofertas">Lista de instancias de <see cref="T:PII_E13.ClassLibrary.Oferta"/> correspondiente a las ofertas creadas por la empresa.</param>
+            <returns></returns>
         </member>
         <member name="M:PII_E13.ClassLibrary.Empresa.PublicarOferta(System.String,System.String,System.String,System.DateTime,System.Boolean,System.Collections.Generic.List{System.String},System.Collections.Generic.List{PII_E13.ClassLibrary.Habilitacion})">
             <summary>
@@ -258,6 +284,7 @@
             </summary>
             <param name="id">Id de la oferta a recuperar.</param>
             <returns>La instancia de Oferta correspondiente a la id dada.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Si no encuentra una <see cref="T:PII_E13.ClassLibrary.Oferta"/></exception>
         </member>
         <member name="T:PII_E13.ClassLibrary.EncriptadorSHA256">
             <summary>
@@ -461,6 +488,18 @@
         <member name="F:PII_E13.ClassLibrary.IMensaje.Tipos.Callback">
             <summary>Callback enviado a través de un botón.</summary>
         </member>
+        <member name="T:PII_E13.ClassLibrary.IMensaje.Tipos">
+            <summary>
+            Tipos de mensajes.
+            </summary>
+            <type name="Mensaje"></type>
+        </member>
+        <member name="F:PII_E13.ClassLibrary.IMensaje.Tipos.Mensaje">
+            <summary>Mensaje de texto.</summary>
+        </member>
+        <member name="F:PII_E13.ClassLibrary.IMensaje.Tipos.Callback">
+            <summary>Callback enviado a través de un botón.</summary>
+        </member>
         <member name="T:PII_E13.ClassLibrary.Intencion">
             <summary>
             Representa una intención obtenida a través de procesamiento de lenguaje natural (PLN) a partir de un texto.
@@ -495,24 +534,24 @@
             </summary>
             <value>Un valor float del 0 al 100 representando el porcentaje de confianza en la identificación de la <see cref="T:PII_E13.ClassLibrary.Intencion"/>.</value>
         </member>
-        <member name="T:PII_E13.ClassLibrary.IPersistencia">
+        <member name="T:PII_E13.ClassLibrary.IPersistor">
             <summary>
-            Esta es la interface de percisitencia de la aplicacion. su funcion es guardar y recuperar los datos de la aplicacion.
+            Interface que representa las operaciones de un persistor de información a través de diferentes medios de persistencia.
             </summary>
         </member>
-        <member name="M:PII_E13.ClassLibrary.IPersistencia.EscribirArchivo(System.String,System.String)">
+        <member name="M:PII_E13.ClassLibrary.IPersistor.Escribir``1(System.String,``0)">
             <summary>
-            Guarda el archivo en la ruta especificada.
+            Guarda el contenido de la cadena de caracteres de información en el destino indicado.
             </summary>
-            <param name="ruta">La ruta del archivo en el sistema.</param>
-            <param name="informacion">La información a guardar en el archivo en un string.</param>
+            <param name="destino">El destino donde se guardará la información.</param>
+            <param name="objeto">El objeto a guardar.</param>
         </member>
-        <member name="M:PII_E13.ClassLibrary.IPersistencia.LeerArchivo(System.String)">
+        <member name="M:PII_E13.ClassLibrary.IPersistor.Leer``1(System.String)">
             <summary>
-            Lee un archivo en el sistema.
+            Lee la información contenida en la fuente de información enviada por parámetros.
             </summary>
-            <param name="ruta">La ruta del archivo en el sistema.</param>
-            <returns>Retorna la información contenida en un archivo en un string.</returns>
+            <param name="fuente">La dirección, referencia o ruta hacia la fuente de información.</param>
+            <returns>Retorna la información encontrada como una instancia de la clase enviada por parámetros de tipo.</returns>
         </member>
         <member name="T:PII_E13.ClassLibrary.IRespuesta">
             <summary>
@@ -599,6 +638,7 @@
         </member>
         <member name="T:PII_E13.ClassLibrary.Material">
             <summary>
+            La clase material se encarga de conocer lo relativo al material que consituye el producto
             Principios y patrones aplicados:
             Principio ISP: no hay objetos forzados a depender de otros objetos que no usan. 
             Principio SRP: tiene responsabilidad sobre una única parte de la funcionalidad, quedando completamente encapsulada dentro de la clase.
@@ -606,34 +646,40 @@
             Patrón OCP: la clase es abierta a la extensión mediante herencia y/o composición, pero cerrada a cambios ya que no es posible y no es necesario realizar cambios en su código.
             </summary>
         </member>
-        <member name="M:PII_E13.ClassLibrary.Material.#ctor(System.String,System.Collections.Generic.List{System.String},System.String)">
+        <member name="M:PII_E13.ClassLibrary.Material.#ctor">
             <summary>
-            La clase material se encarga de conocer lo relativo al material que consituye el producto.
+            Crea una instancia vacía de <see cref="T:PII_E13.ClassLibrary.Material"/>.
             </summary>
-            <param name="nombre">nombre del material</param>
-            <param name="categorias">categorias dentro de las que esta el material</param>
-            <param name="unidadEstandar">unidad Estandar con la que se mide el material</param>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Material.#ctor(System.String,System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Crea una instancia de un <see cref="T:PII_E13.ClassLibrary.Material"/>.
+            </summary>
+            <param name="nombre">Nombre del material.</param>
+            <param name="unidadEstandar">Unidad estándar con la que se mide el material.</param>
+            <param name="categorias">Categorias dentro de las que esta el material. (Opcional)</param>
         </member>
         <member name="P:PII_E13.ClassLibrary.Material.Nombre">
             <summary>
             Nombre del material.
             </summary>
-            <value></value>
+            <value>Cadena de caracteres conteniendo el nombre del material.</value>
         </member>
         <member name="P:PII_E13.ClassLibrary.Material.Categorias">
             <summary>
             Categorías en las que esta incluido el material.
             </summary>
-            <value></value>
+            <value>Lista de cadena de caracteres conteniendo las categorías a las que pertenece el material.</value>
         </member>
         <member name="P:PII_E13.ClassLibrary.Material.UnidadEstandar">
             <summary>
-            Unidad en la que se mide el material.
+            Unidad en la que se mide el material según el Sistema Internacional de Unidades.
             </summary>
-            <value></value>
+            <value>Cadena de caracteres conteniendo la unidad estándar del material en el Sistema Internacional de Unidades.</value>
         </member>
         <member name="T:PII_E13.ClassLibrary.Oferta">
             <summary>
+            La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
              Patrones y principios aplicados:
              Principio EXPERT: ya que se le asignaron sus responsabilidades en su calidad
              de experto en la información, por ser la clase que tiene la información necesaria
@@ -646,9 +692,14 @@
              fuertemente relacionadas, creando así una clase robusta y fácil de entender. 
             </summary>
         </member>
+        <member name="M:PII_E13.ClassLibrary.Oferta.#ctor(System.String,System.String,System.DateTime,System.DateTime,PII_E13.ClassLibrary.Oferta.Estados,System.String,System.String,System.Boolean,System.Collections.Generic.List{PII_E13.ClassLibrary.Habilitacion},System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.String},System.Collections.Generic.List{PII_E13.ClassLibrary.Producto})">
+            <summary>
+            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.Oferta"/> a partir de la deserialización de un objeto en formato JSON.
+            </summary>
+        </member>
         <member name="M:PII_E13.ClassLibrary.Oferta.#ctor(System.String,PII_E13.ClassLibrary.Empresa,System.DateTime,System.Collections.Generic.List{System.String},System.Collections.Generic.List{PII_E13.ClassLibrary.Habilitacion},System.String,System.String,System.Boolean)">
             <summary>
-             La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
+            Crea una instancia de la clase <see cref="T:PII_E13.ClassLibrary.Oferta"/>.
             </summary>
             <param name="id"> Un número identificador para referenciar la oferta a lo largo del sistema </param>
             <param name="empresa"> Empresa que publica la oferta </param>
@@ -657,7 +708,7 @@
             <param name="habilitaciones">Habilitaciones requeridas por la empresa para postularse a atender la oferta</param>
             <param name="descripcion">Descripcion realizada por la empresa</param>
             <param name="titulo">Titulo bajo el cual se publica la oferta</param>
-            <param name="disponibleConstantemente">Para definir si una oferta es recurrente.</param>
+            <param name="recurrente">Para definir si una oferta es recurrente.</param>
         </member>
         <member name="T:PII_E13.ClassLibrary.Oferta.Estados">
             <summary>
@@ -694,9 +745,9 @@
         </member>
         <member name="P:PII_E13.ClassLibrary.Oferta.Empresa">
             <summary>
-            Empresa es quién publica la oferta.
+            El identificador único de la empresa que publicó la oferta.
             </summary>
-            <value>Empresa es quién publica la oferta</value>
+            <value>Cadena de caracteres conteniendo el identificador único de la empresa que publicó la oferta.</value>
         </member>
         <member name="P:PII_E13.ClassLibrary.Oferta.FechaCreada">
             <summary>
@@ -758,7 +809,7 @@
             </summary>
             <value>Productos es la lista de productos que componen la oferta.</value>
         </member>
-        <member name="P:PII_E13.ClassLibrary.Oferta.DisponibleConstantemente">
+        <member name="P:PII_E13.ClassLibrary.Oferta.Recurrente">
             <summary>
             Una propiedad que indica si la oferta es recurrente.
             </summary>
@@ -766,9 +817,9 @@
         </member>
         <member name="P:PII_E13.ClassLibrary.Oferta.EmprendedoresPostulados">
             <summary>
-            EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.
+            Lista de los emprendedores que se han postulado para la oferta.
             </summary>
-            <value>EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.</value>
+            <value>Lista conteniendo cadenas de caracteres referenciando los idenitificadores únicos de los emprendedores que se han postulado a la oferta.</value>
         </member>
         <member name="M:PII_E13.ClassLibrary.Oferta.AgregarProducto(PII_E13.ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
             <summary>
@@ -810,6 +861,25 @@
             Un método para listar todos los emprendedores postulados a una oferta.
             </summary>
         </member>
+        <member name="T:PII_E13.ClassLibrary.PersistorDeJson">
+            <summary>
+            Clase encargada de persistir información en archivos.
+            </summary>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.PersistorDeJson.Escribir``1(System.String,``0)">
+            <summary>
+            Guarda el contenido de un objeto en formato JSON en la ruta de destino.
+            </summary>
+            <param name="ruta">La ruta donde se guardará el archivo JSON.</param>
+            <param name="objeto">El objeto a guardar en formato JSON.</param>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.PersistorDeJson.Leer``1(System.String)">
+            <summary>
+            Lee la información contenida en el archivo JSON ubicado en la ruta enviada por parámetros.
+            </summary>
+            <param name="ruta">La ruta hacia la fuente de información.</param>
+            <returns>Retorna la información encontrada en forma de una cadena de caracteres.</returns>
+        </member>
         <member name="T:PII_E13.ClassLibrary.Producto">
             <summary>
             /// Clase que representa un Producto dentro del dominio del problema.
@@ -820,9 +890,19 @@
             enfocando sus propiedades y métodos para estos objetivos.
             </summary>
         </member>
+        <member name="M:PII_E13.ClassLibrary.Producto.#ctor(PII_E13.ClassLibrary.Material,PII_E13.ClassLibrary.UbicacionBase,System.Double,System.Double,System.Double)">
+            <summary>
+            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.Producto"/> a través de la deserialización de un objeto en formato JSON.
+            </summary>
+            <param name="material">Material que compone al producto.</param>
+            <param name="ubicacion">Ubicación donde está almacenado el producto</param>
+            <param name="cantidadEnUnidad">Cantidad del producto en la unidad estándar de su material.</param>
+            <param name="valorUYU">Valor en pesos uruguayos del producto.</param>
+            <param name="valorUSD">Valor en dolares del producto.</param>
+        </member>
         <member name="M:PII_E13.ClassLibrary.Producto.#ctor(PII_E13.ClassLibrary.Material,System.String,System.String,System.Double,System.Double,System.Double)">
             <summary>
-            Crea una instancia de Producto.
+            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.Producto"/>.
             </summary>
             <param name="material">Material que compone al producto.</param>
             <param name="ciudad">Ciudad en la que está localizado el producto.</param>
@@ -918,7 +998,7 @@
             <summary>
             Se indica el nombre <value>rubro</value> del rubro
             </summary>
-            <param name="rubro">rubro</param>        
+            <param name="nombre">rubro</param>        
         </member>
         <member name="T:PII_E13.ClassLibrary.Sesion">
             <summary>
@@ -997,17 +1077,27 @@
         </member>
         <member name="M:PII_E13.ClassLibrary.Sistema.ObtenerEmpresaPorId(System.String)">
             <summary>
-            Recupera una empresa de la lista de empresas utilizando su id y una id dada.
+            Recupera una instancia de <see cref="T:PII_E13.ClassLibrary.Empresa"/> de la lista de empresas utilizando su id y una id dada.
             </summary>
             <param name="id">Id de la empresa a recuperar.</param>
             <returns>La instancia de <see cref="T:PII_E13.ClassLibrary.Empresa"/> correspondiente a la id dada.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Si no encuentra una <see cref="T:PII_E13.ClassLibrary.Empresa"/></exception>
         </member>
         <member name="M:PII_E13.ClassLibrary.Sistema.ObtenerEmprendedorPorId(System.String)">
             <summary>
-            Recupera un emprendedor de la lista de emprendedores utilizando su id y una id dada.
+            Recupera una instancia de <see cref="T:PII_E13.ClassLibrary.Emprendedor"/> de la lista de emprendedores utilizando su id y una id dada.
             </summary>
             <param name="id">Id del emprendedor a recuperar.</param>
             <returns>La instancia de <see cref="T:PII_E13.ClassLibrary.Emprendedor"/> correspondiente a la id dada.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Si no encuentra un <see cref="T:PII_E13.ClassLibrary.Emprendedor"/></exception>
+        </member>
+        <member name="M:PII_E13.ClassLibrary.Sistema.ObtenerOfertaPorId(System.String)">
+            <summary>
+            Recupera una instancia de <see cref="T:PII_E13.ClassLibrary.Oferta"/> de la lista de de emprendedores y sus respectivas listas de ofertas.
+            </summary>
+            <param name="id">Id de la <see cref="T:PII_E13.ClassLibrary.Oferta"/> a recuperar.</param>
+            <returns>La instancia de <see cref="T:PII_E13.ClassLibrary.Oferta"/> correspondiente a su id dada.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Si no encuentra una <see cref="T:PII_E13.ClassLibrary.Oferta"/></exception>
         </member>
         <member name="P:PII_E13.ClassLibrary.Sistema.Empresas">
             <summary>
@@ -1135,12 +1225,12 @@
         </member>
         <member name="T:PII_E13.ClassLibrary.Usuario">
             <summary>
-            Representa a las abstracciones de un usuario en el sistema.
+            Representa a las abstracciones de un usuario en el sistema
             </summary>
         </member>
         <member name="M:PII_E13.ClassLibrary.Usuario.#ctor(System.String,System.String,System.String,System.String,System.String)">
             <summary>
-            Crea una instancia de Usuario
+            Crea una instancia de <see cref="T:PII_E13.ClassLibrary.Usuario"/>
             </summary>
             <param name="id">Id del emprendedor en Telegram.</param>
             <param name="nombre">Nombre de la empresa del emprendedor.</param>
@@ -1271,6 +1361,45 @@
             <summary>
             Indice actual dentro de la lista de categorías.
             </summary>
+        <member name="M:PII_E13.ClassLibrary.Usuario.#ctor">
+            <summary>
+            Crea una instancia vacía de <see cref="T:PII_E13.ClassLibrary.Usuario"/>
+            </summary>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Usuario.Id">
+            <summary>
+            Identificador único de un <see cref="T:PII_E13.ClassLibrary.Usuario"/> en el sistema.
+            </summary>
+            <value>Una cadena de caracteres conteniendo al identificador del <see cref="T:PII_E13.ClassLibrary.Usuario"/> en el sistema.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Usuario.Nombre">
+            <summary>
+            Nombre de registro del <see cref="T:PII_E13.ClassLibrary.Usuario"/>.
+            </summary>
+            <value>Una cadena de caracteres conteniendo el nombre de registro del <see cref="T:PII_E13.ClassLibrary.Usuario"/>.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Usuario.Ubicacion">
+            <summary>
+            Ubicación de registro de un <see cref="T:PII_E13.ClassLibrary.Usuario"/>.
+            </summary>
+            <value>Una instancia de una implementación de <see cref="T:PII_E13.ClassLibrary.IUbicacion"/> correspondiente a la ubicación de registro del <see cref="T:PII_E13.ClassLibrary.Usuario"/>.</value>
+        </member>
+        <member name="P:PII_E13.ClassLibrary.Usuario.Rubro">
+            <summary>
+            Rubro al que pertence el <see cref="T:PII_E13.ClassLibrary.Usuario"/>, indicado por éste durante su registro.
+            </summary>
+            <value>Una instancia de <see cref="P:PII_E13.ClassLibrary.Usuario.Rubro"/> correspondiente al rubro de registro del <see cref="T:PII_E13.ClassLibrary.Usuario"/>.</value>
+        </member>
+        <member name="T:PII_E13.IIdentificable">
+            <summary>
+            Interfaz que representa a cualquier tipo identificable a través de una cadena de caracteres única.
+            </summary>
+        </member>
+        <member name="P:PII_E13.IIdentificable.Id">
+            <summary>
+            Identificador único del objeto.
+            </summary>
+            <value>Cadena de caracteres conteniendo al identificador único del objeto.</value>
         </member>
         <member name="T:PII_E13.HandlerLibrary.HandlerBase">
             <summary>

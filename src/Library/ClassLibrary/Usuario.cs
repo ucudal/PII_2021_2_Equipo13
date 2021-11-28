@@ -1,16 +1,15 @@
-using System;
-using System.Collections.Generic;
+using System.Text.Json;
 
 namespace PII_E13.ClassLibrary
 {
     /// <summary>
-    /// Representa a las abstracciones de un usuario en el sistema.
+    /// Representa a las abstracciones de un usuario en el sistema
     /// </summary>
-    public abstract class Usuario
+    public abstract class Usuario : IIdentificable
     {
 
         /// <summary>
-        /// Crea una instancia de Usuario
+        /// Crea una instancia de <see cref="Usuario"/>
         /// </summary>
         /// <param name="id">Id del emprendedor en Telegram.</param>
         /// <param name="nombre">Nombre de la empresa del emprendedor.</param>
@@ -26,27 +25,32 @@ namespace PII_E13.ClassLibrary
         }
 
         /// <summary>
-        /// Identificador único de un usuario en el sistema.
+        /// Crea una instancia vacía de <see cref="Usuario"/>
         /// </summary>
-        /// <value>Una cadena de caracteres conteniendo al identificador del usuario en el sistema.</value>
+        public Usuario() { }
+
+        /// <summary>
+        /// Identificador único de un <see cref="Usuario"/> en el sistema.
+        /// </summary>
+        /// <value>Una cadena de caracteres conteniendo al identificador del <see cref="Usuario"/> en el sistema.</value>
         public string Id { get; set; }
 
         /// <summary>
-        /// Nombre de registro del usuario.
+        /// Nombre de registro del <see cref="Usuario"/>.
         /// </summary>
-        /// <value>Una cadena de caracteres conteniendo el nombre de registro del usuario.</value>
+        /// <value>Una cadena de caracteres conteniendo el nombre de registro del <see cref="Usuario"/>.</value>
         public string Nombre { get; set; }
 
         /// <summary>
-        /// Ubicación de registro de un usuario.
+        /// Ubicación de registro de un <see cref="Usuario"/>.
         /// </summary>
-        /// <value>Una instancia de una implementación de <see cref="IUbicacion"/> correspondiente a la ubicación de registro del usuario.</value>
-        public IUbicacion Ubicacion { get; set; }
+        /// <value>Una instancia de una implementación de <see cref="IUbicacion"/> correspondiente a la ubicación de registro del <see cref="Usuario"/>.</value>
+        public UbicacionBase Ubicacion { get; set; }
 
         /// <summary>
-        /// Rubro al que pertence el usuario, indicado por éste durante su registro.
+        /// Rubro al que pertence el <see cref="Usuario"/>, indicado por éste durante su registro.
         /// </summary>
-        /// <value>Una instancia de <see cref="Rubro"/> correspondiente al rubro de registro del usuario.</value>
+        /// <value>Una instancia de <see cref="Rubro"/> correspondiente al rubro de registro del <see cref="Usuario"/>.</value>
         public Rubro Rubro { get; set; }
     }
 }

@@ -1,10 +1,12 @@
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace PII_E13.ClassLibrary
 {
     /// <summary>
+    /// La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
     ///  Patrones y principios aplicados:
     ///  Principio EXPERT: ya que se le asignaron sus responsabilidades en su calidad
     ///  de experto en la información, por ser la clase que tiene la información necesaria
@@ -16,11 +18,32 @@ namespace PII_E13.ClassLibrary
     ///  Patrón High Cohesión: ya que las responsabilidades de la clase están
     ///  fuertemente relacionadas, creando así una clase robusta y fácil de entender. 
     /// </summary>
-
-    public class Oferta
+    public class Oferta : IIdentificable
     {
+
         /// <summary>
-        ///  La clase Oferta se encarga de conocer todo lo relativo a la Oferta.
+        /// Crea una instancia de <see cref="Oferta"/> a partir de la deserialización de un objeto en formato JSON.
+        /// </summary>
+        [JsonConstructor]
+        public Oferta(string id, string empresa, DateTime fechaCreada, DateTime fechaCierre, Estados estado, string descripcion, string titulo, bool recurrente,
+            List<Habilitacion> habilitaciones = null, List<string> etiquetas = null, List<string> emprendedoresPostulados = null, List<Producto> productos = null)
+        {
+            this.Id = id;
+            this.Empresa = empresa;
+            this.FechaCreada = fechaCreada;
+            this.FechaCierre = fechaCierre;
+            this.Etiquetas = etiquetas != null ? etiquetas : new List<string>();
+            this.Estado = estado;
+            this.Habilitaciones = habilitaciones != null ? habilitaciones : new List<Habilitacion>();
+            this.Descripcion = descripcion;
+            this.Titulo = titulo;
+            this.Recurrente = recurrente;
+            this.EmprendedoresPostulados = emprendedoresPostulados != null ? emprendedoresPostulados : new List<string>();
+            this.Productos = productos != null ? productos : new List<Producto>();
+        }
+
+        /// <summary>
+        /// Crea una instancia de la clase <see cref="Oferta"/>.
         /// </summary>
         /// <param name="id"> Un número identificador para referenciar la oferta a lo largo del sistema </param>
         /// <param name="empresa"> Empresa que publica la oferta </param>
@@ -29,21 +52,18 @@ namespace PII_E13.ClassLibrary
         /// <param name="habilitaciones">Habilitaciones requeridas por la empresa para postularse a atender la oferta</param>
         /// <param name="descripcion">Descripcion realizada por la empresa</param>
         /// <param name="titulo">Titulo bajo el cual se publica la oferta</param>
-        /// <param name="disponibleConstantemente">Para definir si una oferta es recurrente.</param>
-        public Oferta(string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas, List<Habilitacion> habilitaciones, string descripcion, string titulo, bool disponibleConstantemente)
+        /// <param name="recurrente">Para definir si una oferta es recurrente.</param>
+        public Oferta(string id, Empresa empresa, DateTime fechaCierre, List<string> etiquetas, List<Habilitacion> habilitaciones, string descripcion, string titulo, bool recurrente)
         {
-            this.Id = id;                           //01
-            this.Empresa = empresa;                 //02
-            this.FechaCreada = DateTime.Now;        //03
-            this.FechaCierre = fechaCierre;         //04
-            this.Etiquetas = etiquetas;             //05
-            this.Estado = Estados.Habilitada;       //06
-            this.Habilitaciones = new List<Habilitacion>();   //07
-            this.Descripcion = descripcion;         //08
-            this.Titulo = titulo;                   //09
-            this.DisponibleConstantemente = disponibleConstantemente;  //10
-            this.EmprendedoresPostulados = new List<Emprendedor>();    //11
-            this.Productos = new List<Producto>();                     //12
+            this.Id = id;
+            this.Empresa = empresa.Id;
+            this.FechaCreada = DateTime.Now;
+            this.FechaCierre = fechaCierre;
+            this.Etiquetas = etiquetas;
+            this.Habilitaciones = habilitaciones;
+            this.Descripcion = descripcion;
+            this.Titulo = titulo;
+            this.Recurrente = recurrente;
         }
 
         /// <summary>
@@ -76,10 +96,10 @@ namespace PII_E13.ClassLibrary
         /// <value>Id es el identificador único de la oferta.</value>
         public string Id { get; }
         /// <summary>
-        /// Empresa es quién publica la oferta.
+        /// El identificador único de la empresa que publicó la oferta.
         /// </summary>
-        /// <value>Empresa es quién publica la oferta</value>
-        public Empresa Empresa { get; }
+        /// <value>Cadena de caracteres conteniendo el identificador único de la empresa que publicó la oferta.</value>
+        public string Empresa { get; }
         /// <summary>
         /// Fecha en que se publica la oferta.
         /// </summary>
@@ -94,21 +114,23 @@ namespace PII_E13.ClassLibrary
         /// Son etiquetas que permiten categorizar la oferta para mostrarla agrupadas junto a otras que compartan la misma etiqueta.
         /// </summary>
         /// <value>Etiquetas permite categorizar la oferta.</value>
-        public List<string> Etiquetas { get; }
+        public List<string> Etiquetas { get; } = new List<string>();
         /// <summary>
         /// Estado indica cuál es la situación actual de una Oferta.
         /// </summary>
         /// <value>Estado indica si una oferta esta habilitada, cerrada o suspendida.</value>
-        public Estados Estado { get; set; }
+        public Estados Estado { get; set; } = Estados.Habilitada;
         /// <summary>
         /// Indica cuáles son las habilitaciones que exige la empresa para postularse a la oferta.
         /// </summary>
         /// <value>Habilitaciones exigidas por al empresa.</value>
-        public List<Habilitacion> Habilitaciones { get; }
+        [JsonInclude]
+        public List<Habilitacion> Habilitaciones { get; } = new List<Habilitacion>();
         /// <summary>
         /// Valor en dólares USA que la empresa ofresa en pago por la realización de la tarea que implica la oferta.
         /// </summary>
         /// <value> ValorUSD es el valor en dólares USA definido por la empresa que publica la oferta.</value>
+        [JsonIgnore]
         public double ValorUSD
         {
             get
@@ -125,6 +147,7 @@ namespace PII_E13.ClassLibrary
         /// ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.
         /// </summary>
         /// <value>ValorUY es el valor en pesos uruguayos definido por la empresa que publica la oferta.</value>
+        [JsonIgnore]
         public double ValorUYU
         {
             get
@@ -151,17 +174,19 @@ namespace PII_E13.ClassLibrary
         /// Productos es la lista de productos que componen la oferta.
         /// </summary>
         /// <value>Productos es la lista de productos que componen la oferta.</value>
-        public List<Producto> Productos { get; }
+        [JsonInclude]
+        public List<Producto> Productos { get; } = new List<Producto>();
         /// <summary>
         /// Una propiedad que indica si la oferta es recurrente.
         /// </summary>
         /// <value>Una propiedad que indica si la oferta es recurrente.</value>
-        public bool DisponibleConstantemente { get; set; }
+        public bool Recurrente { get; set; }
         /// <summary>
-        /// EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.
+        /// Lista de los emprendedores que se han postulado para la oferta.
         /// </summary>
-        /// <value>EmprendedoresPostulados es la lista de los emprendedores que se han postulado para la oferta.</value>
-        public List<Emprendedor> EmprendedoresPostulados { get; set; }
+        /// <value>Lista conteniendo cadenas de caracteres referenciando los idenitificadores únicos de los emprendedores que se han postulado a la oferta.</value>
+        [JsonInclude]
+        public List<string> EmprendedoresPostulados { get; set; } = new List<string>();
 
         //aplicando Creator
         /// <summary>
@@ -177,6 +202,8 @@ namespace PII_E13.ClassLibrary
         {
             Producto producto = new Producto(material, ciudad, direccion, cantidadEnUnidades, valorUYU, valorUSD);
             this.Productos.Add(producto);
+            IPersistor persistor = new PersistorDeJson();
+            persistor.Escribir<Empresa>("Empresas.json", Sistema.Instancia.ObtenerEmpresaPorId(this.Empresa));
         }
         //aplicando Creator
         /// <summary>
@@ -198,6 +225,8 @@ namespace PII_E13.ClassLibrary
         public void RemoverProducto(Producto producto)
         {
             this.Productos.Remove(producto);
+            IPersistor persistor = new PersistorDeJson();
+            persistor.Escribir<Empresa>("Empresas.json", Sistema.Instancia.ObtenerEmpresaPorId(this.Empresa));
         }
 
         /// <summary>
@@ -206,18 +235,29 @@ namespace PII_E13.ClassLibrary
         public string Redactar()
         {
             StringBuilder redaccion = new StringBuilder();
-            redaccion.Append($"*{this.Titulo}*\n_Por {this.Empresa.Nombre}_");
-            if (this.DisponibleConstantemente)
+            redaccion.Append($"*{this.Titulo}*\n_Por {Sistema.Instancia.ObtenerEmpresaPorId(this.Empresa).Nombre}_");
+            if (this.Recurrente)
             {
                 redaccion.Append($"\n_Esta oferta está disponible recurrentemente. Consulta la frecuencia con el ofertante._");
             }
             redaccion.Append($"\n\n*Descripción:* {this.Descripcion}");
+
+            if (this.Productos.Count > 0)
+            {
+                redaccion.Append($"\n\n*La oferta contiene los siguientes productos:*");
+                for (int i = 0; i < this.Productos.Count; i++)
+                {
+                    Producto producto = this.Productos[i];
+                    redaccion.Append($"\n\n • {producto.Redaccion}");
+                }
+            }
+
             if (this.Habilitaciones.Count > 0)
             {
                 redaccion.Append($"\n\nEl ofertante indicó que las siguientes habilitaciones son necesarias para ser considerado para la oferta:");
                 foreach (Habilitacion habilitacion in this.Habilitaciones)
                 {
-                    redaccion.Append($"\n*->* _{habilitacion.Nombre}_");
+                    redaccion.Append($"\n • _{habilitacion.Nombre}_");
                 }
             }
             redaccion.Append($"\n\nFecha de publicación: _{this.FechaCreada.ToShortDateString()}_");
@@ -234,11 +274,11 @@ namespace PII_E13.ClassLibrary
             StringBuilder redaccionCorta = new StringBuilder();
 
             redaccionCorta.Append($"*{this.Titulo}*");
-            if (this.DisponibleConstantemente)
+            if (this.Recurrente)
             {
                 redaccionCorta.Append(" _(Recurrente)_");
             }
-            redaccionCorta.Append($"\n_{this.Empresa.Nombre}_\n");
+            redaccionCorta.Append($"\n_{Sistema.Instancia.ObtenerEmpresaPorId(this.Empresa).Nombre}_\n");
             redaccionCorta.Append($"_Cierre: {this.FechaCierre.ToShortDateString()}_");
 
             return redaccionCorta.ToString();
@@ -253,9 +293,9 @@ namespace PII_E13.ClassLibrary
             redaccionPostulados.Append("Emprendedores postulados:");
             {
                 //throw new Exception("A la espera de la definición de la persistencia"); 
-                foreach (Emprendedor emprendedor in EmprendedoresPostulados)
+                foreach (string emprendedor in this.EmprendedoresPostulados)
                 {
-                    redaccionPostulados.Append($"\n*->* _{emprendedor.Nombre}_");
+                    redaccionPostulados.Append($"\n*->* _{Sistema.Instancia.ObtenerEmprendedorPorId(emprendedor).Nombre}_");
                 }
             }
             return redaccionPostulados.ToString();
