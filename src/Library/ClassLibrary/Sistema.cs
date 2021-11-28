@@ -95,9 +95,14 @@ namespace PII_E13.ClassLibrary
             throw new KeyNotFoundException("No se encontró el emprendedor con el id dado.");
         }
 
+        /// <summary>
+        /// Recupera una instancia de <see cref="Material"/> de la lista de materiales utilizando su nombre y un nombre dado.
+        /// </summary>
+        /// <param name="nombre">El nombre del material a recuperar.</param>
+        /// <returns>La instancia de <see cref="Material"/> correspondiente al nombre dado.</returns>
+        /// <exception cref="KeyNotFoundException">Si no encuentra un <see cref="Material"/></exception>
         public Material ObtenerMaterialPorNombre(string nombre)
         {
-
             foreach (Material material in this.Materiales)
             {
                 if (material.Nombre == nombre)
@@ -106,7 +111,6 @@ namespace PII_E13.ClassLibrary
                 }
             }
             throw new KeyNotFoundException("No se encontró el material con el nombre dado.");
-
         }
 
         /// <summary>

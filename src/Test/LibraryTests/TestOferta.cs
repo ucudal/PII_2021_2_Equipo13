@@ -79,7 +79,7 @@ namespace Tests
 
             Oferta f1 = new Oferta("1234", em1, new DateTime(2021, 10, 10), etiquetas, habilitaciones, "descripcion2", "titulo2", false);
             bool expected = false;
-            Assert.AreEqual(expected, f1.DisponibleConstantemente);
+            Assert.AreEqual(expected, f1.Recurrente);
         }
 
     }

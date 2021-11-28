@@ -16,7 +16,7 @@ public class ProductoTests
     /// <summary>
     /// Instancia de Material que le paso a producto para testear.
     /// </summary>
-    static Material materialTest = new Material("cobre", new List<string>() { "cat01", "cat02", "cat03" }, "Kilogramos");
+    static Material materialTest = new Material("cobre", "Kilogramos", new List<string>() { "cat01", "cat02", "cat03" });
 
     /// <summary>
     /// Instancia de Producto que testeo.

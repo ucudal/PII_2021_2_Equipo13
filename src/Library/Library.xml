@@ -264,6 +264,7 @@
             <param name="descripcion">La descripción de la oferta.</param>
             <param name="titulo">El titulo de la oferta.</param>
             <param name="disponibleConstantemente">Indica si la oferta está disponible constantemente o puntualmente.</param>
+            <exception cref="T:System.ArgumentException">Si el id de la <see cref="T:PII_E13.ClassLibrary.Oferta"/> ya existe.</exception>
         </member>
         <member name="M:PII_E13.ClassLibrary.Empresa.ActualizarOferta(PII_E13.ClassLibrary.Oferta)">
             <summary>
@@ -475,18 +476,6 @@
             <summary>
             Tipo del mensaje.
             </summary>
-        </member>
-        <member name="T:PII_E13.ClassLibrary.IMensaje.Tipos">
-            <summary>
-            Tipos de mensajes.
-            </summary>
-            <type name="Mensaje"></type>
-        </member>
-        <member name="F:PII_E13.ClassLibrary.IMensaje.Tipos.Mensaje">
-            <summary>Mensaje de texto.</summary>
-        </member>
-        <member name="F:PII_E13.ClassLibrary.IMensaje.Tipos.Callback">
-            <summary>Callback enviado a través de un botón.</summary>
         </member>
         <member name="T:PII_E13.ClassLibrary.IMensaje.Tipos">
             <summary>
@@ -1091,6 +1080,14 @@
             <returns>La instancia de <see cref="T:PII_E13.ClassLibrary.Emprendedor"/> correspondiente a la id dada.</returns>
             <exception cref="T:System.Collections.Generic.KeyNotFoundException">Si no encuentra un <see cref="T:PII_E13.ClassLibrary.Emprendedor"/></exception>
         </member>
+        <member name="M:PII_E13.ClassLibrary.Sistema.ObtenerMaterialPorNombre(System.String)">
+            <summary>
+            Recupera una instancia de <see cref="T:PII_E13.ClassLibrary.Material"/> de la lista de materiales utilizando su nombre y un nombre dado.
+            </summary>
+            <param name="nombre">El nombre del material a recuperar.</param>
+            <returns>La instancia de <see cref="T:PII_E13.ClassLibrary.Material"/> correspondiente al nombre dado.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Si no encuentra un <see cref="T:PII_E13.ClassLibrary.Material"/></exception>
+        </member>
         <member name="M:PII_E13.ClassLibrary.Sistema.ObtenerOfertaPorId(System.String)">
             <summary>
             Recupera una instancia de <see cref="T:PII_E13.ClassLibrary.Oferta"/> de la lista de de emprendedores y sus respectivas listas de ofertas.
@@ -1238,29 +1235,45 @@
             <param name="direccion">La direccion de la base de operaciones del emprendedor en la ciudad.</param>
             <param name="rubro">El rubro dentro del cual trabaja el emprendedor.</param>
         </member>
+        <member name="M:PII_E13.ClassLibrary.Usuario.#ctor">
+            <summary>
+            Crea una instancia vacía de <see cref="T:PII_E13.ClassLibrary.Usuario"/>
+            </summary>
+        </member>
         <member name="P:PII_E13.ClassLibrary.Usuario.Id">
             <summary>
-            Identificador único de un usuario en el sistema.
+            Identificador único de un <see cref="T:PII_E13.ClassLibrary.Usuario"/> en el sistema.
             </summary>
-            <value>Una cadena de caracteres conteniendo al identificador del usuario en el sistema.</value>
+            <value>Una cadena de caracteres conteniendo al identificador del <see cref="T:PII_E13.ClassLibrary.Usuario"/> en el sistema.</value>
         </member>
         <member name="P:PII_E13.ClassLibrary.Usuario.Nombre">
             <summary>
-            Nombre de registro del usuario.
+            Nombre de registro del <see cref="T:PII_E13.ClassLibrary.Usuario"/>.
             </summary>
-            <value>Una cadena de caracteres conteniendo el nombre de registro del usuario.</value>
+            <value>Una cadena de caracteres conteniendo el nombre de registro del <see cref="T:PII_E13.ClassLibrary.Usuario"/>.</value>
         </member>
         <member name="P:PII_E13.ClassLibrary.Usuario.Ubicacion">
             <summary>
-            Ubicación de registro de un usuario.
+            Ubicación de registro de un <see cref="T:PII_E13.ClassLibrary.Usuario"/>.
             </summary>
-            <value>Una instancia de una implementación de <see cref="T:PII_E13.ClassLibrary.IUbicacion"/> correspondiente a la ubicación de registro del usuario.</value>
+            <value>Una instancia de una implementación de <see cref="T:PII_E13.ClassLibrary.IUbicacion"/> correspondiente a la ubicación de registro del <see cref="T:PII_E13.ClassLibrary.Usuario"/>.</value>
         </member>
         <member name="P:PII_E13.ClassLibrary.Usuario.Rubro">
             <summary>
-            Rubro al que pertence el usuario, indicado por éste durante su registro.
+            Rubro al que pertence el <see cref="T:PII_E13.ClassLibrary.Usuario"/>, indicado por éste durante su registro.
             </summary>
-            <value>Una instancia de <see cref="P:PII_E13.ClassLibrary.Usuario.Rubro"/> correspondiente al rubro de registro del usuario.</value>
+            <value>Una instancia de <see cref="P:PII_E13.ClassLibrary.Usuario.Rubro"/> correspondiente al rubro de registro del <see cref="T:PII_E13.ClassLibrary.Usuario"/>.</value>
+        </member>
+        <member name="T:PII_E13.IIdentificable">
+            <summary>
+            Interfaz que representa a cualquier tipo identificable a través de una cadena de caracteres única.
+            </summary>
+        </member>
+        <member name="P:PII_E13.IIdentificable.Id">
+            <summary>
+            Identificador único del objeto.
+            </summary>
+            <value>Cadena de caracteres conteniendo al identificador único del objeto.</value>
         </member>
         <member name="T:PII_E13.HandlerLibrary.CrearOfertaHandler">
             <summary>
@@ -1361,45 +1374,6 @@
             <summary>
             Indice actual dentro de la lista de categorías.
             </summary>
-        <member name="M:PII_E13.ClassLibrary.Usuario.#ctor">
-            <summary>
-            Crea una instancia vacía de <see cref="T:PII_E13.ClassLibrary.Usuario"/>
-            </summary>
-        </member>
-        <member name="P:PII_E13.ClassLibrary.Usuario.Id">
-            <summary>
-            Identificador único de un <see cref="T:PII_E13.ClassLibrary.Usuario"/> en el sistema.
-            </summary>
-            <value>Una cadena de caracteres conteniendo al identificador del <see cref="T:PII_E13.ClassLibrary.Usuario"/> en el sistema.</value>
-        </member>
-        <member name="P:PII_E13.ClassLibrary.Usuario.Nombre">
-            <summary>
-            Nombre de registro del <see cref="T:PII_E13.ClassLibrary.Usuario"/>.
-            </summary>
-            <value>Una cadena de caracteres conteniendo el nombre de registro del <see cref="T:PII_E13.ClassLibrary.Usuario"/>.</value>
-        </member>
-        <member name="P:PII_E13.ClassLibrary.Usuario.Ubicacion">
-            <summary>
-            Ubicación de registro de un <see cref="T:PII_E13.ClassLibrary.Usuario"/>.
-            </summary>
-            <value>Una instancia de una implementación de <see cref="T:PII_E13.ClassLibrary.IUbicacion"/> correspondiente a la ubicación de registro del <see cref="T:PII_E13.ClassLibrary.Usuario"/>.</value>
-        </member>
-        <member name="P:PII_E13.ClassLibrary.Usuario.Rubro">
-            <summary>
-            Rubro al que pertence el <see cref="T:PII_E13.ClassLibrary.Usuario"/>, indicado por éste durante su registro.
-            </summary>
-            <value>Una instancia de <see cref="P:PII_E13.ClassLibrary.Usuario.Rubro"/> correspondiente al rubro de registro del <see cref="T:PII_E13.ClassLibrary.Usuario"/>.</value>
-        </member>
-        <member name="T:PII_E13.IIdentificable">
-            <summary>
-            Interfaz que representa a cualquier tipo identificable a través de una cadena de caracteres única.
-            </summary>
-        </member>
-        <member name="P:PII_E13.IIdentificable.Id">
-            <summary>
-            Identificador único del objeto.
-            </summary>
-            <value>Cadena de caracteres conteniendo al identificador único del objeto.</value>
         </member>
         <member name="T:PII_E13.HandlerLibrary.HandlerBase">
             <summary>
@@ -1504,11 +1478,7 @@
         </member>
         <member name="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler">
             <summary>
-            Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a través de una
-            cadena de "handlers" que pueden procesar o no el mensaje. Cada "handler" decide si procesa el mensaje, o si se lo
-            pasa al siguiente. Esta clase base implmementa la responsabilidad de recibir el mensaje y pasarlo al siguiente
-            "handler" en caso que el mensaje no sea procesado. La responsabilidad de decidir si el mensaje se procesa o no, y
-            de procesarlo, se delega a las clases sucesoras de esta clase base.
+            Handler encargado de procesar la postulación de ofertas, desde el proceso de búsqueda hasta la selección final.
             </summary>
         </member>
         <member name="P:PII_E13.HandlerLibrary.PostularseAOfertaHandler.Busquedas">
@@ -1528,7 +1498,6 @@
         <member name="M:PII_E13.HandlerLibrary.PostularseAOfertaHandler.#ctor(PII_E13.HandlerLibrary.HandlerBase,System.String)">
             <summary>
             Inicializa una nueva instancia de la clase <see cref="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler"/>. 
-            Esta clase procesa la postulación a una oferta.
             </summary>
             <param name="siguiente">El próximo "handler".</param>
             <param name="intencion">La intención utilizada para identificar a este handler.</param>
@@ -1622,6 +1591,28 @@
             <summary>
             Indice actual dentro de cualquier lista paginada.
             </summary>
+        </member>
+        <member name="T:LibraryHandler.DespedidaHandler">
+            <summary>
+            Handler encargado de despedir a los usuarios al final de una conversación.
+            </summary>
+        </member>
+        <member name="M:LibraryHandler.DespedidaHandler.#ctor(PII_E13.HandlerLibrary.HandlerBase,System.String)">
+            <summary>
+            Crea una instancia de <see cref="T:LibraryHandler.DespedidaHandler"/>.
+            </summary>
+            <param name="siguiente">El próximo "handler".</param>
+            <param name="intencion">La intención utilizada para identificar a este handler.</param>
+            <returns></returns>
+        </member>
+        <member name="M:LibraryHandler.DespedidaHandler.ResolverInterno(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.IRespuesta@)">
+            <summary>
+            La clase procesa el mensaje y retorna true o no lo procesa y retorna false.        
+            </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
+            <param name="mensaje">El mensaje a procesar.</param>
+            <param name="respuesta">La respuesta al mensaje procesado.</param>
+            <returns></returns>
         </member>
         <member name="T:Ucu.Poo.Locations.Client.Distance">
             <summary>

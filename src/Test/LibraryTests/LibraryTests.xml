@@ -32,6 +32,8 @@
         <member name="T:Tests.UserStoriesTests">
             <summary>
             Pruebas para demostrar el cumplimiento de las historias de usuario.
+            Este test está adaptado para funcionar utilizando archivos generados previamente por otros tests o para funcionar desde 0.
+            Si quiere testearse sin archivos previos, eliminar los archivos "Emprendedores.json" y "Empresas.json" en .\bin\debug\net5.0
             </summary>
         </member>
         <member name="M:Tests.UserStoriesTests.RegistroDeEmpresaTest">
