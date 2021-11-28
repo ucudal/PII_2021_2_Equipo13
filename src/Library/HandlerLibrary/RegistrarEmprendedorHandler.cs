@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -412,7 +413,8 @@ namespace PII_E13.HandlerLibrary
             try
             {
                 Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario);
-                if( Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario) != null){
+                if (Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario) != null)
+                {
                     return false;
                 }
             }

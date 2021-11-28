@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PII_E13.ClassLibrary
 {
@@ -19,20 +20,29 @@ namespace PII_E13.ClassLibrary
         /// <summary>
         /// Mediante una lista de <value>Habilitaciones</value> indicaremos todas las habiltiaciones con las que el emprendedor cuenta.
         /// </summary>
+        [JsonInclude]
         public List<Habilitacion> Habilitaciones { get; set; }
 
         /// <summary>
-        /// Mediante una lista de <value>Ofertas</value> indicaremos las ofertas a las cual se postuló.
+        /// Mediante una lista de identificadores únicos de instancias de <see cref="Oferta"/> indicaremos las ofertas a las cual se postuló.
         /// </summary>
-        public List<Oferta> OfertasPostuladas { get; set; }
+        [JsonInclude]
+        public List<string> OfertasPostuladas { get; set; }
 
         /// <summary>
-        /// Mediante una lista de <value>Ofertas</value> indicaremos las ofertas consumidas a las cual se postuló.
+        /// Mediante una lista de identificadores únicos de instancias de <see cref="Oferta"/> indicaremos las ofertas consumidas a las cual se postuló.
         /// </summary>
-        public List<Oferta> OfertasConsumidas { get; set; }
+        [JsonInclude]
+        public List<string> OfertasConsumidas { get; set; }
 
         /// <summary>
-        /// Crea una instancia de Emprendedor
+        /// Crea una instancia vacía de <see cref="Emprendedor"/>
+        /// </summary>
+        [JsonConstructor]
+        public Emprendedor() { }
+
+        /// <summary>
+        /// Crea una instancia de <see cref="Emprendedor"/>
         /// </summary>
         /// <param name="id">Id del emprendedor en Telegram.</param>
         /// <param name="nombre">Nombre de la empresa del emprendedor.</param>
@@ -41,34 +51,47 @@ namespace PII_E13.ClassLibrary
         /// <param name="direccion">La direccion de la base de operaciones del emprendedor en la ciudad.</param>
         /// <param name="rubro">El rubro dentro del cual trabaja el emprendedor.</param>
         public Emprendedor(string id, string nombre, List<Habilitacion> habilitaciones, string ciudad, string direccion, string rubro) : base(id, nombre, direccion, ciudad, rubro)
-
         {
             this.Habilitaciones = habilitaciones;
-            this.OfertasConsumidas = new List<Oferta>();
-            this.OfertasPostuladas = new List<Oferta>();
+            this.OfertasConsumidas = new List<string>();
+            this.OfertasPostuladas = new List<string>();
         }
 
         /// <summary>
-        /// Mediante una oferta esté se postulará a ella.
+        /// Crea una instancia de <see cref="Emprendedor"/> a través de deserialización.
+        /// </summary>
+        public Emprendedor(string id, string nombre, UbicacionBase ubicacion, Rubro rubro, List<Habilitacion> habilitaciones = null,
+            List<string> ofertasConsumidas = null, List<string> ofertasPostuladas = null) : base(id, nombre, ubicacion.Direccion, ubicacion.Ciudad, rubro.Nombre)
+        {
+            this.Rubro = rubro;
+            this.Habilitaciones = habilitaciones != null ? habilitaciones : new List<Habilitacion>();
+            this.OfertasConsumidas = ofertasConsumidas != null ? ofertasConsumidas : new List<string>();
+            this.OfertasPostuladas = ofertasPostuladas != null ? ofertasPostuladas : new List<string>();
+        }
+
+        /// <summary>
+        /// Mediante una oferta, éste emprendedor se postulará a ella.
         /// </summary>
         /// <param name="ofertas">Lista de ofertas a postularse.</param>
         public void PostularseAOferta(List<Oferta> ofertas)
         {
             foreach (Oferta oferta in ofertas)
             {
-                OfertasPostuladas.Add(oferta);
-                oferta.EmprendedoresPostulados.Add(this);
+                this.PostularseAOferta(oferta);
             }
         }
 
         /// <summary>
-        /// Mediante una oferta esté se postulará a ella.
+        /// Mediante una oferta, éste emprendedor se postulará a ella.
         /// </summary>
         /// <param name="oferta">Oferta a postularse.</param>
         public void PostularseAOferta(Oferta oferta)
         {
-            OfertasPostuladas.Add(oferta);
-            oferta.EmprendedoresPostulados.Add(this);
+            OfertasPostuladas.Add(oferta.Id);
+            oferta.EmprendedoresPostulados.Add(this.Id);
+            IPersistor persistor = new PersistorDeJson();
+            persistor.Escribir<Emprendedor>("Emprendedores.json", this);
+            persistor.Escribir<Empresa>("Empresas.json", Sistema.Instancia.ObtenerEmpresaPorId(oferta.Empresa));
         }
 
         /// <summary>
@@ -80,8 +103,9 @@ namespace PII_E13.ClassLibrary
         public List<Oferta> VerOfertasPostuladas(DateTime inicio, DateTime fin)
         {
             List<Oferta> ofertasPostuladas = new List<Oferta>();
-            foreach (Oferta oferta in this.OfertasPostuladas)
+            foreach (string idOferta in this.OfertasPostuladas)
             {
+                Oferta oferta = Sistema.Instancia.ObtenerOfertaPorId(idOferta);
                 if (oferta.FechaCreada >= inicio && oferta.FechaCierre <= fin)
                 {
                     ofertasPostuladas.Add(oferta);
@@ -99,8 +123,9 @@ namespace PII_E13.ClassLibrary
         public List<Oferta> VerOfertasConsumidas(DateTime inicio, DateTime fin)
         {
             List<Oferta> ofertasConsumidas = new List<Oferta>();
-            foreach (Oferta oferta in this.OfertasConsumidas)
+            foreach (string idOferta in this.OfertasConsumidas)
             {
+                Oferta oferta = Sistema.Instancia.ObtenerOfertaPorId(idOferta);
                 if (oferta.FechaCreada >= inicio && oferta.FechaCierre <= fin)
                 {
                     ofertasConsumidas.Add(oferta);

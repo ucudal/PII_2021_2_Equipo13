@@ -4,10 +4,6 @@ using PII_E13.ClassLibrary;
 using PII_E13.HandlerLibrary;
 using Telegram.Bot;
 using Telegram.Bot.Args;
-using Telegram.Bot.Types;
-using Telegram.Bot.Exceptions;
-using Telegram.Bot.Types.ReplyMarkups;
-using Telegram.Bot.Types.Enums;
 
 namespace Application
 {
@@ -17,7 +13,7 @@ namespace Application
     public static class Program
     {
         // INSTANCIAR COMO ALGÚN HANDLER.
-        private static IHandler handler = new PostularseAOfertaHandler(null, "Saludo");
+        private static IHandler handler = new PostularseAOfertaHandler(null, "Buscar Ofertas");
         //private static IHandler handler = new RegistrarEmprendedorHandler(null);
 
         private static GestorSesiones gestorSesiones = GestorSesiones.Instancia;
@@ -28,17 +24,20 @@ namespace Application
         public static void Main()
         {
             // DATOS DE PRUEBA -------------------------------------------------------------------------------------------
-            Sistema.Instancia.Materiales.Add(new Material("Madera de roble", new List<string>() { "Madera", "Roble", "Carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de abeto", new List<string>() { "Madera", "Abeto", "Carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de pino", new List<string>() { "Madera", "Pino", "Carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de cedro", new List<string>() { "Madera", "Cedro", "Carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de arce", new List<string>() { "Madera", "Arce", "Carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de haya", new List<string>() { "Madera", "Haya", "Carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de nogal", new List<string>() { "Madera", "Nogal", "Carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de cerezo", new List<string>() { "Madera", "Cerezo", "Carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Madera de caoba", new List<string>() { "Madera", "Caoba", "Carpintería" }, "Kg"));
-            Sistema.Instancia.Materiales.Add(new Material("Cobre", new List<string>() { "Metal", "Resistente", "Conductor" }, "Kg"));
+            /*Sistema.Instancia.Materiales.Add(new Material("Madera de roble", "Kg", new List<string>() { "Madera", "Roble", "Carpintería" }));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de abeto", "Kg", new List<string>() { "Madera", "Abeto", "Carpintería" }));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de pino", "Kg", new List<string>() { "Madera", "Pino", "Carpintería" }));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de cedro", "Kg", new List<string>() { "Madera", "Cedro", "Carpintería" }));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de arce", "Kg", new List<string>() { "Madera", "Arce", "Carpintería" }));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de haya", "Kg", new List<string>() { "Madera", "Haya", "Carpintería" }));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de nogal", "Kg", new List<string>() { "Madera", "Nogal", "Carpintería" }));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de cerezo", "Kg", new List<string>() { "Madera", "Cerezo", "Carpintería" }));
+            Sistema.Instancia.Materiales.Add(new Material("Madera de caoba", "Kg", new List<string>() { "Madera", "Caoba", "Carpintería" }));
+            Sistema.Instancia.Materiales.Add(new Material("Cobre", "Kg", new List<string>() { "Metal", "Resistente", "Conductor" }));
+            */
 
+            //Sistema.Instancia.ObtenerEmpresaPorId("123123").PublicarOferta("123", "Lorem Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id ipsum ut dui consectetur sollicitudin. Nam leo odio, ultricies vitae eleifend at, fermentum eget felis. Suspendisse vitae leo risus. Nam non purus et diam vestibulum ullamcorper. Donec ut erat vitae odio efficitur hendrerit id nec urna. Maecenas non condimentum neque.",
+            //    DateTime.MaxValue);
 
             // DATOS DE PRUEBA -------------------------------------------------------------------------------------------
 

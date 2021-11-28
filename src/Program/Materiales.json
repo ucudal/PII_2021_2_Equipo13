@@ -1,0 +1,92 @@
+[
+    {
+        "Nombre": "Madera de roble",
+        "UnidadEstandar": "Kg",
+        "Categorias": [
+            "Madera",
+            "Roble",
+            "Carpintería"
+        ]
+    },
+    {
+        "Nombre": "Madera de abeto",
+        "UnidadEstandar": "Kg",
+        "Categorias": [
+            "Madera",
+            "Abeto",
+            "Carpintería"
+        ]
+    },
+    {
+        "Nombre": "Madera de pino",
+        "UnidadEstandar": "Kg",
+        "Categorias": [
+            "Madera",
+            "Pino",
+            "Carpintería"
+        ]
+    },
+    {
+        "Nombre": "Madera de cedro",
+        "UnidadEstandar": "Kg",
+        "Categorias": [
+            "Madera",
+            "Cedro",
+            "Carpintería"
+        ]
+    },
+    {
+        "Nombre": "Madera de arce",
+        "UnidadEstandar": "Kg",
+        "Categorias": [
+            "Madera",
+            "Arce",
+            "Carpintería"
+        ]
+    },
+    {
+        "Nombre": "Madera de haya",
+        "UnidadEstandar": "Kg",
+        "Categorias": [
+            "Madera",
+            "Haya",
+            "Carpintería"
+        ]
+    },
+    {
+        "Nombre": "Madera de nogal",
+        "UnidadEstandar": "Kg",
+        "Categorias": [
+            "Madera",
+            "Nogal",
+            "Carpintería"
+        ]
+    },
+    {
+        "Nombre": "Madera de cerezo",
+        "UnidadEstandar": "Kg",
+        "Categorias": [
+            "Madera",
+            "Cerezo",
+            "Carpintería"
+        ]
+    },
+    {
+        "Nombre": "Madera de caoba",
+        "UnidadEstandar": "Kg",
+        "Categorias": [
+            "Madera",
+            "Caoba",
+            "Carpintería"
+        ]
+    },
+    {
+        "Nombre": "Cobre",
+        "UnidadEstandar": "Kg",
+        "Categorias": [
+            "Metal",
+            "Resistente",
+            "Conductor"
+        ]
+    }
+]

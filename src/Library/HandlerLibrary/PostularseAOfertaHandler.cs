@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using PII_E13.ClassLibrary;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace PII_E13.HandlerLibrary
 {
@@ -136,7 +135,7 @@ namespace PII_E13.HandlerLibrary
                     infoPostulacion.IndiceActual = 0;
                     respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeCategorias, infoPostulacion.IndiceActual, FILAS_CATEGORIAS, COLUMNAS_CATEGORIAS, tecladoFijoCategorias);
                     infoPostulacion.Estado = Estados.SeleccionandoCategorias;
-                    respuesta.Texto = "Bien, ahora necesitamos que selecciones las categorías que creas adecuadas para los materiales que estás buscando.\n\nSelecciona \"Listo\" cuando quieras continuar la búsqueda, o \"Cancelar\" para detenerla.";
+                    respuesta.Texto = "Bien, ahora necesitamos que selecciones las categorías que creas adecuadas para los materiales que estás buscando.\n\nSelecciona _\"Listo\"_ cuando quieras continuar la búsqueda, o _\"Cancelar\"_ para detenerla.";
                     return true;
 
                 case Estados.SeleccionandoCategorias:
@@ -365,7 +364,7 @@ namespace PII_E13.HandlerLibrary
                             };
                         respuesta.Botones = tecladoMenu;
                         System.Console.WriteLine($"[NUEVA POSTULACIÓN] - ID USUARIO: {mensaje.IdUsuario} - ID OFERTA: {ofertaPostulada.Id}");
-                        respuesta.Texto = $"Felicidades, te has postulado a la oferta \"{ofertaPostulada.Titulo}\" por _{ofertaPostulada.Empresa.Nombre}_ existosamente.";
+                        respuesta.Texto = $"Felicidades, te has postulado a la oferta \"{ofertaPostulada.Titulo}\" por _{Sistema.Instancia.ObtenerEmpresaPorId(ofertaPostulada.Empresa).Nombre}_ existosamente.";
                         infoPostulacion.Estado = Estados.Postulado;
                         return true;
                     }
@@ -451,7 +450,11 @@ namespace PII_E13.HandlerLibrary
         /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         protected override void CancelarInterno(Sesion sesion)
         {
-            this.Busquedas.Remove(sesion.IdUsuario);
+            try
+            {
+                this.Busquedas.Remove(sesion.IdUsuario);
+            }
+            catch (Exception e) { }
         }
 
         /// <summary>
@@ -471,10 +474,11 @@ namespace PII_E13.HandlerLibrary
             {
                 return false;
             }
+
             return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion) ||
                 (
                     this.Busquedas.ContainsKey(sesion.IdUsuario) &&
-                    (sesion.PLN.UltimaIntencion.Nombre.Equals("Default Fallback Intent") || (sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 80))
+                    (sesion.PLN.UltimaIntencion.Nombre.Equals("Default") || (sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 80))
                 );
         }
 

@@ -11,15 +11,17 @@ namespace PII_E13.ClassLibrary
         /// <summary>
         /// Nombre de la ciudad de la ubicación
         /// </summary>
-        public string Ciudad { get; }
+        public string Ciudad { get; set; }
 
         /// <summary>
         /// Dirección correspondiente a la ubicación
         /// </summary>
         /// <value></value>
-        public string Direccion { get; }
+        public string Direccion { get; set; }
 
         private IAdaptadorLocacion AdaptadorLocacion = new AdaptadorLocacion();
+
+        public UbicacionBase() { }
 
         /// <summary>
         /// Crea una instancia de la clase Ubicacion
