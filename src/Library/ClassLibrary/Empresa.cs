@@ -115,6 +115,7 @@ namespace PII_E13.ClassLibrary
         /// </summary>
         /// <param name="id">Id de la oferta a recuperar.</param>
         /// <returns>La instancia de Oferta correspondiente a la id dada.</returns>
+        /// <exception cref="KeyNotFoundException">Si no encuentra una <see cref="Oferta"/></exception>
         public Oferta ObtenerOfertaPorId(string id)
         {
             foreach (Oferta oferta in this.Ofertas)

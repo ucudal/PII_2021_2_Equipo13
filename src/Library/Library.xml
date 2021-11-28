@@ -284,6 +284,7 @@
             </summary>
             <param name="id">Id de la oferta a recuperar.</param>
             <returns>La instancia de Oferta correspondiente a la id dada.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Si no encuentra una <see cref="T:PII_E13.ClassLibrary.Oferta"/></exception>
         </member>
         <member name="T:PII_E13.ClassLibrary.EncriptadorSHA256">
             <summary>
@@ -1060,6 +1061,7 @@
             </summary>
             <param name="id">Id de la empresa a recuperar.</param>
             <returns>La instancia de <see cref="T:PII_E13.ClassLibrary.Empresa"/> correspondiente a la id dada.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Si no encuentra una <see cref="T:PII_E13.ClassLibrary.Empresa"/></exception>
         </member>
         <member name="M:PII_E13.ClassLibrary.Sistema.ObtenerEmprendedorPorId(System.String)">
             <summary>
@@ -1067,6 +1069,7 @@
             </summary>
             <param name="id">Id del emprendedor a recuperar.</param>
             <returns>La instancia de <see cref="T:PII_E13.ClassLibrary.Emprendedor"/> correspondiente a la id dada.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Si no encuentra un <see cref="T:PII_E13.ClassLibrary.Emprendedor"/></exception>
         </member>
         <member name="M:PII_E13.ClassLibrary.Sistema.ObtenerOfertaPorId(System.String)">
             <summary>
@@ -1074,6 +1077,7 @@
             </summary>
             <param name="id">Id de la <see cref="T:PII_E13.ClassLibrary.Oferta"/> a recuperar.</param>
             <returns>La instancia de <see cref="T:PII_E13.ClassLibrary.Oferta"/> correspondiente a su id dada.</returns>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Si no encuentra una <see cref="T:PII_E13.ClassLibrary.Oferta"/></exception>
         </member>
         <member name="P:PII_E13.ClassLibrary.Sistema.Empresas">
             <summary>

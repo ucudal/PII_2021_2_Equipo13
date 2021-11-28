@@ -68,6 +68,7 @@ namespace PII_E13.ClassLibrary
         /// </summary>
         /// <param name="id">Id de la empresa a recuperar.</param>
         /// <returns>La instancia de <see cref="Empresa"/> correspondiente a la id dada.</returns>
+        /// <exception cref="KeyNotFoundException">Si no encuentra una <see cref="Empresa"/></exception>
         public Empresa ObtenerEmpresaPorId(string id)
         {
             foreach (Empresa empresa in this.Empresas)
@@ -83,6 +84,7 @@ namespace PII_E13.ClassLibrary
         /// </summary>
         /// <param name="id">Id del emprendedor a recuperar.</param>
         /// <returns>La instancia de <see cref="Emprendedor"/> correspondiente a la id dada.</returns>
+        /// <exception cref="KeyNotFoundException">Si no encuentra un <see cref="Emprendedor"/></exception>
         public Emprendedor ObtenerEmprendedorPorId(string id)
         {
             foreach (Emprendedor emprendedor in this.Emprendedores)
@@ -98,14 +100,18 @@ namespace PII_E13.ClassLibrary
         /// </summary>
         /// <param name="id">Id de la <see cref="Oferta"/> a recuperar.</param>
         /// <returns>La instancia de <see cref="Oferta"/> correspondiente a su id dada.</returns>
+        /// <exception cref="KeyNotFoundException">Si no encuentra una <see cref="Oferta"/></exception>
         public Oferta ObtenerOfertaPorId(string id)
         {
             foreach (Empresa empresa in this.Empresas)
             {
-                foreach (Oferta oferta in empresa.Ofertas)
+                try
                 {
-                    if (oferta.Id == id)
-                        return oferta;
+                    return empresa.ObtenerOfertaPorId(id);
+                }
+                catch (Exception e)
+                {
+                    continue;
                 }
             }
             throw new KeyNotFoundException("No se encontró la oferta con la id dada.");
