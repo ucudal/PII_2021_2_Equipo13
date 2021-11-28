@@ -83,7 +83,7 @@ namespace PII_E13.ClassLibrary
         {
             get
             {
-                return ($"{this.CantidadEnUnidad} {this.Material.UnidadEstandar} de {this.Material.Nombre}");
+                return ($"{this.CantidadEnUnidad} {this.Material.UnidadEstandar} de {this.Material.Nombre}.\n_${this.ValorUYU} UYU_ o _${this.ValorUSD} USD_");
             }
         }
     }

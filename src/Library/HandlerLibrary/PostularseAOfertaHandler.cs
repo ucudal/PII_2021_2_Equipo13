@@ -364,7 +364,7 @@ namespace PII_E13.HandlerLibrary
                             };
                         respuesta.Botones = tecladoMenu;
                         System.Console.WriteLine($"[NUEVA POSTULACIÓN] - ID USUARIO: {mensaje.IdUsuario} - ID OFERTA: {ofertaPostulada.Id}");
-                        respuesta.Texto = $"Felicidades, te has postulado a la oferta \"{ofertaPostulada.Titulo}\" por _{Sistema.Instancia.ObtenerEmpresaPorId(ofertaPostulada.Empresa).Nombre}_ existosamente.";
+                        respuesta.Texto = $"Felicidades, te has postulado a la oferta _\"{ofertaPostulada.Titulo}\"_ por _{Sistema.Instancia.ObtenerEmpresaPorId(ofertaPostulada.Empresa).Nombre}_ existosamente.";
                         infoPostulacion.Estado = Estados.Postulado;
                         return true;
                     }

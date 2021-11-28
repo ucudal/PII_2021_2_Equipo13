@@ -39,7 +39,10 @@ namespace Application
             //Sistema.Instancia.ObtenerEmpresaPorId("123123").PublicarOferta("123", "Lorem Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id ipsum ut dui consectetur sollicitudin. Nam leo odio, ultricies vitae eleifend at, fermentum eget felis. Suspendisse vitae leo risus. Nam non purus et diam vestibulum ullamcorper. Donec ut erat vitae odio efficitur hendrerit id nec urna. Maecenas non condimentum neque.",
             //    DateTime.MaxValue);
 
+            //Sistema.Instancia.ObtenerOfertaPorId("123").AgregarProducto(Sistema.Instancia.Materiales[0], "Montevideo", "Constitución 2455", 500, 20000, 450);
+
             // DATOS DE PRUEBA -------------------------------------------------------------------------------------------
+
 
             //Obtengo una instancia de TelegramBot
             TelegramBot telegramBot = TelegramBot.Instancia;

@@ -34,7 +34,6 @@ namespace PII_E13.ClassLibrary
             this.FechaCierre = fechaCierre;
             this.Etiquetas = etiquetas != null ? etiquetas : new List<string>();
             this.Estado = estado;
-            //this.Estado = Enum.Parse<Estados>(estado);
             this.Habilitaciones = habilitaciones != null ? habilitaciones : new List<Habilitacion>();
             this.Descripcion = descripcion;
             this.Titulo = titulo;
@@ -203,6 +202,8 @@ namespace PII_E13.ClassLibrary
         {
             Producto producto = new Producto(material, ciudad, direccion, cantidadEnUnidades, valorUYU, valorUSD);
             this.Productos.Add(producto);
+            IPersistor persistor = new PersistorDeJson();
+            persistor.Escribir<Empresa>("Empresas.json", Sistema.Instancia.ObtenerEmpresaPorId(this.Empresa));
         }
 
         /// <summary>
@@ -212,6 +213,8 @@ namespace PII_E13.ClassLibrary
         public void RemoverProducto(Producto producto)
         {
             this.Productos.Remove(producto);
+            IPersistor persistor = new PersistorDeJson();
+            persistor.Escribir<Empresa>("Empresas.json", Sistema.Instancia.ObtenerEmpresaPorId(this.Empresa));
         }
 
         /// <summary>
@@ -226,12 +229,23 @@ namespace PII_E13.ClassLibrary
                 redaccion.Append($"\n_Esta oferta está disponible recurrentemente. Consulta la frecuencia con el ofertante._");
             }
             redaccion.Append($"\n\n*Descripción:* {this.Descripcion}");
+
+            if (this.Productos.Count > 0)
+            {
+                redaccion.Append($"\n\n*La oferta contiene los siguientes productos:*");
+                for (int i = 0; i < this.Productos.Count; i++)
+                {
+                    Producto producto = this.Productos[i];
+                    redaccion.Append($"\n\n • {producto.Redaccion}");
+                }
+            }
+
             if (this.Habilitaciones.Count > 0)
             {
                 redaccion.Append($"\n\nEl ofertante indicó que las siguientes habilitaciones son necesarias para ser considerado para la oferta:");
                 foreach (Habilitacion habilitacion in this.Habilitaciones)
                 {
-                    redaccion.Append($"\n*->* _{habilitacion.Nombre}_");
+                    redaccion.Append($"\n • _{habilitacion.Nombre}_");
                 }
             }
             redaccion.Append($"\n\nFecha de publicación: _{this.FechaCreada.ToShortDateString()}_");
