@@ -12,7 +12,9 @@ namespace LibraryHandler
         {
             this.Etiquetas = new string[] { "ver ofertas" };
         }
-        public new bool ResolverInterno(IMensaje mensaje, out string respuesta)
+
+
+        public new bool ResolverInterno(Sesion sesion, IMensaje mensaje, out IRespuesta respuesta)
         {
             if (this.PuedeResolver(mensaje))
             {
@@ -31,6 +33,25 @@ namespace LibraryHandler
                 respuesta = string.Empty;
                 return false;
             }
+        }
+
+
+         protected override bool PuedeResolver(Sesion sesion)
+        {
+            try
+            {
+                Sistema.Instancia.ObtenerEmprendedorPorId(sesion.IdUsuario);
+            }
+            catch (KeyNotFoundException e)
+            {
+                return false;
+            }
+
+            return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion) ||
+                (
+                    this.Busquedas.ContainsKey(sesion.IdUsuario) &&
+                    (sesion.PLN.UltimaIntencion.Nombre.Equals("Default") || (sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 80))
+                );
         }
 
     }
