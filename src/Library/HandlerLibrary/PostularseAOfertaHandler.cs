@@ -7,11 +7,7 @@ using PII_E13.ClassLibrary;
 namespace PII_E13.HandlerLibrary
 {
     /// <summary>
-    /// Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a través de una
-    /// cadena de "handlers" que pueden procesar o no el mensaje. Cada "handler" decide si procesa el mensaje, o si se lo
-    /// pasa al siguiente. Esta clase base implmementa la responsabilidad de recibir el mensaje y pasarlo al siguiente
-    /// "handler" en caso que el mensaje no sea procesado. La responsabilidad de decidir si el mensaje se procesa o no, y
-    /// de procesarlo, se delega a las clases sucesoras de esta clase base.
+    /// Handler encargado de procesar la postulación de ofertas, desde el proceso de búsqueda hasta la selección final.
     /// </summary>
     public class PostularseAOfertaHandler : HandlerBase
     {
@@ -39,7 +35,6 @@ namespace PII_E13.HandlerLibrary
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="PostularseAOfertaHandler"/>. 
-        /// Esta clase procesa la postulación a una oferta.
         /// </summary>
         /// <param name="siguiente">El próximo "handler".</param>
         /// <param name="intencion">La intención utilizada para identificar a este handler.</param>

@@ -76,7 +76,7 @@ namespace PII_E13.HandlerLibrary
         /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
         protected virtual bool PuedeResolver(Sesion sesion)
         {
-            return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion);
+            return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion) && sesion.PLN.UltimaIntencion.ConfianzaDeteccion > 75;
         }
 
 
