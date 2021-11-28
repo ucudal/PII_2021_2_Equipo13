@@ -16,7 +16,6 @@ namespace LibraryHandler
 
         public new bool ResolverInterno(Sesion sesion, IMensaje mensaje, out IRespuesta respuesta)
         {
-            if (this.PuedeResolver(mensaje))
             {
                 Sistema sistema = Sistema.Instancia;
                 List<Oferta> ofertas = Buscador.Instancia.BuscarOfertas(sistema, sistema.ObtenerEmprendedorPorId(mensaje.IdUsuario));
