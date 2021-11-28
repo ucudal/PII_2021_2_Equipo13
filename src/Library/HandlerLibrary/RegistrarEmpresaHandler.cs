@@ -235,7 +235,35 @@ namespace PII_E13.HandlerLibrary
         /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
         protected override bool PuedeResolver(Sesion sesion)
         {
-            return true;
+            try
+            {
+                Sistema.Instancia.ObtenerEmprendedorPorId(sesion.IdUsuario);
+                return false;
+            }
+            catch (KeyNotFoundException e)
+            {
+                try
+                {
+                    Sistema.Instancia.ObtenerEmprendedorPorId(sesion.IdUsuario);
+                    return false;
+                }
+                catch (KeyNotFoundException e2)
+                {
+                    Intencion intencion = sesion.PLN.UltimaIntencion;
+                    if (intencion.Entrada.Equals("Empresa"))
+                    {
+                        return true;
+                    }
+                    else if (intencion.Entrada.Equals("Emprendedor"))
+                    {
+                        return false;
+                    }
+
+                    return (this.Busquedas.ContainsKey(sesion.IdUsuario) &&
+                        (intencion.Nombre.Equals("Default") || sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 90)
+                    );
+                }
+            }
         }
 
         /// <summary>

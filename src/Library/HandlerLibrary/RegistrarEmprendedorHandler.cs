@@ -86,7 +86,6 @@ namespace PII_E13.HandlerLibrary
             else
             {
                 this.Busquedas.Add(mensaje.IdUsuario, infoPostulacion);
-
             }
             List<string> titulosOfertas = new List<string>();
             List<string> opcionesRegistro = new List<string>(); //Opciones para registro
@@ -336,7 +335,35 @@ namespace PII_E13.HandlerLibrary
         /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
         protected override bool PuedeResolver(Sesion sesion)
         {
-            return true;
+            try
+            {
+                Sistema.Instancia.ObtenerEmprendedorPorId(sesion.IdUsuario);
+                return false;
+            }
+            catch (KeyNotFoundException e)
+            {
+                try
+                {
+                    Sistema.Instancia.ObtenerEmprendedorPorId(sesion.IdUsuario);
+                    return false;
+                }
+                catch (KeyNotFoundException e2)
+                {
+                    Intencion intencion = sesion.PLN.UltimaIntencion;
+                    if (intencion.Entrada.Equals("Emprendedor"))
+                    {
+                        return true;
+                    }
+                    else if (intencion.Entrada.Equals("Empresa"))
+                    {
+                        return false;
+                    }
+
+                    return (this.Busquedas.ContainsKey(sesion.IdUsuario) &&
+                        (intencion.Nombre.Equals("Default") || sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 90)
+                    );
+                }
+            }
         }
 
         /// <summary>
@@ -399,7 +426,6 @@ namespace PII_E13.HandlerLibrary
         /// </summary>
         private enum TipoMensaje
         {
-
             Mensaje,
             Callback
         }
@@ -427,12 +453,7 @@ namespace PII_E13.HandlerLibrary
             /// </summary>
             public Estados Estado { get; set; } = Estados.Inicio;
 
-
-
-
-
             public TipoMensaje tipoMensaje { get; set; }
-
 
             /// <summary>
             /// Oferta seleccionada por un usuario entre la lista de ofertas encontradas.
