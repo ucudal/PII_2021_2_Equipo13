@@ -1,3 +1,4 @@
+/*
 using Telegram.Bot.Types;
 using PII_E13.ClassLibrary;
 using System.Collections.Generic;
@@ -106,3 +107,4 @@ namespace PII_E13.HandlerLibrary
 
     }
 }
+*/

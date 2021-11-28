@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace PII_E13.ClassLibrary
 {
@@ -14,7 +16,14 @@ namespace PII_E13.ClassLibrary
         /// <summary>
         /// Id del usuario en el canal de registro.
         /// </summary>
-        public List<Oferta> Ofertas { get; }
+        [JsonInclude]
+        public List<Oferta> Ofertas { get; set; } = new List<Oferta>();
+
+        /// <summary>
+        /// Crea una instancia vacía de <see cref="Empresa"/>.
+        /// </summary>
+        [JsonConstructor]
+        public Empresa() { }
 
         /// <summary>
         /// Crea una instancia de Empresa.
@@ -26,8 +35,21 @@ namespace PII_E13.ClassLibrary
         /// <param name="nombre">Nombre comercial de la empresa.</param>
         public Empresa(string id, string ciudad, string direccion, string rubro, string nombre) : base(id, nombre, direccion, ciudad, rubro)
         {
-            this.Ofertas = new List<Oferta>();
         }
+
+        /// <summary>
+        /// Crea una instancia de <see cref="Empresa"/> a través de deserialización.
+        /// </summary>
+        /// <param name="id">Id del usuario en el canal de registro.</param>
+        /// <param name="ubicacion">Instancia de <see cref="UbicacionBase"/> correspondiente a la ubicacion del usuario.</param>
+        /// <param name="rubro">Instancia de <see cref="Rubro"/> correspondiente al rubro del usuario.</param>
+        /// <param name="nombre">Nombre comercial de la empresa.</param>
+        /// <param name="ofertas">Lista de instancias de <see cref="Oferta"/> correspondiente a las ofertas creadas por la empresa.</param>
+        /// <returns></returns>
+        public Empresa(string id, UbicacionBase ubicacion, Rubro rubro, string nombre, List<Oferta> ofertas = null) : base(id, nombre, ubicacion.Direccion, ubicacion.Ciudad, rubro.Nombre)
+        {
+        }
+
         /// <summary>
         /// Crea una nueva Oferta y la añade a la lista de ofertas de la empresa.
         /// </summary>
@@ -51,6 +73,8 @@ namespace PII_E13.ClassLibrary
             }
             Oferta oferta = new Oferta(id, this, fechaCierre, etiquetas, habilitaciones, descripcion, titulo, disponibleConstantemente);
             Ofertas.Add(oferta);
+            IPersistor persistor = new PersistorDeJson();
+            persistor.Escribir<Empresa>("Empresas.json", this);
             return oferta;
         }
         /// <summary>

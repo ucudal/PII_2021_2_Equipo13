@@ -35,13 +35,9 @@ namespace Application
             Sistema.Instancia.Materiales.Add(new Material("Madera de caoba", "Kg", new List<string>() { "Madera", "Caoba", "Carpintería" }));
             Sistema.Instancia.Materiales.Add(new Material("Cobre", "Kg", new List<string>() { "Metal", "Resistente", "Conductor" }));
             */
-            Sistema.Instancia.RegistrarEmprendedor("2101409600", "Montevideo", "Constitución 2450", "Informática", "Walter S.A.", new List<Habilitacion>());
-            Sistema.Instancia.RegistrarEmprendedor("2101529600", "Montevideo", "Constitución 2450", "Informática", "Walter S.A.", new List<Habilitacion>());
-            Sistema.Instancia.RegistrarEmpresa("123123", "Canelones", "Canelones 1234", "Industria", "Industria S.A.");
 
-            Empresa e = Sistema.Instancia.ObtenerEmpresaPorId("123123");
-            e.PublicarOferta("123", "Lorem Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ut ultrices nulla. Praesent eu magna ac tellus fringilla bibendum at ac mauris. Duis id odio quis sem porttitor imperdiet ac et libero. Duis vitae accumsan elit. Sed dictum fermentum fringilla. Etiam sagittis eros urna, aliquam pulvinar lectus pretium sed.",
-                DateTime.MaxValue, etiquetas: new List<string> { "Prueba", "Lorem", "Ipsum" });
+            //Sistema.Instancia.ObtenerEmpresaPorId("123123").PublicarOferta("123", "Lorem Ipsum", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id ipsum ut dui consectetur sollicitudin. Nam leo odio, ultricies vitae eleifend at, fermentum eget felis. Suspendisse vitae leo risus. Nam non purus et diam vestibulum ullamcorper. Donec ut erat vitae odio efficitur hendrerit id nec urna. Maecenas non condimentum neque.",
+            //    DateTime.MaxValue);
 
             // DATOS DE PRUEBA -------------------------------------------------------------------------------------------
 

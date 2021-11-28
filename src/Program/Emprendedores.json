@@ -1,1 +1,32 @@
-﻿[{"Habilitaciones":[],"OfertasPostuladas":[],"OfertasConsumidas":[],"Id":"2101409600","Nombre":"Walter S.A.","Ubicacion":{"Ciudad":"Montevideo","Direccion":"Constituci\u00F3n 2450"},"Rubro":{"Nombre":"Inform\u00E1tica"}},{"Habilitaciones":[],"OfertasPostuladas":[],"OfertasConsumidas":[],"Id":"2101529600","Nombre":"Walter S.A.","Ubicacion":{"Ciudad":"Montevideo","Direccion":"Constituci\u00F3n 2450"},"Rubro":{"Nombre":"Inform\u00E1tica"}}]
+﻿[
+    {
+        "Habilitaciones": [],
+        "OfertasPostuladas": [
+            "123"
+        ],
+        "OfertasConsumidas": [],
+        "Id": "2101409600",
+        "Nombre": "Walter S.A.",
+        "Ubicacion": {
+            "Ciudad": "Montevideo",
+            "Direccion": "Constituci\u00F3n 2450"
+        },
+        "Rubro": {
+            "Nombre": "Inform\u00E1tica"
+        }
+    },
+    {
+        "Habilitaciones": [],
+        "OfertasPostuladas": [],
+        "OfertasConsumidas": [],
+        "Id": "2101529600",
+        "Nombre": "Walter S.A.",
+        "Ubicacion": {
+            "Ciudad": "Montevideo",
+            "Direccion": "Constituci\u00F3n 2450"
+        },
+        "Rubro": {
+            "Nombre": "Inform\u00E1tica"
+        }
+    }
+]

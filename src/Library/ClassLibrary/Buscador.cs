@@ -36,7 +36,8 @@ namespace PII_E13.ClassLibrary
             {
                 foreach (Oferta oferta in empresa.Ofertas)
                 {
-                    if (oferta.Estado != Oferta.Estados.Habilitada) continue;
+                    if (oferta.Estado != Oferta.Estados.Habilitada || emprendedor.OfertasPostuladas.Contains(oferta.Id)
+                        || emprendedor.OfertasConsumidas.Contains(oferta.Id)) continue;
 
                     double distanciaMedia = 0;
                     int puntaje = 0;
