@@ -153,7 +153,6 @@ namespace PII_E13.HandlerLibrary
             switch (infoRegistro.Estado)
             {
                 case Estados.Categorias:
-                    Console.WriteLine("Estado: " + infoRegistro.Estado);
 
                     List<string> etiquetas = mensaje.Texto.Split(' ').ToList();
                     infoRegistro.Etiquetas = etiquetas;
@@ -206,7 +205,7 @@ namespace PII_E13.HandlerLibrary
                                     return false;
                             }
                             respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
-                            accionPrevia = mensaje.Texto;
+                            this.accionPreviaSesion[sesion] = mensaje.Texto;
                             respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmprendedor, infoRegistro.IndiceActual, FILAS_EMPRENDEDOR, COLUMNAS_EMPRENDEDOR, tecladoFijoCategorias);
                             respuesta.EditarMensaje = true;
                             return true;
@@ -239,7 +238,6 @@ namespace PII_E13.HandlerLibrary
                     switch (infoRegistro.tipoMensaje)
                     {
                         case TipoMensaje.Callback:
-                            Console.WriteLine("ESTADO: " + infoRegistro.tipoMensaje);
                             switch (mensaje.Texto)
                             {
                                 case "Listo":
@@ -266,8 +264,7 @@ namespace PII_E13.HandlerLibrary
 
 
                                 case "Saltar":
-                                    System.Console.WriteLine((DiccDatosEmprendedor["Nombre"]));
-                                    Sistema.Instancia.RegistrarEmprendedor(mensaje.IdUsuario.ToString(), DiccDatosEmprendedor["Ciudad"], DiccDatosEmprendedor["Direccion"], DiccDatosEmprendedor["Rubro"], DiccDatosEmprendedor["Nombre"], null);
+                                    Sistema.Instancia.RegistrarEmprendedor(mensaje.IdUsuario.ToString(), DiccDatosEmprendedor["Ciudad"], DiccDatosEmprendedor["Direccion"], DiccDatosEmprendedor["Rubro"], DiccDatosEmprendedor["Nombre"], new List<Habilitacion>());
                                     Console.WriteLine($"[NUEVO REGISTRO] ID USUARIO: {mensaje.IdUsuario.ToString()}");
                                     if (Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario.ToString()).Nombre == DiccDatosEmprendedor["Nombre"])
                                     {
@@ -285,8 +282,8 @@ namespace PII_E13.HandlerLibrary
                             {
                                 respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
                             }
-                            accionPrevia = mensaje.Texto;
-                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoRegistro.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
+                            this.accionPreviaSesion[sesion] = mensaje.Texto;
+                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoRegistro.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoHabilitaciones);
                             respuesta.EditarMensaje = true;
                             return true;
 
@@ -296,7 +293,7 @@ namespace PII_E13.HandlerLibrary
                             Console.WriteLine("ESTADO: " + infoRegistro.tipoMensaje);
                             respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{accionPrevia}*";
                             DiccDatosHabilitacion[accionPrevia] = mensaje.Texto;
-                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoRegistro.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
+                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoRegistro.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoHabilitaciones);
                             return true;
                     }
                     return true;
