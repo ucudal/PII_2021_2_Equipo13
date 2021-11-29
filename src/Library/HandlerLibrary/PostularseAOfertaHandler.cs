@@ -55,6 +55,7 @@ namespace PII_E13.HandlerLibrary
             respuesta = new Respuesta(mensaje);
             if (!this.PuedeResolver(sesion))
             {
+                this.Cancelar(sesion);
                 return false;
             }
 
@@ -100,6 +101,8 @@ namespace PII_E13.HandlerLibrary
                 new List<IBoton>() {TelegramBot.Instancia.BotonAnterior, TelegramBot.Instancia.BotonSiguiente},
                 new List<IBoton>() {new Boton("Salir")}
             };
+
+            StringBuilder stringBuilder;
 
             switch (infoPostulacion.Estado)
             {
@@ -185,7 +188,7 @@ namespace PII_E13.HandlerLibrary
                                 };
                             }
 
-                            StringBuilder stringBuilder = new StringBuilder();
+                            stringBuilder = new StringBuilder();
                             stringBuilder.Append("Encontramos estas ofertas para ti:\n\n");
                             for (int i = infoPostulacion.IndiceActual; i < (infoPostulacion.IndiceActual + COLUMNAS_OFERTAS * FILAS_OFERTAS); i++)
                             {
@@ -205,10 +208,9 @@ namespace PII_E13.HandlerLibrary
                             {
                                 botonesDeOfertas.Add(new Boton(tituloOferta));
                             }
-                            infoPostulacion.Estado = Estados.SeleccionandoOferta;
                             respuesta.Texto = stringBuilder.ToString();
-
                             respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
+                            infoPostulacion.Estado = Estados.SeleccionandoOferta;
                             return true;
 
                         case "Cancelar":
@@ -256,14 +258,31 @@ namespace PII_E13.HandlerLibrary
                         case "Siguiente":
                             if (botonesDeOfertas.Count <= infoPostulacion.IndiceActual + COLUMNAS_OFERTAS * FILAS_OFERTAS)
                             {
-                                infoPostulacion.IndiceActual = botonesDeOfertas.Count - COLUMNAS_OFERTAS * FILAS_OFERTAS;
+                                infoPostulacion.IndiceActual = (botonesDeOfertas.Count - COLUMNAS_OFERTAS * FILAS_OFERTAS) > 0 ? (botonesDeOfertas.Count - COLUMNAS_OFERTAS * FILAS_OFERTAS) : 0;
                             }
                             else
                             {
                                 infoPostulacion.IndiceActual += COLUMNAS_OFERTAS * FILAS_OFERTAS;
                             }
+
+                            stringBuilder = new StringBuilder();
+                            stringBuilder.Append("Encontramos estas ofertas para ti:\n\n");
+                            for (int i = infoPostulacion.IndiceActual; i < (infoPostulacion.IndiceActual + COLUMNAS_OFERTAS * FILAS_OFERTAS); i++)
+                            {
+                                try
+                                {
+                                    Oferta oferta = infoPostulacion.OfertasEncontradas[i];
+                                    titulosOfertas.Add(oferta.Titulo);
+                                    stringBuilder.Append($"{oferta.RedactarResumen()}\n\n");
+                                }
+                                catch (ArgumentOutOfRangeException e)
+                                {
+                                    break;
+                                }
+                            }
+
                             respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
-                            respuesta.Texto = String.Empty;
+                            respuesta.Texto = stringBuilder.ToString();
                             respuesta.EditarMensaje = true;
                             return true;
 
@@ -276,8 +295,25 @@ namespace PII_E13.HandlerLibrary
                             {
                                 infoPostulacion.IndiceActual -= COLUMNAS_OFERTAS * FILAS_OFERTAS;
                             }
+
+                            stringBuilder = new StringBuilder();
+                            stringBuilder.Append("Encontramos estas ofertas para ti:\n\n");
+                            for (int i = infoPostulacion.IndiceActual; i < (infoPostulacion.IndiceActual + COLUMNAS_OFERTAS * FILAS_OFERTAS); i++)
+                            {
+                                try
+                                {
+                                    Oferta oferta = infoPostulacion.OfertasEncontradas[i];
+                                    titulosOfertas.Add(oferta.Titulo);
+                                    stringBuilder.Append($"{oferta.RedactarResumen()}\n\n");
+                                }
+                                catch (ArgumentOutOfRangeException e)
+                                {
+                                    break;
+                                }
+                            }
+
                             respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeOfertas, infoPostulacion.IndiceActual, FILAS_OFERTAS, COLUMNAS_OFERTAS, tecladoFijoOfertas);
-                            respuesta.Texto = String.Empty;
+                            respuesta.Texto = stringBuilder.ToString();
                             respuesta.EditarMensaje = true;
                             return true;
 
@@ -301,7 +337,7 @@ namespace PII_E13.HandlerLibrary
                 case Estados.Detalle:
                     if (mensaje.Texto.Equals("Volver"))
                     {
-                        StringBuilder stringBuilder = new StringBuilder();
+                        stringBuilder = new StringBuilder();
                         stringBuilder.Append("Encontramos estas ofertas para ti:\n\n");
                         for (int i = infoPostulacion.IndiceActual; i < (infoPostulacion.IndiceActual + COLUMNAS_OFERTAS * FILAS_OFERTAS); i++)
                         {
@@ -372,7 +408,7 @@ namespace PII_E13.HandlerLibrary
                 case Estados.Postulado:
                     if (mensaje.Texto.Equals("Volver"))
                     {
-                        StringBuilder stringBuilder = new StringBuilder();
+                        stringBuilder = new StringBuilder();
                         stringBuilder.Append("Encontramos estas ofertas para ti:\n\n");
                         for (int i = infoPostulacion.IndiceActual; i < (infoPostulacion.IndiceActual + COLUMNAS_OFERTAS * FILAS_OFERTAS); i++)
                         {

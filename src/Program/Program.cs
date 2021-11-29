@@ -13,8 +13,9 @@ namespace Application
     public static class Program
     {
         // INSTANCIAR COMO ALGÚN HANDLER.
+        private static IHandler handler = new VerOfertasHandler(null, "Ver Ofertas");
         //private static IHandler handler = new BienvenidaHandler(null, "Saludo");
-        private static IHandler handler = new MenuHandler(null, "Menu");
+        //private static IHandler handler = new MenuHandler(null, "Menu");
         //private static IHandler handler = new PostularseAOfertaHandler(null, "Buscar Ofertas");
         //private static IHandler handler = new RegistrarEmprendedorHandler(null, "Saludo");
 
