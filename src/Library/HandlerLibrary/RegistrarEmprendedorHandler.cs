@@ -132,7 +132,7 @@ namespace PII_E13.HandlerLibrary
             List<IBoton> botonesDeHabilitacion = new List<IBoton>();
             List<List<IBoton>> tecladoFijoCategorias = new List<List<IBoton>>()
             {
-                new List<IBoton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
+                new List<IBoton>() {TelegramBot.Instancia.BotonListo}
             };
             List<List<IBoton>> tecladoFijoHabilitaciones = new List<List<IBoton>>()
             {

@@ -38,7 +38,6 @@ namespace PII_E13.HandlerLibrary
 
         private Dictionary<Sesion, Dictionary<string, Dictionary<string, string>>> Sesiones = new Dictionary<Sesion, Dictionary<string, Dictionary<string, string>>>();
 
-
         private const int COLUMNAS_OFERTA = 1;
         private const int FILAS_OFERTA = 3;
 
@@ -599,7 +598,7 @@ namespace PII_E13.HandlerLibrary
                                             stringBuilder.Append("\n" + item.Key + ":   " + item.Value);
                                         }
                                         yaMostrado = true;
-                                        stringBuilder.Append("\n\n\n");
+                                        stringBuilder.Append("\n\n");
                                     }
 
                                     stringBuilder.Append("Datos sobre el producto:");
@@ -633,7 +632,7 @@ namespace PII_E13.HandlerLibrary
                                         yaMostrado = true;
                                     }
 
-                                    stringBuilder.Append("\n\n\n");
+                                    stringBuilder.Append("\n\n");
                                     stringBuilder.Append("Datos sobre el producto:");
                                     stringBuilder.Append("\n");
                                     stringBuilder.Append("\nMaterial Producto: " + material.Nombre);
@@ -717,7 +716,7 @@ namespace PII_E13.HandlerLibrary
                             switch (mensaje.Texto)
                             {
                                 case "Listo":
-                                    stringBuilder.Append("\n\n\nDatos sobre tu habilitacion: \n");
+                                    stringBuilder.Append("\n\nDatos sobre tu habilitacion: \n");
 
                                     foreach (var item in DiccDatosHabilitacion)
                                     {

@@ -39,37 +39,22 @@ namespace PII_E13.HandlerLibrary
             }
             this.Cancelar(sesion);
 
-            List<string> menuEmpresario = new List<string>();
-
-            List<string> menuEmprendedor = new List<string>();
-
-            List<string> menuComun = new List<string>();
-
             try
             {
                 Sistema.Instancia.ObtenerEmpresaPorId(mensaje.IdUsuario); // Intenta buscar si hay empresarios con el id usuario
                 this.banderaEmpresario = true; //Encontro empresario
-                menuEmpresario.Add("Crear una Oferta");
-                menuEmpresario.Add("Ver mis Ofertas");
             }
             catch
             {
                 try
                 { // Si no lo encuentra intenta buscar emprendedor
                     this.banderaEmpresario = false; //No encontro empresario
-                    menuEmpresario.Add("Registro Empresario");
                     Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario);
                     this.banderaEmprendedor = true; //Encontro emprendedor
-                    menuEmprendedor.Add("Ver Ofertas");
-                    menuEmprendedor.Add("Postularse a Oferta");
                 }
                 catch
                 { // Si no encuentra ni emprendedor ni empresario
                     this.banderaEmprendedor = false; //Encontro emprendedor
-
-                    menuComun.Add("Registro Emprendedor");
-                    menuComun.Add("Registro Empresario");
-
                 }
             }
 

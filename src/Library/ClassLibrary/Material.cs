@@ -18,7 +18,6 @@ namespace PII_E13.ClassLibrary
         /// <summary>
         /// Crea una instancia vacía de <see cref="Material"/>.
         /// </summary>
-        [JsonConstructor]
         public Material()
         {
         }
@@ -29,6 +28,7 @@ namespace PII_E13.ClassLibrary
         /// <param name="nombre">Nombre del material.</param>
         /// <param name="unidadEstandar">Unidad estándar con la que se mide el material.</param>
         /// <param name="categorias">Categorias dentro de las que esta el material. (Opcional)</param>
+        [JsonConstructor]
         public Material(string nombre, string unidadEstandar, List<string> categorias = null)
         {
             this.Nombre = nombre;
@@ -36,6 +36,10 @@ namespace PII_E13.ClassLibrary
             if (categorias == null)
             {
                 this.Categorias = new List<string>();
+            }
+            else
+            {
+                this.Categorias = categorias;
             }
         }
 
