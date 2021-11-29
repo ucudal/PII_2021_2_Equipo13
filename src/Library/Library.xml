@@ -1564,6 +1564,91 @@
             </summary>
             <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         </member>
+        <member name="T:PII_E13.HandlerLibrary.MenuHandler">
+            <summary>
+            Handler encargado de procesar el registro de una empresa.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.MenuHandler.Busquedas">
+            <summary>
+            Diccionario utilizado para contener todas las búsquedas que se están realizando por los usuarios.
+            Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="T:PII_E13.HandlerLibrary.MenuHandler.InformacionPostulacion"/>.
+            </summary>
+            <value>Diccionario de instancias de <see cref="T:PII_E13.HandlerLibrary.MenuHandler.InformacionPostulacion"/> identificadas por ids de usuarios en string</value>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.MenuHandler.#ctor(PII_E13.HandlerLibrary.HandlerBase,System.String)">
+            <summary>
+            Inicializa una nueva instancia de la clase <see cref="T:PII_E13.HandlerLibrary.RegistrarEmpresaHandler"/>. 
+            </summary>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.MenuHandler.ResolverInterno(PII_E13.ClassLibrary.Sesion,PII_E13.ClassLibrary.IMensaje,PII_E13.ClassLibrary.IRespuesta@)">
+            <summary>
+            La clase procesa el mensaje y retorna true o no lo procesa y retorna false.
+            </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
+            <param name="mensaje">El mensaje a procesar.</param>
+            <param name="respuesta">La respuesta al mensaje procesado.</param>
+            <returns>true si el mensaje fue procesado; false en caso contrario</returns>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.MenuHandler.CancelarInterno(PII_E13.ClassLibrary.Sesion)">
+            <summary>
+            Retorna este "handler" al estado inicial.
+            </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.MenuHandler.PuedeResolver(PII_E13.ClassLibrary.Sesion)">
+            <summary>
+            Determina si este "handler" puede procesar el mensaje.
+            </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
+            <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
+        </member>
+        <member name="M:PII_E13.HandlerLibrary.MenuHandler.Cancelar(PII_E13.ClassLibrary.Sesion)">
+            <summary>
+            Retorna este "handler" al estado inicial.
+            </summary>
+            <param name="sesion">La sesión en la cual se envió el mensaje.</param>
+        </member>
+        <member name="T:PII_E13.HandlerLibrary.MenuHandler.Estados">
+            <summary>
+            Representación de los posibles estados de una postulación a oferta.
+            </summary>
+        </member>
+        <member name="T:PII_E13.HandlerLibrary.MenuHandler.TipoMensaje">
+            <summary>
+            Representación de los posibles tipos de mensajes.
+            </summary>
+        </member>
+        <member name="T:PII_E13.HandlerLibrary.MenuHandler.InformacionPostulacion">
+            <summary>
+            Clase privada contenedora de la información de una postulación a una oferta.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.MenuHandler.InformacionPostulacion.Etiquetas">
+            <summary>
+            Lista de etiquetas que está usando un usuario para buscar una oferta.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.MenuHandler.InformacionPostulacion.Categorias">
+            <summary>
+            Lista de categorías que está usando un usuario para buscar una oferta.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.MenuHandler.InformacionPostulacion.Estado">
+            <summary>
+            Estado de la búsqueda de ofertas de un usuario.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.MenuHandler.InformacionPostulacion.ofertaSeleccionada">
+            <summary>
+            Oferta seleccionada por un usuario entre la lista de ofertas encontradas.
+            </summary>
+        </member>
+        <member name="P:PII_E13.HandlerLibrary.MenuHandler.InformacionPostulacion.IndiceActual">
+            <summary>
+            Indice actual dentro de la lista de categorías.
+            </summary>
+        </member>
         <member name="T:PII_E13.HandlerLibrary.PostularseAOfertaHandler">
             <summary>
             Handler encargado de procesar la postulación de ofertas, desde el proceso de búsqueda hasta la selección final.

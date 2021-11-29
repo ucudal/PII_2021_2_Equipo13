@@ -25,17 +25,17 @@ namespace PII_E13.HandlerLibrary
 
         /// <summary>
         /// Diccionario utilizado para contener todas las búsquedas que se están realizando por los usuarios.
-        /// Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="InformacionPostulacion"/>.
+        /// Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="InformacionRegistro"/>.
         /// </summary>
-        /// <value>Diccionario de instancias de <see cref="InformacionPostulacion"/> identificadas por ids de usuarios en string</value>
-        private Dictionary<string, InformacionPostulacion> Busquedas { get; set; }
+        /// <value>Diccionario de instancias de <see cref="InformacionRegistro"/> identificadas por ids de usuarios en string</value>
+        private Dictionary<string, InformacionRegistro> Registros { get; set; }
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="RegistrarEmpresaHandler"/>. 
         /// </summary>
         public RegistrarEmpresaHandler(HandlerBase siguiente, string intencion) : base(siguiente, intencion)
         {
-            this.Busquedas = new Dictionary<string, InformacionPostulacion>();
+            this.Registros = new Dictionary<string, InformacionRegistro>();
         }
 
         /// <summary>
@@ -71,14 +71,14 @@ namespace PII_E13.HandlerLibrary
             }
             Dictionary<string, string> DiccDatosEpresa = this.Sesiones[sesion];
 
-            InformacionPostulacion infoPostulacion = new InformacionPostulacion();
-            if (this.Busquedas.ContainsKey(mensaje.IdUsuario))
+            InformacionRegistro infoRegistro = new InformacionRegistro();
+            if (this.Registros.ContainsKey(mensaje.IdUsuario))
             {
-                infoPostulacion = this.Busquedas[mensaje.IdUsuario];
+                infoRegistro = this.Registros[mensaje.IdUsuario];
             }
             else
             {
-                this.Busquedas.Add(mensaje.IdUsuario, infoPostulacion);
+                this.Registros.Add(mensaje.IdUsuario, infoRegistro);
 
             }
             List<string> titulosOfertas = new List<string>();
@@ -91,15 +91,15 @@ namespace PII_E13.HandlerLibrary
 
 
 
-            if (infoPostulacion.DatosEmpresaDisponibles == null) //Lista de botones con las opciones del registro
+            if (infoRegistro.DatosEmpresaDisponibles == null) //Lista de botones con las opciones del registro
             {
-                infoPostulacion.DatosEmpresaDisponibles = new List<string>();
+                infoRegistro.DatosEmpresaDisponibles = new List<string>();
 
                 foreach (string opcion in opcionesRegistro)
                 {
-                    if (!infoPostulacion.DatosEmpresaDisponibles.Contains(opcion))
+                    if (!infoRegistro.DatosEmpresaDisponibles.Contains(opcion))
                     {
-                        infoPostulacion.DatosEmpresaDisponibles.Add(opcion);
+                        infoRegistro.DatosEmpresaDisponibles.Add(opcion);
                     }
                 }
             }
@@ -112,7 +112,7 @@ namespace PII_E13.HandlerLibrary
 
             };
 
-            foreach (string opcion in infoPostulacion.DatosEmpresaDisponibles)
+            foreach (string opcion in infoRegistro.DatosEmpresaDisponibles)
             {
                 botonesDeEmpresa.Add(new Boton(opcion));
             }
@@ -120,29 +120,29 @@ namespace PII_E13.HandlerLibrary
 
 
 
-            switch (infoPostulacion.Estado)
+            switch (infoRegistro.Estado)
             {
 
                 case Estados.Inicio:
-                    Console.WriteLine("Estado: " + infoPostulacion.Estado);
+                    Console.WriteLine("Estado: " + infoRegistro.Estado);
                     respuesta.Texto = "Por favor, indícanos detalladamente lo qué necesitas, dentro de un mensaje.";
-                    infoPostulacion.Estado = Estados.Categorias;
-                    infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+                    infoRegistro.Estado = Estados.Categorias;
+                    infoRegistro.tipoMensaje = TipoMensaje.Callback;
 
                     return true;
 
                 case Estados.Categorias:
-                    Console.WriteLine("Estado: " + infoPostulacion.Estado);
+                    Console.WriteLine("Estado: " + infoRegistro.Estado);
 
                     List<string> etiquetas = mensaje.Texto.Split(' ').ToList();
-                    infoPostulacion.Etiquetas = etiquetas;
-                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoPostulacion.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
-                    infoPostulacion.Estado = Estados.DatosEmpresa;
+                    infoRegistro.Etiquetas = etiquetas;
+                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoRegistro.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
+                    infoRegistro.Estado = Estados.DatosEmpresa;
                     foreach (string nombreBoton in opcionesRegistro)
                     {
                         if (mensaje.Texto == nombreBoton)
                         {
-                            infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+                            infoRegistro.tipoMensaje = TipoMensaje.Callback;
 
                         }
                     }
@@ -160,18 +160,18 @@ namespace PII_E13.HandlerLibrary
                     {
                         if ((mensaje.Texto == nombreBoton) ^ (mensaje.Texto == "Listo") ^ (mensaje.Texto == "Cancelar"))
                         {
-                            infoPostulacion.tipoMensaje = TipoMensaje.Callback;
+                            infoRegistro.tipoMensaje = TipoMensaje.Callback;
                             break;
                         }
                         else
                         {
-                            infoPostulacion.tipoMensaje = TipoMensaje.Mensaje;
+                            infoRegistro.tipoMensaje = TipoMensaje.Mensaje;
                         }
                     }
-                    switch (infoPostulacion.tipoMensaje)
+                    switch (infoRegistro.tipoMensaje)
                     {
                         case TipoMensaje.Callback:
-                            Console.WriteLine("ESTADO: " + infoPostulacion.tipoMensaje);
+                            Console.WriteLine("ESTADO: " + infoRegistro.tipoMensaje);
 
                             switch (mensaje.Texto)
                             {
@@ -191,7 +191,7 @@ namespace PII_E13.HandlerLibrary
                                     {
                                         stringBuilder.Append("\n\nUsted ha sido ingresado en el sistema exitosamente. Bienvenido.");
                                     }
-                                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoPostulacion.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
+                                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoRegistro.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
                                     respuesta.Texto = stringBuilder.ToString();
                                     return true;
 
@@ -206,16 +206,16 @@ namespace PII_E13.HandlerLibrary
 
 
                         case TipoMensaje.Mensaje:
-                            Console.WriteLine("ESTADO: " + infoPostulacion.tipoMensaje);
+                            Console.WriteLine("ESTADO: " + infoRegistro.tipoMensaje);
                             respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{accionPrevia}*";
                             DiccDatosEpresa[accionPrevia] = mensaje.Texto;
-                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoPostulacion.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
+                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoRegistro.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
                             return true;
                     }
                     return true;
 
             }
-            infoPostulacion = new InformacionPostulacion();
+            infoRegistro = new InformacionRegistro();
             return false;
         }
 
@@ -225,7 +225,7 @@ namespace PII_E13.HandlerLibrary
         /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         protected override void CancelarInterno(Sesion sesion)
         {
-            this.Busquedas.Remove(sesion.IdUsuario);
+            this.Registros.Remove(sesion.IdUsuario);
         }
 
         /// <summary>
@@ -259,7 +259,7 @@ namespace PII_E13.HandlerLibrary
                         return false;
                     }
 
-                    return (this.Busquedas.ContainsKey(sesion.IdUsuario) &&
+                    return (this.Registros.ContainsKey(sesion.IdUsuario) &&
                         (intencion.Nombre.Equals("Default") || sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 90)
                     );
                 }
@@ -279,38 +279,8 @@ namespace PII_E13.HandlerLibrary
             }
         }
 
-        private List<List<IBoton>> ObtenerMatrizDeBotones(List<IBoton> botones, int indiceInicial = 0, int filas = 1, int columnas = 1, List<List<IBoton>> botonesFijos = null)
-        {
-            List<List<IBoton>> matrizBotones = new List<List<IBoton>>();
-            for (int i = 0; i < filas; i++)
-            {
-                List<IBoton> fila = new List<IBoton>();
-                for (int j = 0; j < columnas; j++)
-                {
-                    try
-                    {
-                        fila.Add(botones[indiceInicial]);
-                        indiceInicial++;
-                    }
-                    catch (Exception e)
-                    {
-                        break;
-                    }
-                }
-                if (fila.Count > 0)
-                {
-                    matrizBotones.Add(fila);
-                }
-            }
-            if (botonesFijos != null)
-            {
-                matrizBotones.AddRange(botonesFijos);
-            }
-            return matrizBotones;
-        }
-
         /// <summary>
-        /// Representación de los posibles estados de una postulación a oferta.
+        /// Representación de los posibles estados del registro de una empresa.
         /// </summary>
         private enum Estados
         {
@@ -331,7 +301,7 @@ namespace PII_E13.HandlerLibrary
         /// <summary>
         /// Clase privada contenedora de la información de una postulación a una oferta.
         /// </summary>
-        private class InformacionPostulacion
+        private class InformacionRegistro
         {
             /// <summary>
             /// Lista de etiquetas que está usando un usuario para buscar una oferta.
@@ -350,19 +320,12 @@ namespace PII_E13.HandlerLibrary
 
             public TipoMensaje tipoMensaje { get; set; }
 
-
-            /// <summary>
-            /// Oferta seleccionada por un usuario entre la lista de ofertas encontradas.
-            /// </summary>
-            public Oferta ofertaSeleccionada { get; set; }
-
             /// <summary>
             /// Indice actual dentro de la lista de categorías.
             /// </summary>
             public int IndiceActual { get; set; } = 0;
 
             public List<string> DatosEmpresaDisponibles { get; set; }
-
         }
     }
 }
