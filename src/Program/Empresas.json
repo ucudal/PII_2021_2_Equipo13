@@ -1,1 +1,52 @@
-﻿[{"Ofertas":[{"Id":"123","Empresa":"2101409600","FechaCreada":"2021-11-28T02:05:29.7796751-03:00","FechaCierre":"9999-12-31T23:59:59.9999999","Etiquetas":[],"Estado":3,"Habilitaciones":[],"Descripcion":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id ipsum ut dui consectetur sollicitudin. Nam leo odio, ultricies vitae eleifend at, fermentum eget felis. Suspendisse vitae leo risus. Nam non purus et diam vestibulum ullamcorper. Donec ut erat vitae odio efficitur hendrerit id nec urna. Maecenas non condimentum neque.","Titulo":"Lorem Ipsum","Productos":[{"Material":{"Nombre":"Madera de roble","Categorias":["Madera","Roble","Carpinter\u00EDa"],"UnidadEstandar":"Kg"},"Ubicacion":{"Ciudad":"Montevideo","Direccion":"Constituci\u00F3n 2455"},"CantidadEnUnidad":500,"ValorUYU":20000,"ValorUSD":450,"Redaccion":"500 Kg de Madera de roble.\n_$20000 UYU_ o _$450 USD_"}],"Recurrente":false,"EmprendedoresPostulados":["123123"]}],"Id":"2101409600","Nombre":"Industria S.A.","Ubicacion":{"Ciudad":"Canelones","Direccion":"Canelones 1234"},"Rubro":{"Nombre":"Industria"}}]
+﻿[
+    {
+        "Ofertas": [
+            {
+                "Id": "123",
+                "Empresa": "12456",
+                "FechaCreada": "2021-11-28T02:05:29.7796751-03:00",
+                "FechaCierre": "9999-12-31T23:59:59.9999999",
+                "Etiquetas": [],
+                "Estado": 3,
+                "Habilitaciones": [],
+                "Descripcion": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id ipsum ut dui consectetur sollicitudin. Nam leo odio, ultricies vitae eleifend at, fermentum eget felis. Suspendisse vitae leo risus. Nam non purus et diam vestibulum ullamcorper. Donec ut erat vitae odio efficitur hendrerit id nec urna. Maecenas non condimentum neque.",
+                "Titulo": "Lorem Ipsum",
+                "Productos": [
+                    {
+                        "Material": {
+                            "Nombre": "Madera de roble",
+                            "Categorias": [
+                                "Madera",
+                                "Roble",
+                                "Carpinter\u00EDa"
+                            ],
+                            "UnidadEstandar": "Kg"
+                        },
+                        "Ubicacion": {
+                            "Ciudad": "Montevideo",
+                            "Direccion": "Constituci\u00F3n 2455"
+                        },
+                        "CantidadEnUnidad": 500,
+                        "ValorUYU": 20000,
+                        "ValorUSD": 450,
+                        "Redaccion": "500 Kg de Madera de roble.\n_$20000 UYU_ o _$450 USD_"
+                    }
+                ],
+                "Recurrente": false,
+                "EmprendedoresPostulados": [
+                    "2101529600",
+                    "123123"
+                ]
+            }
+        ],
+        "Id": "12456",
+        "Nombre": "Industria S.A.",
+        "Ubicacion": {
+            "Ciudad": "Canelones",
+            "Direccion": "Canelones 1234"
+        },
+        "Rubro": {
+            "Nombre": "Industria"
+        }
+    }
+]

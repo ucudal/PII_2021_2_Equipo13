@@ -1,1 +1,34 @@
-﻿[{"Habilitaciones":[],"OfertasPostuladas":[],"OfertasConsumidas":["123"],"Id":"123123","Nombre":"Yo Reciclo SRL","Ubicacion":{"Ciudad":"Montevideo","Direccion":"Constituci\u00F3n 2450"},"Rubro":{"Nombre":"Inform\u00E1tica"}},{"Habilitaciones":[],"OfertasPostuladas":[],"OfertasConsumidas":[],"Id":"2101529600","Nombre":"Reciclajes SRL","Ubicacion":{"Ciudad":"Montevideo","Direccion":"Av. Garibaldi 1944"},"Rubro":{"Nombre":"Inform\u00E1tica"}}]
+﻿[
+    {
+        "Habilitaciones": [],
+        "OfertasPostuladas": [
+            "123"
+        ],
+        "OfertasConsumidas": [],
+        "Id": "123123",
+        "Nombre": "Yo Reciclo SRL",
+        "Ubicacion": {
+            "Ciudad": "Montevideo",
+            "Direccion": "Constituci\u00F3n 2450"
+        },
+        "Rubro": {
+            "Nombre": "Inform\u00E1tica"
+        }
+    },
+    {
+        "Habilitaciones": [],
+        "OfertasPostuladas": [
+            "123"
+        ],
+        "OfertasConsumidas": [],
+        "Id": "2101529600",
+        "Nombre": "Reciclajes SRL",
+        "Ubicacion": {
+            "Ciudad": "Montevideo",
+            "Direccion": "Av. Garibaldi 1944"
+        },
+        "Rubro": {
+            "Nombre": "Inform\u00E1tica"
+        }
+    }
+]

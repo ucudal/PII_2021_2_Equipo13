@@ -13,7 +13,46 @@ namespace Application
     public static class Program
     {
         // INSTANCIAR COMO ALGÚN HANDLER.
-        private static IHandler handler = new VerOfertasHandler(null, "Ver Ofertas");
+        /*
+        private static IHandler handler = new RegistrarEmprendedorHandler(
+            new RegistrarEmpresaHandler(
+            new CrearOfertaHandler(
+            new PostularseAOfertaHandler(
+            new VerOfertasHandler(
+            new BienvenidaHandler(
+            new DespedidaHandler(
+            new MenuHandler(
+                null, "Menu"
+            ), "Despedida"
+            ), "Saludo"
+            ), "Ver Ofertas"
+            ), "Buscar Ofertas"
+            ), "Publicar Oferta"
+            ), ""
+            ), ""
+        );*/
+        private static IHandler handler = new BienvenidaHandler(
+            new MenuHandler(
+            new RegistrarEmprendedorHandler(
+            new RegistrarEmpresaHandler(
+            new CrearOfertaHandler(
+            new PostularseAOfertaHandler(
+            new VerOfertasHandler(
+            new BienvenidaHandler(
+            new DespedidaHandler(
+            new MenuHandler(
+                null, ""
+            ), "Despedida"
+            ), "Saludo"
+            ), "Ver Ofertas"
+            ), "Buscar Ofertas"
+            ), "Publicar Oferta"
+            ), ""
+            ), ""
+            ), "Menu"
+            ), "Saludo"
+        );
+        //private static IHandler handler = new VerOfertasHandler(null, "Ver Ofertas");
         //private static IHandler handler = new BienvenidaHandler(null, "Saludo");
         //private static IHandler handler = new MenuHandler(null, "Menu");
         //private static IHandler handler = new PostularseAOfertaHandler(null, "Buscar Ofertas");
@@ -117,10 +156,9 @@ namespace Application
                 {
                 }
 
-                IHandler resultado = handler.Resolver(sesionUsuario, mensaje, out respuesta);
-
                 try
                 {
+                    IHandler resultado = handler.Resolver(sesionUsuario, mensaje, out respuesta);
                     cliente.EnviarMensaje(respuesta);
                 }
                 catch (Exception e)

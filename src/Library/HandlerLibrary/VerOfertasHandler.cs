@@ -58,9 +58,9 @@ namespace PII_E13.HandlerLibrary
         protected override bool ResolverInterno(Sesion sesion, IMensaje mensaje, out IRespuesta respuesta)
         {
             respuesta = new Respuesta(mensaje);
+
             if (!this.PuedeResolver(sesion))
             {
-                this.Cancelar(sesion);
                 return false;
             }
 
@@ -121,7 +121,6 @@ namespace PII_E13.HandlerLibrary
                     botonesEmprendedores.Add(new Boton(emprendedor.Nombre, emprendedor.Id));
                 }
             }
-
 
             switch (this.EstadoSesion[sesion])
             {
@@ -391,12 +390,14 @@ namespace PII_E13.HandlerLibrary
                         Emprendedor emprendedor = Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.Texto);
                         IBoton botonConsumir = new Boton("Asignar oferta", emprendedor.Id);
                         IBoton botonVolver = new Boton("Volver", "Volver");
-                        respuesta.Texto = emprendedor.Redactar();
-                        respuesta.Botones = new List<List<IBoton>>()
+                        respuesta.Botones = new List<List<IBoton>>();
+                        if (OfertaSeleccionada[sesion].Estado != Oferta.Estados.Entregada)
                         {
-                            new List<IBoton>() { botonConsumir },
-                            new List<IBoton>() { botonVolver }
-                        };
+                            respuesta.Botones.Add(new List<IBoton>() { botonConsumir });
+                        }
+                        respuesta.Botones.Add(new List<IBoton>() { botonVolver });
+                        respuesta.Texto = emprendedor.Redactar();
+
                         this.EstadoSesion[sesion] = Estados.DetalleEmprendedor;
                         return true;
                     }
@@ -439,7 +440,6 @@ namespace PII_E13.HandlerLibrary
                     this.Cancelar(sesion);
                     return false;
             }
-            this.Cancelar(sesion);
             return false;
         }
 
@@ -462,13 +462,18 @@ namespace PII_E13.HandlerLibrary
         /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         protected override void CancelarInterno(Sesion sesion)
         {
-            try
+            if (this.EstadoSesion.ContainsKey(sesion))
             {
                 this.EstadoSesion.Remove(sesion);
+            }
+            if (this.IndiceActual.ContainsKey(sesion))
+            {
                 this.IndiceActual.Remove(sesion);
+            }
+            if (this.OfertaSeleccionada.ContainsKey(sesion))
+            {
                 this.OfertaSeleccionada.Remove(sesion);
             }
-            catch (Exception e) { }
         }
 
         /// <summary>
@@ -480,6 +485,11 @@ namespace PII_E13.HandlerLibrary
         /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
         protected override bool PuedeResolver(Sesion sesion)
         {
+            System.Console.WriteLine(sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion) ||
+                (
+                    this.EstadoSesion.ContainsKey(sesion) &&
+                    (sesion.PLN.UltimaIntencion.Nombre.Equals("Default") || (sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 80))
+                ));
             return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion) ||
                 (
                     this.EstadoSesion.ContainsKey(sesion) &&
