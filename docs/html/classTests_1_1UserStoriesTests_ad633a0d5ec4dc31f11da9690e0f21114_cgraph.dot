@@ -7,7 +7,8 @@ digraph "Tests.UserStoriesTests.RegistroDeEmpresaTest"
   rankdir="LR";
   Node1 [label="Tests.UserStoriesTests.Registro\lDeEmpresaTest",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Prueba para las historias de usuario 1 y 2: registro de una empresa en el sistema."];
   Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="PII_E13.ClassLibrary.Sistema.Obtener\lEmpresaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1Sistema.html#a6d25225279a22870da000af9f3716f38",tooltip="Recupera una empresa de la lista de empresas utilizando su id y una id dada."];
+  Node2 [label="PII_E13.ClassLibrary.Sistema.\lObtenerEmpresaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Sistema.html#ad5ba43efa8cb672f355206b9e8ebaa1b",tooltip="Recupera una instancia de Empresa de la lista de empresas utilizando su id y una id dada."];
   Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="PII_E13.ClassLibrary.Sistema.Registrar\lEmpresa",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1Sistema.html#a67310e1e32b1c5967750a79beefb8bfd",tooltip="Registra una nueva empresa en el sistema."];
+  Node3 [label="PII_E13.ClassLibrary.Sistema.\lRegistrarEmpresa",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Sistema.html#a125902b37d6884b6f047bfb334c45e18",tooltip="Registra una nueva Empresa en el sistema."];
+  Node3 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

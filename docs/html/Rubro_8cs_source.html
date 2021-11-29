@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Object Lifecycle: C:/Users/TanoW/OneDrive - Universidad Católica del Uruguay/Escritorio/Programación II/PII_Proyecto/src/Library/Rubro.cs Source File</title>
+<title>Object Lifecycle: C:/Users/TanoW/OneDrive - Universidad Católica del Uruguay/Escritorio/Programación II/PII_Proyecto/src/Library/ClassLibrary/Rubro.cs Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -85,28 +85,35 @@ $(document).ready(function(){initNavTree('Rubro_8cs_source.html',''); initResiza
 <div class="title">Rubro.cs</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacePII_E13.ClassLibrary.html">PII_E13.ClassLibrary</a></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="classPII_E13.ClassLibrary_1_1Rubro.html">    6</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">class </span><a class="code" href="classPII_E13.ClassLibrary_1_1Rubro.html">Rubro</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    {</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classPII_E13.ClassLibrary_1_1Rubro.html#a5df087c178aabc4140887a14c41d1ed2">   11</a></span>&#160;        <span class="keyword">public</span> <span class="keywordtype">string</span> <a class="code" href="classPII_E13.ClassLibrary_1_1Rubro.html#a5df087c178aabc4140887a14c41d1ed2">Nombre</a> { <span class="keyword">get</span>; <span class="keyword">set</span>; }</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classPII_E13.ClassLibrary_1_1Rubro.html#aa6a87555c0a47c3ba09b42b6fc37f523">   17</a></span>&#160;        <span class="keyword">public</span> <a class="code" href="classPII_E13.ClassLibrary_1_1Rubro.html#aa6a87555c0a47c3ba09b42b6fc37f523">Rubro</a>(<span class="keywordtype">string</span> rubro)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;            this.<a class="code" href="classPII_E13.ClassLibrary_1_1Rubro.html#a5df087c178aabc4140887a14c41d1ed2">Nombre</a> = rubro;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
-<div class="ttc" id="aclassPII_E13.ClassLibrary_1_1Rubro_html"><div class="ttname"><a href="classPII_E13.ClassLibrary_1_1Rubro.html">PII_E13.ClassLibrary.Rubro</a></div><div class="ttdef"><b>Definition:</b> <a href="Rubro_8cs_source.html#l00006">Rubro.cs:7</a></div></div>
-<div class="ttc" id="aclassPII_E13.ClassLibrary_1_1Rubro_html_a5df087c178aabc4140887a14c41d1ed2"><div class="ttname"><a href="classPII_E13.ClassLibrary_1_1Rubro.html#a5df087c178aabc4140887a14c41d1ed2">PII_E13.ClassLibrary.Rubro.Nombre</a></div><div class="ttdeci">string Nombre</div><div class="ttdoc">Se indica el nombre rubrodel rubro</div><div class="ttdef"><b>Definition:</b> <a href="Rubro_8cs_source.html#l00011">Rubro.cs:11</a></div></div>
-<div class="ttc" id="aclassPII_E13.ClassLibrary_1_1Rubro_html_aa6a87555c0a47c3ba09b42b6fc37f523"><div class="ttname"><a href="classPII_E13.ClassLibrary_1_1Rubro.html#aa6a87555c0a47c3ba09b42b6fc37f523">PII_E13.ClassLibrary.Rubro.Rubro</a></div><div class="ttdeci">Rubro(string rubro)</div><div class="ttdoc">Se indica el nombre rubrodel rubro</div><div class="ttdef"><b>Definition:</b> <a href="Rubro_8cs_source.html#l00017">Rubro.cs:17</a></div></div>
-<div class="ttc" id="anamespacePII_E13.ClassLibrary_html"><div class="ttname"><a href="namespacePII_E13.ClassLibrary.html">PII_E13.ClassLibrary</a></div><div class="ttdef"><b>Definition:</b> <a href="Buscador_8cs_source.html#l00005">Buscador.cs:6</a></div></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="keyword">using</span> System.Text.Json.Serialization;</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacePII__E13_1_1ClassLibrary.html">PII_E13.ClassLibrary</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classPII__E13_1_1ClassLibrary_1_1Rubro.html">    8</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">class </span><a class="code" href="classPII__E13_1_1ClassLibrary_1_1Rubro.html">Rubro</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    {</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classPII__E13_1_1ClassLibrary_1_1Rubro.html#a203c5d39c404a64a191c0b53d46e45e0">   13</a></span>&#160;        <span class="keyword">public</span> <span class="keywordtype">string</span> <a class="code" href="classPII__E13_1_1ClassLibrary_1_1Rubro.html#a203c5d39c404a64a191c0b53d46e45e0">Nombre</a> { <span class="keyword">get</span>; <span class="keyword">set</span>; }</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        [JsonConstructor]</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keyword">public</span> <a class="code" href="classPII__E13_1_1ClassLibrary_1_1Rubro.html">Rubro</a>()</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        }</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classPII__E13_1_1ClassLibrary_1_1Rubro.html#afab285219e2709f7e7e8510587f23c78">   24</a></span>&#160;        <span class="keyword">public</span> <a class="code" href="classPII__E13_1_1ClassLibrary_1_1Rubro.html#afab285219e2709f7e7e8510587f23c78">Rubro</a>(<span class="keywordtype">string</span> nombre)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            this.<a class="code" href="classPII__E13_1_1ClassLibrary_1_1Rubro.html#a203c5d39c404a64a191c0b53d46e45e0">Nombre</a> = nombre;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
+<div class="ttc" id="aclassPII__E13_1_1ClassLibrary_1_1Rubro_html"><div class="ttname"><a href="classPII__E13_1_1ClassLibrary_1_1Rubro.html">PII_E13.ClassLibrary.Rubro</a></div><div class="ttdoc">Esta clase respresenta los datos basicos y necesarios de los rubros.</div><div class="ttdef"><b>Definition:</b> <a href="Rubro_8cs_source.html#l00008">Rubro.cs:9</a></div></div>
+<div class="ttc" id="aclassPII__E13_1_1ClassLibrary_1_1Rubro_html_a203c5d39c404a64a191c0b53d46e45e0"><div class="ttname"><a href="classPII__E13_1_1ClassLibrary_1_1Rubro.html#a203c5d39c404a64a191c0b53d46e45e0">PII_E13.ClassLibrary.Rubro.Nombre</a></div><div class="ttdeci">string Nombre</div><div class="ttdoc">Se indica el nombre rubrodel rubro</div><div class="ttdef"><b>Definition:</b> <a href="Rubro_8cs_source.html#l00013">Rubro.cs:13</a></div></div>
+<div class="ttc" id="aclassPII__E13_1_1ClassLibrary_1_1Rubro_html_afab285219e2709f7e7e8510587f23c78"><div class="ttname"><a href="classPII__E13_1_1ClassLibrary_1_1Rubro.html#afab285219e2709f7e7e8510587f23c78">PII_E13.ClassLibrary.Rubro.Rubro</a></div><div class="ttdeci">Rubro(string nombre)</div><div class="ttdoc">Se indica el nombre rubrodel rubro</div><div class="ttdef"><b>Definition:</b> <a href="Rubro_8cs_source.html#l00024">Rubro.cs:24</a></div></div>
+<div class="ttc" id="anamespacePII__E13_1_1ClassLibrary_html"><div class="ttname"><a href="namespacePII__E13_1_1ClassLibrary.html">PII_E13.ClassLibrary</a></div><div class="ttdef"><b>Definition:</b> <a href="AdaptadorDeTelegram_8cs_source.html#l00004">AdaptadorDeTelegram.cs:5</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_f741251061e5c7c7ed48ab45c3348f11.html">Library</a></li><li class="navelem"><b>Rubro.cs</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_f741251061e5c7c7ed48ab45c3348f11.html">Library</a></li><li class="navelem"><a class="el" href="dir_472f84c66997f02f34076f187881790a.html">ClassLibrary</a></li><li class="navelem"><b>Rubro.cs</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

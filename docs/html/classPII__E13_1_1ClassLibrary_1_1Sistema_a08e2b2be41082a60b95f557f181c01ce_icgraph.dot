@@ -1,0 +1,27 @@
+digraph "PII_E13.ClassLibrary.Sistema.ObtenerOfertaPorId"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="PII_E13.ClassLibrary.Sistema.\lObtenerOfertaPorId",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Recupera una instancia de Oferta de la lista de de emprendedores y sus respectivas listas de ofertas."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Tests.UserStoriesTests.Oferta\lRecurrenteTest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html#ae50fb9b2414a5d68c5e6f5c075a11dfb",tooltip="Prueba para la historia de usuario 9 y 10: Recurrencia de ofertas"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PII_E13.ClassLibrary.Empresa.\lPublicarOferta",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Empresa.html#afb0e56e8465ab160e43423f83b599d92",tooltip="Crea una nueva Oferta y la añade a la lista de ofertas de la empresa."];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Tests.UserStoriesTests.Publicar\lOfertaTest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html#a45f61a5bfa9e579a076fcfcda7a8bc83",tooltip="Prueba para las historias de usuario 3, 4, 5 y 6:"];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="PII_E13.HandlerLibrary.Crear\lOfertaHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1CrearOfertaHandler.html#a0655632ca03230025f266140899e58f6",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="PII_E13.HandlerLibrary.Ver\lOfertasHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1VerOfertasHandler.html#abcb52a35f2cd0445f60740c87d3a2bce",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="PII_E13.ClassLibrary.Emprendedor.\lVerOfertasConsumidas",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Emprendedor.html#ad3dd981728fa39a6bbbdd7d7d43c8f2a",tooltip="Mediante palabras calve, un buscador y un canal se obtienen las ofertas consumidas por el Emprendedor..."];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="Tests.UserStoriesTests.Ofertas\lConsumidasTest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html#a56183ee941eacef1a4254623135a3742",tooltip="Prueba para la historia de usuario 12: Ofertas consumidas por emprendedor"];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="PII_E13.ClassLibrary.Emprendedor.\lVerOfertasPostuladas",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Emprendedor.html#a5ad2b2f09bf5288e8fc86f78df9822dc",tooltip="Mediante una una fecha de inicio y de fin se obtienen todas las ofertas postuladas en ese periodo de ..."];
+}

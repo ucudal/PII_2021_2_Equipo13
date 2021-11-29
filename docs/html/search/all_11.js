@@ -1,10 +1,14 @@
 var searchData=
 [
-  ['client_100',['Client',['../namespaceUcu_1_1Poo_1_1Locations_1_1Client.html',1,'Ucu::Poo::Locations']]],
-  ['locations_101',['Locations',['../namespaceUcu_1_1Poo_1_1Locations.html',1,'Ucu::Poo']]],
-  ['poo_102',['Poo',['../namespaceUcu_1_1Poo.html',1,'Ucu']]],
-  ['ubicacion_103',['Ubicacion',['../classPII_E13.ClassLibrary_1_1Ubicacion.html',1,'PII_E13.ClassLibrary.Ubicacion'],['../classPII_E13.ClassLibrary_1_1Emprendedor.html#a7871641b82e460e9353ab362b36b5f29',1,'PII_E13.ClassLibrary.Emprendedor.Ubicacion()'],['../classPII_E13.ClassLibrary_1_1Empresa.html#aa5cfc5d80057a11a01670033f7be04b2',1,'PII_E13.ClassLibrary.Empresa.Ubicacion()'],['../classPII_E13.ClassLibrary_1_1Producto.html#a7cb78ca98ebfc750636570a37d5355e3',1,'PII_E13.ClassLibrary.Producto.Ubicacion()'],['../classPII_E13.ClassLibrary_1_1Ubicacion.html#a1fff0a0204112feeae60db0e3f0757d8',1,'PII_E13.ClassLibrary.Ubicacion.Ubicacion()']]],
-  ['ucu_104',['Ucu',['../namespaceUcu.html',1,'']]],
-  ['unidadestandar_105',['UnidadEstandar',['../classPII_E13.ClassLibrary_1_1Material.html#a04aac322cc84506c88f80f9401b5789f',1,'PII_E13.ClassLibrary::Material']]],
-  ['userstoriestests_106',['UserStoriesTests',['../classTests_1_1UserStoriesTests.html',1,'Tests']]]
+  ['client_163',['Client',['../namespaceUcu_1_1Poo_1_1Locations_1_1Client.html',1,'Ucu::Poo::Locations']]],
+  ['locations_164',['Locations',['../namespaceUcu_1_1Poo_1_1Locations.html',1,'Ucu::Poo']]],
+  ['poo_165',['Poo',['../namespaceUcu_1_1Poo.html',1,'Ucu']]],
+  ['ubicacion_166',['Ubicacion',['../classPII__E13_1_1ClassLibrary_1_1Producto.html#a95ac36d81556fc399adc57c4b1d8f485',1,'PII_E13.ClassLibrary.Producto.Ubicacion()'],['../classPII__E13_1_1ClassLibrary_1_1Usuario.html#a0930a80c6f398d56018870ccae41d3a7',1,'PII_E13.ClassLibrary.Usuario.Ubicacion()']]],
+  ['ubicacionbase_167',['UbicacionBase',['../classPII__E13_1_1ClassLibrary_1_1UbicacionBase.html',1,'PII_E13.ClassLibrary.UbicacionBase'],['../classPII__E13_1_1ClassLibrary_1_1UbicacionBase.html#a8e476f483a348fe1a7b1d56048ddb497',1,'PII_E13.ClassLibrary.UbicacionBase.UbicacionBase()']]],
+  ['ucu_168',['Ucu',['../namespaceUcu.html',1,'']]],
+  ['ultimaactividad_169',['UltimaActividad',['../classPII__E13_1_1ClassLibrary_1_1Sesion.html#a825d3c4833f4d3db8b06aadf4daf1eb0',1,'PII_E13::ClassLibrary::Sesion']]],
+  ['ultimaintencion_170',['UltimaIntencion',['../classPII__E13_1_1ClassLibrary_1_1LenguajeNatural.html#ab6b597ecf4ceb4200b7355e7abc5c9fe',1,'PII_E13::ClassLibrary::LenguajeNatural']]],
+  ['unidadestandar_171',['UnidadEstandar',['../classPII__E13_1_1ClassLibrary_1_1Material.html#a3a69165b7b6d61ba18e381ad49a223d3',1,'PII_E13::ClassLibrary::Material']]],
+  ['userstoriestests_172',['UserStoriesTests',['../classTests_1_1UserStoriesTests.html',1,'Tests']]],
+  ['usuario_173',['Usuario',['../classPII__E13_1_1ClassLibrary_1_1Usuario.html',1,'PII_E13.ClassLibrary.Usuario'],['../classPII__E13_1_1ClassLibrary_1_1Usuario.html#ac78dfb121e825a7fd6e3101e1dd98ab9',1,'PII_E13.ClassLibrary.Usuario.Usuario(string id, string nombre, string direccion, string ciudad, string rubro)'],['../classPII__E13_1_1ClassLibrary_1_1Usuario.html#ad1fb874f5d8f7e0e3a2821b5945e9077',1,'PII_E13.ClassLibrary.Usuario.Usuario()']]]
 ];

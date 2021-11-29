@@ -1,0 +1,13 @@
+digraph "PII_E13.ClassLibrary.Buscador.BuscarOfertas"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="PII_E13.ClassLibrary.Buscador.\lBuscarOfertas",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Realiza una búsqueda de ofertas dentro de una instancia de Sistema, utilizando la información de un E..."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Tests.UserStoriesTests.Buscar\lOfertasTest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html#a888802d225bbd72618f9c5632594f6b3",tooltip="Prueba para la historia de usuario 8: Búsqueda de ofertas."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PII_E13.HandlerLibrary.Postularse\lAOfertaHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1PostularseAOfertaHandler.html#a7ff0855ef8e7ff795c9c7d7a339bc0e8",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+}

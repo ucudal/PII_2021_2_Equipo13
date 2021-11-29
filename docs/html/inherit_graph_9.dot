@@ -5,5 +5,7 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="PII_E13.ClassLibrary.Oferta",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1Oferta.html",tooltip="Patrones y principios aplicados: Principio EXPERT: ya que se le asignaron sus responsabilidades en su..."];
+  Node0 [label="PII_E13.ClassLibrary.IMensaje",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfacePII__E13_1_1ClassLibrary_1_1IMensaje.html",tooltip="Representa un mensaje enviado por un usuario a través de una plataforma de mensajería...."];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="PII_E13.ClassLibrary.Adaptador\lDeTelegram",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1AdaptadorDeTelegram.html",tooltip="Contiene la información relevante de un mensaje de Telegram. Se aplica el patrón Adapter para crear e..."];
 }

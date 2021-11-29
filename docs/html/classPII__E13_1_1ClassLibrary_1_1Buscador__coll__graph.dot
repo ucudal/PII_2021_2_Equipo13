@@ -1,0 +1,8 @@
+digraph "PII_E13.ClassLibrary.Buscador"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{PII_E13.ClassLibrary.Buscador\n|+ Instancia\l|+ BuscarOfertas()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Esta es una clase auxiliar que permite la búsqueda de ofertas. Se aplica SRP para tomar la decisión d..."];
+}

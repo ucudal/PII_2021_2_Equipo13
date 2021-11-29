@@ -1,0 +1,9 @@
+digraph "Graphical Class Hierarchy"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="Ucu.Poo.Locations.Client.\lLocation",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classUcu_1_1Poo_1_1Locations_1_1Client_1_1Location.html",tooltip="Representa las coordenadas y otros datos de la ubicación de una dirección retornada en el método Loca..."];
+}

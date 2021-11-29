@@ -1,0 +1,8 @@
+digraph "PII_E13.ClassLibrary.LenguajeNatural"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{PII_E13.ClassLibrary.Lenguaje\lNatural\n|+ UltimaIntencion\l|+ LenguajeNatural()\l+ ObtenerIntencion()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Representa un procesador de lenguaje natural que utiliza el servicio de Google Cloud \"Dialogflow\" par..."];
+}

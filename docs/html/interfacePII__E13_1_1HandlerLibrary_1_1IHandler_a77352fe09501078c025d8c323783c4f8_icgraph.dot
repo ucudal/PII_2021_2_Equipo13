@@ -1,0 +1,31 @@
+digraph "PII_E13.HandlerLibrary.IHandler.Cancelar"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="PII_E13.HandlerLibrary.IHandler.\lCancelar",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Retorna este \"handler\" al estado inicial y cancela el próximo \"handler\" si existe...."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PII_E13.HandlerLibrary.Bienvenida\lHandler.Cancelar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1BienvenidaHandler.html#af6fab764babe58ae7f5cbf2ad157291c",tooltip="Retorna este \"handler\" al estado inicial."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PII_E13.HandlerLibrary.Crear\lOfertaHandler.Cancelar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1CrearOfertaHandler.html#aee0c09bf7f86a72a5985dda027287cf9",tooltip="Retorna este \"handler\" al estado inicial. En los \"handler\" sin estado no hace nada...."];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="PII_E13.HandlerLibrary.Handler\lBase.Cancelar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1HandlerBase.html#a7faf907ab98b47b28b98faa447f7a6d9",tooltip="Retorna este \"handler\" al estado inicial. En los \"handler\" sin estado no hace nada...."];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="PII_E13.HandlerLibrary.Menu\lHandler.Cancelar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1MenuHandler.html#ad6b296a9d99c9bfb5165cd1f2300da39",tooltip="Retorna este \"handler\" al estado inicial."];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="PII_E13.HandlerLibrary.Menu\lHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1MenuHandler.html#a829453c1f723052ddeeb7ac74d65cf45",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="PII_E13.HandlerLibrary.Postularse\lAOfertaHandler.Cancelar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1PostularseAOfertaHandler.html#a025b68c7a94529469b1423fd8b732e64",tooltip="Retorna este \"handler\" al estado inicial."];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="PII_E13.HandlerLibrary.Postularse\lAOfertaHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1PostularseAOfertaHandler.html#a7ff0855ef8e7ff795c9c7d7a339bc0e8",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="PII_E13.HandlerLibrary.Registrar\lEmprendedorHandler.Cancelar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1RegistrarEmprendedorHandler.html#a2b2a41e4bbf28c35ab35ce91c25676ce",tooltip="Retorna este \"handler\" al estado inicial."];
+  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="PII_E13.HandlerLibrary.Registrar\lEmpresaHandler.Cancelar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1RegistrarEmpresaHandler.html#abb606844cb784cec20e23ac3dd2742e7",tooltip="Retorna este \"handler\" al estado inicial."];
+  Node1 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="PII_E13.HandlerLibrary.Ver\lOfertasHandler.Cancelar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1VerOfertasHandler.html#a288c13f55d96a355e0911f252e1469ad",tooltip="Retorna este \"handler\" al estado inicial."];
+  Node11 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="PII_E13.HandlerLibrary.Ver\lOfertasHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1VerOfertasHandler.html#abcb52a35f2cd0445f60740c87d3a2bce",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+}

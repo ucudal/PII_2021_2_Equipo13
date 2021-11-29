@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['ubicacion_232',['Ubicacion',['../classPII_E13.ClassLibrary_1_1Emprendedor.html#a7871641b82e460e9353ab362b36b5f29',1,'PII_E13.ClassLibrary.Emprendedor.Ubicacion()'],['../classPII_E13.ClassLibrary_1_1Empresa.html#aa5cfc5d80057a11a01670033f7be04b2',1,'PII_E13.ClassLibrary.Empresa.Ubicacion()'],['../classPII_E13.ClassLibrary_1_1Producto.html#a7cb78ca98ebfc750636570a37d5355e3',1,'PII_E13.ClassLibrary.Producto.Ubicacion()']]],
-  ['unidadestandar_233',['UnidadEstandar',['../classPII_E13.ClassLibrary_1_1Material.html#a04aac322cc84506c88f80f9401b5789f',1,'PII_E13.ClassLibrary::Material']]]
+  ['sesiones_376',['Sesiones',['../classPII__E13_1_1ClassLibrary_1_1GestorSesiones.html#aeead3077b941f98a39bad3f77cd5d151',1,'PII_E13::ClassLibrary::GestorSesiones']]],
+  ['siguiente_377',['Siguiente',['../classPII__E13_1_1HandlerLibrary_1_1HandlerBase.html#a64a8f6a78f6f1c3bc0a585845f70ebec',1,'PII_E13.HandlerLibrary.HandlerBase.Siguiente()'],['../interfacePII__E13_1_1HandlerLibrary_1_1IHandler.html#a7526715dd797d255dbc6a67259d53e7e',1,'PII_E13.HandlerLibrary.IHandler.Siguiente()']]]
 ];

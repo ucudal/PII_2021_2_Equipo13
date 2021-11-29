@@ -1,4 +1,10 @@
 var searchData=
 [
-  ['habilitaciones_213',['Habilitaciones',['../classPII_E13.ClassLibrary_1_1Emprendedor.html#a64c4a038530b761c24852a124ed6da8d',1,'PII_E13.ClassLibrary.Emprendedor.Habilitaciones()'],['../classPII_E13.ClassLibrary_1_1Oferta.html#aed0f54e9ac5525e610fa0454c81359be',1,'PII_E13.ClassLibrary.Oferta.Habilitaciones()']]]
+  ['fechacierre_342',['FechaCierre',['../classPII__E13_1_1ClassLibrary_1_1Oferta.html#a201d57f1ad19404321663b73b2ace744',1,'PII_E13::ClassLibrary::Oferta']]],
+  ['fechacreacion_343',['FechaCreacion',['../classPII__E13_1_1ClassLibrary_1_1Sesion.html#ac00bcaa0cc27729b43c6c590b803264f',1,'PII_E13::ClassLibrary::Sesion']]],
+  ['fechacreada_344',['FechaCreada',['../classPII__E13_1_1ClassLibrary_1_1Oferta.html#a3429a3095a1c83e91a69534cbfba396c',1,'PII_E13::ClassLibrary::Oferta']]],
+  ['fechatramite_345',['FechaTramite',['../classPII__E13_1_1ClassLibrary_1_1Habilitacion.html#afc1408babb0f45f65988ad95ba296fc2',1,'PII_E13::ClassLibrary::Habilitacion']]],
+  ['fechavencimiento_346',['FechaVencimiento',['../classPII__E13_1_1ClassLibrary_1_1Habilitacion.html#a07134e437665e435be142c987230e528',1,'PII_E13::ClassLibrary::Habilitacion']]],
+  ['formattedaddress_347',['FormattedAddress',['../classUcu_1_1Poo_1_1Locations_1_1Client_1_1Location.html#ac7842568cd7d80fdca86ff0654564a85',1,'Ucu::Poo::Locations::Client::Location']]],
+  ['found_348',['Found',['../classUcu_1_1Poo_1_1Locations_1_1Client_1_1Distance.html#a5de0d1b8f18ff87dbd74c8dd3a817a87',1,'Ucu.Poo.Locations.Client.Distance.Found()'],['../classUcu_1_1Poo_1_1Locations_1_1Client_1_1Location.html#a09b31de7c8fc0dc29e6fcb229debbefb',1,'Ucu.Poo.Locations.Client.Location.Found()']]]
 ];

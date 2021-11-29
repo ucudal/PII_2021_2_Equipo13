@@ -1,0 +1,13 @@
+digraph "PII_E13.HandlerLibrary.HandlerBase.CancelarInterno"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="PII_E13.HandlerLibrary.Handler\lBase.CancelarInterno",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Este método puede ser sobreescrito en las clases sucesores que procesan varios mensajes cambiando de ..."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PII_E13.HandlerLibrary.Bienvenida\lHandler.Cancelar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1BienvenidaHandler.html#af6fab764babe58ae7f5cbf2ad157291c",tooltip="Retorna este \"handler\" al estado inicial."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PII_E13.HandlerLibrary.Handler\lBase.Cancelar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1HandlerBase.html#a7faf907ab98b47b28b98faa447f7a6d9",tooltip="Retorna este \"handler\" al estado inicial. En los \"handler\" sin estado no hace nada...."];
+}

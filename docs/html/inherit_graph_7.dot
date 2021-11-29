@@ -5,5 +5,7 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="PII_E13.ClassLibrary.IPersistencia",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfacePII_E13.ClassLibrary_1_1IPersistencia.html",tooltip="Esta es la interface de percisitencia de la aplicacion. su funcion es guardar y recuperar los datos d..."];
+  Node0 [label="PII_E13.ClassLibrary.IEncriptador",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfacePII__E13_1_1ClassLibrary_1_1IEncriptador.html",tooltip="Interfaz encargada de generar un código de encriptación recibiendo una entrada. Se aplica DIP para as..."];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="PII_E13.ClassLibrary.Encriptador\lSHA256",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1EncriptadorSHA256.html",tooltip="Clase encargada de generar un hash identificador para los objetos del sistema."];
 }

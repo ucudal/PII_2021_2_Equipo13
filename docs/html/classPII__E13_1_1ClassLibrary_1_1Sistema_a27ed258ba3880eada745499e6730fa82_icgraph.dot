@@ -1,0 +1,43 @@
+digraph "PII_E13.ClassLibrary.Sistema.ObtenerEmprendedorPorId"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="PII_E13.ClassLibrary.Sistema.\lObtenerEmprendedorPorId",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Recupera una instancia de Emprendedor de la lista de emprendedores utilizando su id y una id dada."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Tests.UserStoriesTests.Buscar\lOfertasTest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html#a888802d225bbd72618f9c5632594f6b3",tooltip="Prueba para la historia de usuario 8: Búsqueda de ofertas."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PII_E13.ClassLibrary.Oferta.\lConsumir",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Oferta.html#afff3b526374d1304203a3e1712deac64",tooltip="Añade a la id de una instancia de Oferta a la lista de ofertas consumidas de una instancia de Emprend..."];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Tests.UserStoriesTests.Ofertas\lConsumidasTest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html#a56183ee941eacef1a4254623135a3742",tooltip="Prueba para la historia de usuario 12: Ofertas consumidas por emprendedor"];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="PII_E13.HandlerLibrary.Postularse\lAOfertaHandler.PuedeResolver",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1PostularseAOfertaHandler.html#a5d6ad17f31c3cd55e5165c5e5f438c66",tooltip="Determina si este \"handler\" puede procesar el mensaje. En la clase base se utiliza procesado de lengu..."];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="PII_E13.HandlerLibrary.Postularse\lAOfertaHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1PostularseAOfertaHandler.html#a7ff0855ef8e7ff795c9c7d7a339bc0e8",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="PII_E13.HandlerLibrary.Registrar\lEmprendedorHandler.PuedeResolver",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1RegistrarEmprendedorHandler.html#af2e02b0594c54fe1d035282076b979a6",tooltip="Determina si este \"handler\" puede procesar el mensaje."];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="PII_E13.HandlerLibrary.Registrar\lEmprendedorHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1RegistrarEmprendedorHandler.html#a62da6402a029bdceabf36b8f4040ec24",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="PII_E13.HandlerLibrary.Registrar\lEmpresaHandler.PuedeResolver",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1RegistrarEmpresaHandler.html#a67c1bc2f107155b1744d0975185c960b",tooltip="Determina si este \"handler\" puede procesar el mensaje."];
+  Node9 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="PII_E13.HandlerLibrary.Registrar\lEmpresaHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1RegistrarEmpresaHandler.html#a6a1df189b1a40e26aed19f54cafc301e",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+  Node1 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="PII_E13.ClassLibrary.Sistema.\lRegistrarEmprendedor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Sistema.html#af28d39800c5b7dbe62aff7af8fb6420a",tooltip="Registra un nuevo Emprendedor en el sistema."];
+  Node11 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="Tests.UserStoriesTests.Registro\lDeEmprendedorTest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html#aa6671f3e6af77f56846ad0c722b81e80",tooltip="Prueba para las historias de usuario 1 y 7: registro de un emprendedor en el sistema."];
+  Node11 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="PII_E13.HandlerLibrary.Bienvenida\lHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1BienvenidaHandler.html#a3f1eca6f07052255b42e134cbec70b51",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+  Node1 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="PII_E13.HandlerLibrary.Menu\lHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1MenuHandler.html#a829453c1f723052ddeeb7ac74d65cf45",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="PII_E13.HandlerLibrary.Ver\lOfertasHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1VerOfertasHandler.html#abcb52a35f2cd0445f60740c87d3a2bce",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+}

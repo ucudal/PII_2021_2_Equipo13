@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="PII_E13.ClassLibrary.Producto",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1Producto.html",tooltip="Clase que representa un Producto dentro del dominio del problema. Un Producto representa una instanci..."];
+  Node0 [label="PII_E13.ClassLibrary.Intencion",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Intencion.html",tooltip="Representa una intención obtenida a través de procesamiento de lenguaje natural (PLN) a partir de un ..."];
 }

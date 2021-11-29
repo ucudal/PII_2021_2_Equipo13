@@ -1,0 +1,28 @@
+digraph "PII_E13.HandlerLibrary.PostularseAOfertaHandler.ResolverInterno"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="PII_E13.HandlerLibrary.Postularse\lAOfertaHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PII_E13.ClassLibrary.Buscador.\lBuscarOfertas",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Buscador.html#ad017fdea84b7a055a7d389e398f1749d",tooltip="Realiza una búsqueda de ofertas dentro de una instancia de Sistema, utilizando la información de un E..."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PII_E13.HandlerLibrary.Postularse\lAOfertaHandler.Cancelar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1PostularseAOfertaHandler.html#a025b68c7a94529469b1423fd8b732e64",tooltip="Retorna este \"handler\" al estado inicial."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="PII_E13.HandlerLibrary.IHandler.\lCancelar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfacePII__E13_1_1HandlerLibrary_1_1IHandler.html#a77352fe09501078c025d8c323783c4f8",tooltip="Retorna este \"handler\" al estado inicial y cancela el próximo \"handler\" si existe...."];
+  Node3 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="PII_E13.HandlerLibrary.Postularse\lAOfertaHandler.CancelarInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1PostularseAOfertaHandler.html#aaa69e842d8c0dd46eb4221b6bac56a33",tooltip="Retorna este \"handler\" al estado inicial."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="PII_E13.ClassLibrary.Sistema.\lObtenerEmprendedorPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Sistema.html#a27ed258ba3880eada745499e6730fa82",tooltip="Recupera una instancia de Emprendedor de la lista de emprendedores utilizando su id y una id dada."];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="PII_E13.HandlerLibrary.Handler\lBase.ObtenerMatrizDeBotones",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1HandlerBase.html#a681545469125c8f883bb24a0b786ee4d",tooltip="Genera una matriz de botones en base a una lista de instancias de implementaciones de IBoton,..."];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="PII_E13.ClassLibrary.Emprendedor.\lPostularseAOferta",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Emprendedor.html#a8f52a184a1b668b02fc52aa220652230",tooltip="Mediante una oferta, éste emprendedor se postulará a ella."];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="PII_E13.HandlerLibrary.Postularse\lAOfertaHandler.PuedeResolver",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1PostularseAOfertaHandler.html#a5d6ad17f31c3cd55e5165c5e5f438c66",tooltip="Determina si este \"handler\" puede procesar el mensaje. En la clase base se utiliza procesado de lengu..."];
+  Node9 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="PII_E13.ClassLibrary.Oferta.\lRedactar",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Oferta.html#a68ab6542382c96e16e9c79e46cf7014f",tooltip="Métodos para publicar los mensajes relativos a las ofertas."];
+}

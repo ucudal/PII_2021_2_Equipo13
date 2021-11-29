@@ -1,0 +1,8 @@
+digraph "PII_E13.ClassLibrary.Sesion"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{PII_E13.ClassLibrary.Sesion\n|+ IdSesion\l+ IdUsuario\l+ FechaCreacion\l+ UltimaActividad\l+ Activa\l+ PLN\l|+ Sesion()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Representa a una sesion de un usuario en el bot. Cumple SRP y Expert ya que se encarga de determinar ..."];
+}

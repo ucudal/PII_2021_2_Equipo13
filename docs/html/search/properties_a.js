@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['ofertas_222',['Ofertas',['../classPII_E13.ClassLibrary_1_1Empresa.html#a6e8730cae2b754bd52f553e0f317e02f',1,'PII_E13.ClassLibrary::Empresa']]],
-  ['ofertasconsumidas_223',['OfertasConsumidas',['../classPII_E13.ClassLibrary_1_1Emprendedor.html#af131dae0f82e1c1b756826219388cadc',1,'PII_E13.ClassLibrary::Emprendedor']]],
-  ['ofertaspostuladas_224',['OfertasPostuladas',['../classPII_E13.ClassLibrary_1_1Emprendedor.html#a8fc4c9f7aadce0cedae7e9398127795f',1,'PII_E13.ClassLibrary::Emprendedor']]]
+  ['nombre_364',['Nombre',['../classPII__E13_1_1ClassLibrary_1_1Habilitacion.html#ad5527703ccbd9b69909ad6c032b58f19',1,'PII_E13.ClassLibrary.Habilitacion.Nombre()'],['../classPII__E13_1_1ClassLibrary_1_1Intencion.html#a7abeb64818ae76abe740d5d75e88f6f6',1,'PII_E13.ClassLibrary.Intencion.Nombre()'],['../classPII__E13_1_1ClassLibrary_1_1Material.html#a9453e59bb02b1d461d086a6f0225fab7',1,'PII_E13.ClassLibrary.Material.Nombre()'],['../classPII__E13_1_1ClassLibrary_1_1Rubro.html#a203c5d39c404a64a191c0b53d46e45e0',1,'PII_E13.ClassLibrary.Rubro.Nombre()'],['../classPII__E13_1_1ClassLibrary_1_1Usuario.html#a437851275842746ee3f8b14ac844702c',1,'PII_E13.ClassLibrary.Usuario.Nombre()']]],
+  ['nombrebot_365',['NombreBot',['../classPII__E13_1_1ClassLibrary_1_1TelegramBot.html#ac7946ede943a45147d731abaa98f6bb6',1,'PII_E13::ClassLibrary::TelegramBot']]],
+  ['nombreinsitucionhabilitada_366',['NombreInsitucionHabilitada',['../classPII__E13_1_1ClassLibrary_1_1Habilitacion.html#a088d0ce754aa042163e1678908be4c53',1,'PII_E13::ClassLibrary::Habilitacion']]]
 ];

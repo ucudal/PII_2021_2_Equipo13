@@ -1,0 +1,10 @@
+digraph "PII_E13.ClassLibrary.UbicacionBase"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{PII_E13.ClassLibrary.UbicacionBase\n|+ Ciudad\l+ Direccion\l|+ UbicacionBase()\l+ UbicacionBase()\l+ Redactar()\l+ ObtenerDistancia()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Representa a la implementación básica del tipo IUbicacion, incluyendo implementaciones para todas sus..."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node2 [label="{IUbicacion\n|+ Ciudad\l+ Direccion\l|+ Redactar()\l+ ObtenerDistancia()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfacePII__E13_1_1ClassLibrary_1_1IUbicacion.html",tooltip="Representa a la información y operaciones básicas de una ubicación. Se aplica DIP al aplicar dependen..."];
+}

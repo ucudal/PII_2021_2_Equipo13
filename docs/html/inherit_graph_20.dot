@@ -5,5 +5,23 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="Tests.UserStoriesTests",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classTests_1_1UserStoriesTests.html",tooltip="Pruebas para demostrar el cumplimiento de las historias de usuario."];
+  Node0 [label="PII_E13.HandlerLibrary.IHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfacePII__E13_1_1HandlerLibrary_1_1IHandler.html",tooltip="Interfaz para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a travé..."];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="PII_E13.HandlerLibrary.HandlerBase",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1HandlerBase.html",tooltip="Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a tra..."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PII_E13.HandlerLibrary.Bienvenida\lHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1BienvenidaHandler.html",tooltip="Handler encargado de la primera interacción con el usuario del sistema."];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PII_E13.HandlerLibrary.Crear\lOfertaHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1CrearOfertaHandler.html",tooltip="Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a tra..."];
+  Node1 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="PII_E13.HandlerLibrary.Despedida\lHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1DespedidaHandler.html",tooltip="Handler encargado de despedir a los usuarios al final de una conversación."];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="PII_E13.HandlerLibrary.Menu\lHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1MenuHandler.html",tooltip="Handler encargado de procesar el registro de una empresa."];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="PII_E13.HandlerLibrary.Postularse\lAOfertaHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1PostularseAOfertaHandler.html",tooltip="Handler encargado de procesar la postulación de ofertas, desde el proceso de búsqueda hasta la selecc..."];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="PII_E13.HandlerLibrary.Registrar\lEmprendedorHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1RegistrarEmprendedorHandler.html",tooltip="Handler encargado de procesar el registro de un emprendedor."];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="PII_E13.HandlerLibrary.Registrar\lEmpresaHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1RegistrarEmpresaHandler.html",tooltip="Handler encargado de procesar el registro de una empresa."];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="PII_E13.HandlerLibrary.Ver\lOfertasHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1VerOfertasHandler.html",tooltip="Handler encargado de procesar la postulación de ofertas, desde el proceso de búsqueda hasta la selecc..."];
 }

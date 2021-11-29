@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="PII_E13.ClassLibrary.Empresa",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1Empresa.html",tooltip="Patrones y principios utilizados en esta clase: ISP ya que segmenta las operaciones de la interface e..."];
+  Node0 [label="PII_E13.ClassLibrary.Gestor\lSesiones",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1GestorSesiones.html",tooltip="Clase encargada de administrar todas las sesiones del sistema por lo que cumple con SRP y Expert...."];
 }

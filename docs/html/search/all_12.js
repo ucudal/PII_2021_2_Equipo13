@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['valorusd_107',['ValorUSD',['../classPII_E13.ClassLibrary_1_1Oferta.html#a1ad6a0e66d6d89d03a4d84afac438961',1,'PII_E13.ClassLibrary.Oferta.ValorUSD()'],['../classPII_E13.ClassLibrary_1_1Producto.html#ad47d71ed8af6b6369861aec63ad6f8e1',1,'PII_E13.ClassLibrary.Producto.ValorUSD()']]],
-  ['valoruyu_108',['ValorUYU',['../classPII_E13.ClassLibrary_1_1Oferta.html#ae6f8b677455ae6373fee8cfa7ca48a45',1,'PII_E13.ClassLibrary.Oferta.ValorUYU()'],['../classPII_E13.ClassLibrary_1_1Producto.html#a2edb17d5a5f5e02c4af22cf3baf5798e',1,'PII_E13.ClassLibrary.Producto.ValorUYU()']]],
-  ['verofertasconsumidas_109',['VerOfertasConsumidas',['../classPII_E13.ClassLibrary_1_1Emprendedor.html#a3ba4455988c43959fc27662a05de2d5e',1,'PII_E13.ClassLibrary::Emprendedor']]],
-  ['verofertaspostuladas_110',['VerOfertasPostuladas',['../classPII_E13.ClassLibrary_1_1Emprendedor.html#a2b0c11225a8f50ff8d532ed3b3bf8c78',1,'PII_E13.ClassLibrary::Emprendedor']]],
-  ['verofertaspropias_111',['VerOfertasPropias',['../classPII_E13.ClassLibrary_1_1Empresa.html#ad806b409b5fd1e2816f98704419612f1',1,'PII_E13.ClassLibrary::Empresa']]],
-  ['vigente_112',['Vigente',['../classPII_E13.ClassLibrary_1_1Habilitacion.html#a8a93e02486dc991feb6a69704b7afbe9',1,'PII_E13.ClassLibrary::Habilitacion']]]
+  ['valorusd_174',['ValorUSD',['../classPII__E13_1_1ClassLibrary_1_1Oferta.html#a80828908de714c4467a7c3ace3c96b78',1,'PII_E13.ClassLibrary.Oferta.ValorUSD()'],['../classPII__E13_1_1ClassLibrary_1_1Producto.html#ab335a44eda16a716aaa8ffdf2e6b2f44',1,'PII_E13.ClassLibrary.Producto.ValorUSD()']]],
+  ['valoruyu_175',['ValorUYU',['../classPII__E13_1_1ClassLibrary_1_1Oferta.html#af2d49dd94c451b0d335fbc905fee8e01',1,'PII_E13.ClassLibrary.Oferta.ValorUYU()'],['../classPII__E13_1_1ClassLibrary_1_1Producto.html#a2d52614b7e912709de13b001820d198b',1,'PII_E13.ClassLibrary.Producto.ValorUYU()']]],
+  ['verofertasconsumidas_176',['VerOfertasConsumidas',['../classPII__E13_1_1ClassLibrary_1_1Emprendedor.html#ad3dd981728fa39a6bbbdd7d7d43c8f2a',1,'PII_E13::ClassLibrary::Emprendedor']]],
+  ['verofertashandler_177',['VerOfertasHandler',['../classPII__E13_1_1HandlerLibrary_1_1VerOfertasHandler.html',1,'PII_E13.HandlerLibrary.VerOfertasHandler'],['../classPII__E13_1_1HandlerLibrary_1_1VerOfertasHandler.html#add8c751db2942720fbe142e0b8d84839',1,'PII_E13.HandlerLibrary.VerOfertasHandler.VerOfertasHandler(HandlerBase siguiente)'],['../classPII__E13_1_1HandlerLibrary_1_1VerOfertasHandler.html#aff2ababe136fdef98b35f0f19d5f6167',1,'PII_E13.HandlerLibrary.VerOfertasHandler.VerOfertasHandler(HandlerBase siguiente, string intencion)']]],
+  ['verofertaspostuladas_178',['VerOfertasPostuladas',['../classPII__E13_1_1ClassLibrary_1_1Emprendedor.html#a5ad2b2f09bf5288e8fc86f78df9822dc',1,'PII_E13::ClassLibrary::Emprendedor']]],
+  ['verofertaspropias_179',['VerOfertasPropias',['../classPII__E13_1_1ClassLibrary_1_1Empresa.html#a8d57bc9b5ae72d037381b534a4714c13',1,'PII_E13::ClassLibrary::Empresa']]],
+  ['vigente_180',['Vigente',['../classPII__E13_1_1ClassLibrary_1_1Habilitacion.html#a153480af8813ad599f09bf2bc1d006ec',1,'PII_E13::ClassLibrary::Habilitacion']]]
 ];

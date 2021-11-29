@@ -1,0 +1,19 @@
+digraph "PII_E13.HandlerLibrary.RegistrarEmprendedorHandler.ResolverInterno"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="PII_E13.HandlerLibrary.Registrar\lEmprendedorHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PII_E13.ClassLibrary.Sistema.\lObtenerEmprendedorPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Sistema.html#a27ed258ba3880eada745499e6730fa82",tooltip="Recupera una instancia de Emprendedor de la lista de emprendedores utilizando su id y una id dada."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PII_E13.HandlerLibrary.Handler\lBase.ObtenerMatrizDeBotones",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1HandlerBase.html#a681545469125c8f883bb24a0b786ee4d",tooltip="Genera una matriz de botones en base a una lista de instancias de implementaciones de IBoton,..."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="PII_E13.HandlerLibrary.Registrar\lEmprendedorHandler.PuedeResolver",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1RegistrarEmprendedorHandler.html#af2e02b0594c54fe1d035282076b979a6",tooltip="Determina si este \"handler\" puede procesar el mensaje."];
+  Node4 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="PII_E13.ClassLibrary.Sistema.\lRegistrarEmprendedor",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Sistema.html#af28d39800c5b7dbe62aff7af8fb6420a",tooltip="Registra un nuevo Emprendedor en el sistema."];
+  Node5 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

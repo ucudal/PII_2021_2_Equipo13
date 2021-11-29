@@ -5,5 +5,7 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="PII_E13.ClassLibrary.Sistema",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII_E13.ClassLibrary_1_1Sistema.html",tooltip="Esta clase representa al sistema principal de la aplicación. Permite registrar usuarios como Empresas..."];
+  Node0 [label="PII_E13.ClassLibrary.IRespuesta",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfacePII__E13_1_1ClassLibrary_1_1IRespuesta.html",tooltip="Interfaz que representa una respuesta a un mensaje. DOCUMENTAR PATRONES APLICADOS"];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="PII_E13.ClassLibrary.Respuesta",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Respuesta.html",tooltip="Clase que representa una respuesta a un mensaje. DOCUMENTAR PATRONES APLICADOS"];
 }

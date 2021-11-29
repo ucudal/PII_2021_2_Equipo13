@@ -1,0 +1,13 @@
+digraph "PII_E13.ClassLibrary.Empresa.PublicarOferta"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="PII_E13.ClassLibrary.Empresa.\lPublicarOferta",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Crea una nueva Oferta y la añade a la lista de ofertas de la empresa."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PII_E13.ClassLibrary.Sistema.\lObtenerOfertaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Sistema.html#a08e2b2be41082a60b95f557f181c01ce",tooltip="Recupera una instancia de Oferta de la lista de de emprendedores y sus respectivas listas de ofertas."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PII_E13.ClassLibrary.Empresa.\lObtenerOfertaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Empresa.html#a6dd767eac6309fdad112dccee2878c7c",tooltip="Recupera una oferta de la lista de ofertas utilizando su id y una id dada."];
+}

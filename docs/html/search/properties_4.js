@@ -1,9 +1,11 @@
 var searchData=
 [
-  ['fechacierre_207',['FechaCierre',['../classPII_E13.ClassLibrary_1_1Oferta.html#a828382ec2229be9816c5d42281f0114e',1,'PII_E13.ClassLibrary::Oferta']]],
-  ['fechacreada_208',['FechaCreada',['../classPII_E13.ClassLibrary_1_1Oferta.html#a8764c4284f83338bfb6e9ec465b8bcf1',1,'PII_E13.ClassLibrary::Oferta']]],
-  ['fechatramite_209',['FechaTramite',['../classPII_E13.ClassLibrary_1_1Habilitacion.html#ab92ca2f567493ffcf63d3aa5a4d6ad27',1,'PII_E13.ClassLibrary::Habilitacion']]],
-  ['fechavencimiento_210',['FechaVencimiento',['../classPII_E13.ClassLibrary_1_1Habilitacion.html#aa3fd025e23e6bdd954a1d3464f5dd0f1',1,'PII_E13.ClassLibrary::Habilitacion']]],
-  ['formattedaddress_211',['FormattedAddress',['../classUcu_1_1Poo_1_1Locations_1_1Client_1_1Location.html#ac7842568cd7d80fdca86ff0654564a85',1,'Ucu::Poo::Locations::Client::Location']]],
-  ['found_212',['Found',['../classUcu_1_1Poo_1_1Locations_1_1Client_1_1Distance.html#a5de0d1b8f18ff87dbd74c8dd3a817a87',1,'Ucu.Poo.Locations.Client.Distance.Found()'],['../classUcu_1_1Poo_1_1Locations_1_1Client_1_1Location.html#a09b31de7c8fc0dc29e6fcb229debbefb',1,'Ucu.Poo.Locations.Client.Location.Found()']]]
+  ['editarmensaje_334',['EditarMensaje',['../interfacePII__E13_1_1ClassLibrary_1_1IRespuesta.html#ab3621ef41f9e7ede89d01be19d589ddb',1,'PII_E13.ClassLibrary.IRespuesta.EditarMensaje()'],['../classPII__E13_1_1ClassLibrary_1_1Respuesta.html#a5e80753a57a20ae1403ba76e4a535b59',1,'PII_E13.ClassLibrary.Respuesta.EditarMensaje()']]],
+  ['emprendedores_335',['Emprendedores',['../classPII__E13_1_1ClassLibrary_1_1Sistema.html#ab5be4771065e2aaa72b512b573d5e345',1,'PII_E13::ClassLibrary::Sistema']]],
+  ['emprendedorespostulados_336',['EmprendedoresPostulados',['../classPII__E13_1_1ClassLibrary_1_1Oferta.html#aaf4d8bf96e2e4e60b9e74ce95c9a36bb',1,'PII_E13::ClassLibrary::Oferta']]],
+  ['empresa_337',['Empresa',['../classPII__E13_1_1ClassLibrary_1_1Oferta.html#a0857524f8f83a8d4e61e628387f5c6c1',1,'PII_E13::ClassLibrary::Oferta']]],
+  ['empresas_338',['Empresas',['../classPII__E13_1_1ClassLibrary_1_1Sistema.html#a051fe3e522b8ce00c5ce916c62c41155',1,'PII_E13::ClassLibrary::Sistema']]],
+  ['entrada_339',['Entrada',['../classPII__E13_1_1ClassLibrary_1_1Intencion.html#a8449d8faa16185d7fe3e50483c6c3717',1,'PII_E13::ClassLibrary::Intencion']]],
+  ['estado_340',['Estado',['../classPII__E13_1_1ClassLibrary_1_1Oferta.html#a026c1dde32b05da907380942e52db871',1,'PII_E13::ClassLibrary::Oferta']]],
+  ['etiquetas_341',['Etiquetas',['../classPII__E13_1_1ClassLibrary_1_1Oferta.html#a8f24b063f1cc0710c4000e65b3a5c56c',1,'PII_E13::ClassLibrary::Oferta']]]
 ];

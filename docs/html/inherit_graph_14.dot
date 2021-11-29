@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="EmprendedorTests",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classEmprendedorTests.html",tooltip=" "];
+  Node0 [label="PII_E13.ClassLibrary.Lenguaje\lNatural",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1LenguajeNatural.html",tooltip="Representa un procesador de lenguaje natural que utiliza el servicio de Google Cloud \"Dialogflow\" par..."];
 }

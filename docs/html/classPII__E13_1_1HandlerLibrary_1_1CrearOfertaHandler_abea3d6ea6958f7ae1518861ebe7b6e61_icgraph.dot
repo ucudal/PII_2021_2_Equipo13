@@ -1,0 +1,11 @@
+digraph "PII_E13.HandlerLibrary.CrearOfertaHandler.PuedeResolver"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="PII_E13.HandlerLibrary.Crear\lOfertaHandler.PuedeResolver",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Determina si este \"handler\" puede procesar el mensaje."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PII_E13.HandlerLibrary.Crear\lOfertaHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1CrearOfertaHandler.html#a0655632ca03230025f266140899e58f6",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+}

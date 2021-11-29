@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ProductoTests",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classProductoTests.html",tooltip="Test para la clase Producto, creo instancia de Producto y verifico que sus campos sean correctos"];
+  Node0 [label="PII_E13.ClassLibrary.Material",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Material.html",tooltip="La clase material se encarga de conocer lo relativo al material que consituye el producto Principios ..."];
 }

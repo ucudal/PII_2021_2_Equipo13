@@ -1,0 +1,20 @@
+digraph "PII_E13.HandlerLibrary.RegistrarEmpresaHandler.ResolverInterno"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="PII_E13.HandlerLibrary.Registrar\lEmpresaHandler.ResolverInterno",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="La clase procesa el mensaje y retorna true o no lo procesa y retorna false."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PII_E13.ClassLibrary.Sistema.\lObtenerEmpresaPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Sistema.html#ad5ba43efa8cb672f355206b9e8ebaa1b",tooltip="Recupera una instancia de Empresa de la lista de empresas utilizando su id y una id dada."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PII_E13.HandlerLibrary.Handler\lBase.ObtenerMatrizDeBotones",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1HandlerBase.html#a681545469125c8f883bb24a0b786ee4d",tooltip="Genera una matriz de botones en base a una lista de instancias de implementaciones de IBoton,..."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="PII_E13.HandlerLibrary.Registrar\lEmpresaHandler.PuedeResolver",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1RegistrarEmpresaHandler.html#a67c1bc2f107155b1744d0975185c960b",tooltip="Determina si este \"handler\" puede procesar el mensaje."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="PII_E13.ClassLibrary.Sistema.\lObtenerEmprendedorPorId",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Sistema.html#a27ed258ba3880eada745499e6730fa82",tooltip="Recupera una instancia de Emprendedor de la lista de emprendedores utilizando su id y una id dada."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="PII_E13.ClassLibrary.Sistema.\lRegistrarEmpresa",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1Sistema.html#a125902b37d6884b6f047bfb334c45e18",tooltip="Registra una nueva Empresa en el sistema."];
+  Node6 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

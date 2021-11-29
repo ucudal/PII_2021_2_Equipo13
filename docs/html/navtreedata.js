@@ -26,7 +26,7 @@ var NAVTREE =
 [
   [ "Object Lifecycle", "index.html", [
     [ "Proyecto final de Programación II, Equipo 13", "md_C__Users_TanoW_OneDrive___Universidad_Cat_xC3_xB3lica_del_Uruguay_Escritorio_Programaci_xC3_xB3n_II_PII_Proyecto_README.html", [
-      [ "Reflexión", "md_C__Users_TanoW_OneDrive___Universidad_Cat_xC3_xB3lica_del_Uruguay_Escritorio_Programaci_xC3_xB3n_II_PII_Proyecto_README.html#autotoc_md1", null ]
+      [ "Reflexión de la segunda entrega", "md_C__Users_TanoW_OneDrive___Universidad_Cat_xC3_xB3lica_del_Uruguay_Escritorio_Programaci_xC3_xB3n_II_PII_Proyecto_README.html#autotoc_md1", null ]
     ] ],
     [ "Packages", "namespaces.html", [
       [ "Packages", "namespaces.html", "namespaces_dup" ]
@@ -36,8 +36,9 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Properties", "functions_prop.html", null ]
       ] ]
@@ -50,7 +51,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"Buscador_8cs_source.html"
+"AdaptadorDeTelegram_8cs_source.html",
+"classPII__E13_1_1HandlerLibrary_1_1HandlerBase.html#a7faf907ab98b47b28b98faa447f7a6d9"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

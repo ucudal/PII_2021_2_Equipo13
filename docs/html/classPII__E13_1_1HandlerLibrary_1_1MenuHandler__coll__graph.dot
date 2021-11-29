@@ -1,0 +1,12 @@
+digraph "PII_E13.HandlerLibrary.MenuHandler"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{PII_E13.HandlerLibrary.Menu\lHandler\n||+ MenuHandler()\l+ Cancelar()\l# ResolverInterno()\l# CancelarInterno()\l# PuedeResolver()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Handler encargado de procesar el registro de una empresa."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node2 [label="{HandlerBase\n|+ Siguiente\l+ Intencion\l|+ HandlerBase()\l+ HandlerBase()\l+ Resolver()\l+ Cancelar()\l# ResolverInterno()\l# CancelarInterno()\l# PuedeResolver()\l# ObtenerMatrizDeBotones()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1HandlerLibrary_1_1HandlerBase.html",tooltip="Clase base para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a tra..."];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node3 [label="{IHandler\n|+ Siguiente\l|+ Resolver()\l+ Cancelar()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfacePII__E13_1_1HandlerLibrary_1_1IHandler.html",tooltip="Interfaz para implementar el patrón Chain of Responsibility. En ese patrón se pasa un mensaje a travé..."];
+}

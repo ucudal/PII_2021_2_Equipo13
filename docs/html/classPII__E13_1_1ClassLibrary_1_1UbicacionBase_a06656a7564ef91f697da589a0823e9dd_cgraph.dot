@@ -1,0 +1,13 @@
+digraph "PII_E13.ClassLibrary.UbicacionBase.ObtenerDistancia"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="PII_E13.ClassLibrary.Ubicacion\lBase.ObtenerDistancia",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Calcula la distancia entre dos instancias de implementaciones de IUbicacion Delega la responsabilidad..."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PII_E13.ClassLibrary.Adaptador\lLocacion.ObtenerDistancia",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1AdaptadorLocacion.html#aae3143c7bfb5d2b1dddd5aceaa3ce230",tooltip="Sirve para obtener la distancia entre dos ubicaciones."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Ucu.Poo.Locations.Client.\lLocationApiClient.GetDistanceAsync",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classUcu_1_1Poo_1_1Locations_1_1Client_1_1LocationApiClient.html#a8682c629cc8a4ccf01424a0e07035884",tooltip="Obtiene la distancia entre dos coordenadas."];
+}

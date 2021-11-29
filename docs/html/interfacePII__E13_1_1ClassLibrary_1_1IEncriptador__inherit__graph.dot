@@ -1,0 +1,10 @@
+digraph "PII_E13.ClassLibrary.IEncriptador"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{PII_E13.ClassLibrary.IEncriptador\n||+ ObtenerCodigo()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Interfaz encargada de generar un código de encriptación recibiendo una entrada. Se aplica DIP para as..."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node2 [label="{PII_E13.ClassLibrary.Encriptador\lSHA256\n||+ ObtenerCodigo()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classPII__E13_1_1ClassLibrary_1_1EncriptadorSHA256.html",tooltip="Clase encargada de generar un hash identificador para los objetos del sistema."];
+}
