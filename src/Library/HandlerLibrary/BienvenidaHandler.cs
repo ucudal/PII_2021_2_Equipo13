@@ -94,7 +94,7 @@ namespace PII_E13.HandlerLibrary
 
                 case Estados.Inicio:
                     Console.WriteLine("Estado: " + infoPostulacion.Estado);
-                    respuesta.Texto = "Por favor, indícanos detalladamente lo qué necesitas, dentro de un mensaje.";
+                    respuesta.Texto = "Bienvenido/a a la plataforma de gestión de ofertas de reciclaje.\n\nA continuacion le explicaremos como funciona nuestro bot.\n\nIngrese cualquier caracter para continuar...";
                     infoPostulacion.Estado = Estados.Categorias;
                     infoPostulacion.tipoMensaje = TipoMensaje.Callback;
 
@@ -109,14 +109,10 @@ namespace PII_E13.HandlerLibrary
                     respuesta.Botones = this.ObtenerMatrizDeBotones(null, infoPostulacion.IndiceActual, FILAS_EMPRENDEDOR, COLUMNAS_EMPRENDEDOR, tecladoFijoCategorias);
                     infoPostulacion.Estado = Estados.DatosEmprendedor;
 
-                    st.Append("############   Bienvenida   ############");
-                    st.Append("\n\n A continuacion le explicaremos como funciona nuestro bot.");
-                    st.Append("############   REGISTRO EMPRENDEDOR   ############");
-                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
-                    st.Append("############   REGISTRO EMPRENDEDOR   ############");
-                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
-                    st.Append("############   REGISTRO EMPRENDEDOR   ############");
-                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
+                    st.Append("#################   Bienvenido/a   #################");
+                    st.Append("\n\nPara interactuar con este Bot 🤖 usted podrá registrarse como Empresa, lo que le permitirá publicar ofertas de trabajos de reciclaje\no como Emprendedor, para postularse a una oferta existente.");
+                    st.Append("\n\nEn todo momento podrá navegar haciendo click en los botones que aparecerán debajo del diálogo del chat.");
+                    st.Append("\n\nCuando desee comenzar con su registro, haga click en el botón Avanzar.");
                     respuesta.Texto = st.ToString();
                     return true;
             }

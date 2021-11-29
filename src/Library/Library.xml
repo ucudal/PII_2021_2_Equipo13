@@ -1277,7 +1277,7 @@
         </member>
         <member name="T:PII_E13.HandlerLibrary.BienvenidaHandler">
             <summary>
-            Handler encargado de procesar el registro de un emprendedor.
+            Handler encargado de la primera interacción con el usuario del sistema.
             </summary>
         </member>
         <member name="P:PII_E13.HandlerLibrary.BienvenidaHandler.Busquedas">
