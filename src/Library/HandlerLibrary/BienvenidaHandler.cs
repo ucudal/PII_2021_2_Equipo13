@@ -7,15 +7,12 @@ using PII_E13.ClassLibrary;
 namespace PII_E13.HandlerLibrary
 {
     /// <summary>
-    /// Handler encargado de procesar el registro de un emprendedor.
+    /// Handler encargado de la primera interacción con el usuario del sistema.
     /// </summary>
     public class BienvenidaHandler : HandlerBase
     {
-        //private StringBuilder stringBuilder;
         private Dictionary<Sesion, StringBuilder> SbSesion = new Dictionary<Sesion, StringBuilder>();
 
-        // Dictionary<string, string> DiccDatosEmprendedor = new Dictionary<string, string>();
-        // Dictionary<string, string> DiccDatosHabilitacion = new Dictionary<string, string>();
         private Dictionary<Sesion, Dictionary<string, Dictionary<string, string>>> Sesiones = new Dictionary<Sesion, Dictionary<string, Dictionary<string, string>>>();
 
         //private string accionPrevia;
