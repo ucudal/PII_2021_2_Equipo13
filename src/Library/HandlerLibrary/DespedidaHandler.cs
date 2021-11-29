@@ -1,7 +1,7 @@
 using PII_E13.ClassLibrary;
 using PII_E13.HandlerLibrary;
 
-namespace LibraryHandler
+namespace PII_E13.HandlerLibrary
 {
     /// <summary>
     /// Handler encargado de despedir a los usuarios al final de una conversación.
@@ -29,6 +29,11 @@ namespace LibraryHandler
         protected override bool ResolverInterno(Sesion sesion, IMensaje mensaje, out IRespuesta respuesta)
         {
             respuesta = new Respuesta(mensaje);
+            if (!this.PuedeResolver(sesion))
+            {
+                return false;
+            }
+
             respuesta.Texto = "Estaré disponible siempre que necesites gestionar tus ofertas.\n\n¡Hasta pronto! 👋";
             return true;
         }

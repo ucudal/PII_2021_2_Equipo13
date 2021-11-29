@@ -1,6 +1,5 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Text;
 using PII_E13.ClassLibrary;
 
@@ -11,34 +10,17 @@ namespace PII_E13.HandlerLibrary
     /// </summary>
     public class MenuHandler : HandlerBase
     {
-        //private StringBuilder stringBuilder;
-        private Dictionary<Sesion, StringBuilder> SbSesion = new Dictionary<Sesion, StringBuilder>();
-
-        //Dictionary<string, string> DiccDatosEpresa = new Dictionary<string, string>();
-        private Dictionary<Sesion, Dictionary<string, string>> Sesiones = new Dictionary<Sesion, Dictionary<string, string>>();
-
-        //private string accionPrevia;
-        private Dictionary<Sesion, string> accionPreviaSesion = new Dictionary<Sesion, string>();
         private const int COLUMNAS_EMPRESA = 1;
         private const int FILAS_EMPRESA = 4;
 
         private bool banderaEmpresario;
         private bool banderaEmprendedor;
 
-
-        /// <summary>
-        /// Diccionario utilizado para contener todas las búsquedas que se están realizando por los usuarios.
-        /// Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="InformacionPostulacion"/>.
-        /// </summary>
-        /// <value>Diccionario de instancias de <see cref="InformacionPostulacion"/> identificadas por ids de usuarios en string</value>
-        private Dictionary<string, InformacionPostulacion> Busquedas { get; set; }
-
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="RegistrarEmpresaHandler"/>. 
         /// </summary>
         public MenuHandler(HandlerBase siguiente, string intencion) : base(siguiente, intencion)
         {
-            this.Busquedas = new Dictionary<string, InformacionPostulacion>();
         }
 
         /// <summary>
@@ -55,57 +37,25 @@ namespace PII_E13.HandlerLibrary
             {
                 return false;
             }
+            this.Cancelar(sesion);
 
-            if (!this.SbSesion.ContainsKey(sesion))
-            {
-                this.SbSesion.Add(sesion, new StringBuilder("Bienvenido a contionuacion te mostrarenmos un menú en base a tu rol!\n\n"));
-            }
-            StringBuilder stringBuilder = this.SbSesion[sesion];
-
-            if (!this.accionPreviaSesion.ContainsKey(sesion))
-            {
-                this.accionPreviaSesion.Add(sesion, String.Empty);
-            }
-            string accionPrevia = this.accionPreviaSesion[sesion];
-
-            if (!this.Sesiones.ContainsKey(sesion))
-            {
-                this.Sesiones.Add(sesion, new Dictionary<string, string>());
-            }
-            Dictionary<string, string> DiccDatosEpresa = this.Sesiones[sesion];
-
-            InformacionPostulacion infoPostulacion = new InformacionPostulacion();
-            if (this.Busquedas.ContainsKey(mensaje.IdUsuario))
-            {
-                infoPostulacion = this.Busquedas[mensaje.IdUsuario];
-            }
-            else
-            {
-                this.Busquedas.Add(mensaje.IdUsuario, infoPostulacion);
-
-            }
-            List<string> menuEmpresario = new List<string>(); //Menu de opciones para las acciones de un empresario
-
+            List<string> menuEmpresario = new List<string>();
 
             List<string> menuEmprendedor = new List<string>();
 
             List<string> menuComun = new List<string>();
 
-
-
-
-
             try
             {
                 Sistema.Instancia.ObtenerEmpresaPorId(mensaje.IdUsuario); // Intenta buscar si hay empresarios con el id usuario
                 this.banderaEmpresario = true; //Encontro empresario
-                menuEmpresario.Add("Ver Ofertas");
-                menuEmpresario.Add("Crear Oferta");
+                menuEmpresario.Add("Crear una Oferta");
+                menuEmpresario.Add("Ver mis Ofertas");
             }
             catch
             {
-                try // Si no lo encuentra intenta buscar emprendedor
-                {
+                try
+                { // Si no lo encuentra intenta buscar emprendedor
                     this.banderaEmpresario = false; //No encontro empresario
                     menuEmpresario.Add("Registro Empresario");
                     Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario);
@@ -117,143 +67,47 @@ namespace PII_E13.HandlerLibrary
                 { // Si no encuentra ni emprendedor ni empresario
                     this.banderaEmprendedor = false; //Encontro emprendedor
 
-                    menuEmprendedor.Add("Registro Emprendedor");
                     menuComun.Add("Registro Emprendedor");
                     menuComun.Add("Registro Empresario");
 
                 }
             }
 
-
-
-
-
-
-
-
-
-
-
-            if (infoPostulacion.DatosMenuEmpresario == null) //Lista de botones con las opciones del registro
+            List<IBoton> botonesDeEmpresario = new List<IBoton>()
             {
-                infoPostulacion.DatosMenuEmpresario = new List<string>();
-
-                foreach (string opcion in menuEmpresario)
-                {
-                    if (!infoPostulacion.DatosMenuEmpresario.Contains(opcion))
-                    {
-                        infoPostulacion.DatosMenuEmpresario.Add(opcion);
-                    }
-                }
-            }
-
-            if (infoPostulacion.DatosMenuEmprendedor == null) //Lista de botones con las opciones del registro
+                new Boton("Publicar una Oferta", "Quiero publicar una oferta"),
+                new Boton("Ver mis Ofertas", "Quiero ver mis ofertas publicadas")
+            };
+            List<IBoton> botonesDeEmprendedor = new List<IBoton>()
             {
-                infoPostulacion.DatosMenuEmprendedor = new List<string>();
-
-                foreach (string opcion in menuEmprendedor)
-                {
-                    if (!infoPostulacion.DatosMenuEmprendedor.Contains(opcion))
-                    {
-                        infoPostulacion.DatosMenuEmprendedor.Add(opcion);
-                    }
-                }
-            }
-            if (infoPostulacion.DatosMenuComun == null) //Lista de botones con las opciones del registro
+                new Boton("Buscar Ofertas", "Quiero buscar una oferta"),
+                new Boton("Ver mis Ofertas", "Quiero ver las ofertas a las que estoy postulado")
+            };
+            List<IBoton> botonesComun = new List<IBoton>()
             {
-                infoPostulacion.DatosMenuComun = new List<string>();
-
-                foreach (string opcion in menuComun)
-                {
-                    if (!infoPostulacion.DatosMenuComun.Contains(opcion))
-                    {
-                        infoPostulacion.DatosMenuComun.Add(opcion);
-                    }
-                }
-            }
-
-
-            List<IBoton> botonesDeEmpresario = new List<IBoton>();
-            List<IBoton> botonesDeEmprendedor = new List<IBoton>();
-            List<IBoton> botonesComun = new List<IBoton>();
-
-            List<List<IBoton>> tecladoFijoCategorias = new List<List<IBoton>>()
-            {
-                new List<IBoton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
-
+                new Boton("Registrarse como Empresa", "Empresa"),
+                new Boton("Registrarse como Emprendedor", "Emprendedor")
             };
 
+            StringBuilder st = new StringBuilder();
 
-
-            foreach (string opcion in infoPostulacion.DatosMenuEmpresario)
+            if (this.banderaEmprendedor & !this.banderaEmpresario)
             {
-                botonesDeEmpresario.Add(new Boton(opcion));
+                st.Append("*¡Bienvenido!*\n\n¿Qué deseas hacer?\n_Selecciona una opción_");
+                respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmprendedor, 0, FILAS_EMPRESA, COLUMNAS_EMPRESA);
             }
-            foreach (string opcion in infoPostulacion.DatosMenuEmprendedor)
+            else if (!this.banderaEmprendedor & this.banderaEmpresario)
             {
-                botonesDeEmprendedor.Add(new Boton(opcion));
+                st.Append("*¡Bienvenido!*\n\n¿Qué deseas hacer?\n_Selecciona una opción_");
+                respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresario, 0, FILAS_EMPRESA, COLUMNAS_EMPRESA);
             }
-            foreach (string opcion in infoPostulacion.DatosMenuComun)
+            else if (!this.banderaEmprendedor & !this.banderaEmpresario)
             {
-                botonesComun.Add(new Boton(opcion));
+                st.Append("¡Bien! Primero indícanos: ¿Con qué tipo de usuario quieres registrarte?");
+                respuesta.Botones = this.ObtenerMatrizDeBotones(botonesComun, 0, FILAS_EMPRESA, COLUMNAS_EMPRESA);
             }
-
-
-
-
-
-            switch (infoPostulacion.Estado)
-            {
-
-                case Estados.Inicio:
-                    Console.WriteLine("Estado: " + infoPostulacion.Estado);
-                    respuesta.Texto = "Por favor, indícanos detalladamente lo qué necesitas, dentro de un mensaje.";
-                    infoPostulacion.Estado = Estados.Categorias;
-                    infoPostulacion.tipoMensaje = TipoMensaje.Callback;
-
-                    return true;
-
-                case Estados.Categorias:
-                    StringBuilder st = new StringBuilder();
-
-                    Console.WriteLine("Estado: " + infoPostulacion.Estado);
-
-                    List<string> etiquetas = mensaje.Texto.Split(' ').ToList();
-                    infoPostulacion.Etiquetas = etiquetas;
-                    infoPostulacion.Estado = Estados.DatosEmpresa;
-
-
-                    if (this.banderaEmprendedor & !this.banderaEmpresario)
-                    {
-                        st.Append("############   MENU EMPRENDEDOR   ############");
-                        st.Append("\n\nBien, ahora necesitamos que selecciones la opiones que deas ejecutar y el bot te rederigirá a automaticamente");
-                        respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmprendedor, infoPostulacion.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
-                    }
-                    else if (!this.banderaEmprendedor & this.banderaEmpresario)
-                    {
-                        st.Append("############   MENU EMPRESARIO   ############");
-                        st.Append("\n\nBien, ahora necesitamos que selecciones la opiones que deas ejecutar y el bot te rederigirá a automaticamente");
-                        respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresario, infoPostulacion.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
-                    }
-                    else if (!this.banderaEmprendedor & !this.banderaEmpresario)
-                    {
-                        st.Append("############   MENU   ############");
-                        st.Append("\n\nBien, ahora necesitamos que selecciones la opiones que deas ejecutar y el bot te rederigirá a automaticamente");
-                        respuesta.Botones = this.ObtenerMatrizDeBotones(botonesComun, infoPostulacion.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
-                    }
-                    respuesta.Texto = st.ToString();
-                    return true;
-
-
-
-                case Estados.DatosEmpresa:
-                    //Deteccion de tipo de mensaje en base a si el mensaje de entrada es igual a algún tipo de boton
-
-                    return false;
-
-            }
-            infoPostulacion = new InformacionPostulacion();
-            return false;
+            respuesta.Texto = st.ToString();
+            return true;
         }
 
         /// <summary>
@@ -262,7 +116,6 @@ namespace PII_E13.HandlerLibrary
         /// <param name="sesion">La sesión en la cual se envió el mensaje.</param>
         protected override void CancelarInterno(Sesion sesion)
         {
-            this.Busquedas.Remove(sesion.IdUsuario);
         }
 
         /// <summary>
@@ -272,8 +125,11 @@ namespace PII_E13.HandlerLibrary
         /// <returns>true si el mensaje puede ser pocesado; false en caso contrario.</returns>
         protected override bool PuedeResolver(Sesion sesion)
         {
-            return true;
-
+            if (this.Intencion.Equals(String.Empty))
+            {
+                return true;
+            }
+            return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion) && sesion.PLN.UltimaIntencion.ConfianzaDeteccion >= 95;
         }
 
         /// <summary>
@@ -287,59 +143,6 @@ namespace PII_E13.HandlerLibrary
             {
                 this.Siguiente.Cancelar(sesion);
             }
-        }
-
-        /// <summary>
-        /// Representación de los posibles estados de una postulación a oferta.
-        /// </summary>
-        private enum Estados
-        {
-            Inicio,
-            Categorias,
-            DatosEmpresa,
-        }
-
-        /// <summary>
-        /// Representación de los posibles tipos de mensajes.
-        /// </summary>
-        private enum TipoMensaje
-        {
-
-            Mensaje,
-            Callback
-        }
-        /// <summary>
-        /// Clase privada contenedora de la información de una postulación a una oferta.
-        /// </summary>
-        private class InformacionPostulacion
-        {
-            /// <summary>
-            /// Lista de etiquetas que está usando un usuario para buscar una oferta.
-            /// </summary>
-            public List<string> Etiquetas { get; set; } = new List<string>();
-
-            /// <summary>
-            /// Lista de categorías que está usando un usuario para buscar una oferta.
-            /// </summary>
-            public List<string> Categorias { get; set; } = new List<string>();
-
-            /// <summary>
-            /// Estado de la búsqueda de ofertas de un usuario.
-            /// </summary>
-            public Estados Estado { get; set; } = Estados.Inicio;
-
-            public TipoMensaje tipoMensaje { get; set; }
-
-
-            /// <summary>
-            /// Indice actual dentro de la lista de categorías.
-            /// </summary>
-            public int IndiceActual { get; set; } = 0;
-
-            public List<string> DatosMenuEmpresario { get; set; }
-            public List<string> DatosMenuEmprendedor { get; set; }
-            public List<string> DatosMenuComun { get; set; }
-
         }
     }
 }

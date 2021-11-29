@@ -303,15 +303,6 @@ namespace PII_E13.HandlerLibrary
             switch (infoCreacion.Estado)
             {
 
-
-                case Estados.Inicio:
-                    Console.WriteLine("Estado: " + infoCreacion.Estado);
-                    respuesta.Texto = "Por favor, indícanos detalladamente lo qué necesitas, dentro de un mensaje.";
-                    infoCreacion.Estado = Estados.Categorias;
-                    infoCreacion.tipoMensaje = TipoMensaje.Callback;
-
-                    return true;
-
                 case Estados.Categorias:
                     Console.WriteLine("Estado: " + infoCreacion.Estado);
 
@@ -329,8 +320,7 @@ namespace PII_E13.HandlerLibrary
                         }
                     }
                     StringBuilder st = new StringBuilder();
-                    st.Append("############   REGISTRO OFERTA   ############");
-                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
+                    st.Append("Para publicar una oferta, necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\nSelecciona _\"Listo\"_ cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
                     respuesta.Texto = st.ToString();
                     return true;
 
@@ -887,7 +877,6 @@ namespace PII_E13.HandlerLibrary
         /// </summary>
         private enum Estados
         {
-            Inicio,
             Categorias,
             DatosOferta,
             IntermedioOferta,
@@ -927,7 +916,7 @@ namespace PII_E13.HandlerLibrary
             /// <summary>
             /// Estado de la búsqueda de ofertas de un usuario.
             /// </summary>
-            public Estados Estado { get; set; } = Estados.Inicio;
+            public Estados Estado { get; set; } = Estados.Categorias;
 
             public TipoMensaje tipoMensaje { get; set; }
 

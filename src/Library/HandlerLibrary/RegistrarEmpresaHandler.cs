@@ -119,18 +119,7 @@ namespace PII_E13.HandlerLibrary
 
             switch (infoRegistro.Estado)
             {
-
-                case Estados.Inicio:
-                    Console.WriteLine("Estado: " + infoRegistro.Estado);
-                    respuesta.Texto = "Por favor, indícanos detalladamente lo qué necesitas, dentro de un mensaje.";
-                    infoRegistro.Estado = Estados.Categorias;
-                    infoRegistro.tipoMensaje = TipoMensaje.Callback;
-
-                    return true;
-
                 case Estados.Categorias:
-                    Console.WriteLine("Estado: " + infoRegistro.Estado);
-
                     List<string> etiquetas = mensaje.Texto.Split(' ').ToList();
                     infoRegistro.Etiquetas = etiquetas;
                     respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmpresa, infoRegistro.IndiceActual, FILAS_EMPRESA, COLUMNAS_EMPRESA, tecladoFijoCategorias);
@@ -144,11 +133,9 @@ namespace PII_E13.HandlerLibrary
                         }
                     }
                     StringBuilder st = new StringBuilder();
-                    st.Append("############   REGISTRO EMPRESA   ############");
-                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
+                    st.Append("Para registrarte, necesitamos que selecciones los datos que quieres ir ingresando.\n\nPresiona el boton referido al dato que deseas ingresar y escribe el dato en el chat para que lo tomemos. \n\n\nSelecciona _\"Listo\"_ cuando quieras continuar el registro, o _\"Cancelar\"_ para detenerlo.");
                     respuesta.Texto = st.ToString();
                     return true;
-
 
 
                 case Estados.DatosEmpresa:
@@ -196,7 +183,7 @@ namespace PII_E13.HandlerLibrary
                                     return false;
                             }
                             respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
-                            accionPrevia = mensaje.Texto;
+                            this.accionPreviaSesion[sesion] = mensaje.Texto;
                             respuesta.EditarMensaje = true;
                             return true;
 
@@ -281,7 +268,6 @@ namespace PII_E13.HandlerLibrary
         /// </summary>
         private enum Estados
         {
-            Inicio,
             Categorias,
             DatosEmpresa,
         }
@@ -312,7 +298,7 @@ namespace PII_E13.HandlerLibrary
             /// <summary>
             /// Estado de la búsqueda de ofertas de un usuario.
             /// </summary>
-            public Estados Estado { get; set; } = Estados.Inicio;
+            public Estados Estado { get; set; } = Estados.Categorias;
 
             public TipoMensaje tipoMensaje { get; set; }
 

@@ -30,11 +30,10 @@ namespace PII_E13.ClassLibrary
         {
             if (this.Sesiones.ContainsKey(idUsuario))
             {
-                Sesion sesionUsuario = this.Sesiones[idUsuario];
-                if (sesionUsuario.Activa)
+                if (this.Sesiones[idUsuario].Activa)
                 {
                     nuevaSesion = false;
-                    return sesionUsuario;
+                    return this.Sesiones[idUsuario];
                 }
                 else
                 {

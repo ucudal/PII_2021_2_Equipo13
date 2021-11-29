@@ -55,7 +55,6 @@ namespace PII_E13.HandlerLibrary
             respuesta = new Respuesta(mensaje);
             if (!this.PuedeResolver(sesion))
             {
-                this.Cancelar(sesion);
                 return false;
             }
 

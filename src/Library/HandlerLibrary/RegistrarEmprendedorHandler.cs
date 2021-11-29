@@ -133,7 +133,10 @@ namespace PII_E13.HandlerLibrary
             List<List<IBoton>> tecladoFijoCategorias = new List<List<IBoton>>()
             {
                 new List<IBoton>() {TelegramBot.Instancia.BotonCancelar, TelegramBot.Instancia.BotonListo}
-
+            };
+            List<List<IBoton>> tecladoFijoHabilitaciones = new List<List<IBoton>>()
+            {
+                new List<IBoton>() {new Boton("Saltar"), TelegramBot.Instancia.BotonListo}
             };
 
             foreach (string opcion in infoRegistro.DatosEmprendedorDisponibles)
@@ -149,17 +152,7 @@ namespace PII_E13.HandlerLibrary
 
             switch (infoRegistro.Estado)
             {
-
-                case Estados.Inicio:
-                    Console.WriteLine("Estado: " + infoRegistro.Estado);
-                    respuesta.Texto = "Por favor, indícanos detalladamente lo qué necesitas, dentro de un mensaje.";
-                    infoRegistro.Estado = Estados.Categorias;
-                    infoRegistro.tipoMensaje = TipoMensaje.Callback;
-
-                    return true;
-
                 case Estados.Categorias:
-                    Console.WriteLine("Estado: " + infoRegistro.Estado);
 
                     List<string> etiquetas = mensaje.Texto.Split(' ').ToList();
                     infoRegistro.Etiquetas = etiquetas;
@@ -174,11 +167,9 @@ namespace PII_E13.HandlerLibrary
                         }
                     }
                     StringBuilder st = new StringBuilder();
-                    st.Append("############   REGISTRO EMPRENDEDOR   ############");
-                    st.Append("\nBien, ahora necesitamos que selecciones los datos que quiere ir ingresando.\n\nPresione el boton referido al dato que desea ingresar y escriba el dato en el chat para que lo tomemos. \n\n\nSelecciona \"Listo\" cuando quieras continuar el registro, o \"Cancelar\" para detenerlo.");
+                    st.Append("Para registrarte, necesitamos que selecciones los datos que quieres ir ingresando.\n\nPresiona el boton referido al dato que deseas ingresar y escribe el dato en el chat para que lo tomemos. \n\n\nSelecciona _\"Listo\"_ cuando quieras continuar el registro, o _\"Cancelar\"_ para detenerlo.");
                     respuesta.Texto = st.ToString();
                     return true;
-
 
 
                 case Estados.DatosEmprendedor:
@@ -198,8 +189,6 @@ namespace PII_E13.HandlerLibrary
                     switch (infoRegistro.tipoMensaje)
                     {
                         case TipoMensaje.Callback:
-                            Console.WriteLine("ESTADO: " + infoRegistro.tipoMensaje);
-
                             switch (mensaje.Texto)
                             {
                                 case "Listo":
@@ -209,22 +198,19 @@ namespace PII_E13.HandlerLibrary
                                     }
                                     respuesta.Texto = stringBuilder.ToString();
                                     infoRegistro.Estado = Estados.DatosHabilitacion;
-                                    respuesta.Texto = $"A continuación repetiremos el proceso para ingresar sus habiltiaciones.\n\nSelecciona _\"Listo\"_ cuando quieras finalziar con el registro, o _\"Cancelar\"_ para no ingresar habilitaciones.";
-                                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoRegistro.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
+                                    respuesta.Texto = $"A continuación repetiremos el proceso para ingresar tus habilitaciones.\n\nSelecciona _\"Listo\"_ cuando quieras finalziar con el registro, o _\"Saltar\"_ para no ingresar habilitaciones.";
+                                    respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoRegistro.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoHabilitaciones);
                                     return true;
                                 case "Cancelar":
                                     return false;
                             }
                             respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
-                            accionPrevia = mensaje.Texto;
+                            this.accionPreviaSesion[sesion] = mensaje.Texto;
                             respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmprendedor, infoRegistro.IndiceActual, FILAS_EMPRENDEDOR, COLUMNAS_EMPRENDEDOR, tecladoFijoCategorias);
                             respuesta.EditarMensaje = true;
                             return true;
 
-
-
                         case TipoMensaje.Mensaje:
-                            Console.WriteLine("ESTADO: " + infoRegistro.tipoMensaje);
                             respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{accionPrevia}*";
                             DiccDatosEmprendedor[accionPrevia] = mensaje.Texto;
                             respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeEmprendedor, infoRegistro.IndiceActual, FILAS_EMPRENDEDOR, COLUMNAS_EMPRENDEDOR, tecladoFijoCategorias);
@@ -238,7 +224,7 @@ namespace PII_E13.HandlerLibrary
                     //Deteccion de tipo de mensaje en base a si el mensaje de entrada es igual a algún tipo de boton
                     foreach (string nombreBoton in opcionesHabilitacion)
                     {
-                        if ((mensaje.Texto == nombreBoton) ^ (mensaje.Texto == "Listo") ^ (mensaje.Texto == "Cancelar"))
+                        if ((mensaje.Texto == nombreBoton) ^ (mensaje.Texto == "Listo") ^ (mensaje.Texto == "Saltar"))
                         {
                             infoRegistro.tipoMensaje = TipoMensaje.Callback;
                             break;
@@ -252,7 +238,6 @@ namespace PII_E13.HandlerLibrary
                     switch (infoRegistro.tipoMensaje)
                     {
                         case TipoMensaje.Callback:
-                            Console.WriteLine("ESTADO: " + infoRegistro.tipoMensaje);
                             switch (mensaje.Texto)
                             {
                                 case "Listo":
@@ -278,9 +263,9 @@ namespace PII_E13.HandlerLibrary
 
 
 
-                                case "Cancelar":
-                                    Sistema.Instancia.RegistrarEmprendedor(mensaje.IdUsuario.ToString(), DiccDatosEmprendedor["Ciudad"], DiccDatosEmprendedor["Direccion"], DiccDatosEmprendedor["Rubro"], DiccDatosEmprendedor["Nombre"], null);
-                                    Console.WriteLine("id empresa registrado: " + mensaje.IdUsuario.ToString());
+                                case "Saltar":
+                                    Sistema.Instancia.RegistrarEmprendedor(mensaje.IdUsuario.ToString(), DiccDatosEmprendedor["Ciudad"], DiccDatosEmprendedor["Direccion"], DiccDatosEmprendedor["Rubro"], DiccDatosEmprendedor["Nombre"], new List<Habilitacion>());
+                                    Console.WriteLine($"[NUEVO REGISTRO] ID USUARIO: {mensaje.IdUsuario.ToString()}");
                                     if (Sistema.Instancia.ObtenerEmprendedorPorId(mensaje.IdUsuario.ToString()).Nombre == DiccDatosEmprendedor["Nombre"])
                                     {
                                         stringBuilder.Append("\n\nUsted ha sido ingresado en el sistema exitosamente. Bienvenido.");
@@ -297,8 +282,8 @@ namespace PII_E13.HandlerLibrary
                             {
                                 respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
                             }
-                            accionPrevia = mensaje.Texto;
-                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoRegistro.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
+                            this.accionPreviaSesion[sesion] = mensaje.Texto;
+                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoRegistro.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoHabilitaciones);
                             respuesta.EditarMensaje = true;
                             return true;
 
@@ -308,7 +293,7 @@ namespace PII_E13.HandlerLibrary
                             Console.WriteLine("ESTADO: " + infoRegistro.tipoMensaje);
                             respuesta.Texto = $"Se ingresó el dato _\"{mensaje.Texto}\"_ en el campo *{accionPrevia}*";
                             DiccDatosHabilitacion[accionPrevia] = mensaje.Texto;
-                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoRegistro.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoCategorias);
+                            respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeHabilitacion, infoRegistro.IndiceActual, FILAS_HABILTIACIONES, COLUMNAS_HABILTIACIONES, tecladoFijoHabilitaciones);
                             return true;
                     }
                     return true;
@@ -384,7 +369,6 @@ namespace PII_E13.HandlerLibrary
         /// </summary>
         private enum Estados
         {
-            Inicio,
             Categorias,
             DatosEmprendedor,
             DatosHabilitacion
@@ -417,7 +401,7 @@ namespace PII_E13.HandlerLibrary
             /// <summary>
             /// Estado de la búsqueda de ofertas de un usuario.
             /// </summary>
-            public Estados Estado { get; set; } = Estados.Inicio;
+            public Estados Estado { get; set; } = Estados.Categorias;
 
             public TipoMensaje tipoMensaje { get; set; }
 
