@@ -16,7 +16,7 @@ namespace PII_E13.ClassLibrary
     public class TelegramBot : IEnviador
     {
         // Este token es de un bot que puede usarse para la entrega.
-        private const string TOKEN_BOT_DE_TELEGRAM = "2127167243:AAGc76rlD6hoOqdYIx1e31o_TZ0nfWD-RKQ";
+        private const string TOKEN_BOT_DE_TELEGRAM = "2133543111:AAHtlHAp1B-irzg7ZhfUH2olwG7InxVT9Yw";
 
         private static TelegramBot instancia;
         private ITelegramBotClient bot;
@@ -113,7 +113,6 @@ namespace PII_E13.ClassLibrary
                     try
                     {
                         await this.Cliente.EditMessageTextAsync(Int32.Parse(mensajePrevio.IdChat), mensajePrevio.IdMensaje, respuesta.Texto, parseMode: ParseMode.Markdown, replyMarkup: markupDeBotones as InlineKeyboardMarkup);
-
                     }
                     catch (Exception e)
                     {

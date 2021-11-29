@@ -237,7 +237,7 @@ namespace PII_E13.ClassLibrary
         public string Redactar()
         {
             StringBuilder redaccion = new StringBuilder();
-            redaccion.Append($"*{this.Titulo}*\n_Por {Sistema.Instancia.ObtenerEmpresaPorId(this.Empresa).Nombre}_");
+            redaccion.Append($"*{this.Titulo}* - _{this.Estado.ToString()}_\n_Por {Sistema.Instancia.ObtenerEmpresaPorId(this.Empresa).Nombre}_");
             if (this.Recurrente)
             {
                 redaccion.Append($"\n_Esta oferta está disponible recurrentemente. Consulta la frecuencia con el ofertante._");
@@ -275,7 +275,7 @@ namespace PII_E13.ClassLibrary
         {
             StringBuilder redaccionCorta = new StringBuilder();
 
-            redaccionCorta.Append($"*{this.Titulo}*");
+            redaccionCorta.Append($"*{this.Titulo}* - _{this.Estado.ToString()}_");
             if (this.Recurrente)
             {
                 redaccionCorta.Append(" _(Recurrente)_");
@@ -301,6 +301,33 @@ namespace PII_E13.ClassLibrary
                 }
             }
             return redaccionPostulados.ToString();
+        }
+
+        /// <summary>
+        /// Añade a la id de una instancia de <see cref="Oferta"/> a la lista de ofertas consumidas de una instancia de <see cref="Emprendedor"/>, la elimina
+        /// de todos las listas de ofertas postuladas de todos los otros emprendedores y elimina a todos los emprendedores postulados de la lista de la oferta,
+        /// excepto por el emprendedor que la consume.
+        /// </summary>
+        /// <param name="idConsumidor">Identificador único de la instancia de <see cref="Emprendedor"/> que consume a la oferta.</param>
+        public void Consumir(string idConsumidor)
+        {
+            IPersistor persistor = new PersistorDeJson();
+            List<string> auxEmprendedoresPostulados = new List<string>(this.EmprendedoresPostulados);
+            foreach (string postulado in auxEmprendedoresPostulados)
+            {
+                Emprendedor emprendedorPostulado = Sistema.Instancia.ObtenerEmprendedorPorId(postulado);
+                emprendedorPostulado.OfertasPostuladas.Remove(this.Id);
+                if (!postulado.Equals(idConsumidor))
+                {
+                    this.EmprendedoresPostulados.Remove(postulado);
+                }
+                persistor.Escribir<Emprendedor>("Emprendedores.json", emprendedorPostulado);
+            }
+            Emprendedor emprendedor = Sistema.Instancia.ObtenerEmprendedorPorId(idConsumidor);
+            emprendedor.OfertasConsumidas.Add(this.Id);
+            this.Estado = Estados.Entregada;
+            persistor.Escribir<Empresa>("Empresas.json", Sistema.Instancia.ObtenerEmpresaPorId(this.Empresa));
+            persistor.Escribir<Emprendedor>("Emprendedores.json", emprendedor);
         }
     }
 }

@@ -22,7 +22,6 @@ namespace PII_E13.HandlerLibrary
         private const int COLUMNAS_EMPRESA = 1;
         private const int FILAS_EMPRESA = 4;
 
-
         /// <summary>
         /// Diccionario utilizado para contener todas las búsquedas que se están realizando por los usuarios.
         /// Se identifica al usuario por su id en una plataforma y se guarda una instancia de <see cref="InformacionRegistro"/>.
@@ -87,8 +86,6 @@ namespace PII_E13.HandlerLibrary
             opcionesRegistro.Add("Ciudad");
             opcionesRegistro.Add("Direccion");
             opcionesRegistro.Add("Rubro");
-
-
 
 
             if (infoRegistro.DatosEmpresaDisponibles == null) //Lista de botones con las opciones del registro
@@ -294,7 +291,6 @@ namespace PII_E13.HandlerLibrary
         /// </summary>
         private enum TipoMensaje
         {
-
             Mensaje,
             Callback
         }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -132,6 +133,47 @@ namespace PII_E13.ClassLibrary
                 }
             }
             return ofertasConsumidas;
+        }
+
+        /// <summary>
+        /// Redacta en una cadena de caracteres un resumen incluyendo características básicas del emprendedor.
+        /// </summary>
+        /// <returns>Una cadena de caracteres incluyendo nombre, rubro y ubicación de un <see cref="Emprendedor"/>.</returns>
+        public string RedactarResumen()
+        {
+            return $"*{this.Nombre}*, {this.Rubro.Nombre}.\n_{this.Ubicacion.Redactar()}_";
+        }
+
+        /// <summary>
+        /// Redacta en una cadena de caracteres la información de un <see cref="Emprendedor"/>.
+        /// </summary>
+        /// <returns>Una cadena de caracteres incluyendo nombre, rubro, ubicación y habilitaciones de un <see cref="Emprendedor"/>.</returns>
+        public string Redactar()
+        {
+            StringBuilder stringBuilder = new StringBuilder($"*Nombre:* {this.Nombre}");
+            stringBuilder.Append($"\n*Rubro:* {this.Rubro.Nombre}");
+            stringBuilder.Append($"\n*Dirección:* {this.Ubicacion.Redactar()}");
+
+            if (this.Habilitaciones.Count > 0)
+            {
+                stringBuilder.Append("\n\n*Habilitaciones:*");
+                foreach (Habilitacion habilitacion in this.Habilitaciones)
+                {
+                    stringBuilder.Append($"\n\n*{habilitacion.Nombre}:* {habilitacion.Descripcion}");
+                    if (habilitacion.Vigente)
+                    {
+                        stringBuilder.Append($"\nEstado: _Vigente_");
+                        stringBuilder.Append($"\nFecha de vencimiento: _{habilitacion.FechaVencimiento}_");
+                    }
+                    else
+                    {
+                        stringBuilder.Append($"\nEstado: _Vencida_");
+                    }
+                    stringBuilder.Append($"\nHabilitado por: _{habilitacion.NombreInsitucionHabilitada}_");
+                }
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }
