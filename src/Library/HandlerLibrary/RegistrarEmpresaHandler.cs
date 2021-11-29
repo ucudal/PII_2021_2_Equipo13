@@ -183,7 +183,7 @@ namespace PII_E13.HandlerLibrary
                                     return false;
                             }
                             respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
-                            accionPrevia = mensaje.Texto;
+                            this.accionPreviaSesion[sesion] = mensaje.Texto;
                             respuesta.EditarMensaje = true;
                             return true;
 
