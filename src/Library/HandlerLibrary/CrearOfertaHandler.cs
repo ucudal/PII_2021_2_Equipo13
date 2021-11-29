@@ -533,9 +533,9 @@ namespace PII_E13.HandlerLibrary
                             }
 
 
-                            material = Sistema.Instancia.ObtenerMaterialPorNombre(mensaje.Texto);
+                            materialSesion[sesion] = Sistema.Instancia.ObtenerMaterialPorNombre(mensaje.Texto);
                             respuesta.EditarMensaje = true;
-
+                            Console.WriteLine(material.Nombre);
                             respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeMateriales, infoCreacion.IndiceActual, FILAS_MATERIAL, COLUMNAS_MATERIAL, tecladoFijoMaterial);
                             respuesta.Texto = $"Usted selecciono el material _\"{mensaje.Texto}\"_\n\nPresione  \"Listo\" para ingresar el material o  \"Finalizar\" para crear la oferta";
                             return true;
