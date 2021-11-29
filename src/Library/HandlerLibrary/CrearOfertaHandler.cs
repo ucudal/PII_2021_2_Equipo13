@@ -367,13 +367,13 @@ namespace PII_E13.HandlerLibrary
                             }
                             if (mensaje.Texto == "Fecha Cierre")
                             {
-                                respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso, debido a que se trata de una fecha es necesario que se ingrese en el siguiente formato:\n\n *DD-MM-YYYY*";
+                                respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso, debido a que se trata de una fecha es necesario que se ingrese en el siguiente formato:\n\n *DD/MM/YYYY*";
                             }
                             else
                             {
                                 respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
                             }
-                            accionPrevia = mensaje.Texto;
+                            this.accionPreviaSesion[sesion] = mensaje.Texto;
                             if (DiccDatosOferta.Count >= 3)
                             {
                                 respuesta.Botones = this.ObtenerMatrizDeBotones(botonesDeOferta, infoCreacion.IndiceActual, FILAS_OFERTA, COLUMNAS_OFERTA, tecladoFijoCategorias);
@@ -657,7 +657,7 @@ namespace PII_E13.HandlerLibrary
 
                             respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
 
-                            accionPrevia = mensaje.Texto;
+                            this.accionPreviaSesion[sesion] = mensaje.Texto;
 
                             if (DiccDatosProducto.Count >= 5)
                             {
@@ -740,11 +740,10 @@ namespace PII_E13.HandlerLibrary
                                 case "Finalizar":
 
                                     respuesta.Texto = "Felicidades, su oferta se ingresó correctamente!!";
-
                                     return false;
                             }
                             respuesta.Texto = $"A continuacion se habilito el campo _\"{mensaje.Texto}\"_ para su ingreso.\n\n";
-                            accionPrevia = mensaje.Texto;
+                            this.accionPreviaSesion[sesion] = mensaje.Texto;
 
 
                             if (DiccDatosHabilitacion.Count >= 3)
@@ -833,6 +832,11 @@ namespace PII_E13.HandlerLibrary
                 this.Sesiones.Remove(sesion);
             }
             catch (Exception e) { }
+            try
+            {
+                this.accionPreviaSesion.Remove(sesion);
+            }
+            catch (Exception e) { }
         }
 
         /// <summary>
@@ -854,7 +858,7 @@ namespace PII_E13.HandlerLibrary
             return sesion.PLN.UltimaIntencion.Nombre.Equals(this.Intencion) ||
                 (
                     this.Creaciones.ContainsKey(sesion.IdUsuario) &&
-                    (sesion.PLN.UltimaIntencion.Nombre.Equals("Default") || (sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 80))
+                    (sesion.PLN.UltimaIntencion.Nombre.Equals("Default") || (sesion.PLN.UltimaIntencion.ConfianzaDeteccion < 90))
                 );
         }
 
